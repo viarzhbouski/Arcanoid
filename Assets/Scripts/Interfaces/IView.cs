@@ -1,4 +1,6 @@
-﻿public interface IView
+﻿using System;
+
+public interface IView
 {
-        
+    public void Subscribe(Action onChange);
 }

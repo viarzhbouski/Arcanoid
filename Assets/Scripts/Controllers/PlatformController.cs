@@ -14,6 +14,15 @@ public class PlatformController : IController
     public void Subscribe()
     {
         _model.Subscribe(OnChange);
+        _view.Subscribe(OnChange);
+    }
+
+    public void Move()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            _model.OnChange();
+        }
     }
     
     private void OnChange()
