@@ -1,35 +1,21 @@
 using Scripts.Core;
-using System.Collections.Generic;
+using Scripts.Scenes.SceneGame.Controllers.Views;
 using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
     public class Startup : MonoBehaviour
     {
-        private readonly List<BaseController> _controllers = new List<BaseController>();
-        private MonoHandler _monoHandler;
-
-        private void Start()
+        [SerializeField]
+        private PlatformView platformView;
+        
+        [SerializeField]
+        private BallView ballView;
+        
+        public void Init(MonoHandler monoHandler)
         {
-            Init();
-            _monoHandler.Start(_controllers);
+            monoHandler.AddController(new PlatformController(platformView));
+            monoHandler.AddController(new BallController(ballView));
         }
-
-        public void Init()
-        {
-            _monoHandler = new MonoHandler();
-            var setting = new ControllerSettings();
-
-            AddController(new PlatformController());
-        }
-
-        private void AddController(BaseController controller)
-        {
-            _controllers.Add(controller);
-        }
-
-        private void Update() => _monoHandler.Update(_controllers);
-
-        private void FixedUpdate() => _monoHandler.FixedUpdate(_controllers);
     }
 }
