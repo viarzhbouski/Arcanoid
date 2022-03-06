@@ -1,40 +1,54 @@
 ﻿using System.Collections.Generic;
 using Scripts.Core.Interfaces;
+using Scripts.Core.Interfaces.MVC;
 
 namespace Scripts.Core
 {
     public class MonoHandler
     {
-        public void Start(List<BaseController> controllers)
+        private List<IHasStart> _starts = new List<IHasStart>();
+        private List<IHasUpdate> _updates = new List<IHasUpdate>();
+        private List<IHasFixedUpdate> _fixedUpdates = new List<IHasFixedUpdate>();
+
+        public void AddController(IController controller)
         {
-            foreach (var item in controllers)
+            if (controller is IHasStart start)
             {
-                if (item is IHasStart)
-                {
-                    ((IHasStart)item).StartController();
-                }
+                _starts.Add(start);
             }
-        } 
-        
-        public void Update(List<BaseController> controllers)
-        {
-            foreach (var item in controllers)
+            
+            if (controller is IHasUpdate update)
             {
-                if (item is IHasUpdate)
-                {
-                    ((IHasUpdate)item).UpdateController();
-                }
+                _updates.Add(update);
             }
-        } 
-        
-        public void FixedUpdate(List<BaseController> controllers)
-        {
-            foreach (var item in controllers)
+            
+            if (controller is IHasFixedUpdate fixedUpdate)
             {
-                if (item is IHasFixedUpdate)
-                {
-                    ((IHasFixedUpdate)item).FixedUpdateController();
-                }
+                _fixedUpdates.Add(fixedUpdate);
+            }
+        }
+
+        public void Start()
+        {
+            foreach (var start in _starts)
+            {
+                start.StartController();
+            }
+        }
+        
+        public void Update()
+        {
+            foreach (var update in _updates)
+            {
+                update.UpdateController();
+            }
+        }
+        
+        public void FixedUpdate()
+        {
+            foreach (var fixedUpdate in _fixedUpdates)
+            {
+                fixedUpdate.FixedUpdateController();
             }
         }
     }
