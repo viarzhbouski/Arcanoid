@@ -1,19 +1,19 @@
-﻿using Common.Enums;
+﻿using System.IO;
+using Common.Enums;
+using Scripts.Core.Models;
 using UnityEditor;
 using UnityEngine;
+using Newtonsoft.Json;
 
-namespace Scripts.Services
+namespace Scripts.Helpers
 {
-    class HeroData:ScriptableObject
-    {
-        public string data;
-    }
-    public class MapGenerator: EditorWindow
+    public class LevelMapGenerateHelper: EditorWindow
     {
         private BlockTypes[,] _blocks;
         private int _prevWidth = -1;
         private int _prevHeight = -1;
-
+        private const string Path = "./Assets/Levels/";
+        
         [SerializeField]
         private int width;
         [SerializeField]
@@ -22,7 +22,7 @@ namespace Scripts.Services
         [MenuItem("Window/Map generator")]
         private static void Init()
         {
-            ((MapGenerator)GetWindow(typeof(MapGenerator))).Show();
+            ((LevelMapGenerateHelper)GetWindow(typeof(LevelMapGenerateHelper))).Show();
         }
 
         private void OnGUI()
@@ -58,19 +58,23 @@ namespace Scripts.Services
                 return;
             }
 
-            var s = "";
+            var model = new LevelMap
+            {
+                Height = height,
+                Width = width
+            };
+            
             for (var i = 0; i < height; i++)
             {
                 for (var j = 0; j < width; j++)
                 {
-                    s += (int)_blocks[i, j];
+                    model.Blocks.Add((int)_blocks[i, j]);
                 }
             }
-
             
-            var x = CreateInstance<HeroData>();
-            x.data = s;
-            AssetDatabase.CreateAsset(x, "Assets/Qwe.asset");
+            var files = Directory.GetFiles(Path);
+            var json = JsonConvert.SerializeObject(model);
+            File.WriteAllText($"{Path}level_{files.Length}.json", json);
         }
     }
 }

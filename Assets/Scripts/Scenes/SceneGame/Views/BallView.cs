@@ -1,9 +1,6 @@
-﻿using System;
-using Scripts.Core.Interfaces.MVC;
+﻿using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Services;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Views
 {
@@ -16,15 +13,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         public void Bind(IModel model)
         {
             _ballModel = model as BallModel;
-            var a= MapConvertService.MapConvert();
-
-            foreach (var u in a.Layers)
-            {
-                foreach (var x in u.Data)
-                {
-                    Debug.Log(x);
-                }
-            }
         }
         
         public void RenderChanges()
@@ -39,9 +27,9 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.name == "Tilemap")
+            if (collision.collider.name.Contains("block"))
             {
-                
+                //Destroy(collision.collider.gameObject);
                 //var tilemap = collision.collider.GetComponent<Tilemap>();
                 //var pos = tilemap.WorldToCell(collision.rigidbody.position);
                 //tilemap.SetTile(Vector3Int.zero, null);
