@@ -12,10 +12,14 @@ namespace Scripts.Scenes.SceneGame.Controllers
         [SerializeField]
         private BallView ballView;
         
+        [SerializeField]
+        private GenerateLevelView generateLevelView;
+        
         public void Init(MonoHandler monoHandler)
         {
             monoHandler.AddController(new PlatformController(platformView));
             monoHandler.AddController(new BallController(ballView));
+            monoHandler.AddController(new GenerateLevelController(generateLevelView));
         }
     }
 }

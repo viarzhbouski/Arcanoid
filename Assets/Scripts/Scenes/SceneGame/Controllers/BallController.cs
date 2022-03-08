@@ -1,5 +1,4 @@
-﻿using Scripts.Core;
-using Scripts.Core.Interfaces;
+﻿using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
