@@ -24,5 +24,16 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             ballRigidbody.AddForce(Vector2.up * _ballModel.Speed);
         }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.name.Contains("block"))
+            {
+                //Destroy(collision.collider.gameObject);
+                //var tilemap = collision.collider.GetComponent<Tilemap>();
+                //var pos = tilemap.WorldToCell(collision.rigidbody.position);
+                //tilemap.SetTile(Vector3Int.zero, null);
+            }
+        }
     }
 }
