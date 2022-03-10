@@ -1,6 +1,7 @@
 ﻿using Common.Enums;
 using MonoModels;
 using Scripts.Core.Interfaces.MVC;
+using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Helpers;
 using UnityEngine;
@@ -40,10 +41,12 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                     continue;
                 }
 
-                var blockMono = Instantiate(blockPrefab, block.Position, Quaternion.identity, mapPivot);
+                var blockMono = ObjectPooler.Instance.GetObject(ObjectType.Block);
+
+                    //var blockMono = Instantiate(blockPrefab, block.Position, Quaternion.identity, mapPivot);
                 
                 blockMono.transform.position = ResizeHelper.ResizePosition(block.Position.x, block.Position.y, camera);
-                blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize.x,_generateLevelModel.CellSize.y, camera, blockMono.SpriteRenderer);
+                blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize.x,_generateLevelModel.CellSize.y, camera, blockMono.GetComponent<SpriteRenderer>());
             }
         }
     }

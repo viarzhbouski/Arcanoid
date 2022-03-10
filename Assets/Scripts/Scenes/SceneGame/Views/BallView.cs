@@ -1,4 +1,6 @@
-﻿using Scripts.Core.Interfaces.MVC;
+﻿using Common.Enums;
+using Scripts.Core.Interfaces.MVC;
+using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 
@@ -29,6 +31,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             if (collision.collider.name.Contains("block"))
             {
+                ObjectPooler.Instance.DestroyObject(collision.collider.gameObject);
                 //Destroy(collision.collider.gameObject);
                 //var tilemap = collision.collider.GetComponent<Tilemap>();
                 //var pos = tilemap.WorldToCell(collision.rigidbody.position);
