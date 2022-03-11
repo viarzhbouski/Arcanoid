@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
+using Scripts.Core.ObjectPooling;
 
 namespace Scripts.Core
 {
-    public class MonoHandler
+    public class MonoConfiguration
     {
         private List<IHasStart> _starts = new List<IHasStart>();
         private List<IHasUpdate> _updates = new List<IHasUpdate>();
         private List<IHasFixedUpdate> _fixedUpdates = new List<IHasFixedUpdate>();
-
+        
         public void AddController(IController controller)
         {
             if (controller is IHasStart start)
@@ -26,6 +27,11 @@ namespace Scripts.Core
             {
                 _fixedUpdates.Add(fixedUpdate);
             }
+        }
+
+        public void InitPools(List<PoolableObject> poolableObjects)
+        {
+            ObjectPooler.Instance.InitPool(poolableObjects);
         }
 
         public void Start()
