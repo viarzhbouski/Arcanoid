@@ -7,18 +7,18 @@ namespace Scripts.Core
     {
         [SerializeField]
         private Startup startUp;
-        private MonoHandler _monoHandler;
+        private MonoConfiguration _monoConfiguration;
         
         private void Awake()
         {
-            _monoHandler = new MonoHandler();
-            startUp.Init(_monoHandler);
+            _monoConfiguration = new MonoConfiguration();
+            startUp.Init(_monoConfiguration);
         }
 
-        private void Start() => _monoHandler.Start();
+        private void Start() => _monoConfiguration.Start();
         
-        private void Update() => _monoHandler.Update();
+        private void Update() => _monoConfiguration.Update();
         
-        private void FixedUpdate() => _monoHandler.FixedUpdate();
+        private void FixedUpdate() => _monoConfiguration.FixedUpdate();
     }
 }
