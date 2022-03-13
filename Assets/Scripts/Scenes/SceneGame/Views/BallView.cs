@@ -1,4 +1,5 @@
 ﻿using Common.Enums;
+using MonoModels;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -31,11 +32,9 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             if (collision.collider.name.Contains("block"))
             {
-                ObjectPooler.Instance.DestroyObject(collision.collider.gameObject);
-                //Destroy(collision.collider.gameObject);
-                //var tilemap = collision.collider.GetComponent<Tilemap>();
-                //var pos = tilemap.WorldToCell(collision.rigidbody.position);
-                //tilemap.SetTile(Vector3Int.zero, null);
+                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+                var block = collision.collider.gameObject.GetComponent<BlockMono>();
+                objectPool.DestroyObject(block);
             }
         }
     }

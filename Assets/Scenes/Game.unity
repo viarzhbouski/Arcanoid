@@ -438,7 +438,6 @@ GameObject:
   - component: {fileID: 1380058848}
   - component: {fileID: 1380058847}
   - component: {fileID: 1380058849}
-  - component: {fileID: 1380058850}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -459,6 +458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startUp: {fileID: 1380058849}
+  poolableObjects:
+  - {fileID: 0}
 --- !u!4 &1380058848
 Transform:
   m_ObjectHideFlags: 0
@@ -488,20 +489,6 @@ MonoBehaviour:
   platformView: {fileID: 1409576356}
   ballView: {fileID: 1770474731}
   generateLevelView: {fileID: 1400564373}
-  poolableObjects:
-  - {fileID: 6414404491291414495, guid: ecd7e221e56239b478d6a51773a9e4e2, type: 3}
---- !u!114 &1380058850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380058846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7973b0aa4cac46ff8f521750d95eaf98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1400564371
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-﻿using Scripts.Scenes.SceneGame.Controllers;
+﻿using System.Collections.Generic;
+using Scripts.Core.ObjectPooling;
+using Scripts.Scenes.SceneGame.Controllers;
 using UnityEngine;
 
 namespace Scripts.Core
@@ -7,11 +9,15 @@ namespace Scripts.Core
     {
         [SerializeField]
         private Startup startUp;
+        [SerializeField]
+        private List<PoolManager> poolManagers;
+        
         private MonoConfiguration _monoConfiguration;
         
         private void Awake()
         {
             _monoConfiguration = new MonoConfiguration();
+            _monoConfiguration.InitPools(poolManagers);
             startUp.Init(_monoConfiguration);
         }
 
