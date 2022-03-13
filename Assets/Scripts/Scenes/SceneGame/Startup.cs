@@ -1,14 +1,16 @@
-using System.Collections.Generic;
 using Scripts.Core;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
+using Scripts.Core.Interfaces;
 using Scripts.Scenes.SceneGame.Controllers.Views;
+using Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class Startup : MonoBehaviour
+    public class Startup : BaseStartup
     {
+        [SerializeField]
+        private BordersView bordersView;
+        
         [SerializeField]
         private PlatformView platformView;
         
@@ -19,14 +21,21 @@ namespace Scripts.Scenes.SceneGame.Controllers
         private GenerateLevelView generateLevelView;
 
         [SerializeField]
-        private List<PoolableObject> poolableObjects;
-
-        public void Init(MonoConfiguration monoConfiguration)
+        private LifesView lifesView;
+        
+        public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
         {
-            monoConfiguration.InitPools(poolableObjects);
-            monoConfiguration.AddController(new PlatformController(platformView));
-            monoConfiguration.AddController(new BallController(ballView));
-            monoConfiguration.AddController(new GenerateLevelController(generateLevelView));
+            var bordersController = new BordersController(bordersView);
+            var platformController = new PlatformController(platformView, mainConfig);
+            var lifesController = new LifesController(lifesView, mainConfig);
+            var ballController = new BallController(ballView,lifesController, mainConfig);
+            var generateLevelController = new GenerateLevelController(generateLevelView, mainConfig);
+
+            monoConfiguration.AddController(bordersController);
+            monoConfiguration.AddController(platformController);
+            monoConfiguration.AddController(lifesController);
+            monoConfiguration.AddController(ballController);
+            monoConfiguration.AddController(generateLevelController);
         }
     }
 }

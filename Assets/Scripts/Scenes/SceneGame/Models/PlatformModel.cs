@@ -7,6 +7,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
 {
     public class PlatformModel : IModel
     {
+        public float PlatformSpeed { get; set; }
+        
         public Vector2 Position { get; set; }
 
         public Action OnChange { get; set; }

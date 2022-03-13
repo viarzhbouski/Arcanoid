@@ -14,14 +14,11 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private Camera camera;
         
         [SerializeField]
-        private BlockMono blockPrefab;
-        
-        [SerializeField]
         private Transform mapPivot;
         
         private GenerateLevelModel _generateLevelModel;
 
-        public void Bind(IModel model)
+        public void Bind(IModel model, IController controller)
         {
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
@@ -36,14 +33,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             foreach (var block in _generateLevelModel.Blocks)
             {
-                if (block.BlockType == BlockTypes.Empty)
-                {
-                    continue;
-                }
-
-                var blockMono = ObjectPooler.Instance.GetObject(ObjectType.Block);
-
-                    //var blockMono = Instantiate(blockPrefab, block.Position, Quaternion.identity, mapPivot);
+                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+                var blockMono = objectPool.GetObject();
                 
                 blockMono.transform.position = ResizeHelper.ResizePosition(block.Position.x, block.Position.y, camera);
                 blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize.x,_generateLevelModel.CellSize.y, camera, blockMono.GetComponent<SpriteRenderer>());
