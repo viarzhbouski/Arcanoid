@@ -8,7 +8,9 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
     {
         private PlatformModel _platformModel;
 
-        public void Bind(IModel model)
+        private float HalfScreen => Screen.width / 2;
+
+        public void Bind(IModel model, IController controller)
         {
             _platformModel = model as PlatformModel;
             _platformModel!.Position = transform.position;
@@ -16,7 +18,23 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         public void RenderChanges()
         {
-            transform.position = _platformModel.Position;
+            SetPlatformPosition();
+        }
+
+        private void SetPlatformPosition()
+        {
+            var position = transform.position;
+            
+            if (_platformModel.Position.x < HalfScreen)
+            {
+                position.x -= _platformModel.PlatformSpeed;
+            }
+            else
+            {
+                position.x += _platformModel.PlatformSpeed;
+            }
+
+            transform.position = position;
         }
     }
 }

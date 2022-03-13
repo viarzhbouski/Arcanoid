@@ -3,6 +3,7 @@ using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
+using Scripts.ScriptableObjects;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
@@ -10,14 +11,17 @@ namespace Scripts.Scenes.SceneGame.Controllers
     {
         private readonly PlatformModel _platformModel;
         private readonly PlatformView _platformView;
+        private readonly MainConfig _mainConfig;
 
-        public PlatformController(IView view)
+        public PlatformController(IView view, MainConfig mainConfig)
         {
+            _mainConfig = mainConfig;
             _platformModel = new PlatformModel();
             _platformView = view as PlatformView;
             
-            _platformView!.Bind(_platformModel);
+            _platformView!.Bind(_platformModel, this);
             _platformModel.OnChangeHandler(ControllerOnChange);
+            _platformModel.PlatformSpeed = mainConfig.PlatformSpeed;
         }
         
         public void UpdateController()
@@ -27,19 +31,10 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         private void Move()
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.touchCount > 0)
             {
-                var position = _platformModel.Position;
-                position.x -= 0.01f;
-                _platformModel.Position = position;
-                _platformModel.OnChange?.Invoke();
-            }
-            
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                var position = _platformModel.Position;
-                position.x += 0.01f;
-                _platformModel.Position = position;
+                var touch = Input.GetTouch(0);
+                _platformModel.Position = touch.position;
                 _platformModel.OnChange?.Invoke();
             }
         }

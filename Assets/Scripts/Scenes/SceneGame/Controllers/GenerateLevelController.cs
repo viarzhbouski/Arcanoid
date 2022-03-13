@@ -1,12 +1,13 @@
-using System.IO;
 using Common.Enums;
 using Newtonsoft.Json;
 using UnityEngine;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.Models;
+using Scripts.Helpers;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
+using Scripts.ScriptableObjects;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
@@ -14,27 +15,31 @@ namespace Scripts.Scenes.SceneGame.Controllers
     {
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
-        
-        private const float Width = 1.0f;
-        private const float Height = 0.9f;
-        private const float MaxWidth = 1.0f;
-        private const float MaxHeight = 0.5f;
-        private const float SpaceWidth  = 0.01f;
-        private const float SpaceHeight = 0.01f;
+        private readonly MainConfig _mainConfig;
 
-        public GenerateLevelController(IView view)
+        public GenerateLevelController(IView view, MainConfig mainConfig)
         {
+            _mainConfig = mainConfig;
             _generateLevelModel = new GenerateLevelModel();
             _generateLevelView = view as GenerateLevelView;
             
-            _generateLevelView!.Bind(_generateLevelModel);
+            _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
         }
         
         public void StartController()
         {
-            var level = GetLevelMap();
+            var level = GetLevel();
             GenerateBlocksGrid(level);
+        }
+
+        private LevelMap GetLevel()
+        {
+            var lastLevel = GameProgressHelper.GetLastLevel();
+            var pack = _mainConfig.Packs[DataRepository.Pack];
+            var levelData = pack.Levels[lastLevel];
+            var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
+            return levelMap;
         }
 
         public void ControllerOnChange()
@@ -46,8 +51,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
         {
             _generateLevelModel.CellSize = new Vector2
             {
-                x = (MaxWidth - SpaceWidth * (level.Width + 1)) / level.Width,
-                y = (MaxHeight - SpaceHeight * (level.Height + 1)) / level.Height
+                x = (_mainConfig.MaxWidth - _mainConfig.SpaceWidth * (level.Width + 1)) / level.Width,
+                y = (_mainConfig.MaxHeight - _mainConfig.SpaceHeight * (level.Height + 1)) / level.Height
             };
             
             var blockId = 0;
@@ -58,8 +63,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
                 {
                     var position = new Vector2
                     {
-                        x = Width - (SpaceWidth * (j + 1) + j * _generateLevelModel.CellSize.x + _generateLevelModel.CellSize.x / 2),
-                        y = Height - (SpaceHeight * (i + 1) + i * _generateLevelModel.CellSize.y + _generateLevelModel.CellSize.y / 2)
+                        x = _mainConfig.Width - (_mainConfig.SpaceWidth * (j + 1) + j * _generateLevelModel.CellSize.x + _generateLevelModel.CellSize.x / 2),
+                        y = _mainConfig.Height - (_mainConfig.SpaceHeight * (i + 1) + i * _generateLevelModel.CellSize.y + _generateLevelModel.CellSize.y / 2)
                     };
                     
                     _generateLevelModel.Blocks.Add(new BlockPosition
@@ -73,17 +78,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             }
             
             _generateLevelModel.OnChange?.Invoke();
-        }
-        
-        /// <summary>
-        /// пока как тест
-        /// </summary>
-        /// <returns></returns>
-        private LevelMap GetLevelMap()
-        {
-            var json = File.ReadAllText("./Assets/Levels/level_0.json");
-            var level = JsonConvert.DeserializeObject<LevelMap>(json);
-            return level;
         }
     }
 }

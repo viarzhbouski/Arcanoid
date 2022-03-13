@@ -12,10 +12,12 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         [SerializeField]
         private Rigidbody2D ballRigidbody;
         private BallModel _ballModel;
+        private BallController _ballController;
 
-        public void Bind(IModel model)
+        public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
+            _ballController = controller as BallController;
         }
         
         public void RenderChanges()
@@ -28,14 +30,15 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             ballRigidbody.AddForce(Vector2.up * _ballModel.Speed);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collision.collider.name.Contains("block"))
-            {
-                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
-                var block = collision.collider.gameObject.GetComponent<BlockMono>();
-                objectPool.DestroyObject(block);
-            }
+            _ballController.BallOutOfGameField();
+            // if (collision.collider.name.Contains("block"))
+            // {
+            //     var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+            //     var block = collision.collider.gameObject.GetComponent<BlockMono>();
+            //     objectPool.DestroyObject(block);
+            // }
         }
     }
 }

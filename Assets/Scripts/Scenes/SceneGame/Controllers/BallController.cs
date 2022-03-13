@@ -2,19 +2,27 @@
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
+using Scripts.ScriptableObjects;
+using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class BallController : IController, IHasStart
+    public class BallController : IController, IHasStart, IHasUpdate
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
-
-        public BallController(IView view)
+        private readonly MainConfig _mainConfig;
+        private readonly LifesController _lifesController;
+        private bool _isStarted;
+        private bool _isTapHold;
+        
+        public BallController(IView view, LifesController lifesController, MainConfig mainConfig)
         {
+            _lifesController = lifesController;
+            _mainConfig = mainConfig;
             _ballModel = new BallModel();
             _ballView = view as BallView;
-            _ballView!.Bind(_ballModel);
+            _ballView!.Bind(_ballModel, this);
             _ballModel.OnChangeHandler(ControllerOnChange);
         }
 
@@ -25,8 +33,32 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         public void StartController()
         {
-            _ballModel.Speed = 500f;
-            _ballModel.OnChange?.Invoke();
+            //_ballModel.Speed = _mainConfig.BallSpeed;
+            //_ballModel.OnChange?.Invoke();
+        }
+
+        public void BallOutOfGameField()
+        {
+            _lifesController.DecreaseLife();
+        }
+
+        public void UpdateController()
+        {
+            if (_isStarted)
+            {
+                return;
+            }
+            
+            if (Input.touchCount > 0)
+            {
+                _isTapHold = true;
+            }
+            else if (_isTapHold)
+            {
+                _isStarted = true;
+                _ballModel.Speed = _mainConfig.BallSpeed;
+                _ballModel.OnChange?.Invoke();
+            }
         }
     }
 }
