@@ -1,5 +1,4 @@
 using Scripts.Core;
-using Scripts.Core.Interfaces;
 using Scripts.Scenes.SceneGame.Controllers.Views;
 using Scripts.ScriptableObjects;
 using UnityEngine;
@@ -26,9 +25,9 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
         {
             var bordersController = new BordersController(bordersView);
-            var platformController = new PlatformController(platformView, mainConfig);
             var lifesController = new LifesController(lifesView, mainConfig);
-            var ballController = new BallController(ballView,lifesController, mainConfig);
+            var ballController = new BallController(ballView, lifesController, mainConfig);
+            var platformController = new PlatformController(platformView, ballController, mainConfig);
             var generateLevelController = new GenerateLevelController(generateLevelView, mainConfig);
 
             monoConfiguration.AddController(bordersController);

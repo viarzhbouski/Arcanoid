@@ -7,13 +7,12 @@ using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class BallController : IController, IHasStart, IHasUpdate
+    public class BallController : IController, IHasUpdate
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
         private readonly MainConfig _mainConfig;
         private readonly LifesController _lifesController;
-        private bool _isStarted;
         private bool _isTapHold;
         
         public BallController(IView view, LifesController lifesController, MainConfig mainConfig)
@@ -31,20 +30,16 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _ballView.RenderChanges();
         }
 
-        public void StartController()
-        {
-            //_ballModel.Speed = _mainConfig.BallSpeed;
-            //_ballModel.OnChange?.Invoke();
-        }
-
         public void BallOutOfGameField()
         {
             _lifesController.DecreaseLife();
+            _ballModel.IsStarted = false;
+            _ballModel.OnChange?.Invoke();
         }
 
         public void UpdateController()
         {
-            if (_isStarted)
+            if (_ballModel.IsStarted)
             {
                 return;
             }
@@ -55,10 +50,23 @@ namespace Scripts.Scenes.SceneGame.Controllers
             }
             else if (_isTapHold)
             {
-                _isStarted = true;
+                _isTapHold = false;
                 _ballModel.Speed = _mainConfig.BallSpeed;
+                _ballModel.IsStarted = true;
                 _ballModel.OnChange?.Invoke();
             }
+        }
+
+        public void UpdateBallPosition(Vector2 ballPosition)
+        {
+            _ballModel.BallPosition = ballPosition;
+            
+            if (_ballModel.IsStarted)
+            {
+                return;
+            }
+            
+            _ballModel.OnChange?.Invoke();
         }
     }
 }

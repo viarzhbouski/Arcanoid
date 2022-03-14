@@ -34,8 +34,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             var bordersPoints = new List<Vector2>()
             {
                 ResizeHelper.ResizePosition(0, 0, camera),
-                ResizeHelper.ResizePosition(0, 1, camera),
-                ResizeHelper.ResizePosition(1, 1, camera),
+                ResizeHelper.ResizePosition(0, 0.885f, camera),
+                ResizeHelper.ResizePosition(1, 0.885f, camera),
                 ResizeHelper.ResizePosition(1, 0, camera),
             };
             

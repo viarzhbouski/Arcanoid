@@ -9,12 +9,14 @@ namespace Scripts.Scenes.SceneGame.Controllers
 {
     public class PlatformController : IController, IHasUpdate
     {
+        private readonly BallController _ballController;
         private readonly PlatformModel _platformModel;
         private readonly PlatformView _platformView;
         private readonly MainConfig _mainConfig;
 
-        public PlatformController(IView view, MainConfig mainConfig)
+        public PlatformController(IView view, BallController ballController, MainConfig mainConfig)
         {
+            _ballController = ballController;
             _mainConfig = mainConfig;
             _platformModel = new PlatformModel();
             _platformView = view as PlatformView;
@@ -36,6 +38,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
                 var touch = Input.GetTouch(0);
                 _platformModel.Position = touch.position;
                 _platformModel.OnChange?.Invoke();
+                _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
             }
         }
 

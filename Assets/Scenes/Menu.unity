@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &438623297
 RectTransform:
   m_ObjectHideFlags: 0
@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 456779792}
   - component: {fileID: 456779791}
   - component: {fileID: 456779790}
+  - component: {fileID: 456779794}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -358,6 +359,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &456779794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456779789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7d1ca5d89f4c1691e61c9e128de09b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButton: {fileID: 1566858078}
 --- !u!1 &487536058
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +408,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.23335704, g: 0.48013327, b: 0.8679245, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -543,8 +557,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -259.8}
-  m_SizeDelta: {x: 300, y: 130}
+  m_AnchoredPosition: {x: 20, y: -300}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1566858078
 MonoBehaviour:
@@ -610,8 +624,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 649223268058989734, guid: 260d8e2e7f3e1ea4dbb961f1a8099e06, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -806,6 +820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccac00955e5941fbbe93fab2ef4c5b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuView: {fileID: 456779794}
 --- !u!114 &2034252227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,5 +833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482db58b8b994a0e81e50ad37dfa65bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainConfig: {fileID: 11400000, guid: ccf0dca8059ddfc44a879310c01c6d8e, type: 2}
   startUp: {fileID: 2034252226}
   poolManagers: []

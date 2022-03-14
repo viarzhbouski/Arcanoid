@@ -1,5 +1,4 @@
-﻿using Common.Enums;
-using MonoModels;
+﻿using MonoModels;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -22,23 +21,41 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         public void RenderChanges()
         {
-            PushBall();
+            if (!_ballModel.IsStarted)
+            {
+                UpdateBallPosition();
+            }
+            else
+            {
+                PushBall();
+            }
+        }
+
+        private void UpdateBallPosition()
+        {
+            ballRigidbody.velocity = Vector2.zero;
+            transform.position = _ballModel.BallPosition;
         }
 
         private void PushBall()
         {
             ballRigidbody.AddForce(Vector2.up * _ballModel.Speed);
         }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            var block = collision.collider.gameObject.GetComponent<BlockMono>();
+            
+            if (block != null)
+            {
+                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+                objectPool.DestroyObject(block);
+            }
+        }
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
             _ballController.BallOutOfGameField();
-            // if (collision.collider.name.Contains("block"))
-            // {
-            //     var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
-            //     var block = collision.collider.gameObject.GetComponent<BlockMono>();
-            //     objectPool.DestroyObject(block);
-            // }
         }
     }
 }

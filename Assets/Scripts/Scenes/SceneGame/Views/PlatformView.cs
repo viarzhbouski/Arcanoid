@@ -6,20 +6,26 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 {
     public class PlatformView : MonoBehaviour, IView
     {
+        [SerializeField]
+        private Transform platformBallStartPosition;
         private PlatformModel _platformModel;
 
-        private float HalfScreen => Screen.width / 2;
+        private float HalfScreen => Screen.width / 2f;
 
         public void Bind(IModel model, IController controller)
         {
             _platformModel = model as PlatformModel;
             _platformModel!.Position = transform.position;
+            SetPlatformBallStartPosition();
         }
         
         public void RenderChanges()
         {
+            SetPlatformBallStartPosition();
             SetPlatformPosition();
         }
+        
+        private void SetPlatformBallStartPosition() => _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;
 
         private void SetPlatformPosition()
         {

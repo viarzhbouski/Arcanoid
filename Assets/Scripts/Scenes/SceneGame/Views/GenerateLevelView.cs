@@ -1,5 +1,4 @@
 ﻿using Common.Enums;
-using MonoModels;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -33,6 +32,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             foreach (var block in _generateLevelModel.Blocks)
             {
+                if (block.BlockType == BlockTypes.Empty) continue;
+                
                 var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
                 var blockMono = objectPool.GetObject();
                 
