@@ -2,19 +2,26 @@
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
+using Scripts.ScriptableObjects;
+using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class BallController : IController, IHasStart
+    public class BallController : IController, IHasUpdate
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
-
-        public BallController(IView view)
+        private readonly MainConfig _mainConfig;
+        private readonly LifesController _lifesController;
+        private bool _isTapHold;
+        
+        public BallController(IView view, LifesController lifesController, MainConfig mainConfig)
         {
+            _lifesController = lifesController;
+            _mainConfig = mainConfig;
             _ballModel = new BallModel();
             _ballView = view as BallView;
-            _ballView!.Bind(_ballModel);
+            _ballView!.Bind(_ballModel, this);
             _ballModel.OnChangeHandler(ControllerOnChange);
         }
 
@@ -23,9 +30,42 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _ballView.RenderChanges();
         }
 
-        public void StartController()
+        public void BallOutOfGameField()
         {
-            _ballModel.Speed = 500f;
+            _lifesController.DecreaseLife();
+            _ballModel.IsStarted = false;
+            _ballModel.OnChange?.Invoke();
+        }
+
+        public void UpdateController()
+        {
+            if (_ballModel.IsStarted)
+            {
+                return;
+            }
+            
+            if (Input.touchCount > 0)
+            {
+                _isTapHold = true;
+            }
+            else if (_isTapHold)
+            {
+                _isTapHold = false;
+                _ballModel.Speed = _mainConfig.BallSpeed;
+                _ballModel.IsStarted = true;
+                _ballModel.OnChange?.Invoke();
+            }
+        }
+
+        public void UpdateBallPosition(Vector2 ballPosition)
+        {
+            _ballModel.BallPosition = ballPosition;
+            
+            if (_ballModel.IsStarted)
+            {
+                return;
+            }
+            
             _ballModel.OnChange?.Invoke();
         }
     }

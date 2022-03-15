@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
@@ -10,7 +11,7 @@ namespace Scripts.Core
         private List<IHasStart> _starts = new List<IHasStart>();
         private List<IHasUpdate> _updates = new List<IHasUpdate>();
         private List<IHasFixedUpdate> _fixedUpdates = new List<IHasFixedUpdate>();
-        
+
         public void AddController(IController controller)
         {
             if (controller is IHasStart start)
@@ -29,9 +30,14 @@ namespace Scripts.Core
             }
         }
 
-        public void InitPools(List<PoolableObject> poolableObjects)
+        public void InitPools(List<PoolManager> poolManagers)
         {
-            ObjectPooler.Instance.InitPool(poolableObjects);
+            var objectPools = new ObjectPools();
+            foreach (var poolManager in poolManagers)
+            {
+                poolManager.InitPool();
+                objectPools.PoolManagers[poolManager.GetType()] = poolManager;
+            }
         }
 
         public void Start()
