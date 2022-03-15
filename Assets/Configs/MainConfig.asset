@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MainConfig
   m_EditorClassIdentifier: 
   ballSpeed: 500
-  platformSpeed: 0.01
+  platformSpeed: 0.5
   lifeCount: 3
   width: 1
   height: 0.88
