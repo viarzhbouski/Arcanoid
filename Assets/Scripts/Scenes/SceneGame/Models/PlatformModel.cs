@@ -1,15 +1,20 @@
 ﻿using System;
 using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Views;
 using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Models
 {
     public class PlatformModel : IModel
     {
+        public bool IsHold { get; set; }
+        
         public Vector2 PlatformBallStartPosition { get; set; }
         
         public float PlatformSpeed { get; set; }
+        
+        public float PlatformMoveCoef { get; set; }
+        
+        public float PlatformStopDistance { get; set; }
         
         public Vector2 Position { get; set; }
 

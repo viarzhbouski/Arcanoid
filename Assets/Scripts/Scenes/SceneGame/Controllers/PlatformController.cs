@@ -24,6 +24,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _platformView!.Bind(_platformModel, this);
             _platformModel.OnChangeHandler(ControllerOnChange);
             _platformModel.PlatformSpeed = mainConfig.PlatformSpeed;
+            _platformModel.PlatformMoveCoef = mainConfig.PlatformMoveCoef;
+            _platformModel.PlatformStopDistance = mainConfig.PlatformStopDistance;
         }
         
         public void UpdateController()
@@ -33,26 +35,28 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         private void Move()
         {
-            var isHold = false;
-            
             if (Input.touchCount > 0)
             {
-                isHold = true;
-                var touch = Input.GetTouch(0);
-                _platformModel.Position = touch.position;
+                SetInputPosition(Input.GetTouch(0).position);
             }
+            
             else if (Input.GetMouseButton(0))
             {
-                isHold = true;
-                _platformModel.Position =Input.mousePosition;;
+                SetInputPosition(Input.mousePosition);
             }
-
-            if (isHold)
+            else
             {
-                isHold = false;
-                _platformModel.OnChange?.Invoke();
-                _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
+                _platformModel.IsHold = false;
             }
+            
+            _platformModel.OnChange?.Invoke();
+        }
+
+        private void SetInputPosition(Vector2 inputPosition)
+        {
+            _platformModel.IsHold = true;
+            _platformModel.Position = inputPosition;
+            _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
         }
 
         public void ControllerOnChange()

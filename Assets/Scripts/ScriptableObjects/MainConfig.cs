@@ -12,6 +12,10 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private float platformSpeed;
         [SerializeField]
+        private float platformMoveCoef;
+        [SerializeField]
+        private float platformStopDistance;
+        [SerializeField]
         private int lifeCount;
         
         [Header("\tGRID")] 
@@ -39,6 +43,10 @@ namespace Scripts.ScriptableObjects
         public float BallSpeed => ballSpeed;
         
         public float PlatformSpeed => platformSpeed;
+        
+        public float PlatformMoveCoef => platformMoveCoef;
+        
+        public float PlatformStopDistance => platformStopDistance;
         
         public Pack[] Packs => packs;
         
