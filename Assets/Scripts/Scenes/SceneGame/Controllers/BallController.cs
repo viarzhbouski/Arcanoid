@@ -13,7 +13,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
         private readonly BallView _ballView;
         private readonly MainConfig _mainConfig;
         private readonly LifesController _lifesController;
-        private bool _isTapHold;
+        private bool _isHold;
         
         public BallController(IView view, LifesController lifesController, MainConfig mainConfig)
         {
@@ -44,13 +44,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
                 return;
             }
             
-            if (Input.touchCount > 0)
+            if (Input.touchCount > 0 || Input.GetMouseButton(0))
             {
-                _isTapHold = true;
+                _isHold = true;
             }
-            else if (_isTapHold)
+            else if (_isHold)
             {
-                _isTapHold = false;
+                _isHold = false;
                 _ballModel.Speed = _mainConfig.BallSpeed;
                 _ballModel.IsStarted = true;
                 _ballModel.OnChange?.Invoke();

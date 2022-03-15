@@ -39,6 +39,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void PushBall()
         {
+            Debug.Log(111);
             ballRigidbody.AddForce(Vector2.up * _ballModel.Speed);
         }
         

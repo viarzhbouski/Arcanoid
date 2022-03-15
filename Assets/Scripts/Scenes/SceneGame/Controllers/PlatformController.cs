@@ -33,10 +33,23 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         private void Move()
         {
+            var isHold = false;
+            
             if (Input.touchCount > 0)
             {
+                isHold = true;
                 var touch = Input.GetTouch(0);
                 _platformModel.Position = touch.position;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                isHold = true;
+                _platformModel.Position =Input.mousePosition;;
+            }
+
+            if (isHold)
+            {
+                isHold = false;
                 _platformModel.OnChange?.Invoke();
                 _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
             }
