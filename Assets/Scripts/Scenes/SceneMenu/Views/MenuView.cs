@@ -3,6 +3,7 @@ using Scripts.Core.Interfaces.MVC;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Scenes.SceneMenu.Views
 {
@@ -17,6 +18,10 @@ namespace Scenes.SceneMenu.Views
         {
             _menuModel = model as MenuModel;
             startButton.onClick.AddListener(StartOnClick);
+            
+            
+            
+            startButton.transform.DOScale(0.8f, 0.7f).SetLoops(int.MaxValue, LoopType.Yoyo);
         }
 
         private void StartOnClick()

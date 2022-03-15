@@ -16,7 +16,7 @@ MonoBehaviour:
   platformSpeed: 0.01
   lifeCount: 3
   width: 1
-  height: 0.9
+  height: 0.88
   maxWidth: 1
   maxHeight: 0.5
   spaceWidth: 0.01
