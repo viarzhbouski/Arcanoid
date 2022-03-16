@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Common.Enums;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -16,20 +17,22 @@ namespace Scripts.Scenes.SceneGame.Controllers
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
         private readonly MainConfig _mainConfig;
+        private readonly Dictionary<BlockTypes, Block> _blocks;
 
         public GenerateLevelController(IView view, MainConfig mainConfig)
         {
             _mainConfig = mainConfig;
             _generateLevelModel = new GenerateLevelModel();
             _generateLevelView = view as GenerateLevelView;
-            
+            _blocks = new Dictionary<BlockTypes, Block>();
             _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
         }
-        
+
         public void StartController()
         {
             var level = GetLevel();
+            FillDict();
             GenerateBlocksGrid(level);
         }
 
@@ -66,18 +69,25 @@ namespace Scripts.Scenes.SceneGame.Controllers
                         x = _mainConfig.Width - (_mainConfig.SpaceWidth * (j + 1) + j * _generateLevelModel.CellSize.x + _generateLevelModel.CellSize.x / 2),
                         y = _mainConfig.Height - (_mainConfig.SpaceHeight * (i + 1) + i * _generateLevelModel.CellSize.y + _generateLevelModel.CellSize.y / 2)
                     };
+
+                    var block = _blocks[(BlockTypes)level.Blocks[blockId]];
+                    block.Position = position;
                     
-                    _generateLevelModel.Blocks.Add(new BlockPosition
-                    {
-                        BlockType = (BlockTypes)level.Blocks[blockId],
-                        Position = position
-                    });
+                    _generateLevelModel.Blocks.Add(block);
                     
                     blockId++;
                 }
             }
             
             _generateLevelModel.OnChange?.Invoke();
+        }
+        
+        private void FillDict()
+        {
+            foreach (var block in _mainConfig.Blocks)
+            {
+                _blocks.Add(block.BlockType, block);
+            }
         }
     }
 }

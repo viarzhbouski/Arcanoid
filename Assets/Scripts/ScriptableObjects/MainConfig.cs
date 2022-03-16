@@ -31,12 +31,19 @@ namespace Scripts.ScriptableObjects
         [Space]
         [SerializeField]
         private Pack[] packs;
+        
+        [Header("\tBlocks")] 
+        [Space]
+        [SerializeField]
+        private Block[] blocks;
 
         public int LifeCount => lifeCount;
         
         public float BallSpeed => ballSpeed;
         
         public Pack[] Packs => packs;
+        
+        public Block[] Blocks => blocks;
         
         public float Width => width;
         

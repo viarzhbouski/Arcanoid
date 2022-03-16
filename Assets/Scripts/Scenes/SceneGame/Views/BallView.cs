@@ -1,4 +1,5 @@
-﻿using MonoModels;
+﻿using Common.Enums;
+using MonoModels;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -51,12 +52,18 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            var block = collision.collider.gameObject.GetComponent<BlockMono>();
+            var blockMono = collision.collider.gameObject.GetComponent<BlockMono>();
             
-            if (block != null)
+            if (blockMono != null)
             {
+                blockMono.Damage();
+                if (!blockMono.CanDestroy)
+                {
+                    return;
+                }
+                
                 var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
-                objectPool.DestroyObject(block);
+                objectPool.DestroyObject(blockMono);
             }
         }
 

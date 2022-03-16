@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.Models;
+using Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Models
@@ -12,7 +12,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
         
         public Vector2 StartPosition { get; set; }
 
-        public List<BlockPosition> Blocks { get; set; } = new List<BlockPosition>();
+        public List<Block> Blocks { get; set; } = new List<Block>();
         
         public Action OnChange { get; set; }
 
