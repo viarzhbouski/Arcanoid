@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80208bdae8534d7a8a4dd386569126a3, type: 3}
   m_Name: MainConfig
   m_EditorClassIdentifier: 
-  ballSpeed: 700
-  platformSpeed: 70
-  platformMoveCoef: 0.1
-  platformStopDistance: 0
+  ballSpeed: 15
   lifeCount: 3
   width: 1
   height: 0.88

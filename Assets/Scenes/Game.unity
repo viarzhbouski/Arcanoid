@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  m_Color: {r: 0.047169805, g: 0.047169805, b: 0.047169805, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0952dc9132474b1497fe0732b3c1c54d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 519420031}
+  gameCamera: {fileID: 519420031}
   mapPivot: {fileID: 1400564372}
 --- !u!114 &1409576356 stripped
 MonoBehaviour:
@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0537f3649f33477fb2f8deabc919f3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 519420031}
+  gameCamera: {fileID: 519420031}
   bordersCollider: {fileID: 1699194545}
   bottomBorderCollider: {fileID: 1699194547}
 --- !u!68 &1699194547

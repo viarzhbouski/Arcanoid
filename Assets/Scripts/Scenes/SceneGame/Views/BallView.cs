@@ -39,7 +39,14 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void PushBall()
         {
-            ballRigidbody.AddForce(Vector2.up * _ballModel.Speed);
+            if (ballRigidbody.velocity.magnitude == 0f)
+            {
+                ballRigidbody.velocity = Vector2.up * _ballModel.Speed;
+            }
+            else
+            {
+                ballRigidbody.velocity = _ballModel.Speed * ballRigidbody.velocity.normalized;
+            }
         }
         
         private void OnCollisionEnter2D(Collision2D collision)

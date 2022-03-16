@@ -23,9 +23,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             
             _platformView!.Bind(_platformModel, this);
             _platformModel.OnChangeHandler(ControllerOnChange);
-            _platformModel.PlatformSpeed = mainConfig.PlatformSpeed;
-            _platformModel.PlatformMoveCoef = mainConfig.PlatformMoveCoef;
-            _platformModel.PlatformStopDistance = mainConfig.PlatformStopDistance;
         }
         
         public void UpdateController()

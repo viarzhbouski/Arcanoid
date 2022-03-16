@@ -10,7 +10,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
     public class GenerateLevelView : MonoBehaviour, IView
     {
         [SerializeField]
-        private Camera camera;
+        private Camera gameCamera;
         
         [SerializeField]
         private Transform mapPivot;
@@ -37,8 +37,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
                 var blockMono = objectPool.GetObject();
                 
-                blockMono.transform.position = ResizeHelper.ResizePosition(block.Position.x, block.Position.y, camera);
-                blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize.x,_generateLevelModel.CellSize.y, camera, blockMono.GetComponent<SpriteRenderer>());
+                blockMono.transform.position = ResizeHelper.ResizePosition(block.Position.x, block.Position.y, gameCamera);
+                blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize.x,_generateLevelModel.CellSize.y, gameCamera, blockMono.GetComponent<SpriteRenderer>());
             }
         }
     }

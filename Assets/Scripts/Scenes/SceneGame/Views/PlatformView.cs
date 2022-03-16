@@ -41,35 +41,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             
             var tapPosition = platformCamera.ScreenToWorldPoint(_platformModel.Position);
             var tapPositionX = new Vector2(tapPosition.x, Vector2.zero.y);
-            var platformPositionX = new Vector2(transform.position.x, Vector2.zero.y);
-            var distance = Vector2.Distance(tapPositionX, platformPositionX);
             
-            if (distance < _platformModel.PlatformStopDistance)
-            {
-                platformRigidbody2D.velocity = Vector2.zero;
-            }
- 
-            if (_prevPosition.HasValue)
-            {
-                var directionValue = tapPosition.x - _prevPosition!.Value.x;
-                
-                if (directionValue < -_platformModel.PlatformMoveCoef)
-                {
-                    MovePlatform(Vector2.left);
-                }
-                else if (directionValue > _platformModel.PlatformMoveCoef)
-                {
-                    MovePlatform(Vector2.right);
-                }
-            }
-
-            _prevPosition = tapPosition;
-
-            void MovePlatform(Vector2 direction)
-            {
-                platformRigidbody2D.velocity = Vector2.zero;
-                platformRigidbody2D.AddForce(direction * _platformModel.PlatformSpeed, ForceMode2D.Impulse);
-            }
+            platformRigidbody2D.MovePosition(tapPositionX);
         }
     }
 }

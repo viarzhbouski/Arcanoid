@@ -41,6 +41,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
         {
             if (_ballModel.IsStarted)
             {
+                _ballModel.OnChange?.Invoke();
                 return;
             }
             
@@ -53,7 +54,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
                 _isHold = false;
                 _ballModel.Speed = _mainConfig.BallSpeed;
                 _ballModel.IsStarted = true;
-                _ballModel.OnChange?.Invoke();
             }
         }
 
