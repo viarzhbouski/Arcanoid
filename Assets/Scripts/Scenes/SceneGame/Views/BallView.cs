@@ -1,4 +1,5 @@
-﻿using MonoModels;
+﻿using Common.Enums;
+using MonoModels;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -39,18 +40,30 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void PushBall()
         {
-            Debug.Log(111);
-            ballRigidbody.AddForce(Vector2.up * _ballModel.Speed);
+            if (ballRigidbody.velocity.magnitude == 0f)
+            {
+                ballRigidbody.velocity = Vector2.up * _ballModel.Speed;
+            }
+            else
+            {
+                ballRigidbody.velocity = _ballModel.Speed * ballRigidbody.velocity.normalized;
+            }
         }
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            var block = collision.collider.gameObject.GetComponent<BlockMono>();
+            var blockMono = collision.collider.gameObject.GetComponent<BlockMono>();
             
-            if (block != null)
+            if (blockMono != null)
             {
+                blockMono.Damage();
+                if (!blockMono.CanDestroy)
+                {
+                    return;
+                }
+                
                 var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
-                objectPool.DestroyObject(block);
+                objectPool.DestroyObject(blockMono);
             }
         }
 

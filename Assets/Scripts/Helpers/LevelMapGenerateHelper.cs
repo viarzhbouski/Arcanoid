@@ -10,8 +10,6 @@ namespace Scripts.Helpers
     public class LevelMapGenerateHelper: EditorWindow
     {
         private BlockTypes[,] _blocks;
-        private int _prevWidth = -1;
-        private int _prevHeight = -1;
         private const string Path = "./Assets/Levels/";
         
         [SerializeField]

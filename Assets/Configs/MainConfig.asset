@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80208bdae8534d7a8a4dd386569126a3, type: 3}
   m_Name: MainConfig
   m_EditorClassIdentifier: 
-  ballSpeed: 500
-  platformSpeed: 0.5
+  ballSpeed: 15
   lifeCount: 3
   width: 1
   height: 0.88
@@ -30,3 +29,13 @@ MonoBehaviour:
     name: PACK2
     levels:
     - {fileID: 4900000, guid: b2f6bd719b89b7a4eb8f1d8f7a37a326, type: 3}
+  blocks:
+  - healthPoints: 0
+    blockType: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - healthPoints: 3
+    blockType: 1
+    color: {r: 0.6839622, g: 1, b: 0.7078642, a: 1}
+  - healthPoints: 0
+    blockType: 2
+    color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}

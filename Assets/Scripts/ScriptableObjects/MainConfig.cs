@@ -10,8 +10,6 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private float ballSpeed;
         [SerializeField]
-        private float platformSpeed;
-        [SerializeField]
         private int lifeCount;
         
         [Header("\tGRID")] 
@@ -33,14 +31,19 @@ namespace Scripts.ScriptableObjects
         [Space]
         [SerializeField]
         private Pack[] packs;
+        
+        [Header("\tBlocks")] 
+        [Space]
+        [SerializeField]
+        private Block[] blocks;
 
         public int LifeCount => lifeCount;
         
         public float BallSpeed => ballSpeed;
         
-        public float PlatformSpeed => platformSpeed;
-        
         public Pack[] Packs => packs;
+        
+        public Block[] Blocks => blocks;
         
         public float Width => width;
         
