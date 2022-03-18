@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Scripts.Core.Interfaces.MVC;
+﻿using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 
@@ -8,10 +7,14 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
     public class PlatformView : MonoBehaviour, IView
     {
         [SerializeField]
-        private Camera camera;
+        private Rigidbody2D platformRigidbody2D;
+        [SerializeField]
+        private Camera platformCamera;
         [SerializeField]
         private Transform platformBallStartPosition;
+        
         private PlatformModel _platformModel;
+        private Vector2? _prevPosition;
         
         public void Bind(IModel model, IController controller)
         {
@@ -30,8 +33,16 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void SetPlatformPosition()
         {
-            var tapPosition = camera.ScreenToWorldPoint(_platformModel.Position);
-            transform.DOMoveX(tapPosition.x, _platformModel.PlatformSpeed);
+            if (!_platformModel.IsHold)
+            {
+                platformRigidbody2D.velocity = Vector2.zero;
+                return;
+            }
+            
+            var tapPosition = platformCamera.ScreenToWorldPoint(_platformModel.Position);
+            var tapPositionX = new Vector2(tapPosition.x, Vector2.zero.y);
+            
+            platformRigidbody2D.MovePosition(tapPositionX);
         }
     }
 }

@@ -3,6 +3,7 @@
     public enum BlockTypes
     {
         Empty,
-        Common
+        Common,
+        Undestroyable
     }
 }
