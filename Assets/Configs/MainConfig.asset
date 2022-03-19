@@ -15,9 +15,9 @@ MonoBehaviour:
   ballSpeed: 15
   lifeCount: 3
   width: 1
-  height: 0.88
+  height: 1
   maxWidth: 1
-  maxHeight: 0.5
+  maxHeight: 1
   spaceWidth: 0.01
   spaceHeight: 0.01
   packs:

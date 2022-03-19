@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Common.Enums;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -54,31 +55,34 @@ namespace Scripts.Scenes.SceneGame.Controllers
         {
             _generateLevelModel.CellSize = new Vector2
             {
-                x = (_mainConfig.MaxWidth - _mainConfig.SpaceWidth * (level.Width + 1)) / level.Width,
-                y = (_mainConfig.MaxHeight - _mainConfig.SpaceHeight * (level.Height + 1)) / level.Height
+                x = (_mainConfig.MaxViewportSize - _mainConfig.SpaceWidth * (level.Width + 1)) / level.Width
             };
             
             var blockId = 0;
-
+            var blocks = level.Layers.First().Data;
+            var ratio = (float)Screen.width / Screen.height;
+            var cellWidth = _generateLevelModel.CellSize.x / 2;
+            var cellHeight = cellWidth * ratio;
+            var y = _mainConfig.MaxViewportSize - cellHeight / 2 - _mainConfig.SpaceHeight;
+            
             for (var i = 0; i < level.Height; i++)
             {
+                var x = cellWidth + _mainConfig.SpaceWidth;
+                
                 for (var j = 0; j < level.Width; j++)
                 {
-                    var position = new Vector2
-                    {
-                        x = _mainConfig.Width - (_mainConfig.SpaceWidth * (j + 1) + j * _generateLevelModel.CellSize.x + _generateLevelModel.CellSize.x / 2),
-                        y = _mainConfig.Height - (_mainConfig.SpaceHeight * (i + 1) + i * _generateLevelModel.CellSize.y + _generateLevelModel.CellSize.y / 2)
-                    };
-
-                    var block = _blocks[(BlockTypes)level.Blocks[blockId]];
+                    var position = new Vector2(x, y);
+                    var block = _blocks[(BlockTypes)blocks[blockId]];
                     block.Position = position;
+                    x += _generateLevelModel.CellSize.x + _mainConfig.SpaceWidth;
+                    blockId++;
                     
                     _generateLevelModel.Blocks.Add(block);
-                    
-                    blockId++;
                 }
+
+                y -=  cellHeight + _mainConfig.SpaceHeight;
             }
-            
+
             _generateLevelModel.OnChange?.Invoke();
         }
         

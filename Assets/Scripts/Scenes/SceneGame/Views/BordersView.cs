@@ -33,16 +33,16 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             var bordersPoints = new List<Vector2>()
             {
-                ResizeHelper.ResizePosition(0, 0, gameCamera),
-                ResizeHelper.ResizePosition(0, 0.885f, gameCamera),
-                ResizeHelper.ResizePosition(1, 0.885f, gameCamera),
-                ResizeHelper.ResizePosition(1, 0, gameCamera),
+                ResizeHelper.ResizePosition(Vector2.zero, gameCamera),
+                ResizeHelper.ResizePosition(new Vector2(0, 0.885f), gameCamera),
+                ResizeHelper.ResizePosition(new Vector2(1, 0.885f), gameCamera),
+                ResizeHelper.ResizePosition(new Vector2(1, 0), gameCamera),
             };
             
             var bottomBordersPoints = new List<Vector2>()
             {
-                ResizeHelper.ResizePosition(0, 0, gameCamera),
-                ResizeHelper.ResizePosition(1, 0, gameCamera),
+                ResizeHelper.ResizePosition(Vector2.zero, gameCamera),
+                ResizeHelper.ResizePosition(new Vector2(1, 0), gameCamera),
             };
 
             bordersCollider.SetPoints(bordersPoints);

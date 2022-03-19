@@ -1,3 +1,4 @@
+using Managers;
 using Scripts.Core;
 using Scripts.Scenes.SceneGame.Controllers.Views;
 using Scripts.ScriptableObjects;
@@ -21,7 +22,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         [SerializeField]
         private LifesView lifesView;
-        
+
         public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
         {
             var bordersController = new BordersController(bordersView);

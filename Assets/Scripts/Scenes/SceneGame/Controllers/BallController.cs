@@ -1,4 +1,5 @@
-﻿using Scripts.Core.Interfaces;
+﻿using Managers;
+using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
@@ -47,6 +48,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             
             if (Input.touchCount > 0 || Input.GetMouseButton(0))
             {
+                //PopupManager.Instance.AAA();
                 _isHold = true;
             }
             else if (_isHold)

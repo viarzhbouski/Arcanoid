@@ -9,5 +9,20 @@ namespace Managers
         
         [SerializeField]
         private GameObject popupPrefab;
+
+        public static PopupManager Instance;
+
+        private void Start()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
+
+        public void AAA()
+        {
+            Debug.Log("assdadas");
+        }
     }
 }

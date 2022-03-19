@@ -18,14 +18,12 @@ namespace Scenes.SceneMenu.Views
         {
             _menuModel = model as MenuModel;
             startButton.onClick.AddListener(StartOnClick);
-            
-            
-            
-            startButton.transform.DOScale(0.8f, 0.7f).SetLoops(int.MaxValue, LoopType.Yoyo);
+            startButton.transform.DOScale(0.9f, 0.5f).SetLoops(int.MaxValue, LoopType.Yoyo);
         }
 
         private void StartOnClick()
         {
+            startButton.transform.DOKill();
             SceneManager.LoadScene(1);
         }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3721038437337700830}
   - component: {fileID: 8867129054205995434}
   - component: {fileID: 445044989101361191}
-  - component: {fileID: 8186976265501683527}
+  - component: {fileID: 1263359381671525204}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af1b2455f0b28d741891ea8f5777153a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8cff189ca0b47944aafd3b93a8dffb62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
-  m_Size: {x: 2.56, y: 2.56}
+  m_DrawMode: 0
+  m_Size: {x: 5.12, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -98,10 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8867129054205995434}
   damageSprites:
-  - {fileID: 21300000, guid: b94052f7e4f2d454dae8d803041eb5dc, type: 3}
-  - {fileID: 21300000, guid: 366fadbdd9bb4f241a04b5e504542d98, type: 3}
-  - {fileID: 21300000, guid: bf9f42de95236ee4586295f8cb147350, type: 3}
---- !u!61 &8186976265501683527
+  - {fileID: 21300000, guid: 13a350c8a751cbd40aabf588c7614e8f, type: 3}
+  - {fileID: 21300000, guid: 9134a5545ecdee64d85b7210801c3e9e, type: 3}
+  - {fileID: 21300000, guid: 5cf81ada3f63ed74988de37cb6fe84ba, type: 3}
+--- !u!61 &1263359381671525204
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,14 +116,14 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.32999998, y: 0.32999998, z: 0.32999998, w: 0.32999998}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 5.12, y: 2.56}
+    newSize: {x: 5.12, y: 2.56}
     adaptiveTilingThreshold: 0.5
-    drawMode: 1
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 5.12, y: 2.56}
   m_EdgeRadius: 0
