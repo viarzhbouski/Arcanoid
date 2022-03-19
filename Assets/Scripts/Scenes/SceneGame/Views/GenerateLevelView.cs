@@ -1,4 +1,5 @@
 ﻿using Common.Enums;
+using DG.Tweening;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -15,12 +16,20 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         [SerializeField]
         private Transform mapPivot;
         
+        [SerializeField]
+        private RectTransform topPanel;
+        
+        [SerializeField]
+        private RectTransform progressBar;
+        
         private GenerateLevelModel _generateLevelModel;
 
         public void Bind(IModel model, IController controller)
         {
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
+            _generateLevelModel.TopPanelPosition = topPanel.transform.position;
+            progressBar.DOSizeDelta(new Vector2(260, 50), 5f);
         }
         
         public void RenderChanges()

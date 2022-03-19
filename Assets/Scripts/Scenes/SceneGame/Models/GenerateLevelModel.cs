@@ -10,6 +10,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
     {
         public Vector2 CellSize { get; set; }
         
+        public Vector2 TopPanelPosition { get; set; }
+        
         public Vector2 StartPosition { get; set; }
 
         public List<Block> Blocks { get; set; } = new List<Block>();

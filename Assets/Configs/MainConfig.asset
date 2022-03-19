@@ -14,12 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballSpeed: 15
   lifeCount: 3
-  width: 1
-  height: 1
-  maxWidth: 1
-  maxHeight: 1
-  spaceWidth: 0.01
-  spaceHeight: 0.01
+  maxViewportSize: 1
+  spaceWidth: 0.005
+  spaceHeight: 0.005
   packs:
   - image: {fileID: 21300000, guid: 6214e7b0fddbf294984bd627a3271153, type: 3}
     name: PACK1

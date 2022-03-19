@@ -63,7 +63,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
             var ratio = (float)Screen.width / Screen.height;
             var cellWidth = _generateLevelModel.CellSize.x / 2;
             var cellHeight = cellWidth * ratio;
-            var y = _mainConfig.MaxViewportSize - cellHeight / 2 - _mainConfig.SpaceHeight;
+            var topPanetWidth = _mainConfig.MaxViewportSize / (_generateLevelModel.TopPanelPosition.y / 2) * ratio;
+            var y = _mainConfig.MaxViewportSize - cellHeight / 2 - _mainConfig.SpaceHeight - topPanetWidth;
             
             for (var i = 0; i < level.Height; i++)
             {
