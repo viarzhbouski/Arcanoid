@@ -15,12 +15,16 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         [SerializeField]
         private Transform mapPivot;
         
+        [SerializeField]
+        private RectTransform topPanel;
+
         private GenerateLevelModel _generateLevelModel;
 
         public void Bind(IModel model, IController controller)
         {
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
+            _generateLevelModel.TopPanelPosition = topPanel.transform.position;
         }
         
         public void RenderChanges()
@@ -32,13 +36,16 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             foreach (var block in _generateLevelModel.Blocks)
             {
-                if (block.BlockType == BlockTypes.Empty) continue;
-                
-                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+                if (block.BlockType == BlockTypes.Empty)
+                {
+                    continue;
+                }
+
+                var objectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
                 var blockMono = objectPool.GetObject();
                 blockMono.SetBlockConfig(block);
-                blockMono.transform.position = ResizeHelper.ResizePosition(block.Position.x, block.Position.y, gameCamera);
-                blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize.x,_generateLevelModel.CellSize.y, gameCamera, blockMono.GetComponent<SpriteRenderer>());
+                blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);
+                blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize, gameCamera, blockMono.SpriteRenderer);
             }
         }
     }

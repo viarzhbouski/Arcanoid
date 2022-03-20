@@ -1,4 +1,4 @@
-﻿using MonoModels;
+﻿using Scenes.SceneGame.Views;
 using UnityEngine;
 
 namespace Scripts.Core.ObjectPooling
@@ -6,18 +6,18 @@ namespace Scripts.Core.ObjectPooling
     public class BlockPoolManager : PoolManager
     {
         [SerializeField]
-        private BlockMono prefab;
+        private BlockView prefab;
 
-        private ObjectPool<BlockMono> _objectPool;
+        private ObjectPool<BlockView> _objectPool;
         
         public override void InitPool()
         {
-            _objectPool = new ObjectPool<BlockMono>(prefab, transform, poolSize);
+            _objectPool = new ObjectPool<BlockView>(prefab, transform, poolSize);
             _objectPool.InitPool();
         }
 
-        public BlockMono GetObject() => _objectPool.GetObject();
+        public BlockView GetObject() => _objectPool.GetObject();
         
-        public void DestroyObject(BlockMono obj) => _objectPool.DestroyObject(obj);
+        public void DestroyObject(BlockView obj) => _objectPool.DestroyObject(obj);
     }
 }

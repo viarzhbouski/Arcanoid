@@ -12,10 +12,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
         
         public float PlatformSpeed { get; set; }
         
-        public float PlatformMoveCoef { get; set; }
-        
-        public float PlatformStopDistance { get; set; }
-        
         public Vector2 Position { get; set; }
 
         public Action OnChange { get; set; }

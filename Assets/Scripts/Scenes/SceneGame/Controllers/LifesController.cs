@@ -1,4 +1,6 @@
-﻿using Scripts.Core.Interfaces;
+﻿using Managers;
+using Scenes.SceneGame.Views.Popups;
+using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
@@ -35,6 +37,11 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public void DecreaseLife()
         {
             _lifesModel.LifesCount--;
+            // if (_lifesModel.LifesCount == 0)
+            // {
+            //     PopupManager.Instance.ShowPopup<WinLevelPopupView>();
+            // }
+            
             _lifesModel.OnChange?.Invoke();
         }
     }

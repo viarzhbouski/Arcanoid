@@ -17,11 +17,15 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         [SerializeField]
         private EdgeCollider2D bottomBorderCollider;
         
+        [SerializeField]
+        private RectTransform topPanel;
+        
         private BordersModel _bordersModel;
 
         public void Bind(IModel model, IController controller)
         {
             _bordersModel = model as BordersModel;
+            _bordersModel!.TopPanelPosition = topPanel.transform.position;
         }
 
         public void RenderChanges()
@@ -33,16 +37,16 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             var bordersPoints = new List<Vector2>()
             {
-                ResizeHelper.ResizePosition(0, 0, gameCamera),
-                ResizeHelper.ResizePosition(0, 0.885f, gameCamera),
-                ResizeHelper.ResizePosition(1, 0.885f, gameCamera),
-                ResizeHelper.ResizePosition(1, 0, gameCamera),
+                ResizeHelper.ResizePosition(Vector2.zero, gameCamera),
+                ResizeHelper.ResizePosition(new Vector2(Vector2.zero.x, _bordersModel.TopBorderPosition), gameCamera),
+                ResizeHelper.ResizePosition(new Vector2(Vector2.right.x, _bordersModel.TopBorderPosition), gameCamera),
+                ResizeHelper.ResizePosition(Vector2.right, gameCamera),
             };
             
             var bottomBordersPoints = new List<Vector2>()
             {
-                ResizeHelper.ResizePosition(0, 0, gameCamera),
-                ResizeHelper.ResizePosition(1, 0, gameCamera),
+                ResizeHelper.ResizePosition(Vector2.zero, gameCamera),
+                ResizeHelper.ResizePosition(Vector2.right, gameCamera),
             };
 
             bordersCollider.SetPoints(bordersPoints);

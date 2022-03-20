@@ -10,18 +10,17 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private float ballSpeed;
         [SerializeField]
+        private float minBounceAngle;
+        [SerializeField]
+        private float platformSpeed;
+        [SerializeField]
         private int lifeCount;
         
         [Header("\tGRID")] 
         [Space]
+        [Range(0.1f, 1f)]
         [SerializeField]
-        private float width;
-        [SerializeField]
-        private float height;
-        [SerializeField]
-        private float maxWidth;
-        [SerializeField]
-        private float maxHeight;
+        private float maxViewportSize = 1f;
         [SerializeField]
         private float spaceWidth;
         [SerializeField]
@@ -41,18 +40,16 @@ namespace Scripts.ScriptableObjects
         
         public float BallSpeed => ballSpeed;
         
+        public float MinBounceAngle => minBounceAngle;
+        
+        public float PlatformSpeed => platformSpeed;
+        
         public Pack[] Packs => packs;
         
         public Block[] Blocks => blocks;
         
-        public float Width => width;
-        
-        public float Height => height;
-        
-        public float MaxWidth => maxWidth;
-        
-        public float MaxHeight => maxHeight;
-        
+        public float MaxViewportSize => maxViewportSize;
+
         public float SpaceWidth => spaceWidth;
         
         public float SpaceHeight => spaceHeight;
