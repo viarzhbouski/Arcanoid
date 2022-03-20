@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MonoModels
+namespace Scenes.ScenePack.Views
 {
-    public class PackMono : MonoBehaviour
+    public class PackView : MonoBehaviour
     {
         [SerializeField]
         private TMP_Text packNameUI;

@@ -17,5 +17,10 @@ namespace Scripts.Core.ObjectPooling
                 Instance = this;
             }
         }
+
+        public T GetObjectPool<T>() where T : PoolManager
+        {
+            return (T)Instance.PoolManagers[typeof(T)];
+        }
     }
 }

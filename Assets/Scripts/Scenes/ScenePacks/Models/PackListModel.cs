@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Scenes.ScenePack.Models
 {
     
-    public class PacksModel : IModel
+    public class PackListModel : IModel
     {
         public List<Pack> Packs { get; set; } = new List<Pack>();
         

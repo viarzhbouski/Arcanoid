@@ -62,13 +62,13 @@ namespace Scripts.Helpers
                 Width = width
             };
             
-            for (var i = 0; i < height; i++)
-            {
-                for (var j = 0; j < width; j++)
-                {
-                    model.Blocks.Add((int)_blocks[i, j]);
-                }
-            }
+            // for (var i = 0; i < height; i++)
+            // {
+            //     for (var j = 0; j < width; j++)
+            //     {
+            //         model.Blocks.Add((int)_blocks[i, j]);
+            //     }
+            // }
             
             var files = Directory.GetFiles(Path);
             var json = JsonConvert.SerializeObject(model);

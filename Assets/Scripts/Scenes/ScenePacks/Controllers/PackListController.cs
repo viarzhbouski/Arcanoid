@@ -1,35 +1,32 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Scenes.ScenePack.Models;
+﻿using Scenes.ScenePack.Models;
 using Scenes.ScenePack.Views;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Helpers;
 using Scripts.ScriptableObjects;
-using UnityEngine;
-using Pack = Scenes.ScenePack.Models.PacksModel.Pack;
+using Pack = Scenes.ScenePack.Models.PackListModel.Pack;
 
 namespace Scenes.ScenePack.Controllers
 {
-    public class PacksController : IController, IHasStart
+    public class PackListController : IController, IHasStart
     {
-        private readonly PacksModel _packsModel;
-        private readonly PacksView _packsView;
+        private readonly PackListModel _packListModel;
+        private readonly PackListView _packListView;
         private readonly MainConfig _mainConfig;
 
-        public PacksController(IView view, MainConfig mainConfig)
+        public PackListController(IView view, MainConfig mainConfig)
         {
             _mainConfig = mainConfig;
-            _packsModel = new PacksModel();
-            _packsView = view as PacksView;
-            _packsView!.Bind(_packsModel, this);
-            _packsModel.OnChangeHandler(ControllerOnChange);
+            _packListModel = new PackListModel();
+            _packListView = view as PackListView;
+            _packListView!.Bind(_packListModel, this);
+            _packListModel.OnChangeHandler(ControllerOnChange);
         }
         
         public void ControllerOnChange()
         {
-            _packsView.RenderChanges();
+            _packListView.RenderChanges();
         }
 
         private void GetPacks()
@@ -45,10 +42,10 @@ namespace Scenes.ScenePack.Controllers
                     CanChoose = i <= lastPack
                 };
 
-                _packsModel.Packs.Add(pack);
+                _packListModel.Packs.Add(pack);
             }
             
-            _packsModel.OnChange?.Invoke();
+            _packListModel.OnChange?.Invoke();
         }
 
         public void StartController()
