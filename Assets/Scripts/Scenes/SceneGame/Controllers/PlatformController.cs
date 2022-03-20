@@ -48,7 +48,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             }
 
             _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
-
             _platformModel.OnChange?.Invoke();
         }
 

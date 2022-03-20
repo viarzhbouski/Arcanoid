@@ -96,7 +96,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
             if (currentAngle < _ballModel.MinBounceAngle)
             {
-                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle, 0));
+                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle * 2, 0));
                 var x = ballVector.x * Mathf.Cos(angleVector.x) - ballVector.y * Mathf.Sin(angleVector.x);
                 var y = ballVector.y * Mathf.Cos(angleVector.x) + ballVector.x * Mathf.Sin(angleVector.x);
                 var newBallVector = new Vector2(x, y);
