@@ -20,7 +20,7 @@ namespace Scripts.Core.ObjectPooling
 
         public T GetObjectPool<T>() where T : PoolManager
         {
-            return (T) ObjectPools.Instance.PoolManagers[typeof(T)];
+            return (T)Instance.PoolManagers[typeof(T)];
         }
     }
 }

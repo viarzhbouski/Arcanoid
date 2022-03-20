@@ -41,7 +41,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                     continue;
                 }
 
-                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+                var objectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
                 var blockMono = objectPool.GetObject();
                 blockMono.SetBlockConfig(block);
                 blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);

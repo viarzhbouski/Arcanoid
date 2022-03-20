@@ -2,7 +2,7 @@
 
 namespace MonoModels
 {
-    public class BallCollisionEffectMono : MonoBehaviour
+    public class BallCollisionEffectView : MonoBehaviour
     {
     }
 }

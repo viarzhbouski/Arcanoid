@@ -5,9 +5,9 @@ using Scripts.ScriptableObjects;
 using UnityEngine;
 using DG.Tweening;
 
-namespace MonoModels
+namespace Scenes.SceneGame.Views
 {
-    public class BlockMono : MonoBehaviour
+    public class BlockView : MonoBehaviour
     {
         [SerializeField]
         private SpriteRenderer spriteRenderer;

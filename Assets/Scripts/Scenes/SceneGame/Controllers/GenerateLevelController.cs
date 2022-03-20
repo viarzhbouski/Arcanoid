@@ -94,5 +94,10 @@ namespace Scripts.Scenes.SceneGame.Controllers
                 _blocks.Add(block.BlockType, block);
             }
         }
+
+        public int GetBlocksCount()
+        {
+            return _generateLevelModel.Blocks.Count(e => e.BlockType != BlockTypes.Undestroyable);
+        }
     }
 }

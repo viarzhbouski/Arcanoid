@@ -1,4 +1,4 @@
-﻿using MonoModels;
+﻿using Scenes.SceneGame.Views;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -63,20 +63,21 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private void OnCollisionEnter2D(Collision2D collision)
         {
             CorrectBallMovement();
-            var blockMono = collision.collider.gameObject.GetComponent<BlockMono>();
+            var blockView = collision.collider.gameObject.GetComponent<BlockView>();
             
-            if (blockMono != null)
+            if (blockView != null)
             {
                 SpawnBallCollisionEffect();
-                blockMono.Damage();
+                blockView.Damage();
                 
-                if (!blockMono.CanDestroy)
+                if (!blockView.CanDestroy)
                 {
                     return;
                 }
 
                 var blockObjectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
-                blockObjectPool.DestroyObject(blockMono);
+                blockObjectPool.DestroyObject(blockView);
+                _ballController.BallDestroyBlock();
             }
         }
 

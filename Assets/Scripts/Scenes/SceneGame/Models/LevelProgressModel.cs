@@ -1,18 +1,11 @@
 ﻿using System;
 using Scripts.Core.Interfaces.MVC;
-using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Models
 {
-    public class BallModel : IModel
+    public class LevelProgressModel : IModel
     {
-        public bool IsStarted { get; set; }
-        
-        public Vector2 BallPosition { get; set; }
-        
-        public float Speed { get; set; }
-
-        public float MinBounceAngle { get; set; }
+        public int BlocksAtGameField { get; set; }
         
         public float ProgressBarStep { get; set; }
         

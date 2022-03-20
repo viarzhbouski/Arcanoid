@@ -7,24 +7,24 @@ namespace Scripts.Core.ObjectPooling
     public class BallCollisionEffectPoolManager : PoolManager
     {
         [SerializeField]
-        private BallCollisionEffectMono ballCollisionEffectPrefab;
+        private BallCollisionEffectView ballCollisionEffectPrefab;
 
         [SerializeField]
         private float destroyDelay = 0.5f;
 
-        private ObjectPool<BallCollisionEffectMono> _objectPool;
+        private ObjectPool<BallCollisionEffectView> _objectPool;
         
         public override void InitPool()
         {
-            _objectPool = new ObjectPool<BallCollisionEffectMono>(ballCollisionEffectPrefab, transform, poolSize);
+            _objectPool = new ObjectPool<BallCollisionEffectView>(ballCollisionEffectPrefab, transform, poolSize);
             _objectPool.InitPool();
         }
 
-        public BallCollisionEffectMono GetObject() => _objectPool.GetObject();
+        public BallCollisionEffectView GetObject() => _objectPool.GetObject();
         
-        public void DestroyObject(BallCollisionEffectMono obj) => StartCoroutine(DestroyByDelay(obj));
+        public void DestroyObject(BallCollisionEffectView obj) => StartCoroutine(DestroyByDelay(obj));
 
-        IEnumerator DestroyByDelay(BallCollisionEffectMono obj)
+        IEnumerator DestroyByDelay(BallCollisionEffectView obj)
         {
             yield return new WaitForSeconds(destroyDelay);
             _objectPool.DestroyObject(obj);

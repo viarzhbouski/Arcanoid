@@ -1,4 +1,5 @@
 ﻿using Managers;
+using Scenes.SceneGame.Views.Popups;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -14,11 +15,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
         private readonly BallView _ballView;
         private readonly MainConfig _mainConfig;
         private readonly LifesController _lifesController;
+        private readonly LevelProgressController _levelProgressController;
         private bool _isHold;
         
-        public BallController(IView view, LifesController lifesController, MainConfig mainConfig)
+        public BallController(IView view, LifesController lifesController, LevelProgressController levelProgressController, MainConfig mainConfig)
         {
             _lifesController = lifesController;
+            _levelProgressController = levelProgressController;
             _mainConfig = mainConfig;
             _ballModel = new BallModel();
             _ballView = view as BallView;
@@ -38,7 +41,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _ballModel.IsStarted = false;
             _ballModel.OnChange?.Invoke();
         }
-
+        
         public void UpdateController()
         {
             if (_ballModel.IsStarted)
@@ -68,6 +71,11 @@ namespace Scripts.Scenes.SceneGame.Controllers
             
             _ballModel.BallPosition = ballPosition;
             _ballModel.OnChange?.Invoke();
+        }
+
+        public void BallDestroyBlock()
+        {
+            _levelProgressController.UpdateProgressBar();
         }
     }
 }

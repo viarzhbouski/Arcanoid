@@ -10,14 +10,14 @@ namespace Scenes.ScenePack
     public class Startup : BaseStartup
     {
         [SerializeField]
-        private PacksView packsView;
+        private PackListView packListView;
 
         private MainConfig _mainConfig;
         
         public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
         {
             _mainConfig = mainConfig;
-            monoConfiguration.AddController(new PacksController(packsView, mainConfig));
+            monoConfiguration.AddController(new PackListController(packListView, mainConfig));
         }
     }
 }

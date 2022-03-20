@@ -9,21 +9,20 @@ using UnityEngine.UI;
 
 namespace Scenes.ScenePack.Views
 {
-    public class PacksView : MonoBehaviour, IView
+    public class PackListView : MonoBehaviour, IView
     {
         [SerializeField] 
         private Button backToMainMenuButton;
         [SerializeField]
         private Transform contentTransform;
-        
         [SerializeField]
-        private PackMono packPrefab;
+        private PackView packPrefab;
         
-        private PacksModel _packsModel;
+        private PackListModel _packListModel;
         
         public void Bind(IModel model, IController controller)
         {
-            _packsModel = model as PacksModel;
+            _packListModel = model as PackListModel;
             backToMainMenuButton.onClick.AddListener(BackToMainMenuButtonOnClick);
         }
 
@@ -39,7 +38,7 @@ namespace Scenes.ScenePack.Views
 
         private void SpawnPackButtons()
         {
-            foreach (var pack in _packsModel.Packs)
+            foreach (var pack in _packListModel.Packs)
             {
                 var packObject = Instantiate(packPrefab, contentTransform);
                 packObject.PackNameUI.text = pack.Name;
