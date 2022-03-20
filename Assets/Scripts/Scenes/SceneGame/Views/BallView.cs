@@ -1,5 +1,4 @@
-﻿using Common.Enums;
-using MonoModels;
+﻿using MonoModels;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -13,6 +12,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private Rigidbody2D ballRigidbody;
         private BallModel _ballModel;
         private BallController _ballController;
+        
 
         public void Bind(IModel model, IController controller)
         {
@@ -56,15 +56,24 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             
             if (blockMono != null)
             {
+                SpawnBallCollisionEffect();
                 blockMono.Damage();
                 if (!blockMono.CanDestroy)
                 {
                     return;
                 }
                 
-                var objectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
-                objectPool.DestroyObject(blockMono);
+                var blockObjectPool = (BlockPoolManager)ObjectPools.Instance.PoolManagers[typeof(BlockPoolManager)];
+                blockObjectPool.DestroyObject(blockMono);
             }
+        }
+
+        private void SpawnBallCollisionEffect()
+        {
+            var ballCollisionEffectPoolManager = (BallCollisionEffectPoolManager)ObjectPools.Instance.PoolManagers[typeof(BallCollisionEffectPoolManager)];
+            var ballCollisionEffectMono = ballCollisionEffectPoolManager.GetObject();
+            ballCollisionEffectMono.transform.position = transform.position;
+            ballCollisionEffectPoolManager.DestroyObject(ballCollisionEffectMono);
         }
 
         private void OnTriggerEnter2D(Collider2D collider)

@@ -15,19 +15,17 @@ namespace MonoModels
         [SerializeField]
         private List<Sprite> damageSprites;
         
+        private Queue<Sprite> _spriteQueue;
         private Block _block;
-
+        private int _damageForChangeSprite;
+        private int _damageSum;
+        
         public SpriteRenderer SpriteRenderer => spriteRenderer;
         
         public Block Block => _block;
 
-        public bool CanDestroy =>  _block.BlockType != BlockTypes.Undestroyable && _block.HealthPoints <= 0;
-
-        private int _damageForChangeSprite;
-        private int _damageSum;
-        private Queue<Sprite> _spriteQueue;
+        public bool CanDestroy => _block.BlockType != BlockTypes.Undestroyable && _block.HealthPoints <= 0;
         
-
         public void SetBlockConfig(Block block)
         {
             _block = block;

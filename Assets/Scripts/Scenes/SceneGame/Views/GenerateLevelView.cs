@@ -18,10 +18,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         [SerializeField]
         private RectTransform topPanel;
-        
-        [SerializeField]
-        private RectTransform progressBar;
-        
+
         private GenerateLevelModel _generateLevelModel;
 
         public void Bind(IModel model, IController controller)
@@ -29,7 +26,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
             _generateLevelModel.TopPanelPosition = topPanel.transform.position;
-            progressBar.DOSizeDelta(new Vector2(260, 50), 5f);
         }
         
         public void RenderChanges()
