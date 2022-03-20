@@ -11,6 +11,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
         public Vector2 BallPosition { get; set; }
         
         public float Speed { get; set; }
+
+        public float MinBounceAngle { get; set; }
         
         public Action OnChange { get; set; }
 

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: MainConfig
   m_EditorClassIdentifier: 
   ballSpeed: 15
+  minBounceAngle: 30
+  platformSpeed: 10
   lifeCount: 3
   maxViewportSize: 1
   spaceWidth: 0.005

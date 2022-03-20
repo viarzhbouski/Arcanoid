@@ -1,5 +1,4 @@
 ﻿using Common.Enums;
-using DG.Tweening;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;

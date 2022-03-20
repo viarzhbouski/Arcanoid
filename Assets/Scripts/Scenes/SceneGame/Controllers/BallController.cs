@@ -23,6 +23,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _ballModel = new BallModel();
             _ballView = view as BallView;
             _ballView!.Bind(_ballModel, this);
+            _ballModel.MinBounceAngle = mainConfig.MinBounceAngle;
             _ballModel.OnChangeHandler(ControllerOnChange);
         }
 
@@ -48,7 +49,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             
             if (Input.touchCount > 0 || Input.GetMouseButton(0))
             {
-                //PopupManager.Instance.AAA();
                 _isHold = true;
             }
             else if (_isHold)
@@ -61,13 +61,12 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         public void UpdateBallPosition(Vector2 ballPosition)
         {
-            _ballModel.BallPosition = ballPosition;
-            
             if (_ballModel.IsStarted)
             {
                 return;
             }
             
+            _ballModel.BallPosition = ballPosition;
             _ballModel.OnChange?.Invoke();
         }
     }

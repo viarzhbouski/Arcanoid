@@ -39,8 +39,7 @@ namespace MonoModels
             {
                 _damageForChangeSprite = 1;
             }
-            
-            
+
             _spriteQueue = new Queue<Sprite>();
             _damageSum = 0;
             

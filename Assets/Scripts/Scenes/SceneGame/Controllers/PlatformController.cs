@@ -22,6 +22,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _platformView = view as PlatformView;
             
             _platformView!.Bind(_platformModel, this);
+            _platformModel.PlatformSpeed = mainConfig.BallSpeed;
             _platformModel.OnChangeHandler(ControllerOnChange);
         }
         
@@ -45,7 +46,9 @@ namespace Scripts.Scenes.SceneGame.Controllers
             {
                 _platformModel.IsHold = false;
             }
-            
+
+            _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
+
             _platformModel.OnChange?.Invoke();
         }
 
@@ -53,7 +56,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
         {
             _platformModel.IsHold = true;
             _platformModel.Position = inputPosition;
-            _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
         }
 
         public void ControllerOnChange()

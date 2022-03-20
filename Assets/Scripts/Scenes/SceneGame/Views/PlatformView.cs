@@ -25,8 +25,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         public void RenderChanges()
         {
-            SetPlatformBallStartPosition();
             SetPlatformPosition();
+            SetPlatformBallStartPosition();
         }
         
         private void SetPlatformBallStartPosition() => _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;
@@ -35,14 +35,13 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             if (!_platformModel.IsHold)
             {
-                platformRigidbody2D.velocity = Vector2.zero;
                 return;
             }
             
             var tapPosition = platformCamera.ScreenToWorldPoint(_platformModel.Position);
             var tapPositionX = new Vector2(tapPosition.x, Vector2.zero.y);
             
-            platformRigidbody2D.MovePosition(tapPositionX);
+            platformRigidbody2D.AddForce(tapPositionX * _platformModel.PlatformSpeed);
         }
     }
 }
