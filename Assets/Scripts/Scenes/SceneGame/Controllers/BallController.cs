@@ -77,5 +77,10 @@ namespace Scripts.Scenes.SceneGame.Controllers
         {
             _levelProgressController.UpdateProgressBar();
         }
+
+        public void SetBallState(bool isStopped)
+        {
+            _ballModel.BallIsStopped = isStopped;
+        }
     }
 }
