@@ -24,6 +24,9 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         [SerializeField]
         private LevelProgressView levelProgressView;
+        
+        [SerializeField]
+        private PauseGameView pauseGameView;
 
         public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
         {
@@ -33,6 +36,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             var lifesController = new LifesController(lifesView, mainConfig);
             var ballController = new BallController(ballView, lifesController, levelProgressController, mainConfig);
             var platformController = new PlatformController(platformView, ballController, mainConfig);
+            var pauseGameController = new PauseGameController(pauseGameView, ballController, mainConfig);
             
             monoConfiguration.AddController(generateLevelController);
             monoConfiguration.AddController(levelProgressController);
@@ -40,6 +44,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             monoConfiguration.AddController(platformController);
             monoConfiguration.AddController(lifesController);
             monoConfiguration.AddController(ballController);
+            monoConfiguration.AddController(pauseGameController);
         }
     }
 }

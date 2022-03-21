@@ -8,10 +8,12 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
     {
         public bool IsStarted { get; set; }
         
+        public bool BallIsStopped { get; set; }
+        
         public Vector2 BallPosition { get; set; }
         
         public float Speed { get; set; }
-
+        
         public float MinBounceAngle { get; set; }
         
         public float ProgressBarStep { get; set; }

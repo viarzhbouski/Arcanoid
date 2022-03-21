@@ -37,10 +37,10 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public void DecreaseLife()
         {
             _lifesModel.LifesCount--;
-            // if (_lifesModel.LifesCount == 0)
-            // {
-            //     PopupManager.Instance.ShowPopup<WinLevelPopupView>();
-            // }
+            if (_lifesModel.LifesCount == 0)
+            {
+                PopupManager.Instance.ShowPopup<GameOverPopupView>();
+            }
             
             _lifesModel.OnChange?.Invoke();
         }

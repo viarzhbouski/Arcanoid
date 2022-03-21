@@ -17,7 +17,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private BallController _ballController;
 
         private Vector2 _prevMovementVector;
-
+        private Vector2 _movementVectorBeforePause;
+        
         public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
@@ -26,14 +27,33 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         public void RenderChanges()
         {
-            _prevMovementVector = ballRigidbody.velocity;
-            if (!_ballModel.IsStarted)
+            SetBallState();
+
+            if (!_ballModel.BallIsStopped)
             {
-                UpdateBallPosition();
+                _prevMovementVector = ballRigidbody.velocity;
+                if (!_ballModel.IsStarted)
+                {
+                    UpdateBallPosition();
+                }
+                else
+                {
+                    PushBall();
+                }
             }
-            else
+        }
+
+        private void SetBallState()
+        {
+            if (_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
             {
-                PushBall();
+                _movementVectorBeforePause = ballRigidbody.velocity;
+                ballRigidbody.bodyType = RigidbodyType2D.Static;
+            }
+            if (!_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Static)
+            {
+                ballRigidbody.bodyType = RigidbodyType2D.Dynamic;
+                ballRigidbody.velocity = _movementVectorBeforePause;
             }
         }
 

@@ -35,6 +35,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             if (!_platformModel.IsHold)
             {
+                platformRigidbody2D.velocity = Vector2.zero;
                 return;
             }
             
@@ -42,10 +43,15 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             var tapPositionX = new Vector3(tapPosition.x, Vector2.zero.y);
             var positionX = new Vector3(transform.position.x, Vector2.zero.y);
             var mouseDir = tapPositionX - positionX;
+
             if (mouseDir.magnitude <= _clickPointAndPlatformMinDir)
+            {
                 platformRigidbody2D.velocity = Vector2.zero;
+            }
             else
+            {
                 platformRigidbody2D.velocity = mouseDir.normalized * _platformModel.PlatformSpeed;
+            }
         }
     }
 }
