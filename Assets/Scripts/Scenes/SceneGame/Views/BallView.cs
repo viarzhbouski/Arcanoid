@@ -79,27 +79,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 ballRigidbody.velocity = _ballModel.Speed * ballRigidbody.velocity.normalized;
             }
         }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            CorrectBallMovement();
-            var blockView = collision.collider.gameObject.GetComponent<BlockView>();
-            
-            if (blockView != null)
-            {
-                SpawnBallCollisionEffect();
-                blockView.Damage();
-                
-                if (!blockView.CanDestroy)
-                {
-                    return;
-                }
-
-                var blockObjectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
-                blockObjectPool.DestroyObject(blockView);
-                _ballController.BallDestroyBlock();
-            }
-        }
 
         private void SpawnBallCollisionEffect()
         {
@@ -124,8 +103,37 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 ballRigidbody.velocity = newBallVector;
             }
         }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            var platformView = collision.collider.gameObject.GetComponent<PlatformView>();
+            
+            if (platformView)
+            {
+                return;
+            }
+            
+            CorrectBallMovement();
+            
+            var blockView = collision.collider.gameObject.GetComponent<BlockView>();
+            
+            if (blockView != null)
+            {
+                SpawnBallCollisionEffect();
+                blockView.Damage();
+                
+                if (!blockView.CanDestroy)
+                {
+                    return;
+                }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+                var blockObjectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
+                blockObjectPool.DestroyObject(blockView);
+                _ballController.BallDestroyBlock();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D otherCollider)
         {
             _ballController.BallOutOfGameField();
             ballTrail.enabled = false;

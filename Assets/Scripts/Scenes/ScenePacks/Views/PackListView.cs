@@ -1,9 +1,8 @@
-﻿using MonoModels;
+﻿using Common.Enums;
 using Scenes.ScenePack.Models;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Helpers;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -28,7 +27,7 @@ namespace Scenes.ScenePack.Views
 
         private void BackToMainMenuButtonOnClick()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene((int)GameScenes.MainMenu);
         }
 
         public void RenderChanges()
@@ -42,6 +41,8 @@ namespace Scenes.ScenePack.Views
             {
                 var packObject = Instantiate(packPrefab, contentTransform);
                 packObject.PackNameUI.text = pack.Name;
+                packObject.LevelProgressUI.text = $"{pack.CurrentLevel}/{pack.MaxLevels}";
+                packObject.PackImageUI.sprite = pack.PackIcon;
                 
                 if (pack.CanChoose)
                 {
@@ -57,7 +58,7 @@ namespace Scenes.ScenePack.Views
         private void PackOnClick(int packId)
         {
             DataRepository.Pack = packId;
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene((int)GameScenes.Game);
         }
     }
 }

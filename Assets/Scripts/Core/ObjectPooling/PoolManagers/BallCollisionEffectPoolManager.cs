@@ -20,6 +20,8 @@ namespace Scripts.Core.ObjectPooling
             _objectPool.InitPool();
         }
 
+        public override void ClearPool() => _objectPool.ClearPool();
+
         public BallCollisionEffectView GetObject() => _objectPool.GetObject();
         
         public void DestroyObject(BallCollisionEffectView obj) => StartCoroutine(DestroyByDelay(obj));

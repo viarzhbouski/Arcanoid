@@ -16,6 +16,7 @@ MonoBehaviour:
   minBounceAngle: 30
   platformSpeed: 3
   lifeCount: 3
+  maxLifeCount: 4
   maxViewportSize: 1
   spaceWidth: 0.005
   spaceHeight: 0.005
@@ -24,7 +25,8 @@ MonoBehaviour:
     name: PACK1
     levels:
     - {fileID: 4900000, guid: 2bc6c91e3ac6d8844aebd913a092077d, type: 3}
-  - image: {fileID: 21300000, guid: 6214e7b0fddbf294984bd627a3271153, type: 3}
+    - {fileID: 4900000, guid: 9ab2e502da5e1dc49b28dace841c2096, type: 3}
+  - image: {fileID: 3768298933040644959, guid: 166392c73d241c64ba7ea8f12ba37005, type: 3}
     name: PACK2
     levels:
     - {fileID: 4900000, guid: b2f6bd719b89b7a4eb8f1d8f7a37a326, type: 3}
@@ -32,9 +34,10 @@ MonoBehaviour:
   - healthPoints: 0
     blockType: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-  - healthPoints: 3
+  - healthPoints: 1
     blockType: 1
     color: {r: 0.6839622, g: 1, b: 0.7078642, a: 1}
   - healthPoints: 0
     blockType: 2
     color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  pausePopupDelayAfterContinue: 0.5

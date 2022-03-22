@@ -1,6 +1,8 @@
-﻿using Managers;
+﻿using System.Collections;
+using Managers;
 using Scenes.SceneGame.Views.Popups;
 using Scripts.Core.Interfaces.MVC;
+using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +16,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         private PauseGameModel _pauseGameModel;
         private PauseGameController _pauseGameController;
+        private PausePopupView _pausePopup;
 
         public void Bind(IModel model, IController controller)
         {
@@ -21,15 +24,37 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             _pauseGameController = controller as PauseGameController;
             pauseButton.onClick.AddListener(PauseButtonOnClick);
         }
+        
+        public void RenderChanges()
+        {
+        }
 
         private void PauseButtonOnClick()
         {
             _pauseGameController.GameInPause(true);
-            PopupManager.Instance.ShowPopup<PausePopupView>();
+            _pausePopup = PopupManager.Instance.ShowPopup<PausePopupView>();
+            _pausePopup.ContinueButton.onClick.AddListener(PausePopupContinueButtonOnClick);
+            _pausePopup.RestartButton.onClick.AddListener(PausePopupRestartButtonOnClick);
         }
 
-        public void RenderChanges()
+        private void PausePopupContinueButtonOnClick()
         {
+            PopupManager.Instance.ClosePopup(_pausePopup);
+            StartCoroutine(ContinueGame());
+        } 
+        
+        private void PausePopupRestartButtonOnClick()
+        {
+            var objectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
+            objectPool.ClearPool();
+            PopupManager.Instance.ClosePopup(_pausePopup);
+            _pauseGameController.RestartLevel();
+        }
+
+        IEnumerator ContinueGame()
+        {
+            yield return new WaitForSeconds(_pauseGameModel.PausePopupDelayAfterContinue);
+            _pauseGameController.GameInPause(false);
         }
     }
 }

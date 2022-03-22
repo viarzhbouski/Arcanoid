@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8867129054205995434}
   damageSprites:
+  - {fileID: 21300000, guid: 8cff189ca0b47944aafd3b93a8dffb62, type: 3}
   - {fileID: 21300000, guid: 13a350c8a751cbd40aabf588c7614e8f, type: 3}
   - {fileID: 21300000, guid: 9134a5545ecdee64d85b7210801c3e9e, type: 3}
   - {fileID: 21300000, guid: 5cf81ada3f63ed74988de37cb6fe84ba, type: 3}

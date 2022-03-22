@@ -1,3 +1,4 @@
+using Scripts.Core;
 using UnityEngine;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
@@ -7,16 +8,16 @@ using Scripts.ScriptableObjects;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class PlatformController : IController, IHasUpdate
+    public class PlatformController : IController, IHasStart, IHasUpdate
     {
-        private readonly BallController _ballController;
         private readonly PlatformModel _platformModel;
         private readonly PlatformView _platformView;
         private readonly MainConfig _mainConfig;
+        
+        private BallController _ballController;
 
-        public PlatformController(IView view, BallController ballController, MainConfig mainConfig)
+        public PlatformController(IView view, MainConfig mainConfig)
         {
-            _ballController = ballController;
             _mainConfig = mainConfig;
             _platformModel = new PlatformModel();
             _platformView = view as PlatformView;
@@ -24,6 +25,11 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _platformView!.Bind(_platformModel, this);
             _platformModel.PlatformSpeed = mainConfig.BallSpeed;
             _platformModel.OnChangeHandler(ControllerOnChange);
+        }
+        
+        public void StartController()
+        {
+            _ballController = AppContext.Context.GetController<BallController>();
         }
         
         public void UpdateController()

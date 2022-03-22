@@ -23,9 +23,13 @@ namespace Scenes.ScenePack.Models
         {
             public int Id { get; set; }
             
-            public Sprite Image { get; set; }
+            public Sprite PackIcon { get; set; }
         
             public string Name { get; set; }
+            
+            public int CurrentLevel { get; set; }
+            
+            public int MaxLevels { get; set; }
             
             public bool CanChoose { get; set; }
         }

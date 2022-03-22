@@ -3,7 +3,9 @@ using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Helpers;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Views
 {
@@ -17,6 +19,12 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         [SerializeField]
         private RectTransform topPanel;
+
+        [SerializeField]
+        private TMP_Text levelNumber;
+        
+        [SerializeField]
+        private Image packIcon;
 
         private GenerateLevelModel _generateLevelModel;
 
@@ -34,6 +42,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void RenderLevelMap()
         {
+            SetLevelUI();
+            
             foreach (var block in _generateLevelModel.Blocks)
             {
                 if (block.BlockType == BlockTypes.Empty)
@@ -47,6 +57,12 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);
                 blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize, gameCamera, blockMono.SpriteRenderer);
             }
+        }
+
+        private void SetLevelUI()
+        {
+            levelNumber.text = _generateLevelModel.LevelNumber;
+            packIcon.sprite = _generateLevelModel.PackIcon;
         }
     }
 }

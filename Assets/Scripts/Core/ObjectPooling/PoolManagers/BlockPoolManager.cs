@@ -16,6 +16,8 @@ namespace Scripts.Core.ObjectPooling
             _objectPool.InitPool();
         }
 
+        public override void ClearPool() => _objectPool.ClearPool();
+
         public BlockView GetObject() => _objectPool.GetObject();
         
         public void DestroyObject(BlockView obj) => _objectPool.DestroyObject(obj);

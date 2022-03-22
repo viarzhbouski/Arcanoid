@@ -12,5 +12,7 @@ namespace Scripts.Helpers
         public static int GetLastLevel() => PlayerPrefs.GetInt(LastLevel, 0);
 
         public static void SetLastPack(int pack) => PlayerPrefs.SetInt(LastPack, pack);
+
+        public static void SetLastLevel(int level) => PlayerPrefs.SetInt(LastLevel, level);
     }
 }

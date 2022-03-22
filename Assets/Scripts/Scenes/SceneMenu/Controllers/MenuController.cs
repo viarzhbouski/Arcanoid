@@ -2,11 +2,13 @@
 using Scenes.SceneMenu.Views;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
+using Scripts.Helpers;
 using Scripts.ScriptableObjects;
+using UnityEngine;
 
 namespace Scenes.SceneMenu.Controllers
 {
-    public class MenuController : IController, IHasStart
+    public class MenuController : IController, IHasUpdate
     {
         private readonly MenuModel _menuModel;
         private readonly MenuView _menuView;
@@ -25,8 +27,13 @@ namespace Scenes.SceneMenu.Controllers
         {
             _menuView.RenderChanges();
         }
-        public void StartController()
+        public void UpdateController()
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GameProgressHelper.SetLastLevel(0);
+                GameProgressHelper.SetLastPack(0);
+            }
         }
     }
 }

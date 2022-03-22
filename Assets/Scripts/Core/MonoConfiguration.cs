@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
+using UnityEngine;
 
 namespace Scripts.Core
 {
     public class MonoConfiguration
     {
-        private List<IHasStart> _starts = new List<IHasStart>();
-        private List<IHasUpdate> _updates = new List<IHasUpdate>();
-        private List<IHasFixedUpdate> _fixedUpdates = new List<IHasFixedUpdate>();
+        private readonly List<IHasStart> _starts = new List<IHasStart>();
+        private readonly List<IHasUpdate> _updates = new List<IHasUpdate>();
+        private readonly List<IHasFixedUpdate> _fixedUpdates = new List<IHasFixedUpdate>();
+        private readonly AppContext _appContext;
+        
+        public MonoConfiguration()
+        {
+            _appContext = new AppContext();
+            _starts = new List<IHasStart>();
+            _updates = new List<IHasUpdate>();
+            _fixedUpdates = new List<IHasFixedUpdate>();
+        }
 
         public void AddController(IController controller)
         {
@@ -28,6 +38,8 @@ namespace Scripts.Core
             {
                 _fixedUpdates.Add(fixedUpdate);
             }
+            
+            AppContext.Context.AddController(controller);
         }
 
         public void InitPools(List<PoolManager> poolManagers)
