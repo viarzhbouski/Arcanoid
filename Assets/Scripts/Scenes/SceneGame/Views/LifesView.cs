@@ -4,9 +4,9 @@ using Common.Enums;
 using Managers;
 using Scenes.SceneGame.Views.Popups;
 using Scripts.Core.Interfaces.MVC;
+using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Views
@@ -20,11 +20,14 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private Transform lifeGridUI;
         
         private LifesModel _lifesModel;
+        private LifesController _lifesController;
+        private GameOverPopupView _gameOverPopupView;
         private readonly Stack<GameObject> _lifesStack = new Stack<GameObject>();
 
         public void Bind(IModel model, IController controller)
         {
             _lifesModel = model as LifesModel;
+            _lifesController = controller as LifesController;
         }
 
         public void RenderChanges()
@@ -56,9 +59,9 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
                 if (!_lifesStack.Any())
                 {
-                    var popup = PopupManager.Instance.ShowPopup<GameOverPopupView>();
-                    popup.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
-                    popup.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
+                    _gameOverPopupView = PopupManager.Instance.ShowPopup<GameOverPopupView>();
+                    _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
+                    _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
                 }
             }
         }
@@ -70,7 +73,10 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void GameOverPopupRestartButtonOnClick()
         {
-            throw new System.NotImplementedException();
+            var objectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
+            objectPool.ClearPool();
+            PopupManager.Instance.ClosePopup(_gameOverPopupView);
+            _lifesController.RestartLevel();
         }
     }
 }

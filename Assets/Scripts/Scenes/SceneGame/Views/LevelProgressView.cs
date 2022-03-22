@@ -2,6 +2,7 @@
 using Managers;
 using Scenes.SceneGame.Views.Popups;
 using Scripts.Core.Interfaces.MVC;
+using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         private LevelProgressModel _levelProgressModel;
         private LevelProgressController _levelProgressController;
+        private WinLevelPopupView _winLevelPopupView;
 
         public void Bind(IModel model, IController controller)
         {
@@ -25,7 +27,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
-                PopupManager.Instance.ShowPopup<WinLevelPopupView>();
+                _winLevelPopupView = PopupManager.Instance.ShowPopup<WinLevelPopupView>();
+                _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             }
             else
             {
@@ -40,6 +43,14 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                     progressBar.localScale = progressBarScale;
                 }
             }
+        }
+
+        private void NextLevelButtonOnClick()
+        {
+            ObjectPools.Instance.GetObjectPool<BlockPoolManager>()
+                                .ClearPool();
+            _levelProgressController.LevelWin();
+            PopupManager.Instance.ClosePopup(_winLevelPopupView);
         }
     }
 }

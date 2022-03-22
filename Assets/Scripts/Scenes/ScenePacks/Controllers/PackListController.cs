@@ -31,15 +31,20 @@ namespace Scenes.ScenePack.Controllers
 
         private void GetPacks()
         {
+            var lastLevel = GameProgressHelper.GetLastLevel();
             var lastPack = GameProgressHelper.GetLastPack();
             
             for (var i = 0; i < _mainConfig.Packs.Length; i++)
             {
+                var canChoose = i <= lastPack;
                 var pack = new Pack
                 {
                     Id = i,
-                    Name = _mainConfig.Packs[i].Mame,
-                    CanChoose = i <= lastPack
+                    Name = canChoose ? _mainConfig.Packs[i].Mame : "???",
+                    CurrentLevel = canChoose ? lastLevel : 0,
+                    MaxLevels = _mainConfig.Packs[i].Levels.Length,
+                    PackIcon = canChoose ? _mainConfig.Packs[i].Image : null,
+                    CanChoose = canChoose
                 };
 
                 _packListModel.Packs.Add(pack);

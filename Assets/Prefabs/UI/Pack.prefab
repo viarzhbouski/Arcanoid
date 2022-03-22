@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   packNameUI: {fileID: 5295134543956105899}
+  levelProgressUI: {fileID: 40388565937389529}
   packImageUI: {fileID: 534480486535680068}
   packButtonUI: {fileID: 4259896379348594105}
 --- !u!114 &4259896379348594105
@@ -338,7 +339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2695397407002535339, guid: 2c7e862bda478714397e0c8f6ac7e66e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

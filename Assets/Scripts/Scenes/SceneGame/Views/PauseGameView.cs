@@ -49,7 +49,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             objectPool.ClearPool();
             PopupManager.Instance.ClosePopup(_pausePopup);
             _pauseGameController.RestartLevel();
-            _pauseGameController.GameInPause(false);
         }
 
         IEnumerator ContinueGame()

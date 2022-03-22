@@ -72,6 +72,10 @@ namespace Scripts.Scenes.SceneGame.Controllers
             var pack = _mainConfig.Packs[DataRepository.Pack];
             var levelData = pack.Levels[lastLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
+
+            _generateLevelModel.LevelNumber = $"{lastLevel + 1}";
+            _generateLevelModel.PackIcon = pack.Image;
+            
             return levelMap;
         }
 

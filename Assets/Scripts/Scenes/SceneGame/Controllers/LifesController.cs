@@ -1,18 +1,19 @@
-﻿using Managers;
-using Scenes.SceneGame.Views.Popups;
+﻿using Scripts.Core;
+using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
 using Scripts.ScriptableObjects;
-using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class LifesController : IController
+    public class LifesController : IController, IHasStart
     {
         private readonly LifesModel _lifesModel;
         private readonly LifesView _lifesView;
         private readonly MainConfig _mainConfig;
+
+        private PauseGameController _pauseGameController;
 
         public LifesController(IView view, MainConfig mainConfig)
         {
@@ -22,6 +23,11 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _lifesView!.Bind(_lifesModel, this);
             _lifesModel.OnChangeHandler(ControllerOnChange);
             LoadLifes();
+        }
+        
+        public void StartController()
+        {
+            _pauseGameController = AppContext.Context.GetController<PauseGameController>();
         }
 
         public void ControllerOnChange()
@@ -43,6 +49,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
         {
             _lifesModel.LifesCount--;
             _lifesModel.OnChange?.Invoke();
+
+            if (_lifesModel.LifesCount == 0)
+            {
+                _pauseGameController.GameInPause(true);
+            }
         }
+
+        public void RestartLevel() => _pauseGameController.RestartLevel();
     }
 }

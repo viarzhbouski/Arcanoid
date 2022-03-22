@@ -41,6 +41,8 @@ namespace Scenes.ScenePack.Views
             {
                 var packObject = Instantiate(packPrefab, contentTransform);
                 packObject.PackNameUI.text = pack.Name;
+                packObject.LevelProgressUI.text = $"{pack.CurrentLevel}/{pack.MaxLevels}";
+                packObject.PackImageUI.sprite = pack.PackIcon;
                 
                 if (pack.CanChoose)
                 {

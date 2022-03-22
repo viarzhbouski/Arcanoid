@@ -1,5 +1,6 @@
 ﻿using Managers;
 using Scenes.SceneGame.Views.Popups;
+using Scripts.Core;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -9,25 +10,30 @@ using UnityEngine;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class BallController : IController, IHasUpdate
+    public class BallController : IController, IHasStart, IHasUpdate
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
         private readonly MainConfig _mainConfig;
-        private readonly LifesController _lifesController;
-        private readonly LevelProgressController _levelProgressController;
-        private bool _isHold;
         
-        public BallController(IView view, LifesController lifesController, LevelProgressController levelProgressController, MainConfig mainConfig)
+        private LifesController _lifesController;
+        private LevelProgressController _levelProgressController;
+        private bool _isHold;
+
+        public BallController(IView view, MainConfig mainConfig)
         {
-            _lifesController = lifesController;
-            _levelProgressController = levelProgressController;
             _mainConfig = mainConfig;
             _ballModel = new BallModel();
             _ballView = view as BallView;
             _ballView!.Bind(_ballModel, this);
             _ballModel.MinBounceAngle = mainConfig.MinBounceAngle;
             _ballModel.OnChangeHandler(ControllerOnChange);
+        }
+        
+        public void StartController()
+        {
+            _lifesController = AppContext.Context.GetController<LifesController>();
+            _levelProgressController = AppContext.Context.GetController<LevelProgressController>();
         }
 
         public void ControllerOnChange()

@@ -10,6 +10,9 @@ namespace Scenes.ScenePack.Views
         private TMP_Text packNameUI;
         
         [SerializeField]
+        private TMP_Text levelProgressUI;
+        
+        [SerializeField]
         private Image packImageUI;
         
         [SerializeField]
@@ -18,6 +21,8 @@ namespace Scenes.ScenePack.Views
         public Image PackImageUI => packImageUI;
         
         public TMP_Text PackNameUI => packNameUI;
+        
+        public TMP_Text LevelProgressUI => levelProgressUI;
         
         public Button PackButtonUI => packButtonUI;
     }
