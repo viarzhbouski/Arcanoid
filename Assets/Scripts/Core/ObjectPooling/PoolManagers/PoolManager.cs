@@ -8,5 +8,7 @@ namespace Scripts.Core.ObjectPooling
         protected int poolSize;
 
         public abstract void InitPool();
+        
+        public abstract void ClearPool();
     }
 }

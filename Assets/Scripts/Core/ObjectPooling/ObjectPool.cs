@@ -8,9 +8,9 @@ namespace Scripts.Core.ObjectPooling
     public class ObjectPool<T> where T : MonoBehaviour
     {
         private readonly Stack<T> _poolStack = new Stack<T>();
-        private T _objectPrefab;
-        private Transform _objectTransform;
-        private int _poolSize;
+        private readonly T _objectPrefab;
+        private readonly Transform _objectTransform;
+        private readonly int _poolSize;
 
         public ObjectPool(T objectPrefab, Transform objectTransform, int poolSize)
         {
@@ -33,8 +33,20 @@ namespace Scripts.Core.ObjectPooling
                                                 : SpawnObject();
 
             poolObject.gameObject.SetActive(true);
-
+            
             return poolObject;
+        }
+
+        public void ClearPool()
+        {
+            for (var i = 0; i < _objectTransform.childCount; i++)
+            {
+                var poolObject = _objectTransform.GetChild(i);
+                if (poolObject.gameObject.activeSelf)
+                {
+                    poolObject.gameObject.SetActive(false);
+                }
+            }
         }
         
         public void DestroyObject(T obj)

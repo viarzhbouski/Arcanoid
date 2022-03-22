@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Enums;
+using Managers;
+using Scenes.SceneGame.Views.Popups;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.Scenes.SceneGame.Controllers.Views
 {
@@ -29,6 +34,14 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void RenderLifes()
         {
+            if (_lifesModel.IsStartGame)
+            {
+                while (_lifesStack.Any())
+                {
+                    Destroy(_lifesStack.Pop());
+                }
+            }
+            
             if (!_lifesStack.Any())
             {
                 for (var i = 0; i < _lifesModel.LifesCount; i++)
@@ -40,7 +53,24 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             else
             {
                 Destroy(_lifesStack.Pop());
+
+                if (!_lifesStack.Any())
+                {
+                    var popup = PopupManager.Instance.ShowPopup<GameOverPopupView>();
+                    popup.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
+                    popup.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
+                }
             }
+        }
+
+        private void GameOverPopupBackToMenuButtonOnClick()
+        {
+            SceneManager.LoadScene((int)GameScenes.Packs);
+        }
+
+        private void GameOverPopupRestartButtonOnClick()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

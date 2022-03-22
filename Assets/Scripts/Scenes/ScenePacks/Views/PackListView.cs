@@ -1,9 +1,8 @@
-﻿using MonoModels;
+﻿using Common.Enums;
 using Scenes.ScenePack.Models;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Helpers;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -28,7 +27,7 @@ namespace Scenes.ScenePack.Views
 
         private void BackToMainMenuButtonOnClick()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene((int)GameScenes.MainMenu);
         }
 
         public void RenderChanges()
@@ -57,7 +56,7 @@ namespace Scenes.ScenePack.Views
         private void PackOnClick(int packId)
         {
             DataRepository.Pack = packId;
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene((int)GameScenes.Game);
         }
     }
 }

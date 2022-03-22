@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using Managers;
+using Scenes.SceneGame.Views.Popups;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
@@ -21,7 +23,23 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         public void RenderChanges()
         {
-            progressBar.DOScaleX( progressBar.localScale.x + _levelProgressModel.ProgressBarStep, 0.2f);
+            if (_levelProgressModel.BlocksAtGameField == 0)
+            {
+                PopupManager.Instance.ShowPopup<WinLevelPopupView>();
+            }
+            else
+            {
+                if (!_levelProgressModel.IsStartGame)
+                {
+                    progressBar.DOScaleX(progressBar.localScale.x + _levelProgressModel.ProgressBarStep, 0.2f);
+                }
+                else
+                {
+                    var progressBarScale = progressBar.localScale;
+                    progressBarScale.x = 0f;
+                    progressBar.localScale = progressBarScale;
+                }
+            }
         }
     }
 }

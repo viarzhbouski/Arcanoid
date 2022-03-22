@@ -38,8 +38,19 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public void BallOutOfGameField()
         {
             _lifesController.DecreaseLife();
+            ReloadBall();
+        }
+
+        public void ReloadBall()
+        {
             _ballModel.IsStarted = false;
             _ballModel.OnChange?.Invoke();
+        }
+
+        public void ReloadBallForNewGame()
+        {
+            _levelProgressController.InitProgressBar();
+            ReloadBall();
         }
         
         public void UpdateController()

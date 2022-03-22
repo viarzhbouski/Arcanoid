@@ -36,7 +36,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             var lifesController = new LifesController(lifesView, mainConfig);
             var ballController = new BallController(ballView, lifesController, levelProgressController, mainConfig);
             var platformController = new PlatformController(platformView, ballController, mainConfig);
-            var pauseGameController = new PauseGameController(pauseGameView, ballController, mainConfig);
+            var pauseGameController = new PauseGameController(pauseGameView, ballController, generateLevelController, lifesController, mainConfig);
             
             monoConfiguration.AddController(generateLevelController);
             monoConfiguration.AddController(levelProgressController);

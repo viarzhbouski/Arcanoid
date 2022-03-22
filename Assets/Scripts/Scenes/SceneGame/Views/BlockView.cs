@@ -47,6 +47,8 @@ namespace Scenes.SceneGame.Views
             {
                 _spriteQueue.Enqueue(damageSprite);
             }
+
+            spriteRenderer.sprite = _spriteQueue.Dequeue();
         }
 
         public void Damage()

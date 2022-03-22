@@ -32,7 +32,7 @@ RectTransform:
   m_Children:
   - {fileID: 3036742658389596086}
   m_Father: {fileID: 494349428066138978}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -286,8 +286,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4913580229855893651}
-  - {fileID: 1905074818060933509}
   - {fileID: 6079381061060801512}
+  - {fileID: 1905074818060933509}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -347,6 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupRectTransform: {fileID: 494349428066138978}
+  backToMenuButton: {fileID: 8739883166929243149}
+  restartButton: {fileID: 1994018436774286189}
 --- !u!1 &2801572634176872633
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +381,7 @@ RectTransform:
   m_Children:
   - {fileID: 8211009360480743403}
   m_Father: {fileID: 494349428066138978}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}

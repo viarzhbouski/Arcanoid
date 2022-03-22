@@ -3,7 +3,6 @@ using System.Linq;
 using Common.Enums;
 using Newtonsoft.Json;
 using UnityEngine;
-using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.Models;
 using Scripts.Helpers;
@@ -13,7 +12,7 @@ using Scripts.ScriptableObjects;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class GenerateLevelController : IController, IHasStart
+    public class GenerateLevelController : IController
     {
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
@@ -28,15 +27,45 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _blocks = new Dictionary<BlockTypes, Block>();
             _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
+            LoadLevel();
+        }
+        
+        public void ReloadLevel()
+        {
+            ClearLoadedLevel();
+            LoadLevel();
         }
 
-        public void StartController()
+        public int GetBlocksCount()
+        {
+            return _generateLevelModel.Blocks.Count(e => e.BlockType != BlockTypes.Undestroyable);
+        }
+
+        public void ControllerOnChange()
+        {
+            _generateLevelView.RenderChanges();
+        }
+        
+        private void LoadLevel()
         {
             var level = GetLevel();
             FillDict();
             GenerateBlocksGrid(level);
         }
 
+        private void ClearLoadedLevel()
+        {
+            if (_generateLevelModel.Blocks.Any())
+            {
+                _generateLevelModel.Blocks.Clear();
+            }
+
+            if (_blocks.Any())
+            {
+                _blocks.Clear();
+            }
+        }
+        
         private LevelMap GetLevel()
         {
             var lastLevel = GameProgressHelper.GetLastLevel();
@@ -44,11 +73,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             var levelData = pack.Levels[lastLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
             return levelMap;
-        }
-
-        public void ControllerOnChange()
-        {
-            _generateLevelView.RenderChanges();
         }
 
         private void GenerateBlocksGrid(LevelMap level)
@@ -81,7 +105,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
                     _generateLevelModel.Blocks.Add(block);
                 }
 
-                y -=  cellHeight + _mainConfig.SpaceHeight;
+                y -= cellHeight + _mainConfig.SpaceHeight;
             }
 
             _generateLevelModel.OnChange?.Invoke();
@@ -93,11 +117,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             {
                 _blocks.Add(block.BlockType, block);
             }
-        }
-
-        public int GetBlocksCount()
-        {
-            return _generateLevelModel.Blocks.Count(e => e.BlockType != BlockTypes.Undestroyable);
         }
     }
 }
