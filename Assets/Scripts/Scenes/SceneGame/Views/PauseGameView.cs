@@ -45,12 +45,21 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         private void PausePopupRestartButtonOnClick()
         {
-            var objectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
-            objectPool.ClearPool();
+            ClearBlockPools();
             PopupManager.Instance.ClosePopup(_pausePopup);
             _pauseGameController.RestartLevel();
         }
-
+        
+        private void ClearBlockPools()
+        {
+            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+                .ClearPool();
+        }
+        
         IEnumerator ContinueGame()
         {
             yield return new WaitForSeconds(_pauseGameModel.PausePopupDelayAfterContinue);

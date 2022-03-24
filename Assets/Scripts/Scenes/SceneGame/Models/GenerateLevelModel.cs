@@ -18,7 +18,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
         
         public Vector2 StartPosition { get; set; }
 
-        public List<Block> Blocks { get; set; } = new List<Block>();
+        public Block[,] Blocks { get; set; }
         
         public Action OnChange { get; set; }
 

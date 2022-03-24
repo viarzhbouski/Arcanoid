@@ -73,10 +73,19 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void GameOverPopupRestartButtonOnClick()
         {
-            var objectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
-            objectPool.ClearPool();
+            ClearBlockPools();
             PopupManager.Instance.ClosePopup(_gameOverPopupView);
             _lifesController.RestartLevel();
+        }
+
+        private void ClearBlockPools()
+        {
+            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+                .ClearPool();
         }
     }
 }

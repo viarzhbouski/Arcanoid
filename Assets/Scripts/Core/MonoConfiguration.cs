@@ -42,13 +42,13 @@ namespace Scripts.Core
             AppContext.Context.AddController(controller);
         }
 
-        public void InitPools(List<PoolManager> poolManagers)
+        public void InitPools(List<PoolProvider> poolProviders)
         {
             var objectPools = new ObjectPools();
-            foreach (var poolManager in poolManagers)
+            foreach (var poolProvider in poolProviders)
             {
-                poolManager.InitPool();
-                objectPools.PoolManagers[poolManager.GetType()] = poolManager;
+                poolProvider.Init();
+                objectPools.PoolProviders[poolProvider.GetType()] = poolProvider;
             }
         }
 

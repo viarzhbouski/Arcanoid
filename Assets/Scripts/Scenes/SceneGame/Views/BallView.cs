@@ -1,4 +1,5 @@
-﻿using Scenes.SceneGame.Views;
+﻿using Common.Enums;
+using Scenes.SceneGame.Views.Blocks;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -82,10 +83,10 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void SpawnBallCollisionEffect()
         {
-            var ballCollisionEffectPoolManager = ObjectPools.Instance.GetObjectPool<BallCollisionEffectPoolManager>();;
+            var ballCollisionEffectPoolManager = ObjectPools.Instance.GetObjectPool<BallCollisionEffectPool>();;
             var ballCollisionEffectMono = ballCollisionEffectPoolManager.GetObject();
             ballCollisionEffectMono.transform.position = transform.position;
-            ballCollisionEffectPoolManager.DestroyObject(ballCollisionEffectMono);
+            ballCollisionEffectPoolManager.DestroyPoolObject(ballCollisionEffectMono);
         }
 
         private void CorrectBallMovement()
@@ -115,21 +116,42 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             
             CorrectBallMovement();
             
-            var blockView = collision.collider.gameObject.GetComponent<BlockView>();
+            var blockView = collision.collider.gameObject.GetComponent<BaseBlockView>();
             
             if (blockView != null)
             {
                 SpawnBallCollisionEffect();
-                blockView.Damage();
-                
-                if (!blockView.CanDestroy)
-                {
-                    return;
-                }
+                BallHitBlock(blockView);
+            }
+        }
 
-                var blockObjectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
-                blockObjectPool.DestroyObject(blockView);
-                _ballController.BallDestroyBlock();
+        private void BallHitBlock(BaseBlockView blockView)
+        {
+            if (!blockView.BoostType.HasValue)
+            {
+                blockView.BlockHit();
+            }
+            
+            if (!blockView.CanDestroy)
+            {
+                return;
+            }
+
+            switch (blockView.BlockType)
+            {
+                case BlockTypes.Color:
+                    ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                                        .DestroyPoolObject((ColorBlockView)blockView);
+                    break;
+                case BlockTypes.Boost:
+                    ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+                               .DestroyPoolObject((BoostBlockView)blockView);
+                    break;
+            }
+            
+            if (blockView.BoostType.HasValue)
+            {
+                blockView.BlockHit();
             }
         }
 
