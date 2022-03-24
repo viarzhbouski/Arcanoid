@@ -3,7 +3,6 @@ using Boosts.Interfaces;
 using Common.Enums;
 using Scenes.SceneGame.Views.Blocks;
 using Scripts.Core.ObjectPooling;
-using UnityEngine;
 
 namespace Boosts
 {
@@ -32,7 +31,12 @@ namespace Boosts
                 switch (block.BlockType)
                 {
                     case BlockTypes.Color:
-                        ObjectPools.Instance.GetObjectPool<ColorBlockPool>().DestroyPoolObject((ColorBlockView)block);
+                        var blockColor = (ColorBlockView)block;
+                        blockColor.BlockHit();
+                        if (blockColor.CanDestroy)
+                        {
+                            ObjectPools.Instance.GetObjectPool<ColorBlockPool>().DestroyPoolObject(blockColor);
+                        }
                         break;
                     case BlockTypes.Granite:
                         ObjectPools.Instance.GetObjectPool<GraniteBlockPool>().DestroyPoolObject((GraniteBlockView)block);
