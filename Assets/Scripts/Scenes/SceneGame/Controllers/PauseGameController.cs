@@ -1,11 +1,11 @@
-﻿using Scripts.Core;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
+﻿using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class PauseGameController : IController, IHasStart
     {
@@ -29,9 +29,9 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         public void StartController()
         {
-            _generateLevelController = AppContext.Context.GetController<GenerateLevelController>();
-            _ballController = AppContext.Context.GetController<BallController>();
-            _lifesController = AppContext.Context.GetController<LifesController>();
+            _generateLevelController = AppControllers.Instance.GetController<GenerateLevelController>();
+            _ballController = AppControllers.Instance.GetController<BallController>();
+            _lifesController = AppControllers.Instance.GetController<LifesController>();
         }
 
         public void ControllerOnChange()

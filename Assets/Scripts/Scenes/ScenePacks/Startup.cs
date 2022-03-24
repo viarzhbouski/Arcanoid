@@ -1,11 +1,10 @@
-﻿using Scenes.ScenePack.Controllers;
-using Scenes.ScenePack.Views;
-using Scripts.Core;
-using Scripts.Core.Interfaces;
-using Scripts.ScriptableObjects;
+﻿using Core;
+using Scenes.ScenePacks.Controllers;
+using Scenes.ScenePacks.Views;
+using ScriptableObjects;
 using UnityEngine;
 
-namespace Scenes.ScenePack
+namespace Scenes.ScenePacks
 {
     public class Startup : BaseStartup
     {

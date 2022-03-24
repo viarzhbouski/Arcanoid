@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor.VersionControl;
-using UnityEngine;
+using Core.ObjectPooling.Pools;
 
-namespace Scripts.Core.ObjectPooling
+namespace Core.ObjectPooling
 {
     public class ObjectPools
     {

@@ -1,4 +1,4 @@
-﻿namespace Boosts.Interfaces
+﻿namespace Scenes.SceneGame.Boosts.Interfaces
 {
     public interface IHasBoost
     {

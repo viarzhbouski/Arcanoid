@@ -1,9 +1,9 @@
-﻿using Scenes.SceneMenu.Models;
+﻿using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneMenu.Models;
 using Scenes.SceneMenu.Views;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Helpers;
-using Scripts.ScriptableObjects;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneMenu.Controllers
@@ -31,8 +31,8 @@ namespace Scenes.SceneMenu.Controllers
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                GameProgressHelper.SetLastLevel(0);
-                GameProgressHelper.SetLastPack(0);
+                GameProgress.SetLastLevel(0);
+                GameProgress.SetLastPack(0);
             }
         }
     }

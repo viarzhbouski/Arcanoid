@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using Boosts;
-using Common.Enums;
+﻿using Common.Enums;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.Statics;
+using Scenes.SceneGame.Boosts;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Helpers;
-using Scripts.ScriptableObjects;
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class GenerateLevelView : MonoBehaviour, IView
     {

@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
+using Core.Interfaces.MVC;
 using Scenes.SceneMenu.Models;
-using Scripts.Core.Interfaces.MVC;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

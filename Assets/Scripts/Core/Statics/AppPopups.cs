@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Popup;
 using DG.Tweening;
-using MonoModels;
 using UnityEngine;
 
-namespace Managers
+namespace Core.Statics
 {
-    public class PopupManager : MonoBehaviour
+    public class AppPopups : MonoBehaviour
     {
         [SerializeField]
         private RectTransform canvas;
@@ -14,7 +14,7 @@ namespace Managers
         [SerializeField]
         private List<BasePopupView> popups;
         
-        public static PopupManager Instance;
+        public static AppPopups Instance;
         
         private void Start()
         {

@@ -1,11 +1,11 @@
-﻿using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
+﻿using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class BordersController : IController, IHasStart
     {

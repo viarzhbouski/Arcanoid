@@ -1,4 +1,4 @@
-﻿namespace Scripts.Core.Interfaces
+﻿namespace Core.Interfaces
 {
     public interface IHasFixedUpdate
     {

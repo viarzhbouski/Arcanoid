@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Boosts.Interfaces;
 using Common.Enums;
+using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 
-namespace Boosts
+namespace Scenes.SceneGame.Boosts
 {
     public class BombBoost : IHasBoost
     {

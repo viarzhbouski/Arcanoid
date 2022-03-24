@@ -1,8 +1,8 @@
-﻿using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Models;
+﻿using Core.Interfaces.MVC;
+using Scenes.SceneGame.Models;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class PlatformView : MonoBehaviour, IView
     {

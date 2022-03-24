@@ -3,7 +3,7 @@ using Common.Enums;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
-namespace Scripts.ScriptableObjects
+namespace ScriptableObjects
 {
     [Serializable]
     public struct Block

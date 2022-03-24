@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using Scripts.Core.Interfaces.MVC;
+using Core.Interfaces.MVC;
 
-namespace Scripts.Core
+namespace Core.Statics
 {
-    public class AppContext
+    public class AppControllers
     {
-        public static AppContext Context;
+        public static AppControllers Instance;
         private readonly Dictionary<Type, IController> _controllers;
 
-        public AppContext()
+        public AppControllers()
         {
-            if (Context == null)
+            if (Instance == null)
             {
-                Context = this;
+                Instance = this;
                 _controllers = new Dictionary<Type, IController>();
             }
             else
             {
-                Context._controllers.Clear();
+                Instance._controllers.Clear();
             }
         }
 

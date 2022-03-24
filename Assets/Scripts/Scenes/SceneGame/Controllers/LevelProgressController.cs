@@ -1,15 +1,13 @@
 ﻿using Common.Enums;
-using Scripts.Core;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Helpers;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
-using UnityEngine;
+using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class LevelProgressController : IController, IHasStart
     {
@@ -31,8 +29,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         public void StartController()
         {
-            _generateLevelController = AppContext.Context.GetController<GenerateLevelController>();
-            _pauseGameController = AppContext.Context.GetController<PauseGameController>();
+            _generateLevelController = AppControllers.Instance.GetController<GenerateLevelController>();
+            _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
             InitProgressBar();
         }
 
@@ -63,13 +61,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         public void LevelWin()
         {
-            var currentLevel = GameProgressHelper.GetLastLevel() + 1;
-            var currentPack = GameProgressHelper.GetLastPack();
+            var currentLevel = GameProgress.GetLastLevel() + 1;
+            var currentPack = GameProgress.GetLastPack();
             var pack = _mainConfig.Packs[currentPack];
 
             if (currentLevel < pack.Levels.Length)
             {
-                GameProgressHelper.SetLastLevel(currentLevel);
+                GameProgress.SetLastLevel(currentLevel);
             }
             else
             {
@@ -78,8 +76,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
                 if (currentPack < _mainConfig.Packs.Length)
                 {
                     DataRepository.Pack = currentPack;
-                    GameProgressHelper.SetLastPack(currentPack);
-                    GameProgressHelper.SetLastLevel(0);
+                    GameProgress.SetLastPack(currentPack);
+                    GameProgress.SetLastLevel(0);
                 }
                 else
                 {

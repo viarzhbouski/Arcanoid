@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using Scripts.Core.Interfaces;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers;
-using Scripts.ScriptableObjects;
+using Core.ObjectPooling.Pools;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.Core
+namespace Core
 {
     public class SceneHandler : MonoBehaviour
     {

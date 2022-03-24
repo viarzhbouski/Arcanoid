@@ -1,4 +1,4 @@
-﻿using Scripts.Core.ObjectPooling;
+﻿using Core.ObjectPooling.Interfaces;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Effects

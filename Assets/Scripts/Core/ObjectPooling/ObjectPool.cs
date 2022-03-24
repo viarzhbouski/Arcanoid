@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.ObjectPooling.Interfaces;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Scripts.Core.ObjectPooling
+namespace Core.ObjectPooling
 {
     public class ObjectPool<T> where T : IPoolable
     {

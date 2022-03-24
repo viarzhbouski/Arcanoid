@@ -1,14 +1,15 @@
 ﻿using System.Collections;
-using Managers;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.Statics;
+using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.Popups;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class PauseGameView : MonoBehaviour, IView
     {
@@ -33,21 +34,21 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private void PauseButtonOnClick()
         {
             _pauseGameController.GameInPause(true);
-            _pausePopup = PopupManager.Instance.ShowPopup<PausePopupView>();
+            _pausePopup = AppPopups.Instance.ShowPopup<PausePopupView>();
             _pausePopup.ContinueButton.onClick.AddListener(PausePopupContinueButtonOnClick);
             _pausePopup.RestartButton.onClick.AddListener(PausePopupRestartButtonOnClick);
         }
 
         private void PausePopupContinueButtonOnClick()
         {
-            PopupManager.Instance.ClosePopup(_pausePopup);
+            AppPopups.Instance.ClosePopup(_pausePopup);
             StartCoroutine(ContinueGame());
         } 
         
         private void PausePopupRestartButtonOnClick()
         {
             ClearBlockPools();
-            PopupManager.Instance.ClosePopup(_pausePopup);
+            AppPopups.Instance.ClosePopup(_pausePopup);
             _pauseGameController.RestartLevel();
         }
         

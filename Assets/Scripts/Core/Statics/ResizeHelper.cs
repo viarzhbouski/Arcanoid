@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Helpers
+namespace Core.Statics
 {
     public class ResizeHelper
     {

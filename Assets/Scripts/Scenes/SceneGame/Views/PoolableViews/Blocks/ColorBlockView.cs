@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Boosts.Interfaces;
+using Core.ObjectPooling;
+using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.ScenePools;
-using Scripts.Core.ObjectPooling;
-using Scripts.ScriptableObjects;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks

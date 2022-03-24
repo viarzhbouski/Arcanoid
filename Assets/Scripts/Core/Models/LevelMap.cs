@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Scripts.Core.Models
+namespace Core.Models
 {
     public class Layer
     {

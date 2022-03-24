@@ -1,12 +1,12 @@
-﻿using Common.Enums;
+﻿using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class BallView : MonoBehaviour, IView
     {

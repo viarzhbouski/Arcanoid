@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Boosts.Interfaces;
 using Common.Enums;
+using Core.ObjectPooling;
+using Core.ObjectPooling.Interfaces;
 using DG.Tweening;
+using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.ScenePools;
-using Scripts.Core.ObjectPooling;
-using Scripts.ScriptableObjects;
+using ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

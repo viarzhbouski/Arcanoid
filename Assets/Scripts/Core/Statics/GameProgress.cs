@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Helpers
+namespace Core.Statics
 {
-    public class GameProgressHelper
+    public class GameProgress
     {
         private const string LastPack = "lastPack";
         private const string LastLevel = "lastLevel";

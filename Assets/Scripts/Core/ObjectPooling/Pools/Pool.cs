@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Core.ObjectPooling.Interfaces;
+using UnityEngine;
 
-namespace Scripts.Core.ObjectPooling
+namespace Core.ObjectPooling.Pools
 {
     public class Pool<T> : PoolProvider where T : IPoolable
     {

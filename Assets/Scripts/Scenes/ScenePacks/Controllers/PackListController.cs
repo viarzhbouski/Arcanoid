@@ -1,13 +1,13 @@
-﻿using Scenes.ScenePack.Models;
-using Scenes.ScenePack.Views;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Helpers;
-using Scripts.ScriptableObjects;
+﻿using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.Statics;
+using Scenes.ScenePack.Models;
+using Scenes.ScenePacks.Views;
+using ScriptableObjects;
 using Pack = Scenes.ScenePack.Models.PackListModel.Pack;
 
-namespace Scenes.ScenePack.Controllers
+namespace Scenes.ScenePacks.Controllers
 {
     public class PackListController : IController, IHasStart
     {
@@ -31,8 +31,8 @@ namespace Scenes.ScenePack.Controllers
 
         private void GetPacks()
         {
-            var lastLevel = GameProgressHelper.GetLastLevel();
-            var lastPack = GameProgressHelper.GetLastPack();
+            var lastLevel = GameProgress.GetLastLevel();
+            var lastPack = GameProgress.GetLastPack();
             
             for (var i = 0; i < _mainConfig.Packs.Length; i++)
             {

@@ -1,20 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Boosts;
 using Common.Enums;
+using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Models;
+using Core.Statics;
 using Newtonsoft.Json;
-using Scripts.Core.Interfaces;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.Models;
-using Scripts.Helpers;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
-using AppContext = Scripts.Core.AppContext;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class GenerateLevelController : IController, IHasStart
     {
@@ -38,7 +35,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         public void StartController()
         {
-            _levelProgressController = AppContext.Context.GetController<LevelProgressController>();
+            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
         }
         
         public void ReloadLevel()
@@ -97,7 +94,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         private LevelMap GetLevel()
         {
-            var lastLevel = GameProgressHelper.GetLastLevel();
+            var lastLevel = GameProgress.GetLastLevel();
             var pack = _mainConfig.Packs[DataRepository.Pack];
             var levelData = pack.Levels[lastLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);

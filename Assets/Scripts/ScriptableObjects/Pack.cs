@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scripts.ScriptableObjects
+namespace ScriptableObjects
 {
     [Serializable]
     public struct Pack

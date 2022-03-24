@@ -1,14 +1,15 @@
 ﻿using System.Collections;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.Statics;
 using DG.Tweening;
-using Managers;
+using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.Popups;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class LevelProgressView : MonoBehaviour, IView
     {
@@ -52,7 +53,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         IEnumerator OpenWinPopup()
         {
             yield return new WaitForSeconds(WinPopupDelay);
-            _winLevelPopupView = PopupManager.Instance.ShowPopup<WinLevelPopupView>();
+            _winLevelPopupView = AppPopups.Instance.ShowPopup<WinLevelPopupView>();
             _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
         }
 
@@ -60,7 +61,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         {
             ClearBlockPools();
             _levelProgressController.LevelWin();
-            PopupManager.Instance.ClosePopup(_winLevelPopupView);
+            AppPopups.Instance.ClosePopup(_winLevelPopupView);
         }
         
         private void ClearBlockPools()

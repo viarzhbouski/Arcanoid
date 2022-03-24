@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using Core.ObjectPooling.Pools;
 using Scenes.SceneGame.Views.PoolableViews.Effects;
-using Scripts.Core.ObjectPooling;
 using UnityEngine;
 
 namespace Scenes.SceneGame.ScenePools

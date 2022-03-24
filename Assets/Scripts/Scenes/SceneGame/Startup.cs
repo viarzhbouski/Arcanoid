@@ -1,9 +1,10 @@
-using Scripts.Core;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
+using Core;
+using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame
 {
     public class Startup : BaseStartup
     {

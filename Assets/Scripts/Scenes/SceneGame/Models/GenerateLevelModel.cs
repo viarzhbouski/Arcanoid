@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.ScriptableObjects;
+using Core.Interfaces.MVC;
+using ScriptableObjects;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Models
+namespace Scenes.SceneGame.Models
 {
     public class GenerateLevelModel : IModel
     {

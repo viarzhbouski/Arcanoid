@@ -1,4 +1,4 @@
-﻿namespace Scripts.Helpers
+﻿namespace Core.Statics
 {
     public static class DataRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace Scripts.Core.Interfaces.MVC
+﻿namespace Core.Interfaces.MVC
 {
     public interface IController
     {
