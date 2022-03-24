@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Interfaces.MVC;
+using ScriptableObjects;
 
 namespace Scenes.SceneGame.Models
 {
@@ -9,9 +10,11 @@ namespace Scenes.SceneGame.Models
         
         public int BlocksAtGameField { get; set; }
         
-        public float ProgressBarStep { get; set; }
+        public float LevelProgressBarStep { get; set; }
         
-        public float ProgressBarXPosition { get; set; }
+        public float LevelProgressBarXPosition { get; set; }
+        
+        public Pack CurrentPack { get; set; }
         
         public Action OnChange { get; set; }
 

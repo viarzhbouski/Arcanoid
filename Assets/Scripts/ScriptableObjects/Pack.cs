@@ -16,7 +16,7 @@ namespace ScriptableObjects
         private TextAsset[] levels;
         
         public Sprite Image => image;
-        public string Mame => name;
+        public string Name => name;
         public TextAsset[] Levels => levels;
     }
 }

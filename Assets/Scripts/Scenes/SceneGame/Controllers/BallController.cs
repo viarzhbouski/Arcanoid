@@ -53,7 +53,7 @@ namespace Scenes.SceneGame.Controllers
 
         public void ReloadBallForNewGame()
         {
-            _levelProgressController.InitProgressBar();
+            _levelProgressController.InitLevelProgressBar();
             ReloadBall();
         }
         

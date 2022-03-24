@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 5ea91db078436e642af46b736f75178b
+guid: b77fe056178f69f4989b00fdb36e718e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3666375017540591543
-    second: toppanel_0
+      213: -8191739510646017925
+    second: RedButton
+  - first:
+      213: 3713549098536957005
+    second: GreenButton
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,22 +109,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toppanel_0
+      name: RedButton
       rect:
         serializedVersion: 2
-        x: 0
-        y: 324
-        width: 1000
-        height: 286
+        x: 47
+        y: 542
+        width: 906
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 13, y: 101, z: 15, w: 15}
+      border: {x: 30, y: 45, z: 30, w: 15}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 940602ac85b6e1dc0800000000000000
-      internalID: -3666375017540591543
+      spriteID: b7079671158115e80800000000000000
+      internalID: -8191739510646017925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GreenButton
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 208
+        width: 906
+        height: 240
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 31, y: 45, z: 30, w: 15}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d44744ada3d298330800000000000000
+      internalID: 3713549098536957005
       vertices: []
       indices: 
       edges: []

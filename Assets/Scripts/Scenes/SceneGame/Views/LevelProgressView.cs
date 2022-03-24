@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Common.Enums;
 using Core.Interfaces.MVC;
 using Core.ObjectPooling;
 using Core.Statics;
@@ -7,7 +8,9 @@ using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.Popups;
+using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scenes.SceneGame.Views
 {
@@ -25,12 +28,11 @@ namespace Scenes.SceneGame.Views
         {
             _levelProgressModel = model as LevelProgressModel;
             _levelProgressController = controller as LevelProgressController;
-            _levelProgressModel!.ProgressBarXPosition = progressBar.localScale.x;
+            _levelProgressModel!.LevelProgressBarXPosition = progressBar.localScale.x;
         }
         
         public void RenderChanges()
         {
-            
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
                 StartCoroutine(OpenWinPopup());
@@ -38,9 +40,9 @@ namespace Scenes.SceneGame.Views
             
             if (!_levelProgressModel.IsStartGame)
             {
-                _levelProgressModel!.ProgressBarXPosition += _levelProgressModel.ProgressBarStep;
+                _levelProgressModel!.LevelProgressBarXPosition += _levelProgressModel.LevelProgressBarStep;
                 progressBar.DOKill();
-                progressBar.DOScaleX(_levelProgressModel!.ProgressBarXPosition, 0.1f);
+                progressBar.DOScaleX(_levelProgressModel!.LevelProgressBarXPosition, 0.1f);
             }
             else
             {
@@ -54,7 +56,14 @@ namespace Scenes.SceneGame.Views
         {
             yield return new WaitForSeconds(WinPopupDelay);
             _winLevelPopupView = AppPopups.Instance.ShowPopup<WinLevelPopupView>();
+            _winLevelPopupView.Init(_levelProgressModel.CurrentPack);
             _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
+            _winLevelPopupView.BackToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
+        }
+
+        private void BackToMenuButtonOnClick()
+        {
+            SceneManager.LoadScene((int)GameScenes.Packs);
         }
 
         private void NextLevelButtonOnClick()

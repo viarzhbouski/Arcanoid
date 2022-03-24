@@ -16,6 +16,7 @@ namespace Scenes.SceneGame.Controllers
         private BallController _ballController;
         private GenerateLevelController _generateLevelController;
         private LifesController _lifesController;
+        private LevelProgressController _levelProgressController;
 
         public PauseGameController(IView view, MainConfig mainConfig)
         {
@@ -32,6 +33,7 @@ namespace Scenes.SceneGame.Controllers
             _generateLevelController = AppControllers.Instance.GetController<GenerateLevelController>();
             _ballController = AppControllers.Instance.GetController<BallController>();
             _lifesController = AppControllers.Instance.GetController<LifesController>();
+            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
         }
 
         public void ControllerOnChange()
@@ -49,6 +51,7 @@ namespace Scenes.SceneGame.Controllers
             _generateLevelController.ReloadLevel();
             _ballController.ReloadBallForNewGame();
             _lifesController.LoadLifes();
+            _levelProgressController.InitLevelProgressBar();
             GameInPause(false);
         }
     }

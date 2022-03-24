@@ -40,7 +40,7 @@ namespace Scenes.ScenePacks.Controllers
                 var pack = new Pack
                 {
                     Id = i,
-                    Name = canChoose ? _mainConfig.Packs[i].Mame : "???",
+                    Name = canChoose ? _mainConfig.Packs[i].Name : "???",
                     CurrentLevel = canChoose ? lastLevel : 0,
                     MaxLevels = _mainConfig.Packs[i].Levels.Length,
                     PackIcon = canChoose ? _mainConfig.Packs[i].Image : null,

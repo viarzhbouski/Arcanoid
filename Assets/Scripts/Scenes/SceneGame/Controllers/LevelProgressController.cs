@@ -31,7 +31,7 @@ namespace Scenes.SceneGame.Controllers
         {
             _generateLevelController = AppControllers.Instance.GetController<GenerateLevelController>();
             _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
-            InitProgressBar();
+            InitLevelProgressBar();
         }
 
         public void ControllerOnChange()
@@ -39,11 +39,13 @@ namespace Scenes.SceneGame.Controllers
             _levelProgressView.RenderChanges();
         }
         
-        public void InitProgressBar()
+        public void InitLevelProgressBar()
         {
+            _levelProgressModel.CurrentPack = _mainConfig.Packs[GameProgress.GetLastPack()];
             _levelProgressModel.IsStartGame = true;
             _levelProgressModel.BlocksAtGameField = _generateLevelController.GetBlocksCount();
-            _levelProgressModel.ProgressBarStep = 1f /  _levelProgressModel.BlocksAtGameField;
+            _levelProgressModel.LevelProgressBarXPosition = 0f;
+            _levelProgressModel.LevelProgressBarStep = 1f / _levelProgressModel.BlocksAtGameField;
             _levelProgressModel.OnChange?.Invoke();
             _levelProgressModel.IsStartGame = false;
         }

@@ -47,6 +47,7 @@ namespace Core.ObjectPooling
                 if (poolObject.gameObject.activeSelf)
                 {
                     poolObject.gameObject.SetActive(false);
+                    _poolStack.Push(poolObject.GetComponent<T>());
                 }
             }
         }
@@ -55,7 +56,7 @@ namespace Core.ObjectPooling
         {
             _poolStack.Push(obj);
             obj.GetGameObject()
-                .SetActive(false);
+               .SetActive(false);
         }
         
         private T SpawnObject()
