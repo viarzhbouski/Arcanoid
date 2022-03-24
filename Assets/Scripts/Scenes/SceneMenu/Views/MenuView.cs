@@ -1,4 +1,5 @@
-﻿using Scenes.SceneMenu.Models;
+﻿using Common.Enums;
+using Scenes.SceneMenu.Models;
 using Scripts.Core.Interfaces.MVC;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,12 +25,11 @@ namespace Scenes.SceneMenu.Views
         private void StartOnClick()
         {
             startButton.transform.DOKill();
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene((int)GameScenes.Packs);
         }
 
         public void RenderChanges()
         {
-            return;
         }
     }
 }

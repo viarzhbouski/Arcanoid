@@ -8,13 +8,17 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
 {
     public class GenerateLevelModel : IModel
     {
+        public string LevelNumber { get; set; }
+        
+        public Sprite PackIcon { get; set; }
+        
         public Vector2 CellSize { get; set; }
         
         public Vector2 TopPanelPosition { get; set; }
         
         public Vector2 StartPosition { get; set; }
 
-        public List<Block> Blocks { get; set; } = new List<Block>();
+        public Block[,] Blocks { get; set; }
         
         public Action OnChange { get; set; }
 

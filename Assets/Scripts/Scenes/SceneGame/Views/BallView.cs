@@ -1,4 +1,5 @@
-﻿using Scenes.SceneGame.Views;
+﻿using Common.Enums;
+using Scenes.SceneGame.Views.Blocks;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;
@@ -17,7 +18,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private BallController _ballController;
 
         private Vector2 _prevMovementVector;
-
+        private Vector2 _movementVectorBeforePause;
+        
         public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
@@ -26,14 +28,33 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         
         public void RenderChanges()
         {
-            _prevMovementVector = ballRigidbody.velocity;
-            if (!_ballModel.IsStarted)
+            SetBallState();
+
+            if (!_ballModel.BallIsStopped)
             {
-                UpdateBallPosition();
+                _prevMovementVector = ballRigidbody.velocity;
+                if (!_ballModel.IsStarted)
+                {
+                    UpdateBallPosition();
+                }
+                else
+                {
+                    PushBall();
+                }
             }
-            else
+        }
+
+        private void SetBallState()
+        {
+            if (_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
             {
-                PushBall();
+                _movementVectorBeforePause = ballRigidbody.velocity;
+                ballRigidbody.bodyType = RigidbodyType2D.Static;
+            }
+            if (!_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Static)
+            {
+                ballRigidbody.bodyType = RigidbodyType2D.Dynamic;
+                ballRigidbody.velocity = _movementVectorBeforePause;
             }
         }
 
@@ -59,34 +80,13 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 ballRigidbody.velocity = _ballModel.Speed * ballRigidbody.velocity.normalized;
             }
         }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            CorrectBallMovement();
-            var blockView = collision.collider.gameObject.GetComponent<BlockView>();
-            
-            if (blockView != null)
-            {
-                SpawnBallCollisionEffect();
-                blockView.Damage();
-                
-                if (!blockView.CanDestroy)
-                {
-                    return;
-                }
-
-                var blockObjectPool = ObjectPools.Instance.GetObjectPool<BlockPoolManager>();
-                blockObjectPool.DestroyObject(blockView);
-                _ballController.BallDestroyBlock();
-            }
-        }
 
         private void SpawnBallCollisionEffect()
         {
-            var ballCollisionEffectPoolManager = ObjectPools.Instance.GetObjectPool<BallCollisionEffectPoolManager>();;
+            var ballCollisionEffectPoolManager = ObjectPools.Instance.GetObjectPool<BallCollisionEffectPool>();;
             var ballCollisionEffectMono = ballCollisionEffectPoolManager.GetObject();
             ballCollisionEffectMono.transform.position = transform.position;
-            ballCollisionEffectPoolManager.DestroyObject(ballCollisionEffectMono);
+            ballCollisionEffectPoolManager.DestroyPoolObject(ballCollisionEffectMono);
         }
 
         private void CorrectBallMovement()
@@ -104,8 +104,58 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 ballRigidbody.velocity = newBallVector;
             }
         }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            var platformView = collision.collider.gameObject.GetComponent<PlatformView>();
+            
+            if (platformView)
+            {
+                return;
+            }
+            
+            CorrectBallMovement();
+            
+            var blockView = collision.collider.gameObject.GetComponent<BaseBlockView>();
+            
+            if (blockView != null)
+            {
+                SpawnBallCollisionEffect();
+                BallHitBlock(blockView);
+            }
+        }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        private void BallHitBlock(BaseBlockView blockView)
+        {
+            if (!blockView.BoostType.HasValue)
+            {
+                blockView.BlockHit();
+            }
+            
+            if (!blockView.CanDestroy)
+            {
+                return;
+            }
+
+            switch (blockView.BlockType)
+            {
+                case BlockTypes.Color:
+                    ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                                        .DestroyPoolObject((ColorBlockView)blockView);
+                    break;
+                case BlockTypes.Boost:
+                    ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+                               .DestroyPoolObject((BoostBlockView)blockView);
+                    break;
+            }
+            
+            if (blockView.BoostType.HasValue)
+            {
+                blockView.BlockHit();
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D otherCollider)
         {
             _ballController.BallOutOfGameField();
             ballTrail.enabled = false;

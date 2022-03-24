@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3721038437337700830}
   - component: {fileID: 8867129054205995434}
-  - component: {fileID: 445044989101361191}
   - component: {fileID: 1263359381671525204}
+  - component: {fileID: -3562405115684736835}
   m_Layer: 0
-  m_Name: Block
+  m_Name: BoostBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,23 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &445044989101361191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8605301769229483536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 725e2a9031a24899b05786b3bd97ed3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 8867129054205995434}
-  damageSprites:
-  - {fileID: 21300000, guid: 13a350c8a751cbd40aabf588c7614e8f, type: 3}
-  - {fileID: 21300000, guid: 9134a5545ecdee64d85b7210801c3e9e, type: 3}
-  - {fileID: 21300000, guid: 5cf81ada3f63ed74988de37cb6fe84ba, type: 3}
 --- !u!61 &1263359381671525204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -127,3 +110,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 2.56}
   m_EdgeRadius: 0
+--- !u!114 &-3562405115684736835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605301769229483536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c587800b92b34135bee21bf3dd858299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockSpriteRenderer: {fileID: 8867129054205995434}

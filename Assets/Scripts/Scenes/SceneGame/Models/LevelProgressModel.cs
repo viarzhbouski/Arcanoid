@@ -5,6 +5,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
 {
     public class LevelProgressModel : IModel
     {
+        public bool IsStartGame { get; set; }
+        
         public int BlocksAtGameField { get; set; }
         
         public float ProgressBarStep { get; set; }

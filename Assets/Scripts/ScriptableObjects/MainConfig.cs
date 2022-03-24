@@ -15,6 +15,8 @@ namespace Scripts.ScriptableObjects
         private float platformSpeed;
         [SerializeField]
         private int lifeCount;
+        [SerializeField]
+        private int maxLifeCount;
         
         [Header("\tGRID")] 
         [Space]
@@ -31,12 +33,19 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private Pack[] packs;
         
-        [Header("\tBlocks")] 
+        [Header("\tBLOCKS")] 
         [Space]
         [SerializeField]
         private Block[] blocks;
 
+        [Header("\tPOPUPS")] 
+        [Space]
+        [SerializeField]
+        private float pausePopupDelayAfterContinue;
+
         public int LifeCount => lifeCount;
+        
+        public int MaxLifeCount => maxLifeCount;
         
         public float BallSpeed => ballSpeed;
         
@@ -53,6 +62,8 @@ namespace Scripts.ScriptableObjects
         public float SpaceWidth => spaceWidth;
         
         public float SpaceHeight => spaceHeight;
+        
+        public float PausePopupDelayAfterContinue => pausePopupDelayAfterContinue;
         
     }
 }

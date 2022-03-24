@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Enums;
+using Scenes.SceneGame.Views.Blocks;
 using UnityEngine;
 
 namespace Scripts.ScriptableObjects
@@ -13,6 +14,9 @@ namespace Scripts.ScriptableObjects
         private BlockTypes blockType;
         [SerializeField]
         private Color color;
+        [SerializeField]
+        private BaseBlockView blockPrefab;
+        public BoostTypes? BoostType { get; set; }
 
         public int HealthPoints
         {
@@ -30,6 +34,12 @@ namespace Scripts.ScriptableObjects
         {
             get => color; 
             set => color = value;
+        }
+        
+        public BaseBlockView BlockPrefab 
+        {
+            get => blockPrefab; 
+            set => blockPrefab = value;
         }
 
         public Vector2 Position { get; set; }
