@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
+using UnityEngine;
 
 namespace Scripts.Core.ObjectPooling
 {
@@ -7,20 +9,20 @@ namespace Scripts.Core.ObjectPooling
     {
         public static ObjectPools Instance;
         
-        public Dictionary<Type, PoolManager> PoolManagers { get; private set; }
+        public Dictionary<Type, PoolProvider> PoolProviders { get; private set; }
 
         public ObjectPools()
         {
             if (Instance == null)
             {
-                PoolManagers = new Dictionary<Type, PoolManager>();
+                PoolProviders = new Dictionary<Type, PoolProvider>();
                 Instance = this;
             }
         }
 
-        public T GetObjectPool<T>() where T : PoolManager
+        public T GetObjectPool<T>() where T : PoolProvider
         {
-            return (T)Instance.PoolManagers[typeof(T)];
+            return (T)Instance.PoolProviders[typeof(T)];
         }
     }
 }

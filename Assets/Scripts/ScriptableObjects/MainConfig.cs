@@ -37,7 +37,7 @@ namespace Scripts.ScriptableObjects
         [Space]
         [SerializeField]
         private Block[] blocks;
-        
+
         [Header("\tPOPUPS")] 
         [Space]
         [SerializeField]

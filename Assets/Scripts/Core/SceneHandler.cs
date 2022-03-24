@@ -15,14 +15,14 @@ namespace Scripts.Core
         [SerializeField]
         private BaseStartup startUp;
         [SerializeField]
-        private List<PoolManager> poolManagers;
+        private List<PoolProvider> poolProviders;
         
         private MonoConfiguration _monoConfiguration;
         
         private void Awake()
         {
             _monoConfiguration = new MonoConfiguration();
-            _monoConfiguration.InitPools(poolManagers);
+            _monoConfiguration.InitPools(poolProviders);
             startUp.InitializeStartup(_monoConfiguration, mainConfig);
             SceneManager.GetActiveScene();
         }

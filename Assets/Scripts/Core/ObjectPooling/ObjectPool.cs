@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Scripts.Core.ObjectPooling
 {
-    public class ObjectPool<T> where T : MonoBehaviour
+    public class ObjectPool<T> where T : IPoolable
     {
         private readonly Stack<T> _poolStack = new Stack<T>();
         private readonly T _objectPrefab;
@@ -18,25 +18,26 @@ namespace Scripts.Core.ObjectPooling
             _objectTransform = objectTransform;
             _poolSize = poolSize;
         }
-
+        
         public void InitPool()
         {
             for (var i = 0; i < _poolSize; i++)
-            {
+            { 
                 SpawnObject();
             }
         }
-
+        
         public T GetObject()
         {
             var poolObject = _poolStack.Any() ? _poolStack.Pop() 
                                                 : SpawnObject();
-
-            poolObject.gameObject.SetActive(true);
+        
+            poolObject.GetGameObject()
+                      .SetActive(true);
             
             return poolObject;
         }
-
+        
         public void ClearPool()
         {
             for (var i = 0; i < _objectTransform.childCount; i++)
@@ -49,19 +50,22 @@ namespace Scripts.Core.ObjectPooling
             }
         }
         
-        public void DestroyObject(T obj)
+        public void DestroyPoolObject(T obj)
         {
             _poolStack.Push(obj);
-            obj.gameObject.SetActive(false);
+            obj.GetGameObject()
+                .SetActive(false);
         }
-
+        
         private T SpawnObject()
         {
-            var spawnedObject = Object.Instantiate(_objectPrefab, _objectTransform);
-            spawnedObject.gameObject.SetActive(false);
-            _poolStack.Push(spawnedObject);
+            var spawnedObject = Object.Instantiate(_objectPrefab.GetGameObject(), _objectTransform);
+            spawnedObject.SetActive(false);
+
+            var obj = spawnedObject.GetComponent<T>();
+            _poolStack.Push(obj);
             
-            return spawnedObject;
+            return obj;
         }
     }
 }

@@ -47,10 +47,19 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void NextLevelButtonOnClick()
         {
-            ObjectPools.Instance.GetObjectPool<BlockPoolManager>()
-                                .ClearPool();
+            ClearBlockPools();
             _levelProgressController.LevelWin();
             PopupManager.Instance.ClosePopup(_winLevelPopupView);
+        }
+        
+        private void ClearBlockPools()
+        {
+            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+                .ClearPool();
         }
     }
 }

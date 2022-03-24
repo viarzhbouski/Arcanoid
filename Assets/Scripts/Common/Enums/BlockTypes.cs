@@ -2,8 +2,9 @@
 {
     public enum BlockTypes
     {
-        Empty,
-        Common,
-        Undestroyable
+        Empty = 0,
+        Color,
+        Granite,
+        Boost
     }
 }
