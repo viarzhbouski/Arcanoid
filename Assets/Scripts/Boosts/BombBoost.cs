@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Boosts.Interfaces;
 using Common.Enums;
-using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
-using Scripts.Core.ObjectPooling;
 
 namespace Boosts
 {
     public class BombBoost : IHasBoost
     {
+        private readonly BaseBlockView[,] _levelBlocks;
         private readonly List<BaseBlockView> _neighbourBlocks;
+        private readonly Queue<BoostBlockView> _blocksQueue;
         
-        public BombBoost(List<BaseBlockView> neighbourBlocks)
+        public BombBoost(BaseBlockView[,] levelBlocks, int blockGridPositionX, int blockGridPositionY)
         {
-            _neighbourBlocks = neighbourBlocks;
+            _levelBlocks = levelBlocks;
+            _neighbourBlocks = new List<BaseBlockView>();
+            _blocksQueue = new Queue<BoostBlockView>();
+            FillNeighbourBlocks(blockGridPositionX, blockGridPositionY);
         }
         
         public void ExecuteBoost()
@@ -29,24 +33,49 @@ namespace Boosts
                 {
                     continue;
                 }
+                
                 switch (block.BlockType)
                 {
                     case BlockTypes.Color:
-                        var blockColor = (ColorBlockView)block;
-                        blockColor.BlockHit();
-                        if (blockColor.CanDestroy)
-                        {
-                            ObjectPools.Instance.GetObjectPool<ColorBlockPool>().DestroyPoolObject(blockColor);
-                        }
+                        block.BlockHit(555);
                         break;
                     case BlockTypes.Granite:
-                        ObjectPools.Instance.GetObjectPool<GraniteBlockPool>().DestroyPoolObject((GraniteBlockView)block);
+                        block.DestroyBlock();
                         break;
                     case BlockTypes.Boost:
                         var blockBoost = (BoostBlockView)block;
-                        blockBoost.BlockHit();
-                        ObjectPools.Instance.GetObjectPool<BoostBlockPool>().DestroyPoolObject(blockBoost);
+                        _blocksQueue.Enqueue(blockBoost);
                         break;
+                }
+            }
+            
+            ExecuteNeighbourBoosts();
+        }
+
+        private void ExecuteNeighbourBoosts()
+        {
+            while (_blocksQueue.Any())
+            {
+                var blockBoost = _blocksQueue.Dequeue();
+                blockBoost.BlockHit();
+            }
+        }
+        
+        private void FillNeighbourBlocks(int i, int j)
+        {
+            var rowMinimum = i - 1 < 0 ? i : i - 1;
+            var rowMaximum = i + 1 > _levelBlocks.GetLength(0) - 1 ? i : i + 1;
+            var columnMinimum = j - 1 < 0 ? j : j - 1;
+            var columnMaximum = j + 1 > _levelBlocks.GetLength(1) - 1 ? j : j + 1;
+
+            for (var x = rowMinimum; x <= rowMaximum; x++)
+            {
+                for (var y = columnMinimum; y <= columnMaximum; y++)
+                {
+                    if (x != i || y != j)
+                    {
+                        _neighbourBlocks.Add(_levelBlocks[x, y]);
+                    }
                 }
             }
         }

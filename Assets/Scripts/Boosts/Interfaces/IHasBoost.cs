@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Boosts.Interfaces
+﻿namespace Boosts.Interfaces
 {
     public interface IHasBoost
     {

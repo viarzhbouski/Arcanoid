@@ -11,6 +11,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
         
         public float ProgressBarStep { get; set; }
         
+        public float ProgressBarXPosition { get; set; }
+        
         public Action OnChange { get; set; }
 
         public void OnChangeHandler(Action onChange)

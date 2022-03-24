@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Boosts;
 using Common.Enums;
 using Newtonsoft.Json;
+using Scripts.Core.Interfaces;
 using UnityEngine;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.Models;
@@ -10,15 +12,17 @@ using Scripts.Helpers;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
 using Scripts.ScriptableObjects;
+using AppContext = Scripts.Core.AppContext;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
-    public class GenerateLevelController : IController
+    public class GenerateLevelController : IController, IHasStart
     {
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
         private readonly MainConfig _mainConfig;
         private readonly Dictionary<BlockTypes, Block> _blocks;
+        private LevelProgressController _levelProgressController;
 
         public GenerateLevelController(IView view, MainConfig mainConfig)
         {
@@ -28,7 +32,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _blocks = new Dictionary<BlockTypes, Block>();
             _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
+            _generateLevelModel.DestroyBlockEvent = DestroyBlock;
             LoadLevel();
+        }
+
+        public void StartController()
+        {
+            _levelProgressController = AppContext.Context.GetController<LevelProgressController>();
         }
         
         public void ReloadLevel()
@@ -58,6 +68,11 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public void ControllerOnChange()
         {
             _generateLevelView.RenderChanges();
+        }
+        
+        public void DestroyBlock()
+        {
+            _levelProgressController.UpdateProgressBar();
         }
         
         private void LoadLevel()

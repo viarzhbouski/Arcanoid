@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Boosts.Interfaces;
+using Scenes.SceneGame.ScenePools;
+using Scripts.Core.ObjectPooling;
 using Scripts.ScriptableObjects;
 using UnityEngine;
 
@@ -10,14 +14,16 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
     {
         [SerializeField]
         private List<Sprite> damageSprites;
-        
+
+        private IHasBoost _boost;
         private Queue<Sprite> _spriteQueue;
         private int _damageForChangeSprite;
         private int _damageSum;
-
-        public override void SetBlockConfig(Block block)
+        private const float ExecuteDelay = 0.05f;
+        
+        public override void SetBlockConfig(Block block, Action blockDestroyEvent)
         {
-            base.SetBlockConfig(block);
+            base.SetBlockConfig(block, blockDestroyEvent);
 
             if (Block.HealthPoints > damageSprites.Count)
             {
@@ -37,21 +43,47 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             }
 
             blockSpriteRenderer.sprite = _spriteQueue.Dequeue();
-        }
+        }        
 
         public override void SetBoost(IHasBoost boost)
         {
-            return;
+            _boost = boost;
         }
 
-        public override void BlockHit()
+        public override void BlockHit(int damage = 1)
         {
-            Block.HealthPoints--;
-            _damageSum++;
-            
+            if (_boost == null)
+            {
+                SetBlockDamage(damage);
+            }
+
+            else
+            {
+                StartCoroutine(Execute(damage));
+            }
+        }
+
+        private void SetBlockDamage(int damage)
+        {
+            Block.HealthPoints -= damage;
+            _damageSum += damage;
+
             PlayBlockHitAnim();
             ChangeSprite();
         }
+        
+        IEnumerator Execute(int damage)
+        {
+            yield return new WaitForSeconds(ExecuteDelay);
+            SetBlockDamage(damage);
+            _boost.ExecuteBoost();
+        }
+        
+        
+        
+        
+        
+        
 
         private void ChangeSprite()
         {
@@ -59,6 +91,12 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             {
                 blockSpriteRenderer.sprite = _spriteQueue.Dequeue();
             }
+        }
+        
+        public override void DestroyBlock()
+        {
+            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                .DestroyPoolObject(this);
         }
     }
 }

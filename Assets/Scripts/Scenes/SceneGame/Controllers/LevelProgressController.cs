@@ -6,6 +6,7 @@ using Scripts.Helpers;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
 using Scripts.ScriptableObjects;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Scripts.Scenes.SceneGame.Controllers
@@ -52,12 +53,12 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public void UpdateProgressBar()
         {
             _levelProgressModel.BlocksAtGameField--;
+            _levelProgressModel.OnChange?.Invoke();
+            
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
                 _pauseGameController.GameInPause(true);
             }
-            
-            _levelProgressModel.OnChange?.Invoke();
         }
 
         public void LevelWin()

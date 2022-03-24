@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
 using Managers;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.Popups;
@@ -17,33 +18,42 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private LevelProgressModel _levelProgressModel;
         private LevelProgressController _levelProgressController;
         private WinLevelPopupView _winLevelPopupView;
-
+        private const float WinPopupDelay = 0.75f;
+        
         public void Bind(IModel model, IController controller)
         {
             _levelProgressModel = model as LevelProgressModel;
             _levelProgressController = controller as LevelProgressController;
+            _levelProgressModel!.ProgressBarXPosition = progressBar.localScale.x;
         }
         
         public void RenderChanges()
         {
+            
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
-                _winLevelPopupView = PopupManager.Instance.ShowPopup<WinLevelPopupView>();
-                _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
+                StartCoroutine(OpenWinPopup());
+            }
+            
+            if (!_levelProgressModel.IsStartGame)
+            {
+                _levelProgressModel!.ProgressBarXPosition += _levelProgressModel.ProgressBarStep;
+                progressBar.DOKill();
+                progressBar.DOScaleX(_levelProgressModel!.ProgressBarXPosition, 0.1f);
             }
             else
             {
-                if (!_levelProgressModel.IsStartGame)
-                {
-                    progressBar.DOScaleX(progressBar.localScale.x + _levelProgressModel.ProgressBarStep, 0.2f);
-                }
-                else
-                {
-                    var progressBarScale = progressBar.localScale;
-                    progressBarScale.x = 0f;
-                    progressBar.localScale = progressBarScale;
-                }
+                var progressBarScale = progressBar.localScale;
+                progressBarScale.x = 0f;
+                progressBar.localScale = progressBarScale;
             }
+        }
+
+        IEnumerator OpenWinPopup()
+        {
+            yield return new WaitForSeconds(WinPopupDelay);
+            _winLevelPopupView = PopupManager.Instance.ShowPopup<WinLevelPopupView>();
+            _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
         }
 
         private void NextLevelButtonOnClick()

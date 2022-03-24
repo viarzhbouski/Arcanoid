@@ -20,6 +20,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
 
         public Block[,] Blocks { get; set; }
         
+        public Action DestroyBlockEvent { get; set; }
+        
         public Action OnChange { get; set; }
 
         public void OnChangeHandler(Action onChange)

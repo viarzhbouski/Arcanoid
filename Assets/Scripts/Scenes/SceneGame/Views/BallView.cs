@@ -122,36 +122,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             if (blockView != null)
             {
                 SpawnBallCollisionEffect();
-                BallHitBlock(blockView);
-            }
-        }
-
-        private void BallHitBlock(BaseBlockView blockView)
-        {
-            if (!blockView.BoostType.HasValue)
-            {
-                blockView.BlockHit();
-            }
-            
-            if (!blockView.CanDestroy)
-            {
-                return;
-            }
-
-            switch (blockView.BlockType)
-            {
-                case BlockTypes.Color:
-                    ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
-                                        .DestroyPoolObject((ColorBlockView)blockView);
-                    break;
-                case BlockTypes.Boost:
-                    ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
-                               .DestroyPoolObject((BoostBlockView)blockView);
-                    break;
-            }
-            
-            if (blockView.BoostType.HasValue)
-            {
                 blockView.BlockHit();
             }
         }

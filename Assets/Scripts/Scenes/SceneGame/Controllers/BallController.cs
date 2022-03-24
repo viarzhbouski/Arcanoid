@@ -1,12 +1,13 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using Scenes.SceneGame.Views.Popups;
-using Scripts.Core;
 using Scripts.Core.Interfaces;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Scenes.SceneGame.Controllers.Models;
 using Scripts.Scenes.SceneGame.Controllers.Views;
 using Scripts.ScriptableObjects;
 using UnityEngine;
+using AppContext = Scripts.Core.AppContext;
 
 namespace Scripts.Scenes.SceneGame.Controllers
 {
@@ -88,11 +89,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             
             _ballModel.BallPosition = ballPosition;
             _ballModel.OnChange?.Invoke();
-        }
-
-        public void BallDestroyBlock()
-        {
-            _levelProgressController.UpdateProgressBar();
         }
 
         public void SetBallState(bool isStopped)
