@@ -4,7 +4,7 @@ using Boosts.Interfaces;
 using Scripts.ScriptableObjects;
 using UnityEngine;
 
-namespace Scenes.SceneGame.Views.Blocks
+namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
     public class ColorBlockView : BaseBlockView
     {

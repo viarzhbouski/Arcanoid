@@ -1,8 +1,9 @@
 ﻿using System.Collections;
-using MonoModels;
+using Scenes.SceneGame.Views.PoolableViews.Effects;
+using Scripts.Core.ObjectPooling;
 using UnityEngine;
 
-namespace Scripts.Core.ObjectPooling
+namespace Scenes.SceneGame.ScenePools
 {
     public class BallCollisionEffectPool : Pool<BallCollisionEffectView>
     {

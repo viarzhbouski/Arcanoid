@@ -1,7 +1,7 @@
 ﻿using Scripts.Core.ObjectPooling;
 using UnityEngine;
 
-namespace MonoModels
+namespace Scenes.SceneGame.Views.PoolableViews.Effects
 {
     public class BallCollisionEffectView : MonoBehaviour, IPoolable
     {

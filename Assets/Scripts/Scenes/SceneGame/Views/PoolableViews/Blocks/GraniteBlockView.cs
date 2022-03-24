@@ -1,6 +1,6 @@
 ﻿using Boosts.Interfaces;
 
-namespace Scenes.SceneGame.Views.Blocks
+namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
     public class GraniteBlockView : BaseBlockView
     {

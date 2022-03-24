@@ -1,6 +1,6 @@
 ﻿using System;
 using Common.Enums;
-using Scenes.SceneGame.Views.Blocks;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
 namespace Scripts.ScriptableObjects

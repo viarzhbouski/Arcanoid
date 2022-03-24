@@ -1,6 +1,6 @@
 ﻿using Boosts.Interfaces;
 
-namespace Scenes.SceneGame.Views.Blocks
+namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
     public class BoostBlockView : BaseBlockView
     {
@@ -13,6 +13,7 @@ namespace Scenes.SceneGame.Views.Blocks
 
         public override void BlockHit()
         {
+            base.PlayBlockHitAnim();
             _boost.ExecuteBoost();
         }
     }

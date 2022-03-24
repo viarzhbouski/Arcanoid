@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Boosts.Interfaces;
-using Scenes.SceneGame.Views.Blocks;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
 namespace Boosts

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Boosts;
 using Common.Enums;
-using Scenes.SceneGame.Views.Blocks;
+using Scenes.SceneGame.ScenePools;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using Scripts.Core.Interfaces.MVC;
 using Scripts.Core.ObjectPooling;
 using Scripts.Scenes.SceneGame.Controllers.Models;

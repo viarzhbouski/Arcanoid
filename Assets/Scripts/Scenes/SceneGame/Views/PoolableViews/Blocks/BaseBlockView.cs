@@ -1,11 +1,12 @@
 ﻿using Boosts.Interfaces;
 using Common.Enums;
+using DG.Tweening;
+using Scenes.SceneGame.ScenePools;
+using Scripts.Core.ObjectPooling;
 using Scripts.ScriptableObjects;
 using UnityEngine;
-using DG.Tweening;
-using Scripts.Core.ObjectPooling;
 
-namespace Scenes.SceneGame.Views.Blocks
+namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
     public abstract class BaseBlockView : MonoBehaviour, IPoolable
     {
@@ -37,6 +38,14 @@ namespace Scenes.SceneGame.Views.Blocks
         protected virtual void PlayBlockHitAnim()
         {
             transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
+
+            if (CanDestroy)
+            {
+                var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
+                var blockDestroyEffect = objectPool.GetObject();
+                blockDestroyEffect.transform.position = transform.position;
+                objectPool.DestroyPoolObject(blockDestroyEffect);
+            }
         }
 
         public GameObject GetGameObject()
