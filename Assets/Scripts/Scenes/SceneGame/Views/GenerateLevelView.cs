@@ -55,7 +55,6 @@ namespace Scenes.SceneGame.Views
             var height = _generateLevelModel.Blocks.GetLength(0);
             var width = _generateLevelModel.Blocks.GetLength(1);
             _blocksGrid = new BaseBlockView[height, width];
-            
             SetLevelUI();
             
             for (var i = 0; i < height; i++)

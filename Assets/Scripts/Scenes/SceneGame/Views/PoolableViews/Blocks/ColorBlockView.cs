@@ -23,6 +23,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public override void SetBlockConfig(Block block, Action blockDestroyEvent)
         {
+            _boost = null;
             base.SetBlockConfig(block, blockDestroyEvent);
 
             if (Block.HealthPoints > damageSprites.Count)
