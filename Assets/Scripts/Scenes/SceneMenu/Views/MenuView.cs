@@ -2,6 +2,7 @@
 using System.Linq;
 using Common.Enums;
 using Core.Interfaces.MVC;
+using Core.Models;
 using Core.Statics;
 using Scenes.SceneMenu.Models;
 using UnityEngine;
@@ -47,8 +48,7 @@ namespace Scenes.SceneMenu.Views
 
         private void ClearCache()
         {
-            GameCache.SetLastLevel(0);
-            GameCache.SetLastPack(0);
+            GameCache.SetCurrentGameProgress(new GameProgress());
         }
 
         private void StartOnClick()

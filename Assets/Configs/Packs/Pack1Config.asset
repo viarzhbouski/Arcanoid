@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cc4a29e42541b8a818f7ca90659428, type: 3}
   m_Name: Pack1Config
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 80cfe95aa8a70694fa58630420869f82, type: 3}
   levels:
   - {fileID: 4900000, guid: 2bc6c91e3ac6d8844aebd913a092077d, type: 3}
   - {fileID: 4900000, guid: ec9fd313746acae41abfecf2929f1e5e, type: 3}
   - {fileID: 4900000, guid: 8bae29e880b5eef4c88e01071107951e, type: 3}
-  - {fileID: 4900000, guid: b40cad7f102713a4f9f49f599abe1e8c, type: 3}
-  - {fileID: 4900000, guid: f9d34501561d98041bd129c9e82bf55e, type: 3}
-  - {fileID: 4900000, guid: f5f34f0a3d3aa134fa8f6d40b194d6a7, type: 3}
+  - {fileID: 4900000, guid: fcf5772e9e5460a478fe2cbaf01130f6, type: 3}
   localeField: 10

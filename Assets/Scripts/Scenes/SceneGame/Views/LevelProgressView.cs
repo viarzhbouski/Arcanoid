@@ -59,6 +59,7 @@ namespace Scenes.SceneGame.Views
             _winLevelPopupView.Init(_levelProgressModel.CurrentPack);
             _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             _winLevelPopupView.BackToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
+            _levelProgressController.SaveProgress();
         }
 
         private void BackToMenuButtonOnClick()
@@ -69,7 +70,7 @@ namespace Scenes.SceneGame.Views
         private void NextLevelButtonOnClick()
         {
             ClearBlockPools();
-            _levelProgressController.LevelWin();
+            _levelProgressController.NextLevel();
             AppPopups.Instance.ClosePopup(_winLevelPopupView);
         }
         
