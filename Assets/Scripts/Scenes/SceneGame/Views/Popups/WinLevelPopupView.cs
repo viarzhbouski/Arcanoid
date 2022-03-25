@@ -63,8 +63,8 @@ namespace Scenes.SceneGame.Views.Popups
         private void ApplyLocalization(PackConfig currentPack)
         {
             packName.text = Localization.GetFieldText(currentPack.LocaleField);
-            nextLevelButtonText.text = Localization.GetFieldText(LocaleFields.WinBackToMenu);
-            backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.WinNextLevel);
+            nextLevelButtonText.text = Localization.GetFieldText(LocaleFields.WinNextLevel);
+            backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.WinBackToMenu);
         }
 
         IEnumerator ShowProgressBar(float progressBarPositionX)
