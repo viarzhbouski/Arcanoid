@@ -25,6 +25,7 @@ MonoBehaviour:
   spaceHeight: 0.005
   packs:
   - {fileID: 11400000, guid: 67702e192ea0d4648986c9edb3643016, type: 2}
+  - {fileID: 11400000, guid: 9233eec92e2e84a4ea6f41373dd2684a, type: 2}
   blocks:
   - healthPoints: 0
     blockType: 0

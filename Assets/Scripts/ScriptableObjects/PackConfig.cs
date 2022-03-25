@@ -27,7 +27,11 @@ namespace ScriptableObjects
         private void OnEnable()
         {
             var packName = Enum.GetName(typeof(LocaleFields), localeField);
-            levels = Resources.LoadAll<TextAsset>($"Packs/{packName}").ToList();;
+            
+            if (!string.IsNullOrEmpty(packName) && packName.Contains("Pack"))
+            {
+                levels = Resources.LoadAll<TextAsset>($"Packs/{packName}").ToList();
+            }
         }
     }
 }
