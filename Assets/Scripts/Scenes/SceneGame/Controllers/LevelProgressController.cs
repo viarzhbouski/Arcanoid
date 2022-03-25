@@ -41,7 +41,7 @@ namespace Scenes.SceneGame.Controllers
         
         public void InitLevelProgressBar()
         {
-            _levelProgressModel.CurrentPack = _mainConfig.Packs[GameCache.GetLastPack()];
+            _levelProgressModel.CurrentPack = AppConfig.Instance.Config.Packs[DataRepository.SelectedPack];
             _levelProgressModel.IsStartGame = true;
             _levelProgressModel.BlocksAtGameField = _generateLevelController.GetBlocksCount();
             _levelProgressModel.LevelProgressBarXPosition = 0f;
@@ -61,25 +61,47 @@ namespace Scenes.SceneGame.Controllers
             }
         }
 
-        public void LevelWin()
+        public void SaveProgress()
         {
-            var currentLevel = GameCache.GetLastLevel() + 1;
-            var currentPack = GameCache.GetLastPack();
-            var pack = _mainConfig.Packs[currentPack];
+            var packsConfig = AppConfig.Instance.Config.Packs;
+            var currentGameProgress = GameCache.GetCurrentGameProgress();
+            var selectedPack = DataRepository.SelectedPack;
+            var selectedLevel = DataRepository.SelectedLevel;
 
-            if (currentLevel < pack.Levels.Count)
+            if (selectedPack < currentGameProgress.CurrentPack)
             {
-                GameCache.SetLastLevel(currentLevel);
+                selectedLevel += 1;
+
+                if (selectedLevel < packsConfig[selectedPack].Levels.Count)
+                {
+                    DataRepository.SelectedLevel = selectedLevel;
+                }
+                else
+                {
+                    DataRepository.SelectedPack = selectedPack + 1;
+                    DataRepository.SelectedLevel = 0;
+                }
+                
+                _pauseGameController.RestartLevel();
+                return;
+            }
+
+            var nextLevel = currentGameProgress.CurrentLevel + 1;
+            var currentPack = currentGameProgress.CurrentPack;
+            var pack = packsConfig[currentPack];
+
+            if (nextLevel < pack.Levels.Count)
+            {
+                currentGameProgress.CurrentLevel = nextLevel;
             }
             else
             {
-                currentPack += 1;
-                
-                if (currentPack < _mainConfig.Packs.Count)
+                var nextPack = currentPack + 1;
+
+                if (nextPack < packsConfig.Count)
                 {
-                    DataRepository.Pack = currentPack;
-                    GameCache.SetLastPack(currentPack);
-                    GameCache.SetLastLevel(0);
+                    currentGameProgress.CurrentLevel = 0;
+                    currentGameProgress.CurrentPack = nextPack;
                 }
                 else
                 {
@@ -87,6 +109,14 @@ namespace Scenes.SceneGame.Controllers
                 }
             }
             
+            DataRepository.SelectedPack = currentGameProgress.CurrentPack;
+            DataRepository.SelectedLevel = currentGameProgress.CurrentLevel;
+            
+            GameCache.SetCurrentGameProgress(currentGameProgress);
+        }
+
+        public void NextLevel()
+        {
             _pauseGameController.RestartLevel();
         }
     }

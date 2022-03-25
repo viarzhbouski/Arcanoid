@@ -47,8 +47,8 @@ namespace Scenes.SceneGame.Views.Popups
             
             progressBar.localScale = new Vector2(0f, progressBarScale.y);
             packImage.sprite = currentPack.Image;
-            
-            var currentLevel = GameCache.GetLastLevel();
+
+            var currentLevel = DataRepository.SelectedLevel;
             var progressBarStep = 1f / currentPack.Levels.Count;
             var progressBarPositionX = 0f;
             

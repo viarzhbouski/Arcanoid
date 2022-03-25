@@ -2,6 +2,8 @@
 {
     public static class DataRepository
     {
-        public static int Pack { get; set; }
+        public static int SelectedPack { get; set; }
+        
+        public static int SelectedLevel { get; set; }
     }
 }

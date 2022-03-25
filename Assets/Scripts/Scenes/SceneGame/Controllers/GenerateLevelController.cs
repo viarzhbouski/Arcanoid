@@ -95,12 +95,13 @@ namespace Scenes.SceneGame.Controllers
         
         private LevelMap GetLevel()
         {
-            var lastLevel = GameCache.GetLastLevel();
-            var pack = _mainConfig.Packs[DataRepository.Pack];
-            var levelData = pack.Levels[lastLevel];
+            var selectedPack = DataRepository.SelectedPack;
+            var selectedLevel = DataRepository.SelectedLevel;;
+            var pack = AppConfig.Instance.Config.Packs[selectedPack];
+            var levelData = pack.Levels[selectedLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
 
-            _generateLevelModel.LevelNumber = $"{lastLevel + 1}";
+            _generateLevelModel.LevelNumber = $"{selectedLevel + 1}";
             _generateLevelModel.PackIcon = pack.Image;
             
             return levelMap;
