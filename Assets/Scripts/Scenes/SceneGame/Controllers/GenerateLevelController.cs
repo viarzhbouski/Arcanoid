@@ -1,24 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
-using Boosts;
 using Common.Enums;
+using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Models;
+using Core.ObjectPooling;
+using Core.Statics;
 using Newtonsoft.Json;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.Models;
-using Scripts.Helpers;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
-    public class GenerateLevelController : IController
+    public class GenerateLevelController : IController, IHasStart
     {
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
         private readonly MainConfig _mainConfig;
         private readonly Dictionary<BlockTypes, Block> _blocks;
+        private LevelProgressController _levelProgressController;
 
         public GenerateLevelController(IView view, MainConfig mainConfig)
         {
@@ -28,7 +30,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _blocks = new Dictionary<BlockTypes, Block>();
             _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
+            _generateLevelModel.DestroyBlockEvent = DestroyBlock;
             LoadLevel();
+        }
+
+        public void StartController()
+        {
+            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
         }
         
         public void ReloadLevel()
@@ -60,6 +68,11 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _generateLevelView.RenderChanges();
         }
         
+        public void DestroyBlock()
+        {
+            _levelProgressController.UpdateProgressBar();
+        }
+        
         private void LoadLevel()
         {
             var level = GetLevel();
@@ -82,7 +95,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         private LevelMap GetLevel()
         {
-            var lastLevel = GameProgressHelper.GetLastLevel();
+            var lastLevel = GameCache.GetLastLevel();
             var pack = _mainConfig.Packs[DataRepository.Pack];
             var levelData = pack.Levels[lastLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);

@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-namespace Scripts.ScriptableObjects
+namespace ScriptableObjects
 {
     [CreateAssetMenu(fileName = "MainConfig", menuName = "Create main config")]
     public class MainConfig : ScriptableObject
     {
+        [Header("\tLocalization")] 
+        [Space]
+        [SerializeField]
+        private List<LocalizationConfig> localizationConfigs;
+        
         [Header("\tBALL AND PLATFORM")] 
         [Space]
         [SerializeField]
@@ -31,7 +37,7 @@ namespace Scripts.ScriptableObjects
         [Header("\tPACKS")] 
         [Space]
         [SerializeField]
-        private Pack[] packs;
+        private List<PackConfig> packs;
         
         [Header("\tBLOCKS")] 
         [Space]
@@ -43,6 +49,8 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private float pausePopupDelayAfterContinue;
 
+        public List<LocalizationConfig> LocalizationConfigs => localizationConfigs;
+        
         public int LifeCount => lifeCount;
         
         public int MaxLifeCount => maxLifeCount;
@@ -53,7 +61,7 @@ namespace Scripts.ScriptableObjects
         
         public float PlatformSpeed => platformSpeed;
         
-        public Pack[] Packs => packs;
+        public List<PackConfig> Packs => packs;
         
         public Block[] Blocks => blocks;
         

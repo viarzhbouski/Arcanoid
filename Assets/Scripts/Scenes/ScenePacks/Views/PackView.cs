@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.ScenePack.Views
+namespace Scenes.ScenePacks.Views
 {
     public class PackView : MonoBehaviour
     {

@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Scripts.Core.Interfaces;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers;
-using Scripts.ScriptableObjects;
+using Core.ObjectPooling.Pools;
+using Core.Statics;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.Core
+namespace Core
 {
     public class SceneHandler : MonoBehaviour
     {
@@ -18,11 +17,13 @@ namespace Scripts.Core
         private List<PoolProvider> poolProviders;
         
         private MonoConfiguration _monoConfiguration;
+        private AppConfig _appConfig;
         
         private void Awake()
         {
             _monoConfiguration = new MonoConfiguration();
             _monoConfiguration.InitPools(poolProviders);
+            _appConfig = new AppConfig(mainConfig);
             startUp.InitializeStartup(_monoConfiguration, mainConfig);
             SceneManager.GetActiveScene();
         }

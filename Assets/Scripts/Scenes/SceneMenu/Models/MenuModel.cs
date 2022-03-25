@@ -1,5 +1,5 @@
 ﻿using System;
-using Scripts.Core.Interfaces.MVC;
+using Core.Interfaces.MVC;
 
 namespace Scenes.SceneMenu.Models
 {

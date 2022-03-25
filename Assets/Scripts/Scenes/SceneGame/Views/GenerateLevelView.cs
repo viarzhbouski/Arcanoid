@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using Boosts;
-using Common.Enums;
-using Scenes.SceneGame.Views.Blocks;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Helpers;
-using Scripts.ScriptableObjects;
+﻿using Common.Enums;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.Statics;
+using Scenes.SceneGame.Boosts;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.ScenePools;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class GenerateLevelView : MonoBehaviour, IView
     {
@@ -24,6 +24,9 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         [SerializeField]
         private RectTransform topPanel;
 
+        [SerializeField]
+        private TMP_Text levelText;
+        
         [SerializeField]
         private TMP_Text levelNumber;
         
@@ -39,6 +42,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
             _generateLevelModel.TopPanelPosition = topPanel.transform.position;
+            levelText.text = Localization.GetFieldText(LocaleFields.Level);
         }
         
         public void RenderChanges()
@@ -87,7 +91,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
                 {
                     if (_blocksGrid[i, j].BlockType == BlockTypes.Boost)
                     {
-                        SetBoost(_blocksGrid[i, j], i, j);
+                        SetBoost((BoostBlockView)_blocksGrid[i, j], i, j);
                     }
                 }
             }
@@ -95,49 +99,25 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
         private void SetBlockTransform<T>(T blockMono, Block block, int i, int j) where T : BaseBlockView
         {
-            blockMono.SetBlockConfig(block);
+            blockMono.SetBlockConfig(block, _generateLevelModel.DestroyBlockEvent);
             blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);
             blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize, gameCamera, blockMono.BlockSpriteRenderer);
             _blocksGrid[i, j] = blockMono;
         }
 
-        private void SetBoost(BaseBlockView blockMono, int i, int j)
+        private void SetBoost(BoostBlockView blockMono, int i, int j)
         {
-            var neighbourBlocks = GetNeighbourBlocks(i, j);
-            
             switch (blockMono.BoostType!.Value)
             {
                 case BoostTypes.Bomb:
-                    blockMono.SetBoost(new BombBoost(neighbourBlocks));
+                    blockMono.SetBoost(new BombBoost(_blocksGrid, i, j));
                     break;
                 case BoostTypes.ColorChainBomb:
-                    blockMono.SetBoost(new ColorChainBombBoost(neighbourBlocks));
+                    blockMono.SetBoost(new ColorChainBombBoost(_blocksGrid, i, j));
                     break;
             }
         }
 
-        private List<BaseBlockView> GetNeighbourBlocks(int i, int j)
-        {
-            var neighbourBlocks = new List<BaseBlockView>();
-            var rowMinimum = i - 1 < 0 ? i : i - 1;
-            var rowMaximum = i + 1 > _blocksGrid.GetLength(0) - 1 ? i : i + 1;
-            var columnMinimum = j - 1 < 0 ? j : j - 1;
-            var columnMaximum = j + 1 > _blocksGrid.GetLength(1) - 1 ? j : j + 1;
-
-            for (var x = rowMinimum; x <= rowMaximum; x++)
-            {
-                for (var y = columnMinimum; y <= columnMaximum; y++)
-                {
-                    if (x != i || y != j)
-                    {
-                        neighbourBlocks.Add(_blocksGrid[x, y]);
-                    }
-                }
-            }
-
-            
-            return neighbourBlocks;
-        }
 
         private void SetLevelUI()
         {

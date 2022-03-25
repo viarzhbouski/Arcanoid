@@ -1,12 +1,12 @@
 ﻿using Common.Enums;
+using Core.Interfaces.MVC;
+using Core.Statics;
 using Scenes.ScenePack.Models;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Helpers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Scenes.ScenePack.Views
+namespace Scenes.ScenePacks.Views
 {
     public class PackListView : MonoBehaviour, IView
     {

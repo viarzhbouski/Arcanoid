@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
-using Managers;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.Statics;
+using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.Popups;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class LifesView : MonoBehaviour, IView
     {
@@ -59,7 +61,8 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
 
                 if (!_lifesStack.Any())
                 {
-                    _gameOverPopupView = PopupManager.Instance.ShowPopup<GameOverPopupView>();
+                    _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
+                    _gameOverPopupView.Init();
                     _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
                     _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
                 }
@@ -74,7 +77,7 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
         private void GameOverPopupRestartButtonOnClick()
         {
             ClearBlockPools();
-            PopupManager.Instance.ClosePopup(_gameOverPopupView);
+            AppPopups.Instance.ClosePopup(_gameOverPopupView);
             _lifesController.RestartLevel();
         }
 

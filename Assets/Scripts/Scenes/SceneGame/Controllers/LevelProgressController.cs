@@ -1,14 +1,13 @@
 ﻿using Common.Enums;
-using Scripts.Core;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Helpers;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
+using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine.SceneManagement;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class LevelProgressController : IController, IHasStart
     {
@@ -30,9 +29,9 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         public void StartController()
         {
-            _generateLevelController = AppContext.Context.GetController<GenerateLevelController>();
-            _pauseGameController = AppContext.Context.GetController<PauseGameController>();
-            InitProgressBar();
+            _generateLevelController = AppControllers.Instance.GetController<GenerateLevelController>();
+            _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
+            InitLevelProgressBar();
         }
 
         public void ControllerOnChange()
@@ -40,11 +39,13 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _levelProgressView.RenderChanges();
         }
         
-        public void InitProgressBar()
+        public void InitLevelProgressBar()
         {
+            _levelProgressModel.CurrentPack = _mainConfig.Packs[GameCache.GetLastPack()];
             _levelProgressModel.IsStartGame = true;
             _levelProgressModel.BlocksAtGameField = _generateLevelController.GetBlocksCount();
-            _levelProgressModel.ProgressBarStep = 1f /  _levelProgressModel.BlocksAtGameField;
+            _levelProgressModel.LevelProgressBarXPosition = 0f;
+            _levelProgressModel.LevelProgressBarStep = 1f / _levelProgressModel.BlocksAtGameField;
             _levelProgressModel.OnChange?.Invoke();
             _levelProgressModel.IsStartGame = false;
         }
@@ -52,33 +53,33 @@ namespace Scripts.Scenes.SceneGame.Controllers
         public void UpdateProgressBar()
         {
             _levelProgressModel.BlocksAtGameField--;
+            _levelProgressModel.OnChange?.Invoke();
+            
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
                 _pauseGameController.GameInPause(true);
             }
-            
-            _levelProgressModel.OnChange?.Invoke();
         }
 
         public void LevelWin()
         {
-            var currentLevel = GameProgressHelper.GetLastLevel() + 1;
-            var currentPack = GameProgressHelper.GetLastPack();
+            var currentLevel = GameCache.GetLastLevel() + 1;
+            var currentPack = GameCache.GetLastPack();
             var pack = _mainConfig.Packs[currentPack];
 
-            if (currentLevel < pack.Levels.Length)
+            if (currentLevel < pack.Levels.Count)
             {
-                GameProgressHelper.SetLastLevel(currentLevel);
+                GameCache.SetLastLevel(currentLevel);
             }
             else
             {
                 currentPack += 1;
                 
-                if (currentPack < _mainConfig.Packs.Length)
+                if (currentPack < _mainConfig.Packs.Count)
                 {
                     DataRepository.Pack = currentPack;
-                    GameProgressHelper.SetLastPack(currentPack);
-                    GameProgressHelper.SetLastLevel(0);
+                    GameCache.SetLastPack(currentPack);
+                    GameCache.SetLastLevel(0);
                 }
                 else
                 {

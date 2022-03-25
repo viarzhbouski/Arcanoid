@@ -1,15 +1,12 @@
-﻿using Managers;
-using Scenes.SceneGame.Views.Blocks;
-using Scenes.SceneGame.Views.Popups;
-using Scripts.Core;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
+﻿using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class BallController : IController, IHasStart, IHasUpdate
     {
@@ -33,8 +30,8 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         public void StartController()
         {
-            _lifesController = AppContext.Context.GetController<LifesController>();
-            _levelProgressController = AppContext.Context.GetController<LevelProgressController>();
+            _lifesController = AppControllers.Instance.GetController<LifesController>();
+            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
         }
 
         public void ControllerOnChange()
@@ -56,7 +53,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
 
         public void ReloadBallForNewGame()
         {
-            _levelProgressController.InitProgressBar();
+            _levelProgressController.InitLevelProgressBar();
             ReloadBall();
         }
         
@@ -89,11 +86,6 @@ namespace Scripts.Scenes.SceneGame.Controllers
             
             _ballModel.BallPosition = ballPosition;
             _ballModel.OnChange?.Invoke();
-        }
-
-        public void BallDestroyBlock()
-        {
-            _levelProgressController.UpdateProgressBar();
         }
 
         public void SetBallState(bool isStopped)

@@ -1,7 +1,7 @@
 ﻿using System;
-using Scripts.Core.Interfaces.MVC;
+using Core.Interfaces.MVC;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Models
+namespace Scenes.SceneGame.Models
 {
     public class PauseGameModel : IModel
     {

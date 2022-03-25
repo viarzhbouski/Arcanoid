@@ -1,11 +1,11 @@
-﻿using Scripts.Core;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
+﻿using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class PauseGameController : IController, IHasStart
     {
@@ -16,6 +16,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
         private BallController _ballController;
         private GenerateLevelController _generateLevelController;
         private LifesController _lifesController;
+        private LevelProgressController _levelProgressController;
 
         public PauseGameController(IView view, MainConfig mainConfig)
         {
@@ -29,9 +30,10 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         public void StartController()
         {
-            _generateLevelController = AppContext.Context.GetController<GenerateLevelController>();
-            _ballController = AppContext.Context.GetController<BallController>();
-            _lifesController = AppContext.Context.GetController<LifesController>();
+            _generateLevelController = AppControllers.Instance.GetController<GenerateLevelController>();
+            _ballController = AppControllers.Instance.GetController<BallController>();
+            _lifesController = AppControllers.Instance.GetController<LifesController>();
+            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
         }
 
         public void ControllerOnChange()
@@ -49,6 +51,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             _generateLevelController.ReloadLevel();
             _ballController.ReloadBallForNewGame();
             _lifesController.LoadLifes();
+            _levelProgressController.InitLevelProgressBar();
             GameInPause(false);
         }
     }
