@@ -95,7 +95,7 @@ namespace Scenes.SceneGame.Controllers
         
         private LevelMap GetLevel()
         {
-            var lastLevel = GameProgress.GetLastLevel();
+            var lastLevel = GameCache.GetLastLevel();
             var pack = _mainConfig.Packs[DataRepository.Pack];
             var levelData = pack.Levels[lastLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);

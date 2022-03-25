@@ -14,7 +14,7 @@ namespace Scenes.SceneGame.Models
         
         public float LevelProgressBarXPosition { get; set; }
         
-        public Pack CurrentPack { get; set; }
+        public PackConfig CurrentPack { get; set; }
         
         public Action OnChange { get; set; }
 

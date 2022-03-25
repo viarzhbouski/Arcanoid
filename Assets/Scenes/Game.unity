@@ -1004,7 +1004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 135, y: 0}
+  m_AnchoredPosition: {x: 160, y: 0}
   m_SizeDelta: {x: 105, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1090800801
@@ -1434,6 +1434,7 @@ MonoBehaviour:
   gameCamera: {fileID: 519420031}
   mapPivot: {fileID: 1400564372}
   topPanel: {fileID: 783451009}
+  levelText: {fileID: 1888934994}
   levelNumber: {fileID: 1090800801}
   packIcon: {fileID: 1586117530}
 --- !u!114 &1409576356 stripped
@@ -1859,7 +1860,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 20, y: 0}
-  m_SizeDelta: {x: 110.46, y: 40}
+  m_SizeDelta: {x: 140, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1888934994
 MonoBehaviour:

@@ -25,6 +25,9 @@ namespace Scenes.SceneGame.Views
         private RectTransform topPanel;
 
         [SerializeField]
+        private TMP_Text levelText;
+        
+        [SerializeField]
         private TMP_Text levelNumber;
         
         [SerializeField]
@@ -39,6 +42,7 @@ namespace Scenes.SceneGame.Views
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
             _generateLevelModel.TopPanelPosition = topPanel.transform.position;
+            levelText.text = Localization.GetFieldText(LocaleFields.Level);
         }
         
         public void RenderChanges()

@@ -41,7 +41,7 @@ namespace Scenes.SceneGame.Controllers
         
         public void InitLevelProgressBar()
         {
-            _levelProgressModel.CurrentPack = _mainConfig.Packs[GameProgress.GetLastPack()];
+            _levelProgressModel.CurrentPack = _mainConfig.Packs[GameCache.GetLastPack()];
             _levelProgressModel.IsStartGame = true;
             _levelProgressModel.BlocksAtGameField = _generateLevelController.GetBlocksCount();
             _levelProgressModel.LevelProgressBarXPosition = 0f;
@@ -63,23 +63,23 @@ namespace Scenes.SceneGame.Controllers
 
         public void LevelWin()
         {
-            var currentLevel = GameProgress.GetLastLevel() + 1;
-            var currentPack = GameProgress.GetLastPack();
+            var currentLevel = GameCache.GetLastLevel() + 1;
+            var currentPack = GameCache.GetLastPack();
             var pack = _mainConfig.Packs[currentPack];
 
-            if (currentLevel < pack.Levels.Length)
+            if (currentLevel < pack.Levels.Count)
             {
-                GameProgress.SetLastLevel(currentLevel);
+                GameCache.SetLastLevel(currentLevel);
             }
             else
             {
                 currentPack += 1;
                 
-                if (currentPack < _mainConfig.Packs.Length)
+                if (currentPack < _mainConfig.Packs.Count)
                 {
                     DataRepository.Pack = currentPack;
-                    GameProgress.SetLastPack(currentPack);
-                    GameProgress.SetLastLevel(0);
+                    GameCache.SetLastPack(currentPack);
+                    GameCache.SetLastLevel(0);
                 }
                 else
                 {

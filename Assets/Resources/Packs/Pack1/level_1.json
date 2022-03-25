@@ -1,0 +1,36 @@
+{ "compressionlevel":-1,
+ "height":3,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[1, 1, 1, 1, 1, 1, 1, 4, 2],
+         "height":3,
+         "id":1,
+         "name":"\u0421\u043b\u043e\u0439 \u0442\u0430\u0439\u043b\u043e\u0432 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":3,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":2,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.8.2",
+ "tileheight":256,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"C:\/Users\/Aliaksiej\/b1.tsx"
+        }, 
+        {
+         "firstgid":2,
+         "source":"C:\/Users\/Aliaksiej\/b2.tsx"
+        }],
+ "tilewidth":512,
+ "type":"map",
+ "version":"1.8",
+ "width":3
+}

@@ -52,7 +52,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 _platformModel.IsHold = false;
             }
-
+            
             _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
             _platformModel.OnChange?.Invoke();
         }

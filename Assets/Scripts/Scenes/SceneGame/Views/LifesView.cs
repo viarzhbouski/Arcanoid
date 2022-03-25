@@ -62,6 +62,7 @@ namespace Scenes.SceneGame.Views
                 if (!_lifesStack.Any())
                 {
                     _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
+                    _gameOverPopupView.Init();
                     _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
                     _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
                 }

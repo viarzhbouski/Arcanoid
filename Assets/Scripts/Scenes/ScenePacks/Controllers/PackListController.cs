@@ -31,19 +31,20 @@ namespace Scenes.ScenePacks.Controllers
 
         private void GetPacks()
         {
-            var lastLevel = GameProgress.GetLastLevel();
-            var lastPack = GameProgress.GetLastPack();
+            var lastLevel = GameCache.GetLastLevel();
+            var lastPack = GameCache.GetLastPack();
             
-            for (var i = 0; i < _mainConfig.Packs.Length; i++)
+            for (var i = 0; i < _mainConfig.Packs.Count; i++)
             {
+                var packConfig = AppConfig.Instance.Config.Packs[i];
                 var canChoose = i <= lastPack;
                 var pack = new Pack
                 {
                     Id = i,
-                    Name = canChoose ? _mainConfig.Packs[i].Name : "???",
+                    Name = canChoose ? Localization.GetFieldText(packConfig.LocaleField) : "???",
                     CurrentLevel = canChoose ? lastLevel : 0,
-                    MaxLevels = _mainConfig.Packs[i].Levels.Length,
-                    PackIcon = canChoose ? _mainConfig.Packs[i].Image : null,
+                    MaxLevels = packConfig.Levels.Count,
+                    PackIcon = canChoose ? packConfig.Image : null,
                     CanChoose = canChoose
                 };
 

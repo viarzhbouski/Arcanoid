@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.ObjectPooling.Pools;
+using Core.Statics;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,11 +17,13 @@ namespace Core
         private List<PoolProvider> poolProviders;
         
         private MonoConfiguration _monoConfiguration;
+        private AppConfig _appConfig;
         
         private void Awake()
         {
             _monoConfiguration = new MonoConfiguration();
             _monoConfiguration.InitPools(poolProviders);
+            _appConfig = new AppConfig(mainConfig);
             startUp.InitializeStartup(_monoConfiguration, mainConfig);
             SceneManager.GetActiveScene();
         }

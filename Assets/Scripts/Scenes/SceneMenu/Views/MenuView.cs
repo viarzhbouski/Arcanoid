@@ -1,10 +1,15 @@
-﻿using Common.Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Common.Enums;
 using Core.Interfaces.MVC;
+using Core.Statics;
 using Scenes.SceneMenu.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using ScriptableObjects;
+using TMPro;
 
 namespace Scenes.SceneMenu.Views
 {
@@ -13,13 +18,37 @@ namespace Scenes.SceneMenu.Views
         [SerializeField]
         private Button startButton;
         
+        [SerializeField]
+        private Button localizationButton;
+        
+        [SerializeField]
+        private Button clearCache;
+
+        [SerializeField]
+        private Image localizationButtonImage;
+        
+        [SerializeField] 
+        private TMP_Text logoText;
+        
         private MenuModel _menuModel;
+        private LocalizationConfig _currentLocalization;
         
         public void Bind(IModel model, IController controller)
         {
+            logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
             _menuModel = model as MenuModel;
             startButton.onClick.AddListener(StartOnClick);
+            localizationButton.onClick.AddListener(LocalizationOnClick);
             startButton.transform.DOScale(0.9f, 0.5f).SetLoops(int.MaxValue, LoopType.Yoyo);
+            InitLocalizationButton();
+            
+            clearCache.onClick.AddListener(ClearCache);
+        }
+
+        private void ClearCache()
+        {
+            GameCache.SetLastLevel(0);
+            GameCache.SetLastPack(0);
         }
 
         private void StartOnClick()
@@ -30,6 +59,22 @@ namespace Scenes.SceneMenu.Views
 
         public void RenderChanges()
         {
+        }
+
+        private void InitLocalizationButton()
+        {
+            var currentLocalization = GameCache.GetCurrentLocalization();
+            _currentLocalization = AppConfig.Instance.Config.LocalizationConfigs.First(e => e.LocaleLanguage == currentLocalization);
+            localizationButtonImage.sprite = _currentLocalization.Flag;
+        }
+        
+        private void LocalizationOnClick()
+        {
+            var newLocalizationLang = Localization.ToogleLocalization(_currentLocalization.LocaleLanguage);
+            _currentLocalization = AppConfig.Instance.Config.LocalizationConfigs.First(e => e.LocaleLanguage == newLocalizationLang);
+            GameCache.SetLocalization(newLocalizationLang);
+            localizationButtonImage.sprite = _currentLocalization.Flag;
+            logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
         }
     }
 }

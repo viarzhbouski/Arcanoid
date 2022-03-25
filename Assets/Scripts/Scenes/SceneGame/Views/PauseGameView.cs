@@ -35,6 +35,7 @@ namespace Scenes.SceneGame.Views
         {
             _pauseGameController.GameInPause(true);
             _pausePopup = AppPopups.Instance.ShowPopup<PausePopupView>();
+            _pausePopup.Init();
             _pausePopup.ContinueButton.onClick.AddListener(PausePopupContinueButtonOnClick);
             _pausePopup.RestartButton.onClick.AddListener(PausePopupRestartButtonOnClick);
         }

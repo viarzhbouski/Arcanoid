@@ -516,7 +516,9 @@ MonoBehaviour:
   popupRectTransform: {fileID: 7303491621359747683}
   packImage: {fileID: 3236211100598377360}
   nextLevelButton: {fileID: 8659107018377718380}
+  nextLevelButtonText: {fileID: 6163489720294786723}
   backToMenuButton: {fileID: 9008746806678279434}
+  backToMenuButtonText: {fileID: 2391631715291823188}
   packName: {fileID: 365079667506276036}
   progressBar: {fileID: 364661289978030763}
 --- !u!1 &5884497778600955039

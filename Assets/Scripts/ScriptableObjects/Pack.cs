@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Enums;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -15,8 +16,13 @@ namespace ScriptableObjects
         [SerializeField]
         private TextAsset[] levels;
         
+        [SerializeField]
+        private LocaleFields localeField;
+        
         public Sprite Image => image;
         public string Name => name;
         public TextAsset[] Levels => levels;
+        
+        public LocaleFields LocaleField => localeField;
     }
 }
