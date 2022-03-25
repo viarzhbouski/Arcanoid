@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using UnityEngine;
+using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Core.ObjectPooling.Pools;
+using Core.Statics;
 
-namespace Scripts.Core
+namespace Core
 {
     public class MonoConfiguration
     {
         private readonly List<IHasStart> _starts = new List<IHasStart>();
         private readonly List<IHasUpdate> _updates = new List<IHasUpdate>();
         private readonly List<IHasFixedUpdate> _fixedUpdates = new List<IHasFixedUpdate>();
-        private readonly AppContext _appContext;
+        private readonly AppControllers _appControllers;
         
         public MonoConfiguration()
         {
-            _appContext = new AppContext();
+            _appControllers = new AppControllers();
             _starts = new List<IHasStart>();
             _updates = new List<IHasUpdate>();
             _fixedUpdates = new List<IHasFixedUpdate>();
@@ -39,7 +40,7 @@ namespace Scripts.Core
                 _fixedUpdates.Add(fixedUpdate);
             }
             
-            AppContext.Context.AddController(controller);
+            AppControllers.Instance.AddController(controller);
         }
 
         public void InitPools(List<PoolProvider> poolProviders)

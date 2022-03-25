@@ -481,8 +481,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupRectTransform: {fileID: 2186707342630936510}
+  pauseTitle: {fileID: 9084479893917154073}
   restartButton: {fileID: 227673285046777777}
   continueButton: {fileID: 1562381687340495286}
+  restartButtonText: {fileID: 3353657179532991358}
+  continueButtonText: {fileID: 6407176622425637775}
 --- !u!1 &4496239385923847269
 GameObject:
   m_ObjectHideFlags: 0

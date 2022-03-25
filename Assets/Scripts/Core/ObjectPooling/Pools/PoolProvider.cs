@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Core.ObjectPooling
+namespace Core.ObjectPooling.Pools
 {
     public abstract class PoolProvider : MonoBehaviour 
     {

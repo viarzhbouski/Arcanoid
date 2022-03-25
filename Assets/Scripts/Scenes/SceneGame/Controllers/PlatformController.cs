@@ -1,12 +1,12 @@
-using Scripts.Core;
+using Core.Interfaces;
+using Core.Interfaces.MVC;
+using Core.Statics;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.Views;
+using ScriptableObjects;
 using UnityEngine;
-using Scripts.Core.Interfaces;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Scenes.SceneGame.Controllers.Models;
-using Scripts.Scenes.SceneGame.Controllers.Views;
-using Scripts.ScriptableObjects;
 
-namespace Scripts.Scenes.SceneGame.Controllers
+namespace Scenes.SceneGame.Controllers
 {
     public class PlatformController : IController, IHasStart, IHasUpdate
     {
@@ -29,7 +29,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
         
         public void StartController()
         {
-            _ballController = AppContext.Context.GetController<BallController>();
+            _ballController = AppControllers.Instance.GetController<BallController>();
         }
         
         public void UpdateController()
@@ -52,7 +52,7 @@ namespace Scripts.Scenes.SceneGame.Controllers
             {
                 _platformModel.IsHold = false;
             }
-
+            
             _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
             _platformModel.OnChange?.Invoke();
         }

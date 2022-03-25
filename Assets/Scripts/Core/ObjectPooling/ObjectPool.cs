@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.ObjectPooling.Interfaces;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Scripts.Core.ObjectPooling
+namespace Core.ObjectPooling
 {
     public class ObjectPool<T> where T : IPoolable
     {
@@ -46,6 +47,7 @@ namespace Scripts.Core.ObjectPooling
                 if (poolObject.gameObject.activeSelf)
                 {
                     poolObject.gameObject.SetActive(false);
+                    _poolStack.Push(poolObject.GetComponent<T>());
                 }
             }
         }
@@ -54,7 +56,7 @@ namespace Scripts.Core.ObjectPooling
         {
             _poolStack.Push(obj);
             obj.GetGameObject()
-                .SetActive(false);
+               .SetActive(false);
         }
         
         private T SpawnObject()

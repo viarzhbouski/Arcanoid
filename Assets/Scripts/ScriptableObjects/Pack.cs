@@ -1,7 +1,8 @@
 ﻿using System;
+using Common.Enums;
 using UnityEngine;
 
-namespace Scripts.ScriptableObjects
+namespace ScriptableObjects
 {
     [Serializable]
     public struct Pack
@@ -15,8 +16,13 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private TextAsset[] levels;
         
+        [SerializeField]
+        private LocaleFields localeField;
+        
         public Sprite Image => image;
-        public string Mame => name;
+        public string Name => name;
         public TextAsset[] Levels => levels;
+        
+        public LocaleFields LocaleField => localeField;
     }
 }

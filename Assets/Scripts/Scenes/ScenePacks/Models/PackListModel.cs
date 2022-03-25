@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Scripts.Core.Interfaces.MVC;
+using Core.Interfaces.MVC;
 using UnityEngine;
 
 namespace Scenes.ScenePack.Models

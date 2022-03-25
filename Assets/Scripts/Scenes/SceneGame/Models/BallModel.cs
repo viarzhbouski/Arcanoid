@@ -1,8 +1,8 @@
 ﻿using System;
-using Scripts.Core.Interfaces.MVC;
+using Core.Interfaces.MVC;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Models
+namespace Scenes.SceneGame.Models
 {
     public class BallModel : IModel
     {

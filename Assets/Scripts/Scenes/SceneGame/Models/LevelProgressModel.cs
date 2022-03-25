@@ -1,7 +1,8 @@
 ﻿using System;
-using Scripts.Core.Interfaces.MVC;
+using Core.Interfaces.MVC;
+using ScriptableObjects;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Models
+namespace Scenes.SceneGame.Models
 {
     public class LevelProgressModel : IModel
     {
@@ -9,7 +10,11 @@ namespace Scripts.Scenes.SceneGame.Controllers.Models
         
         public int BlocksAtGameField { get; set; }
         
-        public float ProgressBarStep { get; set; }
+        public float LevelProgressBarStep { get; set; }
+        
+        public float LevelProgressBarXPosition { get; set; }
+        
+        public PackConfig CurrentPack { get; set; }
         
         public Action OnChange { get; set; }
 

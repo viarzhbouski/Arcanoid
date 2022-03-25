@@ -1,9 +1,9 @@
 ﻿using System;
 using Common.Enums;
-using Scenes.SceneGame.Views.Blocks;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
-namespace Scripts.ScriptableObjects
+namespace ScriptableObjects
 {
     [Serializable]
     public struct Block
@@ -13,7 +13,7 @@ namespace Scripts.ScriptableObjects
         [SerializeField]
         private BlockTypes blockType;
         [SerializeField]
-        private Color color;
+        private Color[] colors;
         [SerializeField]
         private BaseBlockView blockPrefab;
         public BoostTypes? BoostType { get; set; }
@@ -30,10 +30,10 @@ namespace Scripts.ScriptableObjects
             set => blockType = value;
         }
         
-        public Color Color 
+        public Color[] Colors 
         {
-            get => color; 
-            set => color = value;
+            get => colors; 
+            set => colors = value;
         }
         
         public BaseBlockView BlockPrefab 

@@ -1,11 +1,12 @@
-﻿using Common.Enums;
-using Scenes.SceneGame.Views.Blocks;
-using Scripts.Core.Interfaces.MVC;
-using Scripts.Core.ObjectPooling;
-using Scripts.Scenes.SceneGame.Controllers.Models;
+﻿using Core.Interfaces.MVC;
+using Core.ObjectPooling;
+using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.Models;
+using Scenes.SceneGame.ScenePools;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
-namespace Scripts.Scenes.SceneGame.Controllers.Views
+namespace Scenes.SceneGame.Views
 {
     public class BallView : MonoBehaviour, IView
     {
@@ -121,36 +122,6 @@ namespace Scripts.Scenes.SceneGame.Controllers.Views
             if (blockView != null)
             {
                 SpawnBallCollisionEffect();
-                BallHitBlock(blockView);
-            }
-        }
-
-        private void BallHitBlock(BaseBlockView blockView)
-        {
-            if (!blockView.BoostType.HasValue)
-            {
-                blockView.BlockHit();
-            }
-            
-            if (!blockView.CanDestroy)
-            {
-                return;
-            }
-
-            switch (blockView.BlockType)
-            {
-                case BlockTypes.Color:
-                    ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
-                                        .DestroyPoolObject((ColorBlockView)blockView);
-                    break;
-                case BlockTypes.Boost:
-                    ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
-                               .DestroyPoolObject((BoostBlockView)blockView);
-                    break;
-            }
-            
-            if (blockView.BoostType.HasValue)
-            {
                 blockView.BlockHit();
             }
         }

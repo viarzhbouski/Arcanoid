@@ -1,7 +1,7 @@
-﻿using Scenes.SceneMenu.Controllers;
+﻿using Core;
+using Scenes.SceneMenu.Controllers;
 using Scenes.SceneMenu.Views;
-using Scripts.Core;
-using Scripts.ScriptableObjects;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneMenu
