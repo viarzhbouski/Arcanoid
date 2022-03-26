@@ -7,6 +7,7 @@
         BallAccelerationBoost,
         BallSlowdownBoost,
         PlatformSizeEncreaseBoost,
-        PlatformSizeDecreaseBonus
+        PlatformSizeDecreaseBoost,
+        FuryBallBoost
     }
 }

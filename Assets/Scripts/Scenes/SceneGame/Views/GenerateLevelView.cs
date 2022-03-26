@@ -124,8 +124,11 @@ namespace Scenes.SceneGame.Views
                 case BoostTypes.PlatformSizeEncreaseBoost:
                     blockMono.SetBoost(new BonusBoost(new PlatformSizeEncreaseBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
-                case BoostTypes.PlatformSizeDecreaseBonus:
+                case BoostTypes.PlatformSizeDecreaseBoost:
                     blockMono.SetBoost(new BonusBoost(new PlatformSizeDecreaseBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.FuryBallBoost:
+                    blockMono.SetBoost(new BonusBoost(new FuryBallBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
             }
         }

@@ -34,7 +34,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         IEnumerator Execute()
         {
             yield return new WaitForSeconds(ExecuteDelay);
-            base.PlayBlockHitAnim();
+            base.BlockHit();
             _boost.ExecuteBoost(bonusBoost);
         }
     }

@@ -21,10 +21,10 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         private int _damageSum;
         private const float ExecuteDelay = 0.05f;
         
-        public override void SetBlockConfig(Block block, Action blockDestroyEvent)
+        public override void SetBlockConfig(Block block, Action destroyBlockEvent)
         {
             _boost = null;
-            base.SetBlockConfig(block, blockDestroyEvent);
+            base.SetBlockConfig(block, destroyBlockEvent);
 
             if (Block.HealthPoints > damageSprites.Count)
             {
@@ -69,7 +69,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             Block.HealthPoints -= damage;
             _damageSum += damage;
 
-            PlayBlockHitAnim();
+            base.BlockHit(damage);
             ChangeSprite();
         }
         

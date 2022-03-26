@@ -1,4 +1,5 @@
-﻿using Core.Interfaces.MVC;
+﻿using Common.Enums;
+using Core.Interfaces.MVC;
 using Core.ObjectPooling;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
@@ -44,7 +45,7 @@ namespace Scenes.SceneGame.Views
                 }
             }
         }
-
+        
         private void SetBallState()
         {
             if (_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
@@ -108,21 +109,36 @@ namespace Scenes.SceneGame.Views
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            var platformView = collision.collider.gameObject.GetComponent<PlatformView>();
+            var platformView = collision.gameObject.GetComponent<PlatformView>();
             
             if (platformView)
             {
                 return;
             }
-            
-            CorrectBallMovement();
-            
-            var blockView = collision.collider.gameObject.GetComponent<BaseBlockView>();
-            
-            if (blockView != null)
+
+            if (_ballModel.Aaa && collision.collider is BoxCollider2D)
             {
+                ballRigidbody.velocity = _prevMovementVector;
                 SpawnBallCollisionEffect();
-                blockView.BlockHit();
+                var blockView = collision.gameObject.GetComponent<BaseBlockView>();
+
+                if (blockView != null)
+                {
+                    SpawnBallCollisionEffect();
+                    blockView.BlockHitAndDestroyImmediately(blockView.BlockType != BlockTypes.Granite);
+                }
+            }
+            else
+            {
+                CorrectBallMovement();
+
+                var blockView = collision.gameObject.GetComponent<BaseBlockView>();
+
+                if (blockView != null)
+                {
+                    SpawnBallCollisionEffect();
+                    blockView.BlockHit();
+                }
             }
         }
 

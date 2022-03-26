@@ -93,6 +93,11 @@ namespace Scenes.SceneGame.Controllers
             _ballModel.OnChange?.Invoke();
         }
 
+        public void AAA(bool aaa)
+        {
+            _ballModel.Aaa = aaa;
+        }
+
         public void SetBallState(bool isStopped)
         {
             _ballModel.BallIsStopped = isStopped;

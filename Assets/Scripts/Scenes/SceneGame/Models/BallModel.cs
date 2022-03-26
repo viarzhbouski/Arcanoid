@@ -22,6 +22,8 @@ namespace Scenes.SceneGame.Models
         
         public float ProgressBarStep { get; set; }
         
+        public bool Aaa { get; set; }
+        
         public Action OnChange { get; set; }
 
         public void OnChangeHandler(Action onChange)

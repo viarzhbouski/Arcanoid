@@ -16,6 +16,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
     {
         [SerializeField]
         private protected SpriteRenderer blockSpriteRenderer;
+
         private Action _destroyBlockEvent;
         
         protected Block Block;
@@ -55,23 +56,37 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public virtual void BlockHit(int damage = 1)
         {
-            PlayBlockHitAnim();
-        }
-
-        protected virtual void PlayBlockHitAnim()
-        {
-            transform.DOKill();
-            transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
+            BlockHitAnim();
 
             if (CanDestroy)
             {
-                _destroyBlockEvent?.Invoke();
-                var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
-                var blockDestroyEffect = objectPool.GetObject();
-                blockDestroyEffect.transform.position = transform.position;
-                objectPool.DestroyPoolObject(blockDestroyEffect);
-                DestroyBlock();
+                BlockHitHandle();
             }
+        }
+
+        public virtual void BlockHitAnim()
+        {
+            transform.DOKill();
+            transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
+        }
+        
+        public virtual void BlockHitAndDestroyImmediately(bool countBlock = true)
+        {
+            BlockHitHandle(countBlock);
+        }
+
+        private void BlockHitHandle(bool countBlock = true)
+        {
+            if (countBlock)
+            {
+                _destroyBlockEvent.Invoke();
+            }
+
+            var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
+            var blockDestroyEffect = objectPool.GetObject();
+            blockDestroyEffect.transform.position = transform.position;
+            objectPool.DestroyPoolObject(blockDestroyEffect);
+            DestroyBlock();
         }
 
         public GameObject GetGameObject()
