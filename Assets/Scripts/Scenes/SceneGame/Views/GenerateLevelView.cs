@@ -116,10 +116,16 @@ namespace Scenes.SceneGame.Views
                     blockMono.SetBoost(new ColorChainBombBoost(_blocksGrid, i, j));
                     break;
                 case BoostTypes.BallAccelerationBoost:
-                    blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor)));
+                    blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
                 case BoostTypes.BallSlowdownBoost:
-                    blockMono.SetBoost(new BonusBoost(new BallSlowdownBonus(blockMono.BlockColor)));
+                    blockMono.SetBoost(new BonusBoost(new BallSlowdownBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformSizeEncreaseBoost:
+                    blockMono.SetBoost(new BonusBoost(new PlatformSizeEncreaseBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformSizeDecreaseBonus:
+                    blockMono.SetBoost(new BonusBoost(new PlatformSizeDecreaseBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
             }
         }

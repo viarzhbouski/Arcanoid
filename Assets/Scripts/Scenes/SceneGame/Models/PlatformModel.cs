@@ -15,6 +15,14 @@ namespace Scenes.SceneGame.Models
         public Vector2 Position { get; set; }
 
         public Action OnChange { get; set; }
+        
+        public float Size { get; set; }
+        
+        public float ExtraSize { get; set; }
+
+        public float PlatformSize => Size + ExtraSize;
+        
+        public bool SizeNeedChange { get; set; }
 
         public void OnChangeHandler(Action onChange)
         {

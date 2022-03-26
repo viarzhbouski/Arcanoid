@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces.MVC;
+using DG.Tweening;
 using Scenes.SceneGame.Models;
 using UnityEngine;
 
@@ -27,6 +28,20 @@ namespace Scenes.SceneGame.Views
         {
             SetPlatformPosition();
             SetPlatformBallStartPosition();
+            SetPlatformSize();
+        }
+
+        private void SetPlatformSize()
+        {
+            if (!_platformModel.SizeNeedChange)
+            {
+                return;
+            }
+
+            transform.DOKill();
+            transform.DOScaleX(_platformModel.PlatformSize, 1f);
+
+            _platformModel.SizeNeedChange = false;
         }
         
         private void SetPlatformBallStartPosition() => _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;

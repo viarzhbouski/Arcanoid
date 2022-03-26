@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8867129054205995434}
   - component: {fileID: 1263359381671525204}
   - component: {fileID: -3562405115684736835}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BoostBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

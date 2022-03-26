@@ -12,19 +12,18 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly PlatformModel _platformModel;
         private readonly PlatformView _platformView;
-        private readonly MainConfig _mainConfig;
         
         private BallController _ballController;
 
         public PlatformController(IView view, MainConfig mainConfig)
         {
-            _mainConfig = mainConfig;
             _platformModel = new PlatformModel();
             _platformView = view as PlatformView;
             
             _platformView!.Bind(_platformModel, this);
             _platformModel.PlatformSpeed = mainConfig.BallSpeed;
             _platformModel.OnChangeHandler(ControllerOnChange);
+            _platformModel.Size = 1f;
         }
         
         public void StartController()
@@ -61,6 +60,12 @@ namespace Scenes.SceneGame.Controllers
         {
             _platformModel.IsHold = true;
             _platformModel.Position = inputPosition;
+        }
+
+        public void ResizePlatform(float extraSize)
+        {
+            _platformModel.ExtraSize = extraSize;
+            _platformModel.SizeNeedChange = true;
         }
 
         public void ControllerOnChange()

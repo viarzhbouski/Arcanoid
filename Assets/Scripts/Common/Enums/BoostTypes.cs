@@ -5,6 +5,8 @@
         Bomb = 4,
         ColorChainBomb,
         BallAccelerationBoost,
-        BallSlowdownBoost
+        BallSlowdownBoost,
+        PlatformSizeEncreaseBoost,
+        PlatformSizeDecreaseBonus
     }
 }

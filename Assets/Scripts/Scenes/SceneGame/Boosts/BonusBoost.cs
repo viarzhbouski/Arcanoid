@@ -6,17 +6,19 @@ namespace Scenes.SceneGame.Boosts
 {
     public class BonusBoost : IHasBoost
     {
-        private IHasBonusBoost _bonusBoost;
+        private readonly IHasBonusBoost _bonusBoost;
+        private readonly Vector2 _blockPosition;
 
-        public BonusBoost(IHasBonusBoost bonusBoost)
+        public BonusBoost(IHasBonusBoost bonusBoost, Vector2 blockPosition)
         {
             _bonusBoost = bonusBoost;
+            _blockPosition = blockPosition;
         }
         
-        public void ExecuteBoost(BonusBoostView bonusBoost)
+        public void ExecuteBoost(BonusBoostView bonusBoostView)
         {
-            var bonusObject = Object.Instantiate(bonusBoost);
-            bonusObject.Init(_bonusBoost);
+            var bonusBoostViewObject = Object.Instantiate(bonusBoostView, _blockPosition, Quaternion.identity);
+            bonusBoostViewObject.Init(_bonusBoost);
         }
     }
 }
