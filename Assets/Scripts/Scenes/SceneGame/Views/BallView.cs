@@ -74,11 +74,11 @@ namespace Scenes.SceneGame.Views
             
             if (ballRigidbody.velocity.magnitude == 0f)
             {
-                ballRigidbody.velocity = Vector2.up * _ballModel.Speed;
+                ballRigidbody.velocity = Vector2.up * _ballModel.BallSpeed;
             }
             else
             {
-                ballRigidbody.velocity = _ballModel.Speed * ballRigidbody.velocity.normalized;
+                ballRigidbody.velocity = _ballModel.BallSpeed * ballRigidbody.velocity.normalized;
             }
         }
 

@@ -2,12 +2,16 @@
 using Core.ObjectPooling;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.ScenePools;
+using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
     public class BoostBlockView : BaseBlockView
     {
+        [SerializeField]
+        private BonusBoostView bonusBoost;
+        
         private IHasBoost _boost;
         private const float ExecuteDelay = 0.05f;
         
@@ -31,7 +35,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         {
             yield return new WaitForSeconds(ExecuteDelay);
             base.PlayBlockHitAnim();
-            _boost.ExecuteBoost();
+            _boost.ExecuteBoost(bonusBoost);
         }
     }
 }

@@ -3,6 +3,7 @@ using Core.Interfaces.MVC;
 using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Boosts;
+using Scenes.SceneGame.Boosts.Bonuses;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
@@ -113,6 +114,12 @@ namespace Scenes.SceneGame.Views
                     break;
                 case BoostTypes.ColorChainBomb:
                     blockMono.SetBoost(new ColorChainBombBoost(_blocksGrid, i, j));
+                    break;
+                case BoostTypes.BallAccelerationBoost:
+                    blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor)));
+                    break;
+                case BoostTypes.BallSlowdownBoost:
+                    blockMono.SetBoost(new BonusBoost(new BallSlowdownBonus(blockMono.BlockColor)));
                     break;
             }
         }

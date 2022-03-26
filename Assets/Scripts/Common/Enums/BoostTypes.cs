@@ -3,6 +3,8 @@
     public enum BoostTypes
     {
         Bomb = 4,
-        ColorChainBomb
+        ColorChainBomb,
+        BallAccelerationBoost,
+        BallSlowdownBoost
     }
 }

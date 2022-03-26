@@ -3,6 +3,8 @@ using System.Linq;
 using Common.Enums;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
+using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
+using UnityEngine;
 
 namespace Scenes.SceneGame.Boosts
 {
@@ -20,7 +22,7 @@ namespace Scenes.SceneGame.Boosts
             FillNeighbourBlocks(blockGridPositionX, blockGridPositionY);
         }
         
-        public void ExecuteBoost()
+        public void ExecuteBoost(BonusBoostView bonusBoost)
         {
             DestroyNeighbours();
         }

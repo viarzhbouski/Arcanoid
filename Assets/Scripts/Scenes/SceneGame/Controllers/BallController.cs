@@ -77,6 +77,11 @@ namespace Scenes.SceneGame.Controllers
             }
         }
 
+        public void SetBallExtraSpeed(float speed)
+        {
+            _ballModel.ExtraSpeed = speed;
+        }
+        
         public void UpdateBallPosition(Vector2 ballPosition)
         {
             if (_ballModel.IsStarted)

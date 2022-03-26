@@ -79,12 +79,6 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             SetBlockDamage(damage);
             _boost.ExecuteBoost();
         }
-        
-        
-        
-        
-        
-        
 
         private void ChangeSprite()
         {

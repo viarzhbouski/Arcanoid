@@ -14,6 +14,10 @@ namespace Scenes.SceneGame.Models
         
         public float Speed { get; set; }
         
+        public float ExtraSpeed { get; set; }
+
+        public float BallSpeed => Speed + ExtraSpeed;
+        
         public float MinBounceAngle { get; set; }
         
         public float ProgressBarStep { get; set; }
