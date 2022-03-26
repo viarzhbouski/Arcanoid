@@ -115,20 +115,32 @@ namespace Scenes.SceneGame.Views
                 case BoostTypes.ColorChainBomb:
                     blockMono.SetBoost(new ColorChainBombBoost(_blocksGrid, i, j));
                     break;
-                case BoostTypes.BallAccelerationBoost:
+                case BoostTypes.BallAcceleration:
                     blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
-                case BoostTypes.BallSlowdownBoost:
+                case BoostTypes.BallSlowdown:
                     blockMono.SetBoost(new BonusBoost(new BallSlowdownBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
-                case BoostTypes.PlatformSizeEncreaseBoost:
+                case BoostTypes.PlatformSizeEncrease:
                     blockMono.SetBoost(new BonusBoost(new PlatformSizeEncreaseBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
-                case BoostTypes.PlatformSizeDecreaseBoost:
+                case BoostTypes.PlatformSizeDecrease:
                     blockMono.SetBoost(new BonusBoost(new PlatformSizeDecreaseBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
-                case BoostTypes.FuryBallBoost:
+                case BoostTypes.FuryBall:
                     blockMono.SetBoost(new BonusBoost(new FuryBallBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformAcceleration:
+                    blockMono.SetBoost(new BonusBoost(new PlatformAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformSlowdown:
+                    blockMono.SetBoost(new BonusBoost(new PlatformSlowdownBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.BlackLabel:
+                    blockMono.SetBoost(new BonusBoost(new BlackLabelBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.SourceOfLife:
+                    blockMono.SetBoost(new BonusBoost(new SourceOfLifeBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;
             }
         }

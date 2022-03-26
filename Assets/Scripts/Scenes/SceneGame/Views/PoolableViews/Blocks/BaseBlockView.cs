@@ -54,28 +54,29 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public abstract void DestroyBlock();
         
-        public virtual void BlockHit(int damage = 1)
+        public virtual void BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
+            if (destroyImmediately)
+            {
+                BlockHitHandle(countBlock);
+                return;
+            }
+            
             BlockHitAnim();
 
             if (CanDestroy)
             {
-                BlockHitHandle();
+                BlockHitHandle(countBlock);
             }
         }
-
+        
         public virtual void BlockHitAnim()
         {
             transform.DOKill();
             transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
         }
         
-        public virtual void BlockHitAndDestroyImmediately(bool countBlock = true)
-        {
-            BlockHitHandle(countBlock);
-        }
-
-        private void BlockHitHandle(bool countBlock = true)
+        private void BlockHitHandle(bool countBlock)
         {
             if (countBlock)
             {

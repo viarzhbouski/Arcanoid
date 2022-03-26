@@ -22,7 +22,7 @@ namespace Scenes.SceneGame.Models
         
         public float ProgressBarStep { get; set; }
         
-        public bool Aaa { get; set; }
+        public bool BallCanDestroyAllBlocks { get; set; }
         
         public Action OnChange { get; set; }
 

@@ -93,9 +93,9 @@ namespace Scenes.SceneGame.Controllers
             _ballModel.OnChange?.Invoke();
         }
 
-        public void AAA(bool aaa)
+        public void SetBallCanDestroyAllBlocks(bool state)
         {
-            _ballModel.Aaa = aaa;
+            _ballModel.BallCanDestroyAllBlocks = state;
         }
 
         public void SetBallState(bool isStopped)

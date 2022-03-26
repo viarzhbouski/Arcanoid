@@ -116,16 +116,17 @@ namespace Scenes.SceneGame.Views
                 return;
             }
 
-            if (_ballModel.Aaa && collision.collider is BoxCollider2D)
+            if (_ballModel.BallCanDestroyAllBlocks && collision.collider is BoxCollider2D)
             {
-                ballRigidbody.velocity = _prevMovementVector;
+                
                 SpawnBallCollisionEffect();
                 var blockView = collision.gameObject.GetComponent<BaseBlockView>();
 
                 if (blockView != null)
                 {
                     SpawnBallCollisionEffect();
-                    blockView.BlockHitAndDestroyImmediately(blockView.BlockType != BlockTypes.Granite);
+                    blockView.BlockHit(999, blockView.BlockType != BlockTypes.Granite, true);
+                    ballRigidbody.velocity = _prevMovementVector;
                 }
             }
             else

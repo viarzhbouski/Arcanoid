@@ -56,6 +56,12 @@ namespace Scenes.SceneGame.Controllers
             }
         }
 
+        public void EncreaseLife()
+        {
+            _lifesModel.LifesCount++;
+            _lifesModel.OnChange?.Invoke();
+        }
+
         public void RestartLevel() => _pauseGameController.RestartLevel();
     }
 }

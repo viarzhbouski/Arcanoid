@@ -5,29 +5,29 @@ using UnityEngine;
 
 namespace Scenes.SceneGame.Boosts.Bonuses
 {
-    public class FuryBallBonus : IHasBonusBoost
+    public class PlatformAccelerationBonus : IHasBonusBoost
     {
-        private BallController _ballController;
+        private PlatformController _platformController;
         
         public float BonusWorkingDelay { get; }
         
         public Color BonusColor { get; }
 
-        public FuryBallBonus(Color bonusColor)
+        public PlatformAccelerationBonus(Color bonusColor)
         {
-            BonusWorkingDelay = 10f;
+            BonusWorkingDelay = 3f;
             BonusColor = bonusColor;
         }
 
         public void ApplyBonusBoost()
-        { 
-            _ballController = AppControllers.Instance.GetController<BallController>();
-            _ballController.SetBallCanDestroyAllBlocks(true);
+        {
+            _platformController = AppControllers.Instance.GetController<PlatformController>();
+            _platformController.SetPlatformExtraSpeed(10f);
         }
         
         public void CancelBonusBoost()
         {
-            _ballController.SetBallCanDestroyAllBlocks(false);
+            _platformController.SetPlatformExtraSpeed(0);
         }
     }
 }

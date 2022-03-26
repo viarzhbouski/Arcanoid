@@ -10,7 +10,11 @@ namespace Scenes.SceneGame.Models
         
         public Vector2 PlatformBallStartPosition { get; set; }
         
-        public float PlatformSpeed { get; set; }
+        public float Speed { get; set; }
+        
+        public float ExtraSpeed { get; set; }
+
+        public float PlatformSpeed => Speed + ExtraSpeed;
         
         public Vector2 Position { get; set; }
 

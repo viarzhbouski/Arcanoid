@@ -4,10 +4,14 @@
     {
         Bomb = 4,
         ColorChainBomb,
-        BallAccelerationBoost,
-        BallSlowdownBoost,
-        PlatformSizeEncreaseBoost,
-        PlatformSizeDecreaseBoost,
-        FuryBallBoost
+        BallAcceleration,
+        BallSlowdown,
+        PlatformSizeEncrease,
+        PlatformSizeDecrease,
+        FuryBall,
+        PlatformAcceleration,
+        PlatformSlowdown,
+        BlackLabel,
+        SourceOfLife
     }
 }

@@ -26,16 +26,28 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
                 .DestroyPoolObject(this);
         }
 
-        public override void BlockHit(int damage = 1)
+        public override void BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
-            StartCoroutine(Execute());
+            if (_boost is Boosts.BonusBoost)
+            {
+                Execute(damage, countBlock, destroyImmediately);
+            }
+            else
+            {
+                StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
+            }
         }
 
-        IEnumerator Execute()
+        private void Execute(int damage, bool countBlock, bool destroyImmediately)
+        {
+            base.BlockHit(damage, countBlock, destroyImmediately);
+            _boost.ExecuteBoost(bonusBoost);
+        }
+        
+        IEnumerator ExecuteWithDelay(int damage, bool countBlock, bool destroyImmediately)
         {
             yield return new WaitForSeconds(ExecuteDelay);
-            base.BlockHit();
-            _boost.ExecuteBoost(bonusBoost);
+            Execute(damage, countBlock, destroyImmediately);
         }
     }
 }

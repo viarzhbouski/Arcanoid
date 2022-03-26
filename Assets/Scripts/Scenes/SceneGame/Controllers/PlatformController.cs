@@ -21,7 +21,7 @@ namespace Scenes.SceneGame.Controllers
             _platformView = view as PlatformView;
             
             _platformView!.Bind(_platformModel, this);
-            _platformModel.PlatformSpeed = mainConfig.BallSpeed;
+            _platformModel.Speed = mainConfig.PlatformSpeed;
             _platformModel.OnChangeHandler(ControllerOnChange);
             _platformModel.Size = 1f;
         }
@@ -71,6 +71,11 @@ namespace Scenes.SceneGame.Controllers
         public void ControllerOnChange()
         {
             _platformView.RenderChanges();
+        }
+        
+        public void SetPlatformExtraSpeed(float speed)
+        {
+            _platformModel.ExtraSpeed = speed;
         }
     }
 }

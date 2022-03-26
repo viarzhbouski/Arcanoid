@@ -47,27 +47,65 @@ namespace Scenes.SceneGame.Views
                 }
             }
             
-            if (!_lifesStack.Any())
+            if (_lifesStack.Count < _lifesModel.LifesCount)
             {
-                for (var i = 0; i < _lifesModel.LifesCount; i++)
+                for (var i = _lifesStack.Count; i < _lifesModel.LifesCount; i++)
                 {
                     var lifeGameObject = Instantiate(lifePrefab, lifeGridUI);
                     _lifesStack.Push(lifeGameObject);
                 }
             }
-            else
+            else if (_lifesStack.Count > _lifesModel.LifesCount)
             {
-                Destroy(_lifesStack.Pop());
-
-                if (!_lifesStack.Any())
+                while (_lifesStack.Count > _lifesModel.LifesCount)
                 {
-                    _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
-                    _gameOverPopupView.Init();
-                    _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
-                    _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
+                    if (_lifesStack.Any())
+                    {
+                        Destroy(_lifesStack.Pop());
+                    }
                 }
             }
+
+            if (!_lifesStack.Any())
+            {
+                _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
+                _gameOverPopupView.Init();
+                _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
+                _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
+            }
         }
+
+        // private void RenderLifes()
+        // {
+        //     if (_lifesModel.IsStartGame)
+        //     {
+        //         while (_lifesStack.Any())
+        //         {
+        //             Destroy(_lifesStack.Pop());
+        //         }
+        //     }
+        //
+        //     if (!_lifesStack.Any())
+        //     {
+        //         for (var i = 0; i < _lifesModel.LifesCount; i++)
+        //         {
+        //             var lifeGameObject = Instantiate(lifePrefab, lifeGridUI);
+        //             _lifesStack.Push(lifeGameObject);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         Destroy(_lifesStack.Pop());
+        //
+        //         if (!_lifesStack.Any())
+        //         {
+        //             _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
+        //             _gameOverPopupView.Init();
+        //             _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
+        //             _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
+        //         }
+        //     }
+        // }
 
         private void GameOverPopupBackToMenuButtonOnClick()
         {

@@ -2027,6 +2027,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 478845500}
     m_Modifications:
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.9687864
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.6839622
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3363839207106457664, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2037,7 +2073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3363839207106457664, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.97
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 3363839207106457664, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2079,5 +2115,25 @@ PrefabInstance:
       propertyPath: progressBar
       value: 
       objectReference: {fileID: 1043639594}
+    - target: {fileID: 3363839207106457677, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3363839207106457677, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3363839207106457677, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3363839207106457678, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3363839207106457678, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}

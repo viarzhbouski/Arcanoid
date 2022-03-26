@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 97cfceceef171d44a9451895c68176f0, type: 2}
   ballSpeed: 15
   minBounceAngle: 30
-  platformSpeed: 3
+  platformSpeed: 15
   lifeCount: 3
   maxLifeCount: 4
   maxViewportSize: 1
@@ -31,7 +31,7 @@ MonoBehaviour:
     blockType: 0
     colors: []
     blockPrefab: {fileID: 0}
-  - healthPoints: 2
+  - healthPoints: 1
     blockType: 1
     colors:
     - {r: 0, g: 1, b: 0.4002676, a: 1}
@@ -51,5 +51,9 @@ MonoBehaviour:
     - {r: 1, g: 0.702134, b: 0, a: 1}
     - {r: 1, g: 0.3727281, b: 0, a: 1}
     - {r: 0.7075472, g: 0.04519187, b: 0, a: 1}
+    - {r: 1, g: 0.89874214, b: 0.8915094, a: 1}
+    - {r: 1, g: 0, b: 0.02849722, a: 1}
+    - {r: 0.49056602, g: 0.38180846, b: 0.38479397, a: 1}
+    - {r: 0.2830189, g: 0.16153437, b: 0.16486923, a: 1}
     blockPrefab: {fileID: -3562405115684736835, guid: f0aaeb53c788e7e4fa6c3d2b4aabb392, type: 3}
   pausePopupDelayAfterContinue: 0.5
