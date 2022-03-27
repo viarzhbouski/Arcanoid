@@ -7,7 +7,6 @@ using Core.Statics;
 using Newtonsoft.Json;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 using ScriptableObjects.BlockConfigs;
 using UnityEngine;
 
@@ -17,12 +16,10 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
-        private readonly MainConfig _mainConfig;
         private LevelProgressController _levelProgressController;
 
-        public GenerateLevelController(IView view, MainConfig mainConfig)
+        public GenerateLevelController(IView view)
         {
-            _mainConfig = mainConfig;
             _generateLevelModel = new GenerateLevelModel();
             _generateLevelView = view as GenerateLevelView;
             _generateLevelView!.Bind(_generateLevelModel, this);
@@ -88,7 +85,7 @@ namespace Scenes.SceneGame.Controllers
         {
             var selectedPack = DataRepository.SelectedPack;
             var selectedLevel = DataRepository.SelectedLevel;;
-            var pack = AppConfig.Instance.Config.Packs[selectedPack];
+            var pack = AppConfig.Instance.Packs[selectedPack];
             var levelData = pack.Levels[selectedLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
 
@@ -100,9 +97,11 @@ namespace Scenes.SceneGame.Controllers
 
         private void GenerateBlocksGrid(LevelMap level)
         {
+            var gamefieldConfig = AppConfig.Instance.Gamefield;
+            
             _generateLevelModel.CellSize = new Vector2
             {
-                x = (_mainConfig.MaxViewportSize - _mainConfig.SpaceWidth * (level.Columns + 1)) / level.Columns
+                x = (gamefieldConfig.MaxViewportSize - gamefieldConfig.SpaceWidth * (level.Columns + 1)) / level.Columns
             };
             
             var blocksGrid = new BlockInfo[level.Rows, level.Columns];
@@ -111,17 +110,17 @@ namespace Scenes.SceneGame.Controllers
             var ratio = (float)Screen.width / Screen.height;
             var cellWidth = _generateLevelModel.CellSize.x / 2;
             var cellHeight = cellWidth * ratio;
-            var topPanelWidth = _mainConfig.MaxViewportSize / (_generateLevelModel.TopPanelPosition.y / 2) * ratio;
-            var y = _mainConfig.MaxViewportSize - cellHeight / 2 - _mainConfig.SpaceHeight - topPanelWidth;
+            var topPanelWidth = gamefieldConfig.MaxViewportSize / (_generateLevelModel.TopPanelPosition.y / 2) * ratio;
+            var y = gamefieldConfig.MaxViewportSize - cellHeight / 2 - gamefieldConfig.SpaceHeight - topPanelWidth;
             
             for (var i = 0; i < level.Rows; i++)
             {
-                var x = cellWidth + _mainConfig.SpaceWidth;
+                var x = cellWidth + gamefieldConfig.SpaceWidth;
                 
                 for (var j = 0; j < level.Columns; j++)
                 {
-                    var blockType = (BlockTypes)blocks[blockId]; ;
-                    var block = AppConfig.Instance.Config.Blocks.First(e => e.BlockType == blockType);
+                    var blockType = (BlockTypes)blocks[blockId];
+                    var block = AppConfig.Instance.Blocks.First(e => e.BlockType == blockType);
                     var blockInfo = new BlockInfo
                     {
                         HealthPoints = block.HealthPoints,
@@ -149,13 +148,13 @@ namespace Scenes.SceneGame.Controllers
                             break;
                     }
                     
-                    x += _generateLevelModel.CellSize.x + _mainConfig.SpaceWidth;
+                    x += _generateLevelModel.CellSize.x + gamefieldConfig.SpaceWidth;
                     blocksGrid[i, j] = blockInfo;
                     
                     blockId++;
                 }
 
-                y -= cellHeight + _mainConfig.SpaceHeight;
+                y -= cellHeight + gamefieldConfig.SpaceHeight;
             }
             
             _generateLevelModel.Blocks = blocksGrid;

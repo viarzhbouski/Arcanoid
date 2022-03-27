@@ -13,11 +13,9 @@ namespace Scenes.ScenePacks.Controllers
     {
         private readonly PackListModel _packListModel;
         private readonly PackListView _packListView;
-        private readonly MainConfig _mainConfig;
 
-        public PackListController(IView view, MainConfig mainConfig)
+        public PackListController(IView view)
         {
-            _mainConfig = mainConfig;
             _packListModel = new PackListModel();
             _packListView = view as PackListView;
             _packListView!.Bind(_packListModel, this);
@@ -32,7 +30,7 @@ namespace Scenes.ScenePacks.Controllers
         private void GetPacks()
         {
             var currentGameProgress = GameCache.GetCurrentGameProgress();
-            var packsConfig = AppConfig.Instance.Config.Packs;
+            var packsConfig = AppConfig.Instance.Packs;
             
             for (var i = 0; i < packsConfig.Count; i++)
             {

@@ -3,7 +3,6 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -11,21 +10,19 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly PauseGameModel _pauseGameModel;
         private readonly PauseGameView _pauseGameView;
-        private readonly MainConfig _mainConfig;
         
         private BallController _ballController;
         private GenerateLevelController _generateLevelController;
         private LifesController _lifesController;
         private LevelProgressController _levelProgressController;
 
-        public PauseGameController(IView view, MainConfig mainConfig)
+        public PauseGameController(IView view)
         {
-            _mainConfig = mainConfig;
             _pauseGameModel = new PauseGameModel();
             _pauseGameView = view as PauseGameView;
             _pauseGameView!.Bind(_pauseGameModel, this);
             _pauseGameModel.OnChangeHandler(ControllerOnChange);
-            _pauseGameModel.PausePopupDelayAfterContinue = mainConfig.PausePopupDelayAfterContinue;
+            _pauseGameModel.PausePopupDelayAfterContinue = AppConfig.Instance.PopupsConfig.PausePopupDelayAfterContinue;
         }
         
         public void StartController()

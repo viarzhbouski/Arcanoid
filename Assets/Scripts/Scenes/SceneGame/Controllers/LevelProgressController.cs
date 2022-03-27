@@ -4,7 +4,6 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 using UnityEngine.SceneManagement;
 
 namespace Scenes.SceneGame.Controllers
@@ -13,14 +12,12 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly LevelProgressModel _levelProgressModel;
         private readonly LevelProgressView _levelProgressView;
-        private readonly MainConfig _mainConfig;
         
         private GenerateLevelController _generateLevelController;
         private PauseGameController _pauseGameController;
 
-        public LevelProgressController(IView view, MainConfig mainConfig)
+        public LevelProgressController(IView view)
         {
-            _mainConfig = mainConfig;
             _levelProgressModel = new LevelProgressModel();
             _levelProgressView = view as LevelProgressView;
             _levelProgressView!.Bind(_levelProgressModel, this);
@@ -41,7 +38,7 @@ namespace Scenes.SceneGame.Controllers
         
         public void InitLevelProgressBar()
         {
-            _levelProgressModel.CurrentPack = AppConfig.Instance.Config.Packs[DataRepository.SelectedPack];
+            _levelProgressModel.CurrentPack = AppConfig.Instance.Packs[DataRepository.SelectedPack];
             _levelProgressModel.IsStartGame = true;
             _levelProgressModel.BlocksAtGameField = _generateLevelController.GetBlocksCount();
             _levelProgressModel.LevelProgressBarXPosition = 0f;
@@ -63,7 +60,7 @@ namespace Scenes.SceneGame.Controllers
 
         public void SaveProgress()
         {
-            var packsConfig = AppConfig.Instance.Config.Packs;
+            var packsConfig = AppConfig.Instance.Packs;
             var currentGameProgress = GameCache.GetCurrentGameProgress();
             var selectedPack = DataRepository.SelectedPack;
             var selectedLevel = DataRepository.SelectedLevel;

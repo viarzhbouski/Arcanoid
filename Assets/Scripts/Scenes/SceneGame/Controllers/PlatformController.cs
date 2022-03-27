@@ -15,14 +15,14 @@ namespace Scenes.SceneGame.Controllers
         
         private BallController _ballController;
 
-        public PlatformController(IView view, MainConfig mainConfig)
+        public PlatformController(IView view)
         {
             _platformModel = new PlatformModel();
             _platformView = view as PlatformView;
             
             _platformView!.Bind(_platformModel, this);
-            _platformModel.Speed = mainConfig.PlatformSpeed;
             _platformModel.OnChangeHandler(ControllerOnChange);
+            _platformModel.Speed = AppConfig.Instance.BallAndPlatform.PlatformSpeed;
             _platformModel.Size = 1f;
         }
         

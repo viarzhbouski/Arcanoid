@@ -12,19 +12,17 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
-        private readonly MainConfig _mainConfig;
-        
+
         private LifesController _lifesController;
         private LevelProgressController _levelProgressController;
         private bool _isHold;
 
-        public BallController(IView view, MainConfig mainConfig)
+        public BallController(IView view)
         {
-            _mainConfig = mainConfig;
             _ballModel = new BallModel();
             _ballView = view as BallView;
             _ballView!.Bind(_ballModel, this);
-            _ballModel.MinBounceAngle = mainConfig.MinBounceAngle;
+            _ballModel.MinBounceAngle = AppConfig.Instance.BallAndPlatform.MinBounceAngle;
             _ballModel.OnChangeHandler(ControllerOnChange);
         }
         
@@ -72,7 +70,7 @@ namespace Scenes.SceneGame.Controllers
             else if (_isHold)
             {
                 _isHold = false;
-                _ballModel.Speed = _mainConfig.BallSpeed;
+                _ballModel.Speed = AppConfig.Instance.BallAndPlatform.BallSpeed;
                 _ballModel.IsStarted = true;
             }
         }

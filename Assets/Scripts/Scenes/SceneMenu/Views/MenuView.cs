@@ -64,14 +64,14 @@ namespace Scenes.SceneMenu.Views
         private void InitLocalizationButton()
         {
             var currentLocalization = GameCache.GetCurrentLocalization();
-            _currentLocalization = AppConfig.Instance.Config.LocalizationConfigs.First(e => e.LocaleLanguage == currentLocalization);
+            _currentLocalization = AppConfig.Instance.Localizations.First(e => e.LocaleLanguage == currentLocalization);
             localizationButtonImage.sprite = _currentLocalization.Flag;
         }
         
         private void LocalizationOnClick()
         {
             var newLocalizationLang = Localization.ToogleLocalization(_currentLocalization.LocaleLanguage);
-            _currentLocalization = AppConfig.Instance.Config.LocalizationConfigs.First(e => e.LocaleLanguage == newLocalizationLang);
+            _currentLocalization = AppConfig.Instance.Localizations.First(e => e.LocaleLanguage == newLocalizationLang);
             GameCache.SetLocalization(newLocalizationLang);
             localizationButtonImage.sprite = _currentLocalization.Flag;
             logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
