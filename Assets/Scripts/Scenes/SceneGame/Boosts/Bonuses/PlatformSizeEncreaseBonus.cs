@@ -15,14 +15,14 @@ namespace Scenes.SceneGame.Boosts.Bonuses
 
         public PlatformSizeEncreaseBonus(Color bonusColor)
         {
-            BonusWorkingDelay = 10f;
+            BonusWorkingDelay = AppConfig.Instance.BoostsConfig.PlatformSizeEncreaseWorkingDelay;
             BonusColor = bonusColor;
         }
 
         public void ApplyBonusBoost()
         { 
             _platformController = AppControllers.Instance.GetController<PlatformController>();
-            _platformController.ResizePlatform(0.75f);
+            _platformController.ResizePlatform(AppConfig.Instance.BoostsConfig.PlatformSizeEncrease);
         }
         
         public void CancelBonusBoost()

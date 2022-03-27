@@ -3,7 +3,6 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
@@ -22,8 +21,8 @@ namespace Scenes.SceneGame.Controllers
             _ballModel = new BallModel();
             _ballView = view as BallView;
             _ballView!.Bind(_ballModel, this);
-            _ballModel.MinBounceAngle = AppConfig.Instance.BallAndPlatform.MinBounceAngle;
             _ballModel.OnChangeHandler(ControllerOnChange);
+            _ballModel.MinBounceAngle = AppConfig.Instance.BallAndPlatform.MinBounceAngle;
         }
         
         public void StartController()

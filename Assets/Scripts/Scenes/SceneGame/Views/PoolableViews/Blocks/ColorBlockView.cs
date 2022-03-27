@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.ObjectPooling;
+using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
@@ -19,7 +20,6 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         private Queue<Sprite> _spriteQueue;
         private int _damageForChangeSprite;
         private int _damageSum;
-        private const float ExecuteDelay = 0.05f;
         
         public override void SetBlockConfig(BlockInfo block, Action destroyBlockEvent)
         {
@@ -75,7 +75,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         IEnumerator Execute(int damage)
         {
-            yield return new WaitForSeconds(ExecuteDelay);
+            yield return new WaitForSeconds(AppConfig.Instance.BoostsConfig.ChainBombExecuteDelay);
             SetBlockDamage(damage);
             _boost.ExecuteBoost();
         }

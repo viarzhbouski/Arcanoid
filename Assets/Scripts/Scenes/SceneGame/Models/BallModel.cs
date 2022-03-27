@@ -11,7 +11,7 @@ namespace Scenes.SceneGame.Models
         public bool BallIsStopped { get; set; }
         
         public Vector2 BallPosition { get; set; }
-        
+
         public float Speed { get; set; }
         
         public float ExtraSpeed { get; set; }

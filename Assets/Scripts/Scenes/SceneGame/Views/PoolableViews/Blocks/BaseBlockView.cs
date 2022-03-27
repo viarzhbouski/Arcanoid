@@ -23,7 +23,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public BlockTypes BlockType => Block.BlockType;
         
-        public BoostTypes? BoostType =>  Block.BoostType;
+        public BoostTypes? BoostType => Block.BoostType;
         
         public Color BlockColor => blockSpriteRenderer.color;
         

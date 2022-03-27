@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
+using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
@@ -39,7 +40,7 @@ namespace Scenes.SceneGame.Boosts
                 switch (block.BlockType)
                 {
                     case BlockTypes.Color:
-                        block.BlockHit(555);
+                        block.BlockHit();
                         break;
                     case BlockTypes.Granite:
                         block.DestroyBlock();

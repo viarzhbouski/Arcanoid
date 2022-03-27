@@ -7,8 +7,6 @@ using Scenes.SceneGame.Boosts.Bonuses;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
-using ScriptableObjects;
-using ScriptableObjects.BlockConfigs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,25 +52,21 @@ namespace Scenes.SceneGame.Views
 
         private void RenderLevelMap()
         {
-            var height = _generateLevelModel.Blocks.GetLength(0);
-            var width = _generateLevelModel.Blocks.GetLength(1);
-            _blocksGrid = new BaseBlockView[height, width];
+            var rows = _generateLevelModel.Blocks.GetLength(0);
+            var columns = _generateLevelModel.Blocks.GetLength(1);
+            _blocksGrid = new BaseBlockView[rows, columns];
             SetLevelUI();
             
-            for (var i = 0; i < height; i++)
+            for (var i = 0; i < rows; i++)
             {
-                for (var j = 0; j < width; j++)
+                for (var j = 0; j < columns; j++)
                 {
                     var block = _generateLevelModel.Blocks[i, j];
-                    if (block.BlockType == BlockTypes.Empty)
-                    {
-                        continue;
-                    }
 
                     switch (block.BlockType)
                     {
                         case BlockTypes.Empty:
-                            continue;
+                            break;
                         case BlockTypes.Color:
                             SetBlockTransform(ObjectPools.Instance.GetObjectPool<ColorBlockPool>().GetObject(), block, i, j);
                             break;
@@ -86,11 +80,11 @@ namespace Scenes.SceneGame.Views
                 }
             }
 
-            for (var i = 0; i < height; i++)
+            for (var i = 0; i < rows; i++)
             {
-                for (var j = 0; j < width; j++)
+                for (var j = 0; j < columns; j++)
                 {
-                    if (_blocksGrid[i, j].BlockType == BlockTypes.Boost)
+                    if (_blocksGrid[i, j] != null && _blocksGrid[i, j].BlockType == BlockTypes.Boost)
                     {
                         SetBoost((BoostBlockView)_blocksGrid[i, j], i, j);
                     }
@@ -145,8 +139,7 @@ namespace Scenes.SceneGame.Views
                     break;
             }
         }
-
-
+        
         private void SetLevelUI()
         {
             levelNumber.text = _generateLevelModel.LevelNumber;

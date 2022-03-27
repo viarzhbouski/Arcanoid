@@ -47,7 +47,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 for (var j = 0; j < _generateLevelModel.Blocks.GetLength(1); j++)
                 {
-                    if (_generateLevelModel.Blocks[i, j].BlockType != BlockTypes.Granite)
+                    if (_generateLevelModel.Blocks[i, j].BlockType != BlockTypes.Granite && _generateLevelModel.Blocks[i, j].BlockType != BlockTypes.Empty)
                     {
                         blockCount++;
                     }
@@ -150,7 +150,6 @@ namespace Scenes.SceneGame.Controllers
                     
                     x += _generateLevelModel.CellSize.x + gamefieldConfig.SpaceWidth;
                     blocksGrid[i, j] = blockInfo;
-                    
                     blockId++;
                 }
 

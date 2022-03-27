@@ -8,6 +8,8 @@ namespace ScriptableObjects
         [SerializeField]
         private float ballSpeed;
         [SerializeField]
+        private int ballDamage;
+        [SerializeField]
         private float minBounceAngle;
         [SerializeField]
         private float platformSpeed;
@@ -17,6 +19,8 @@ namespace ScriptableObjects
         private int maxLifeCount;
         
         public float BallSpeed => ballSpeed;
+        
+        public int BallDamage => ballDamage;
         
         public float MinBounceAngle => minBounceAngle;
         

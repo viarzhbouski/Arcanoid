@@ -21,6 +21,8 @@ namespace Core.Statics
         public List<BaseBlockConfig> Blocks => _mainConfig.Blocks;
         
         public PopupsConfig PopupsConfig => _mainConfig.PopupsConfig;
+        
+        public BoostsConfig BoostsConfig => _mainConfig.BoostsConfig;
 
         public AppConfig(MainConfig mainConfig)
         {

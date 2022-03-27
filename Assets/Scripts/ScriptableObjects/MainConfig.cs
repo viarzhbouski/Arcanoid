@@ -36,6 +36,11 @@ namespace ScriptableObjects
         [Space]
         [SerializeField]
         public PopupsConfig popupsConfig;
+        
+        [Header("\tBOOSTS")] 
+        [Space]
+        [SerializeField]
+        public BoostsConfig boostsConfig;
 
         public List<LocalizationConfig> LocalizationConfigs => localizationConfigs;
 
@@ -48,5 +53,7 @@ namespace ScriptableObjects
         public List<BaseBlockConfig> Blocks => blocks;
         
         public PopupsConfig PopupsConfig => popupsConfig;
+        
+        public BoostsConfig BoostsConfig => boostsConfig;
     }
 }

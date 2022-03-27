@@ -1,6 +1,7 @@
 ﻿using Common.Enums;
 using Core.Interfaces.MVC;
 using Core.ObjectPooling;
+using Core.Statics;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
@@ -125,7 +126,7 @@ namespace Scenes.SceneGame.Views
                 if (blockView != null)
                 {
                     SpawnBallCollisionEffect();
-                    blockView.BlockHit(999, blockView.BlockType != BlockTypes.Granite, true);
+                    blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage, blockView.BlockType != BlockTypes.Granite, true);
                     ballRigidbody.velocity = _prevMovementVector;
                 }
             }
@@ -138,7 +139,7 @@ namespace Scenes.SceneGame.Views
                 if (blockView != null)
                 {
                     SpawnBallCollisionEffect();
-                    blockView.BlockHit();
+                    blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage);
                 }
             }
         }

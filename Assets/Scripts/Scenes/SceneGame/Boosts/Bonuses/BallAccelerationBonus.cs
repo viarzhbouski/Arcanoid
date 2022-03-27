@@ -15,14 +15,14 @@ namespace Scenes.SceneGame.Boosts.Bonuses
 
         public BallAccelerationBonus(Color bonusColor)
         {
-            BonusWorkingDelay = 3f;
+            BonusWorkingDelay = AppConfig.Instance.BoostsConfig.BallAccelerationWorkingDelay;
             BonusColor = bonusColor;
         }
 
         public void ApplyBonusBoost()
         {
             _ballController = AppControllers.Instance.GetController<BallController>();
-            _ballController.SetBallExtraSpeed(10f);
+            _ballController.SetBallExtraSpeed(AppConfig.Instance.BoostsConfig.BallAccelerationSpeed);
         }
         
         public void CancelBonusBoost()
