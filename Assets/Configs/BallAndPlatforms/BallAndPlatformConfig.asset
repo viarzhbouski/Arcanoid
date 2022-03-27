@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76e785e15cb4bfa9c51d4267bcc01b8, type: 3}
   m_Name: BallAndPlatformConfig
   m_EditorClassIdentifier: 
-  ballSpeed: 0
-  minBounceAngle: 0
-  platformSpeed: 0
-  lifeCount: 0
-  maxLifeCount: 0
+  ballSpeed: 15
+  ballDamage: 1
+  minBounceAngle: 30
+  platformSpeed: 10
+  lifeCount: 3
+  maxLifeCount: 3

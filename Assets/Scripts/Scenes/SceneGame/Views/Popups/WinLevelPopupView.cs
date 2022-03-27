@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Common.Enums;
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
+using Scenes.SceneGame.Controllers;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scenes.SceneGame.Views.Popups
@@ -34,20 +35,37 @@ namespace Scenes.SceneGame.Views.Popups
         [SerializeField]
         private RectTransform progressBar;
 
+        private LevelProgressController _levelProgressController;
+        private PlatformController _platformController;
         private const float ProgressBarDelay = 0.1f;
+        private const float WinPopupDelay = 0.75f;
 
-        public Button NextLevelButton => nextLevelButton;
-        
-        public Button BackToMenuButton => backToMenuButton;
-
-        public void Init(PackConfig currentPack)
+        public override void Open()
         {
+            var currentPackId = DataRepository.SelectedPack;
+            var currentPack = AppConfig.Instance.Packs[currentPackId];
+            transform.localScale = Vector3.zero;
+            nextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
+            backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
+            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
+            _platformController = AppControllers.Instance.GetController<PlatformController>();
+            _platformController.IsStarted(false);
             ApplyLocalization(currentPack);
+            StartCoroutine(OpenWithDelay(currentPack));
+        }
+
+        protected override void Close(bool destroyAfterClose = false)
+        {
+            CloseAnim(destroyAfterClose);
+        }
+
+        private void InitPackProgressBar(PackConfig currentPack)
+        {
             var progressBarScale = progressBar.localScale;
             
             progressBar.localScale = new Vector2(0f, progressBarScale.y);
             packImage.sprite = currentPack.Image;
-
+            
             var currentLevel = DataRepository.SelectedLevel;
             var progressBarStep = 1f / currentPack.Levels.Count;
             var progressBarPositionX = 0f;
@@ -56,7 +74,7 @@ namespace Scenes.SceneGame.Views.Popups
             {
                 progressBarPositionX += progressBarStep;
             }
-
+            
             StartCoroutine(ShowProgressBar(progressBarPositionX));
         }
 
@@ -67,11 +85,30 @@ namespace Scenes.SceneGame.Views.Popups
             backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.WinBackToMenu);
         }
 
+        private void BackToMenuButtonOnClick()
+        {
+            SceneManager.LoadScene((int)GameScenes.Packs);
+        }
+        
+        private void NextLevelButtonOnClick()
+        {
+            Close(true);
+            _levelProgressController.NextLevel();
+        }
+
+        IEnumerator OpenWithDelay(PackConfig currentPack)
+        {
+            yield return new WaitForSeconds(WinPopupDelay);
+            OpenAnim();
+            InitPackProgressBar(currentPack);
+        }
+        
         IEnumerator ShowProgressBar(float progressBarPositionX)
         {
             yield return new WaitForSeconds(ProgressBarDelay);
             progressBar.DOKill();
-            progressBar.DOScaleX(progressBarPositionX, 0.1f);
+            progressBar.DOScaleX(progressBarPositionX, 0.5f);
+           // _levelProgressController.SaveProgress();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Scenes.SceneGame.Views
 
         private Vector2 _prevMovementVector;
         private Vector2 _movementVectorBeforePause;
-        
+
         public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
@@ -32,10 +32,27 @@ namespace Scenes.SceneGame.Views
         public void RenderChanges()
         {
             SetBallState();
+            
+            if (!_ballModel.BallIsStopped)
+            {
+                if (!_ballModel.IsStarted)
+                {
+                    ballRigidbody.velocity = Vector2.zero;
+                    UpdateBallPosition();
+                }
+                else
+                {
+                    PushBall();
+                }
+            }
+        }
 
+        private void Move()
+        {
             if (!_ballModel.BallIsStopped)
             {
                 _prevMovementVector = ballRigidbody.velocity;
+                
                 if (!_ballModel.IsStarted)
                 {
                     UpdateBallPosition();
@@ -119,7 +136,6 @@ namespace Scenes.SceneGame.Views
 
             if (_ballModel.BallCanDestroyAllBlocks && collision.collider is BoxCollider2D)
             {
-                
                 SpawnBallCollisionEffect();
                 var blockView = collision.gameObject.GetComponent<BaseBlockView>();
 

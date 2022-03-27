@@ -6,6 +6,8 @@ namespace Scenes.SceneGame.Models
 {
     public class PlatformModel : IModel
     {
+        public bool IsStarted { get; set; }
+        
         public bool IsHold { get; set; }
         
         public Vector2 PlatformBallStartPosition { get; set; }

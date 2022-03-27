@@ -33,34 +33,28 @@ namespace Scenes.SceneGame.Controllers
         
         public void UpdateController()
         {
+            if (AppPopups.Instance.ActivePopups > 0)
+            {
+                return;
+            }
+            
             Move();
         }
         
-        private void Move()
+        public Vector2 GetPlatformBallStartPosition()
         {
-            if (Input.touchCount > 0)
-            {
-                SetInputPosition(Input.GetTouch(0).position);
-            }
-            
-            else if (Input.GetMouseButton(0))
-            {
-                SetInputPosition(Input.mousePosition);
-            }
-            else
-            {
-                _platformModel.IsHold = false;
-            }
-            
-            _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
-            _platformModel.OnChange?.Invoke();
+            return _platformModel.PlatformBallStartPosition;
         }
 
-        private void SetInputPosition(Vector2 inputPosition)
+        public bool IsStarted(bool? isStarted = null)
         {
-            _platformModel.IsHold = true;
-            _platformModel.Position = inputPosition;
-        }
+            if (isStarted.HasValue)
+            {
+                _platformModel.IsStarted = isStarted.Value;
+            }
+            
+            return _platformModel.IsStarted;
+        } 
 
         public void ResizePlatform(float extraSize)
         {
@@ -76,6 +70,35 @@ namespace Scenes.SceneGame.Controllers
         public void SetPlatformExtraSpeed(float speed)
         {
             _platformModel.ExtraSpeed = speed;
+        }
+        
+        private void SetInputPosition(Vector2 inputPosition)
+        {
+            _platformModel.IsHold = true;
+            _platformModel.Position = inputPosition;
+        }
+        
+        private void Move()
+        {
+            if (Input.touchCount > 0)
+            {
+                SetInputPosition(Input.GetTouch(0).position);
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                SetInputPosition(Input.mousePosition);
+            }
+            else if (_platformModel.IsHold)
+            {
+                _platformModel.IsHold = false;
+                
+                if (!_platformModel.IsStarted)
+                {
+                    _platformModel.IsStarted = true;
+                }
+            }
+
+            _platformModel.OnChange?.Invoke();
         }
     }
 }

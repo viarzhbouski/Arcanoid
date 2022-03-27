@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc31d9f2bda4e77a665c2fd6510edc6, type: 3}
   m_Name: BoostsConfig
   m_EditorClassIdentifier: 
-  bombExecuteDelay: 0
-  chainBombExecuteDelay: 0
-  ballAccelerationSpeed: 0
-  ballAccelerationWorkingDelay: 0
-  ballSlowdownSpeed: 0
-  ballSlowdownWorkingDelay: 0
-  platformAccelerationSpeed: 0
-  platformAccelerationWorkingDelay: 0
-  platformSlowdownSpeed: 0
-  platformSlowdownWorkingDelay: 0
-  platformSizeEncrease: 0
-  platformSizeEncreaseWorkingDelay: 0
-  platformSizeDecrease: 0
-  platformSizeDecreaseWorkingDelay: 0
-  furyBallWorkingDelay: 0
+  bombExecuteDelay: 0.05
+  chainBombExecuteDelay: 0.05
+  ballAccelerationSpeed: 7
+  ballAccelerationWorkingDelay: 3
+  ballSlowdownSpeed: -7
+  ballSlowdownWorkingDelay: 3
+  platformAccelerationSpeed: 10
+  platformAccelerationWorkingDelay: 3
+  platformSlowdownSpeed: -5
+  platformSlowdownWorkingDelay: 3
+  platformSizeEncrease: 0.5
+  platformSizeEncreaseWorkingDelay: 3
+  platformSizeDecrease: -0.5
+  platformSizeDecreaseWorkingDelay: 3
+  furyBallWorkingDelay: 3

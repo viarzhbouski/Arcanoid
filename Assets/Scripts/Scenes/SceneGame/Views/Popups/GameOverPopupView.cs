@@ -28,16 +28,25 @@ namespace Scenes.SceneGame.Views.Popups
         
         public Button RestartButton => restartButton;
         
-        public void Init()
-        {
-            ApplyLocalization();
-        }
+        // public void Init()
+        // {
+        //     //ApplyLocalization();
+        // }
         
-        private void ApplyLocalization()
+        // private void ApplyLocalization()
+        // {
+        //     gameOverTitle.text = Localization.GetFieldText(LocaleFields.GameOverTitle);
+        //     restartButtonText.text = Localization.GetFieldText(LocaleFields.GameOverRestart);
+        //     backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.GameOverBackToMenu);
+        // }
+        public override void Open()
         {
-            gameOverTitle.text = Localization.GetFieldText(LocaleFields.GameOverTitle);
-            restartButtonText.text = Localization.GetFieldText(LocaleFields.GameOverRestart);
-            backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.GameOverBackToMenu);
+            throw new System.NotImplementedException();
+        }
+
+        protected override void Close(bool destroyAfterClose = false)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -15,32 +15,15 @@ MonoBehaviour:
   localizationConfigs:
   - {fileID: 11400000, guid: 101c7291df8a548499cc4f25bd544e38, type: 2}
   - {fileID: 11400000, guid: 97cfceceef171d44a9451895c68176f0, type: 2}
-  ballSpeed: 15
-  minBounceAngle: 30
-  platformSpeed: 15
-  lifeCount: 3
-  maxLifeCount: 4
-  maxViewportSize: 1
-  spaceWidth: 0.005
-  spaceHeight: 0.005
+  ballAndPlatformConfig: {fileID: 11400000, guid: 2fb5c6dad7c87e04c84f50c63295f8a8, type: 2}
+  gamefieldConfig: {fileID: 11400000, guid: 58d9cf23779450d4f8c404f0e2ff5e99, type: 2}
   packs:
   - {fileID: 11400000, guid: 67702e192ea0d4648986c9edb3643016, type: 2}
   - {fileID: 11400000, guid: 9233eec92e2e84a4ea6f41373dd2684a, type: 2}
   blocks:
-  - healthPoints: 0
-    blockType: 0
-    color: {r: 0, g: 0, b: 0, a: 0}
-    blockPrefab: {fileID: 0}
-  - healthPoints: 1
-    blockType: 1
-    color: {r: 0, g: 0, b: 0, a: 0}
-    blockPrefab: {fileID: 8677263749969595748, guid: ecd7e221e56239b478d6a51773a9e4e2, type: 3}
-  - healthPoints: 0
-    blockType: 2
-    color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
-    blockPrefab: {fileID: 7021143536865510068, guid: 6579178bdc5ed5647892d002d003ee51, type: 3}
-  - healthPoints: 0
-    blockType: 3
-    color: {r: 0.6509434, g: 0, b: 0, a: 1}
-    blockPrefab: {fileID: -3562405115684736835, guid: f0aaeb53c788e7e4fa6c3d2b4aabb392, type: 3}
-  pausePopupDelayAfterContinue: 0.5
+  - {fileID: 11400000, guid: c387f1bdb3e6b4b47b6c4428e9301c96, type: 2}
+  - {fileID: 11400000, guid: ceddc3dee635d794b81ee94ea5c2349d, type: 2}
+  - {fileID: 11400000, guid: 22b9a729bbc16ad4c9cf0d75ff707a06, type: 2}
+  - {fileID: 11400000, guid: b45e9c1b89914064cad51e0cfe1803cd, type: 2}
+  popupsConfig: {fileID: 11400000, guid: 268c3b05fc30ad846a29d778e980f3c7, type: 2}
+  boostsConfig: {fileID: 11400000, guid: 845bc7694d94bf6429e1809f1e2c3eda, type: 2}

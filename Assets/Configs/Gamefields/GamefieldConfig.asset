@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GamefieldConfig
   m_EditorClassIdentifier: 
   maxViewportSize: 1
-  spaceWidth: 0
-  spaceHeight: 0
+  spaceWidth: 0.005
+  spaceHeight: 0.005

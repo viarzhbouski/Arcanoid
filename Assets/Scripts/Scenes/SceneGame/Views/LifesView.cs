@@ -68,10 +68,11 @@ namespace Scenes.SceneGame.Views
 
             if (!_lifesStack.Any())
             {
-                _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
-                _gameOverPopupView.Init();
-                _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
-                _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
+                AppPopups.Instance.OpenPopup<GameOverPopupView>();
+                // _gameOverPopupView = AppPopups.Instance.ShowPopup<GameOverPopupView>();
+                // _gameOverPopupView.Init();
+                // _gameOverPopupView.RestartButton.onClick.AddListener(GameOverPopupRestartButtonOnClick);
+                // _gameOverPopupView.BackToMenuButton.onClick.AddListener(GameOverPopupBackToMenuButtonOnClick);
             }
         }
 
@@ -115,7 +116,7 @@ namespace Scenes.SceneGame.Views
         private void GameOverPopupRestartButtonOnClick()
         {
             ClearBlockPools();
-            AppPopups.Instance.ClosePopup(_gameOverPopupView);
+            //AppPopups.Instance.ClosePopup(_gameOverPopupView);
             _lifesController.RestartLevel();
         }
 

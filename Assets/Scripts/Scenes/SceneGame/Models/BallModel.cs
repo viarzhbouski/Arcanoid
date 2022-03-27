@@ -6,6 +6,8 @@ namespace Scenes.SceneGame.Models
 {
     public class BallModel : IModel
     {
+        public bool BallIsPushed { get; set; }
+        
         public bool IsStarted { get; set; }
         
         public bool BallIsStopped { get; set; }

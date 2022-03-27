@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using Common.Enums;
-using Core.Interfaces.MVC;
-using Core.ObjectPooling;
+﻿using Core.Interfaces.MVC;
 using Core.Statics;
 using DG.Tweening;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
-using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.Popups;
-using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Scenes.SceneGame.Views
 {
@@ -22,7 +16,6 @@ namespace Scenes.SceneGame.Views
         private LevelProgressModel _levelProgressModel;
         private LevelProgressController _levelProgressController;
         private WinLevelPopupView _winLevelPopupView;
-        private const float WinPopupDelay = 0.75f;
         
         public void Bind(IModel model, IController controller)
         {
@@ -35,7 +28,7 @@ namespace Scenes.SceneGame.Views
         {
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
-                StartCoroutine(OpenWinPopup());
+                AppPopups.Instance.OpenPopup<WinLevelPopupView>();
             }
             
             if (!_levelProgressModel.IsStartGame)
@@ -50,38 +43,6 @@ namespace Scenes.SceneGame.Views
                 progressBarScale.x = 0f;
                 progressBar.localScale = progressBarScale;
             }
-        }
-
-        IEnumerator OpenWinPopup()
-        {
-            yield return new WaitForSeconds(WinPopupDelay);
-            _winLevelPopupView = AppPopups.Instance.ShowPopup<WinLevelPopupView>();
-            _winLevelPopupView.Init(_levelProgressModel.CurrentPack);
-            _winLevelPopupView.NextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
-            _winLevelPopupView.BackToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
-            _levelProgressController.SaveProgress();
-        }
-
-        private void BackToMenuButtonOnClick()
-        {
-            SceneManager.LoadScene((int)GameScenes.Packs);
-        }
-
-        private void NextLevelButtonOnClick()
-        {
-            ClearBlockPools();
-            _levelProgressController.NextLevel();
-            AppPopups.Instance.ClosePopup(_winLevelPopupView);
-        }
-        
-        private void ClearBlockPools()
-        {
-            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
-                .ClearPool();
-            ObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
-                .ClearPool();
-            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
-                .ClearPool();
         }
     }
 }

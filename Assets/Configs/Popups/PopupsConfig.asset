@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30dfd2fa8e34f0e88e15b0f46a0dff1, type: 3}
   m_Name: PopupsConfig
   m_EditorClassIdentifier: 
-  pausePopupDelayAfterContinue: 0
+  pausePopupDelayAfterContinue: 0.5
