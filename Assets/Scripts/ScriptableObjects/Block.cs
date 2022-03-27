@@ -13,7 +13,7 @@ namespace ScriptableObjects
         [SerializeField]
         private BlockTypes blockType;
         [SerializeField]
-        private Color[] colors;
+        private Color color;
         [SerializeField]
         private BaseBlockView blockPrefab;
         public BoostTypes? BoostType { get; set; }
@@ -30,10 +30,10 @@ namespace ScriptableObjects
             set => blockType = value;
         }
         
-        public Color[] Colors 
+        public Color Color
         {
-            get => colors; 
-            set => colors = value;
+            get => color; 
+            set => color = value;
         }
         
         public BaseBlockView BlockPrefab 

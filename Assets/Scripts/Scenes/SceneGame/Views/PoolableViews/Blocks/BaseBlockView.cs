@@ -34,19 +34,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         public virtual void SetBlockConfig(Block block, Action destroyBlockEvent)
         {
             Block = block;
-            
-            if (block.BlockType != BlockTypes.Boost)
-            {
-                blockSpriteRenderer.color = block.Colors.Length == 1
-                    ? block.Colors.First()
-                    : block.Colors[Random.Range(0, block.Colors.Length - 1)];
-            }
-            else
-            {
-                blockSpriteRenderer.color =
-                    block.Colors[(int) block.BoostType!.Value - Enum.GetValues(typeof(BlockTypes)).Length];
-            }
-            
+            blockSpriteRenderer.color = block.Color;
             _destroyBlockEvent = destroyBlockEvent;
         }
 

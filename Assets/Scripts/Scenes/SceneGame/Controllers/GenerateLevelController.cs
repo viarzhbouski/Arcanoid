@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
@@ -99,6 +100,7 @@ namespace Scenes.SceneGame.Controllers
             var selectedLevel = DataRepository.SelectedLevel;;
             var pack = AppConfig.Instance.Config.Packs[selectedPack];
             var levelData = pack.Levels[selectedLevel];
+            
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
 
             _generateLevelModel.LevelNumber = $"{selectedLevel + 1}";
@@ -111,49 +113,49 @@ namespace Scenes.SceneGame.Controllers
         {
             _generateLevelModel.CellSize = new Vector2
             {
-                x = (_mainConfig.MaxViewportSize - _mainConfig.SpaceWidth * (level.Width + 1)) / level.Width
+                x = (_mainConfig.MaxViewportSize - _mainConfig.SpaceWidth * (level.Columns + 1)) / level.Columns
             };
             
-            var blocksGrid = new Block[level.Height, level.Width];
+            var blocksGrid = new Block[level.Rows, level.Columns];
             var blockId = 0;
-            var blocks = level.Layers.First().Data;
+            var blocks = level.LevelMapData;
             var ratio = (float)Screen.width / Screen.height;
             var cellWidth = _generateLevelModel.CellSize.x / 2;
             var cellHeight = cellWidth * ratio;
             var topPanelWidth = _mainConfig.MaxViewportSize / (_generateLevelModel.TopPanelPosition.y / 2) * ratio;
             var y = _mainConfig.MaxViewportSize - cellHeight / 2 - _mainConfig.SpaceHeight - topPanelWidth;
             
-            for (var i = 0; i < level.Height; i++)
+            for (var i = 0; i < level.Rows; i++)
             {
                 var x = cellWidth + _mainConfig.SpaceWidth;
                 
-                for (var j = 0; j < level.Width; j++)
+                for (var j = 0; j < level.Columns; j++)
                 {
+                    var blockValue = blocks[blockId];
                     var position = new Vector2(x, y);
-                    BoostTypes? boostType = null;
-                    
-                    if ((int)BlockTypes.Boost < blocks[blockId])
-                    {
-                        boostType = (BoostTypes)blocks[blockId];
-                        blocks[blockId] = (int)BlockTypes.Boost;
-                    }
-                    
                     var block = _blocks[(BlockTypes)blocks[blockId]];
+                    
+                    if (blockValue == (int)BlockTypes.Color)
+                    {
+                        var blockColor =level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId)?.BlockColor;
+                        block.Color = blockColor ?? Color.white;
+
+                    }
+                    else if (blockValue == (int)BlockTypes.Boost)
+                    {
+                        var boostType =level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId)?.BoostType;
+                        block.BoostType = boostType;
+                    }
+
                     block.Position = position;
                     x += _generateLevelModel.CellSize.x + _mainConfig.SpaceWidth;
                     blockId++;
-
-                    if (boostType.HasValue)
-                    {
-                        block.BoostType = boostType!.Value;
-                    }
-
                     blocksGrid[i, j] = block;
                 }
 
                 y -= cellHeight + _mainConfig.SpaceHeight;
             }
-
+            
             _generateLevelModel.Blocks = blocksGrid;
             _generateLevelModel.OnChange?.Invoke();
         }

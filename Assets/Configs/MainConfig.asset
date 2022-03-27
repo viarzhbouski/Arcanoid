@@ -29,31 +29,18 @@ MonoBehaviour:
   blocks:
   - healthPoints: 0
     blockType: 0
-    colors: []
+    color: {r: 0, g: 0, b: 0, a: 0}
     blockPrefab: {fileID: 0}
   - healthPoints: 1
     blockType: 1
-    colors:
-    - {r: 0, g: 1, b: 0.4002676, a: 1}
-    - {r: 1, g: 0.3820755, b: 0.3820755, a: 1}
-    - {r: 1, g: 0.9920237, b: 0, a: 1}
+    color: {r: 0, g: 0, b: 0, a: 0}
     blockPrefab: {fileID: 8677263749969595748, guid: ecd7e221e56239b478d6a51773a9e4e2, type: 3}
   - healthPoints: 0
     blockType: 2
-    colors:
-    - {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+    color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
     blockPrefab: {fileID: 7021143536865510068, guid: 6579178bdc5ed5647892d002d003ee51, type: 3}
   - healthPoints: 0
     blockType: 3
-    colors:
-    - {r: 0, g: 0.6155896, b: 1, a: 1}
-    - {r: 0.7966769, g: 0.2783019, b: 1, a: 1}
-    - {r: 1, g: 0.702134, b: 0, a: 1}
-    - {r: 1, g: 0.3727281, b: 0, a: 1}
-    - {r: 0.7075472, g: 0.04519187, b: 0, a: 1}
-    - {r: 1, g: 0.89874214, b: 0.8915094, a: 1}
-    - {r: 1, g: 0, b: 0.02849722, a: 1}
-    - {r: 0.49056602, g: 0.38180846, b: 0.38479397, a: 1}
-    - {r: 0.2830189, g: 0.16153437, b: 0.16486923, a: 1}
+    color: {r: 0.6509434, g: 0, b: 0, a: 1}
     blockPrefab: {fileID: -3562405115684736835, guid: f0aaeb53c788e7e4fa6c3d2b4aabb392, type: 3}
   pausePopupDelayAfterContinue: 0.5
