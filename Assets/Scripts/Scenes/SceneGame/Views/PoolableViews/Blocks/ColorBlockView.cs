@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.ObjectPooling;
 using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks
@@ -21,7 +21,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         private int _damageSum;
         private const float ExecuteDelay = 0.05f;
         
-        public override void SetBlockConfig(Block block, Action destroyBlockEvent)
+        public override void SetBlockConfig(BlockInfo block, Action destroyBlockEvent)
         {
             _boost = null;
             base.SetBlockConfig(block, destroyBlockEvent);

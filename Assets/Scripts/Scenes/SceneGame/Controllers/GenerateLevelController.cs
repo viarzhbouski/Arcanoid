@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
 using Core.Interfaces;
 using Core.Interfaces.MVC;
 using Core.Models;
-using Core.ObjectPooling;
 using Core.Statics;
 using Newtonsoft.Json;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
 using ScriptableObjects;
+using ScriptableObjects.BlockConfigs;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
@@ -20,7 +18,6 @@ namespace Scenes.SceneGame.Controllers
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
         private readonly MainConfig _mainConfig;
-        private readonly Dictionary<BlockTypes, Block> _blocks;
         private LevelProgressController _levelProgressController;
 
         public GenerateLevelController(IView view, MainConfig mainConfig)
@@ -28,7 +25,6 @@ namespace Scenes.SceneGame.Controllers
             _mainConfig = mainConfig;
             _generateLevelModel = new GenerateLevelModel();
             _generateLevelView = view as GenerateLevelView;
-            _blocks = new Dictionary<BlockTypes, Block>();
             _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
             _generateLevelModel.DestroyBlockEvent = DestroyBlock;
@@ -77,7 +73,6 @@ namespace Scenes.SceneGame.Controllers
         private void LoadLevel()
         {
             var level = GetLevel();
-            FillDict();
             GenerateBlocksGrid(level);
         }
 
@@ -87,11 +82,6 @@ namespace Scenes.SceneGame.Controllers
             {
                 _generateLevelModel.Blocks = null;
             }
-
-            if (_blocks.Any())
-            {
-                _blocks.Clear();
-            }
         }
         
         private LevelMap GetLevel()
@@ -100,7 +90,6 @@ namespace Scenes.SceneGame.Controllers
             var selectedLevel = DataRepository.SelectedLevel;;
             var pack = AppConfig.Instance.Config.Packs[selectedPack];
             var levelData = pack.Levels[selectedLevel];
-            
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
 
             _generateLevelModel.LevelNumber = $"{selectedLevel + 1}";
@@ -116,7 +105,7 @@ namespace Scenes.SceneGame.Controllers
                 x = (_mainConfig.MaxViewportSize - _mainConfig.SpaceWidth * (level.Columns + 1)) / level.Columns
             };
             
-            var blocksGrid = new Block[level.Rows, level.Columns];
+            var blocksGrid = new BlockInfo[level.Rows, level.Columns];
             var blockId = 0;
             var blocks = level.LevelMapData;
             var ratio = (float)Screen.width / Screen.height;
@@ -131,26 +120,39 @@ namespace Scenes.SceneGame.Controllers
                 
                 for (var j = 0; j < level.Columns; j++)
                 {
-                    var blockValue = blocks[blockId];
-                    var position = new Vector2(x, y);
-                    var block = _blocks[(BlockTypes)blocks[blockId]];
+                    var blockType = (BlockTypes)blocks[blockId]; ;
+                    var block = AppConfig.Instance.Config.Blocks.First(e => e.BlockType == blockType);
+                    var blockInfo = new BlockInfo
+                    {
+                        HealthPoints = block.HealthPoints,
+                        Position = new Vector2(x, y),
+                        BlockType = blockType
+                    };
+
+                    var blockProperty = level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId);
                     
-                    if (blockValue == (int)BlockTypes.Color)
+                    switch (blockType)
                     {
-                        var blockColor =level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId)?.BlockColor;
-                        block.Color = blockColor ?? Color.white;
-
+                        case BlockTypes.Granite:
+                            var graniteBlock = (GraniteBlockConfig)block;
+                            blockInfo.Color = graniteBlock.BlockColor;
+                            break;
+                        case BlockTypes.Color:
+                            blockInfo.Color = blockProperty?.BlockColor ?? Color.white;
+                            break;
+                        case BlockTypes.Boost:
+                            var boostBlock = (BoostBlockConfig)block;
+                            var boostType = blockProperty?.BoostType ?? BoostTypes.Bomb;
+                            var boostColor = boostBlock.BoostColor.First(e => e.BoostType == boostType);
+                            blockInfo.Color = boostColor.Color;
+                            blockInfo.BoostType = boostColor.BoostType;
+                            break;
                     }
-                    else if (blockValue == (int)BlockTypes.Boost)
-                    {
-                        var boostType =level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId)?.BoostType;
-                        block.BoostType = boostType;
-                    }
-
-                    block.Position = position;
+                    
                     x += _generateLevelModel.CellSize.x + _mainConfig.SpaceWidth;
+                    blocksGrid[i, j] = blockInfo;
+                    
                     blockId++;
-                    blocksGrid[i, j] = block;
                 }
 
                 y -= cellHeight + _mainConfig.SpaceHeight;
@@ -158,14 +160,6 @@ namespace Scenes.SceneGame.Controllers
             
             _generateLevelModel.Blocks = blocksGrid;
             _generateLevelModel.OnChange?.Invoke();
-        }
-
-        private void FillDict()
-        {
-            foreach (var block in _mainConfig.Blocks)
-            {
-                _blocks.Add(block.BlockType, block);
-            }
         }
     }
 }

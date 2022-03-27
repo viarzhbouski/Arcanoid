@@ -8,6 +8,7 @@ using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using ScriptableObjects;
+using ScriptableObjects.BlockConfigs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -97,7 +98,7 @@ namespace Scenes.SceneGame.Views
             }
         }
 
-        private void SetBlockTransform<T>(T blockMono, Block block, int i, int j) where T : BaseBlockView
+        private void SetBlockTransform<T>(T blockMono, BlockInfo block, int i, int j) where T : BaseBlockView
         {
             blockMono.SetBlockConfig(block, _generateLevelModel.DestroyBlockEvent);
             blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Linq;
 using Common.Enums;
 using Core.ObjectPooling;
 using Core.ObjectPooling.Interfaces;
 using DG.Tweening;
 using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
-using ScriptableObjects;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
@@ -19,19 +17,19 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         private Action _destroyBlockEvent;
         
-        protected Block Block;
+        protected BlockInfo Block;
         
         public SpriteRenderer BlockSpriteRenderer => blockSpriteRenderer;
         
         public BlockTypes BlockType => Block.BlockType;
         
-        public BoostTypes? BoostType => Block.BoostType;
+        public BoostTypes? BoostType =>  Block.BoostType;
         
         public Color BlockColor => blockSpriteRenderer.color;
         
         public bool CanDestroy => Block.BlockType != BlockTypes.Granite && Block.HealthPoints <= 0;
         
-        public virtual void SetBlockConfig(Block block, Action destroyBlockEvent)
+        public virtual void SetBlockConfig(BlockInfo block, Action destroyBlockEvent)
         {
             Block = block;
             blockSpriteRenderer.color = block.Color;

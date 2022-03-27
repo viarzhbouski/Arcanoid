@@ -1,23 +1,20 @@
-﻿using System;
-using Common.Enums;
+﻿using Common.Enums;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace ScriptableObjects.BlockConfigs
 {
-    [Serializable]
-    public struct Block
+    public class BaseBlockConfig : ScriptableObject
     {
         [SerializeField]
         private int healthPoints;
         [SerializeField]
         private BlockTypes blockType;
         [SerializeField]
-        private Color color;
-        [SerializeField]
         private BaseBlockView blockPrefab;
-        public BoostTypes? BoostType { get; set; }
-
+        
+        public Vector2 Position { get; set; }
+        
         public int HealthPoints
         {
             get => healthPoints; 
@@ -29,19 +26,10 @@ namespace ScriptableObjects
             get => blockType; 
             set => blockType = value;
         }
-        
-        public Color Color
-        {
-            get => color; 
-            set => color = value;
-        }
-        
         public BaseBlockView BlockPrefab 
         {
             get => blockPrefab; 
             set => blockPrefab = value;
         }
-
-        public Vector2 Position { get; set; }
     }
 }

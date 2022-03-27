@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using ScriptableObjects.BlockConfigs;
 using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "MainConfig", menuName = "Create main config")]
+    [CreateAssetMenu(fileName = "New MainConfig", menuName = "Create Main Config")]
     public class MainConfig : ScriptableObject
     {
         [Header("\tLocalization")] 
@@ -42,7 +43,7 @@ namespace ScriptableObjects
         [Header("\tBLOCKS")] 
         [Space]
         [SerializeField]
-        private Block[] blocks;
+        private List<BaseBlockConfig> blocks;
 
         [Header("\tPOPUPS")] 
         [Space]
@@ -63,7 +64,7 @@ namespace ScriptableObjects
         
         public List<PackConfig> Packs => packs;
         
-        public Block[] Blocks => blocks;
+        public List<BaseBlockConfig> Blocks => blocks;
         
         public float MaxViewportSize => maxViewportSize;
 
