@@ -1,8 +1,12 @@
-﻿using Common.Enums;
+﻿using System.Collections;
+using Common.Enums;
+using Core;
 using Core.Popup;
 using Core.Statics;
+using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scenes.SceneGame.Views.Popups
@@ -16,28 +20,62 @@ namespace Scenes.SceneGame.Views.Popups
         private Button restartButton;
 
         [SerializeField]
+        private Button backToMenuButton;
+        
+        [SerializeField]
         private Button continueButton;
         
         [SerializeField]
         private TMP_Text restartButtonText;
         
         [SerializeField]
-        private TMP_Text continueButtonText;
+        private TMP_Text backToMenuButtonText;
 
-        public Button RestartButton => restartButton;
-        
-        public Button ContinueButton => continueButton;
+        private PauseGameController _pauseGameController;
 
-        public void Init()
+        public override void Open()
         {
+            OpenAnim();
             ApplyLocalization();
+            _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
+            restartButton.onClick.AddListener(RestartButtonOnClick);
+            backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
+            continueButton.onClick.AddListener(ContinueButtonOnClick);
         }
-        
+
+        protected override void Close(bool destroyAfterClose = false)
+        {
+            CloseAnim(destroyAfterClose);
+        }
+
         private void ApplyLocalization()
         {
-            pauseTitle.text = Localization.GetFieldText(LocaleFields.PauseTitle);
-            restartButtonText.text = Localization.GetFieldText(LocaleFields.PauseRestart);
-            continueButtonText.text = Localization.GetFieldText(LocaleFields.PauseContinue);
+            pauseTitle.text = Localization.GetFieldText("PauseTitle");
+            restartButtonText.text = Localization.GetFieldText("PauseRestart");
+            backToMenuButtonText.text = Localization.GetFieldText("PauseBackToMenu");
+        }
+        
+        private void BackToMenuButtonOnClick()
+        {
+            SceneManager.LoadScene((int)GameScenes.Packs);
+        } 
+        
+        private void ContinueButtonOnClick()
+        {
+            StartCoroutine(ContinueGame());
+        } 
+        
+        private void RestartButtonOnClick()
+        {
+            Close(true);
+            _pauseGameController.RestartLevel();
+        }
+
+        IEnumerator ContinueGame()
+        {
+            Close();
+            yield return new WaitForSeconds(AppConfig.Instance.PopupsConfig.PausePopupDelayAfterContinue);
+            Destroy(gameObject);
         }
     }
 }

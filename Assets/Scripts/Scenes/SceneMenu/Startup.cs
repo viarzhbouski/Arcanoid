@@ -11,12 +11,9 @@ namespace Scenes.SceneMenu
         [SerializeField]
         private MenuView menuView;
         
-        private MainConfig _mainConfig;
-        
-        public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
+        public override void InitializeStartup(MonoConfiguration monoConfiguration)
         {
-            _mainConfig = mainConfig;
-            monoConfiguration.AddController(new MenuController(menuView, mainConfig));
+            monoConfiguration.AddController(new MenuController(menuView));
         }
     }
 }

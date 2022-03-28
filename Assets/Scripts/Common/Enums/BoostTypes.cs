@@ -2,7 +2,16 @@
 {
     public enum BoostTypes
     {
-        Bomb = 4,
-        ColorChainBomb
+        Bomb,
+        ColorChainBomb,
+        BallAcceleration,
+        BallSlowdown,
+        PlatformSizeEncrease,
+        PlatformSizeDecrease,
+        FuryBall,
+        PlatformAcceleration,
+        PlatformSlowdown,
+        BlackLabel,
+        SourceOfLife
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2782969611975345374}
   - component: {fileID: 1190504437}
   - component: {fileID: 6039181966904682794}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2782969612778293479}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StartPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

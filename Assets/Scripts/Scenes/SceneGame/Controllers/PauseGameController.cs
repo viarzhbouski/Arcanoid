@@ -1,9 +1,10 @@
 ﻿using Core.Interfaces;
 using Core.Interfaces.MVC;
+using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Models;
+using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -11,21 +12,20 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly PauseGameModel _pauseGameModel;
         private readonly PauseGameView _pauseGameView;
-        private readonly MainConfig _mainConfig;
         
         private BallController _ballController;
         private GenerateLevelController _generateLevelController;
         private LifesController _lifesController;
         private LevelProgressController _levelProgressController;
+        private PlatformController _platformController;
 
-        public PauseGameController(IView view, MainConfig mainConfig)
+        public PauseGameController(IView view)
         {
-            _mainConfig = mainConfig;
             _pauseGameModel = new PauseGameModel();
             _pauseGameView = view as PauseGameView;
             _pauseGameView!.Bind(_pauseGameModel, this);
             _pauseGameModel.OnChangeHandler(ControllerOnChange);
-            _pauseGameModel.PausePopupDelayAfterContinue = mainConfig.PausePopupDelayAfterContinue;
+            _pauseGameModel.PausePopupDelayAfterContinue = AppConfig.Instance.PopupsConfig.PausePopupDelayAfterContinue;
         }
         
         public void StartController()
@@ -34,25 +34,34 @@ namespace Scenes.SceneGame.Controllers
             _ballController = AppControllers.Instance.GetController<BallController>();
             _lifesController = AppControllers.Instance.GetController<LifesController>();
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
+            _platformController = AppControllers.Instance.GetController<PlatformController>();
+            _ballController = AppControllers.Instance.GetController<BallController>();
         }
 
         public void ControllerOnChange()
         {
             _pauseGameView.RenderChanges();
         }
-
-        public void GameInPause(bool stopBall)
+        
+        private void ClearBlockPools()
         {
-            _ballController.SetBallState(stopBall);
+            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
+                .ClearPool();
+            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+                .ClearPool();
         }
-
+        
         public void RestartLevel()
         {
+            ClearBlockPools();
+            _platformController.IsStarted(false);
+            _platformController.PastePlatformOnStartPosition();
             _generateLevelController.ReloadLevel();
-            _ballController.ReloadBallForNewGame();
-            _lifesController.LoadLifes();
             _levelProgressController.InitLevelProgressBar();
-            GameInPause(false);
+            _lifesController.LoadLifes();
+            _ballController.SetDefaultSpeed();
         }
     }
 }

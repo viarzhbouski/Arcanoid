@@ -1,28 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Common.Enums;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Core.Models
 {
-    public class Layer
+    public class LevelMapAttribute
     {
-        [JsonProperty("data")] 
-        public List<int> Data { get; set; } = new List<int>();
+        [JsonProperty("index")]
+        public int Index { get; set; }
+
+        [JsonProperty("attribute_color")] 
+        public List<float> ColorRGB { get; set; } = new List<float>();
+        
+        [JsonProperty("attribute_boost_name")]
+        public string BoostName { get; set; }
+        
+        public Color BlockColor
+        {
+            get
+            {
+                if (ColorRGB.Count == 3)
+                {
+                    return new Color(ColorRGB[0], ColorRGB[1], ColorRGB[2]);
+                }
+                
+                return Color.white;
+            }
+        }
+
+        public BoostTypes? BoostType
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(BoostName))
+                {
+                    return null;
+                }
+            
+                var values = Enum.GetValues(typeof(BoostTypes));
+
+                foreach (var value in values)
+                {
+                    var name = Enum.GetName(typeof(BoostTypes), value);
+
+                    if (name == BoostName)
+                    {
+                        return (BoostTypes)value;
+                    }
+                }
+
+                return null;
+            }
+        }
     }
+    
     public class LevelMap
     {
-        [JsonProperty("layers")] 
-        public List<Layer> Layers { get; set; } = new List<Layer>();
-            
-        [JsonProperty("height")]
-        public int Height { get; set; }
-            
-        [JsonProperty("width")]
-        public int Width { get; set; }
+        [JsonProperty("level_map")] 
+        public List<int> LevelMapData { get; set; } = new List<int>();
         
-        [JsonProperty("tileheight")]
-        public int TileHeight { get; set; }
+        [JsonProperty("level_map_properties")] 
+        public List<LevelMapAttribute> LevelMapProperties { get; set; } = new List<LevelMapAttribute>();
             
-        [JsonProperty("tilewidth")]
-        public int TileWidth { get; set; }
+        [JsonProperty("columns")]
+        public int Columns { get; set; }
+            
+        [JsonProperty("rows")]
+        public int Rows { get; set; }
     }
 }

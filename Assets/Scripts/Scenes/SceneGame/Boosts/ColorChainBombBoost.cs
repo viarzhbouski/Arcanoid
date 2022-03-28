@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Enums;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
+using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Boosts
@@ -31,7 +32,7 @@ namespace Scenes.SceneGame.Boosts
             FillNeighbourBlocks(blockGridRow, blockGridColumn);
         }
 
-        public void ExecuteBoost()
+        public void ExecuteBoost(BonusBoostView bonusBoost)
         {
             DestroyNeighbours();
         }
@@ -64,7 +65,7 @@ namespace Scenes.SceneGame.Boosts
             while (_blocksQueue.Any())
             {
                 var colorBlock = _blocksQueue.Dequeue();
-                colorBlock.BlockHit(555);
+                colorBlock.BlockHit();
             }
         }
 

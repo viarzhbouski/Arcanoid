@@ -1,8 +1,8 @@
 ﻿using Core.Interfaces;
 using Core.Interfaces.MVC;
+using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
@@ -11,11 +11,9 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly BordersModel _bordersModel;
         private readonly BordersView _bordersView;
-        private readonly MainConfig _mainConfig;
 
-        public BordersController(IView view, MainConfig mainConfig)
+        public BordersController(IView view)
         {
-            _mainConfig = mainConfig;
             _bordersModel = new BordersModel();
             _bordersView = view as BordersView;
             _bordersView!.Bind(_bordersModel, this);
@@ -35,9 +33,9 @@ namespace Scenes.SceneGame.Controllers
         private void CalcTopBorderPosition()
         {
             var ratio = (float)Screen.width / Screen.height;
-            var topPanetWidth = _mainConfig.MaxViewportSize / (_bordersModel.TopPanelPosition.y / 2) * ratio;
+            var topPanelWidth = AppConfig.Instance.Gamefield.MaxViewportSize / (_bordersModel.TopPanelPosition.y / 2) * ratio;
             
-            _bordersModel.TopBorderPosition = _mainConfig.MaxViewportSize - topPanetWidth;
+            _bordersModel.TopBorderPosition = AppConfig.Instance.Gamefield.MaxViewportSize - topPanelWidth;
             _bordersModel.OnChange?.Invoke();
         }
     }

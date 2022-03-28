@@ -3,33 +3,24 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
 {
-    public class PlatformController : IController, IHasStart, IHasUpdate
+    public class PlatformController : IController, IHasUpdate
     {
         private readonly PlatformModel _platformModel;
         private readonly PlatformView _platformView;
-        private readonly MainConfig _mainConfig;
-        
-        private BallController _ballController;
 
-        public PlatformController(IView view, MainConfig mainConfig)
+        public PlatformController(IView view)
         {
-            _mainConfig = mainConfig;
             _platformModel = new PlatformModel();
             _platformView = view as PlatformView;
             
             _platformView!.Bind(_platformModel, this);
-            _platformModel.PlatformSpeed = mainConfig.BallSpeed;
             _platformModel.OnChangeHandler(ControllerOnChange);
-        }
-        
-        public void StartController()
-        {
-            _ballController = AppControllers.Instance.GetController<BallController>();
+            _platformModel.Speed = AppConfig.Instance.BallAndPlatform.PlatformSpeed;
+            _platformModel.Size = 1f;
         }
         
         public void UpdateController()
@@ -37,35 +28,69 @@ namespace Scenes.SceneGame.Controllers
             Move();
         }
         
-        private void Move()
+        public Vector2 GetPlatformBallStartPosition()
         {
-            if (Input.touchCount > 0)
-            {
-                SetInputPosition(Input.GetTouch(0).position);
-            }
-            
-            else if (Input.GetMouseButton(0))
-            {
-                SetInputPosition(Input.mousePosition);
-            }
-            else
-            {
-                _platformModel.IsHold = false;
-            }
-            
-            _ballController.UpdateBallPosition(_platformModel.PlatformBallStartPosition);
-            _platformModel.OnChange?.Invoke();
+            return _platformModel.PlatformBallStartPosition;
         }
 
+        public bool IsStarted(bool? isStarted = null)
+        {
+            if (isStarted.HasValue)
+            {
+                _platformModel.IsStarted = isStarted.Value;
+            }
+            
+            return _platformModel.IsStarted;
+        }
+        
+        public void ResizePlatform(float extraSize)
+        {
+            _platformModel.ExtraSize = extraSize;
+            _platformModel.SizeNeedChange = true;
+        }
+
+        public void ControllerOnChange()
+        {
+            _platformView.RenderChanges();
+        }
+        
+        public void SetPlatformExtraSpeed(float speed)
+        {
+            _platformModel.ExtraSpeed = speed;
+        }
+        
         private void SetInputPosition(Vector2 inputPosition)
         {
             _platformModel.IsHold = true;
             _platformModel.Position = inputPosition;
         }
 
-        public void ControllerOnChange()
+        public void PastePlatformOnStartPosition()
         {
-            _platformView.RenderChanges();
+            _platformModel.Position = _platformModel.StartPosition;
+        }
+
+        private void Move()
+        {
+            if (Input.touchCount > 0 && AppPopups.Instance.ActivePopups == 0)
+            {
+                SetInputPosition(Input.GetTouch(0).position);
+            }
+            else if (Input.GetMouseButton(0) && AppPopups.Instance.ActivePopups == 0)
+            {
+                SetInputPosition(Input.mousePosition);
+            }
+            else if (_platformModel.IsHold)
+            {
+                _platformModel.IsHold = false;
+                
+                if (!_platformModel.IsStarted && AppPopups.Instance.ActivePopups == 0)
+                {
+                    _platformModel.IsStarted = true;
+                }
+            }
+
+            _platformModel.OnChange?.Invoke();
         }
     }
 }

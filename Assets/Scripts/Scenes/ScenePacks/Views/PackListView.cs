@@ -62,6 +62,12 @@ namespace Scenes.ScenePacks.Views
         {
             DataRepository.SelectedPack = packId;
             DataRepository.SelectedLevel = packId == currentGameProgress.CurrentPack ? currentGameProgress.CurrentLevel : 0;
+            
+            if (packId == AppConfig.Instance.Packs.Count - 1 &&  currentGameProgress.CurrentLevel == AppConfig.Instance.Packs[packId].Levels.Count - 1)
+            {
+                DataRepository.SelectedLevel = 0;
+            }
+
             SceneManager.LoadScene((int)GameScenes.Game);
         }
     }

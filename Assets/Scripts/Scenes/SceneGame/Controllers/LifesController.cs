@@ -3,7 +3,6 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -11,13 +10,11 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly LifesModel _lifesModel;
         private readonly LifesView _lifesView;
-        private readonly MainConfig _mainConfig;
 
         private PauseGameController _pauseGameController;
 
-        public LifesController(IView view, MainConfig mainConfig)
+        public LifesController(IView view)
         {
-            _mainConfig = mainConfig;
             _lifesModel = new LifesModel();
             _lifesView = view as LifesView;
             _lifesView!.Bind(_lifesModel, this);
@@ -37,9 +34,10 @@ namespace Scenes.SceneGame.Controllers
 
         public void LoadLifes()
         {
+            var ballAndPlatform = AppConfig.Instance.BallAndPlatform;
             _lifesModel.IsStartGame = true;
-            _lifesModel.LifesCount = _mainConfig.LifeCount > _mainConfig.MaxLifeCount ? _mainConfig.MaxLifeCount 
-                                                                                      : _mainConfig.LifeCount;
+            _lifesModel.LifesCount = ballAndPlatform.LifeCount > ballAndPlatform.MaxLifeCount ? ballAndPlatform.MaxLifeCount 
+                                                                                                : ballAndPlatform.LifeCount;
             
             _lifesModel.OnChange?.Invoke();
             _lifesModel.IsStartGame = false;
@@ -49,11 +47,12 @@ namespace Scenes.SceneGame.Controllers
         {
             _lifesModel.LifesCount--;
             _lifesModel.OnChange?.Invoke();
+        }
 
-            if (_lifesModel.LifesCount == 0)
-            {
-                _pauseGameController.GameInPause(true);
-            }
+        public void EncreaseLife()
+        {
+            _lifesModel.LifesCount++;
+            _lifesModel.OnChange?.Invoke();
         }
 
         public void RestartLevel() => _pauseGameController.RestartLevel();

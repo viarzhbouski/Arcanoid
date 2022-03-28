@@ -3,8 +3,6 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
-using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -12,85 +10,63 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
-        private readonly MainConfig _mainConfig;
-        
+
         private LifesController _lifesController;
-        private LevelProgressController _levelProgressController;
+        private PlatformController _platformController;
         private bool _isHold;
 
-        public BallController(IView view, MainConfig mainConfig)
+        public BallController(IView view)
         {
-            _mainConfig = mainConfig;
             _ballModel = new BallModel();
             _ballView = view as BallView;
             _ballView!.Bind(_ballModel, this);
-            _ballModel.MinBounceAngle = mainConfig.MinBounceAngle;
             _ballModel.OnChangeHandler(ControllerOnChange);
+            _ballModel.MinBounceAngle = AppConfig.Instance.BallAndPlatform.MinBounceAngle;
+            SetDefaultSpeed();
         }
         
         public void StartController()
         {
             _lifesController = AppControllers.Instance.GetController<LifesController>();
-            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
+            _platformController = AppControllers.Instance.GetController<PlatformController>();
         }
 
+        public void UpdateController()
+        {
+            _ballModel.IsStarted = _platformController.IsStarted();
+
+            if (!_ballModel.BallCanMove)
+            {
+                _ballModel.BallPosition = _platformController.GetPlatformBallStartPosition();
+            }
+
+            _ballModel.OnChange?.Invoke();
+        }
+
+        public void SetDefaultSpeed()
+        {
+            _ballModel.Speed = AppConfig.Instance.BallAndPlatform.BallSpeed;
+        }
+
+        public void SetBallExtraSpeed(float speed)
+        {
+            _ballModel.ExtraSpeed = speed;
+        }
+
+        public void SetBallCanDestroyAllBlocks(bool state)
+        {
+            _ballModel.BallCanDestroyAllBlocks = state;
+        }
+        
         public void ControllerOnChange()
         {
             _ballView.RenderChanges();
         }
-
+        
         public void BallOutOfGameField()
         {
             _lifesController.DecreaseLife();
-            ReloadBall();
-        }
-
-        public void ReloadBall()
-        {
-            _ballModel.IsStarted = false;
-            _ballModel.OnChange?.Invoke();
-        }
-
-        public void ReloadBallForNewGame()
-        {
-            _levelProgressController.InitLevelProgressBar();
-            ReloadBall();
-        }
-        
-        public void UpdateController()
-        {
-            if (_ballModel.IsStarted)
-            {
-                _ballModel.OnChange?.Invoke();
-                return;
-            }
-            
-            if (Input.touchCount > 0 || Input.GetMouseButton(0))
-            {
-                _isHold = true;
-            }
-            else if (_isHold)
-            {
-                _isHold = false;
-                _ballModel.Speed = _mainConfig.BallSpeed;
-                _ballModel.IsStarted = true;
-            }
-        }
-
-        public void UpdateBallPosition(Vector2 ballPosition)
-        {
-            if (_ballModel.IsStarted)
-            {
-                return;
-            }
-            
-            _ballModel.BallPosition = ballPosition;
-            _ballModel.OnChange?.Invoke();
-        }
-
-        public void SetBallState(bool isStopped)
-        {
-            _ballModel.BallIsStopped = isStopped;
+            _platformController.IsStarted(false);
         }
     }
 }
