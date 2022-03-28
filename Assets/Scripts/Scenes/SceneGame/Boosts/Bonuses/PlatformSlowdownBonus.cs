@@ -15,14 +15,14 @@ namespace Scenes.SceneGame.Boosts.Bonuses
 
         public PlatformSlowdownBonus(Color bonusColor)
         {
-            BonusWorkingDelay = 3f;
+            BonusWorkingDelay = AppConfig.Instance.BoostsConfig.PlatformSlowdownWorkingDelay;
             BonusColor = bonusColor;
         }
 
         public void ApplyBonusBoost()
         {
             _platformController = AppControllers.Instance.GetController<PlatformController>();
-            _platformController.SetPlatformExtraSpeed(-10f);
+            _platformController.SetPlatformExtraSpeed(AppConfig.Instance.BoostsConfig.PlatformSlowdownSpeed);
         }
         
         public void CancelBonusBoost()

@@ -65,7 +65,7 @@ namespace Scenes.SceneGame.Boosts
             while (_blocksQueue.Any())
             {
                 var colorBlock = _blocksQueue.Dequeue();
-                colorBlock.BlockHit(555);
+                colorBlock.BlockHit();
             }
         }
 

@@ -11,12 +11,9 @@ namespace Scenes.ScenePacks
         [SerializeField]
         private PackListView packListView;
 
-        private MainConfig _mainConfig;
-        
-        public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
+        public override void InitializeStartup(MonoConfiguration monoConfiguration)
         {
-            _mainConfig = mainConfig;
-            monoConfiguration.AddController(new PackListController(packListView, mainConfig));
+            monoConfiguration.AddController(new PackListController(packListView));
         }
     }
 }

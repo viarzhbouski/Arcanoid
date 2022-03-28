@@ -1,47 +1,50 @@
-{ "compressionlevel":-1,
- "height":8,
- "infinite":false,
- "layers":[
-       {
-         "data":[2, 2, 2, 14, 2, 2, 1,
-                 2, 2, 2, 14, 2, 2, 2,
-                 2, 2, 2, 14, 2, 2, 2,
-                 2, 2, 2, 14, 2, 2, 2,
-                 2, 2, 2, 14, 2, 2, 2,
-                 2, 2, 2, 14, 2, 2, 2,
-                 2, 2, 2, 14, 2, 2, 2,
-                 2, 2, 2, 10, 2, 2, 2],
-         "height":8,
-         "id":1,
-         "name":"\u0421\u043b\u043e\u0439 \u0442\u0430\u0439\u043b\u043e\u0432 1",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":7,
-         "x":0,
-         "y":0
-        }],
- "nextlayerid":2,
- "nextobjectid":1,
- "orientation":"orthogonal",
- "renderorder":"right-down",
- "tiledversion":"1.8.2",
- "tileheight":256,
- "tilesets":[
-        {
-         "firstgid":1,
-         "source":"C:\/Users\/Aliaksiej\/Block4.tsx"
-        }, 
-        {
-         "firstgid":2,
-         "source":"C:\/Users\/Aliaksiej\/Block2.tsx"
-        }, 
-        {
-         "firstgid":3,
-         "source":"C:\/Users\/Aliaksiej\/Block1.tsx"
-        }],
- "tilewidth":512,
- "type":"map",
- "version":"1.8",
- "width":7
+{ 
+  "level_map": [1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 2, 2, 3],
+  "level_map_properties": 
+  [
+    {
+      "index": 0,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 1,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 2,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 3,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 4,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 5,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 6,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 7,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 8,
+      "attribute_color": [1.0, 0.5, 1.0]
+    },
+    {
+      "index": 11,
+      "attribute_boost_name": "ColorChainBomb"
+    }
+  ],
+  "rows": 3,
+  "columns": 4
 }

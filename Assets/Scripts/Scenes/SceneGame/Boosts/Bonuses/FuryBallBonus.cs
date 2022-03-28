@@ -15,7 +15,7 @@ namespace Scenes.SceneGame.Boosts.Bonuses
 
         public FuryBallBonus(Color bonusColor)
         {
-            BonusWorkingDelay = 10f;
+            BonusWorkingDelay = AppConfig.Instance.BoostsConfig.FuryBallWorkingDelay;
             BonusColor = bonusColor;
         }
 

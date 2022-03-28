@@ -16,19 +16,19 @@ namespace ScriptableObjects
         private List<TextAsset> levels;
         
         [SerializeField]
-        private LocaleFields localeField;
+        private Packs pack;
         
         public Sprite Image => image;
         
         public List<TextAsset> Levels => levels;
         
-        public LocaleFields LocaleField => localeField;
+        public Packs Pack => pack;
         
         private void OnEnable()
         {
-            var packName = Enum.GetName(typeof(LocaleFields), localeField);
+            var packName = Enum.GetName(typeof(Packs), pack);
             
-            if (!string.IsNullOrEmpty(packName) && packName.Contains("Pack"))
+            if (!string.IsNullOrEmpty(packName))
             {
                 levels = Resources.LoadAll<TextAsset>($"Packs/{packName}").ToList();
             }

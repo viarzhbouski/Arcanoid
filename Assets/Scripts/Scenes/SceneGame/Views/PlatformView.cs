@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces.MVC;
+using Core.Statics;
 using DG.Tweening;
 using Scenes.SceneGame.Models;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Scenes.SceneGame.Views
         {
             _platformModel = model as PlatformModel;
             _platformModel!.Position = transform.position;
+            _platformModel.StartPosition = _platformModel.Position;
             SetPlatformBallStartPosition();
         }
         

@@ -2,7 +2,7 @@
 {
     public enum BoostTypes
     {
-        Bomb = 4,
+        Bomb,
         ColorChainBomb,
         BallAcceleration,
         BallSlowdown,

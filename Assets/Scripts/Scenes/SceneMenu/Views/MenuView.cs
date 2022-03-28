@@ -36,10 +36,11 @@ namespace Scenes.SceneMenu.Views
         
         public void Bind(IModel model, IController controller)
         {
-            logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
+            logoText.text = Localization.GetFieldText("Title");
             _menuModel = model as MenuModel;
             startButton.onClick.AddListener(StartOnClick);
             localizationButton.onClick.AddListener(LocalizationOnClick);
+            startButton.transform.DOKill();
             startButton.transform.DOScale(0.9f, 0.5f).SetLoops(int.MaxValue, LoopType.Yoyo);
             InitLocalizationButton();
             
@@ -64,17 +65,17 @@ namespace Scenes.SceneMenu.Views
         private void InitLocalizationButton()
         {
             var currentLocalization = GameCache.GetCurrentLocalization();
-            _currentLocalization = AppConfig.Instance.Config.LocalizationConfigs.First(e => e.LocaleLanguage == currentLocalization);
+            _currentLocalization = AppConfig.Instance.Localizations.First(e => e.LocaleLanguage == currentLocalization);
             localizationButtonImage.sprite = _currentLocalization.Flag;
         }
         
         private void LocalizationOnClick()
         {
             var newLocalizationLang = Localization.ToogleLocalization(_currentLocalization.LocaleLanguage);
-            _currentLocalization = AppConfig.Instance.Config.LocalizationConfigs.First(e => e.LocaleLanguage == newLocalizationLang);
-            GameCache.SetLocalization(newLocalizationLang);
+            _currentLocalization = AppConfig.Instance.Localizations.First(e => e.LocaleLanguage == newLocalizationLang);
+
             localizationButtonImage.sprite = _currentLocalization.Flag;
-            logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
+            logoText.text = Localization.GetFieldText("Title");
         }
     }
 }

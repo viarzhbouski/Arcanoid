@@ -1,8 +1,10 @@
 ﻿using Common.Enums;
 using Core.Popup;
 using Core.Statics;
+using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scenes.SceneGame.Views.Popups
@@ -23,21 +25,39 @@ namespace Scenes.SceneGame.Views.Popups
         
         [SerializeField]
         private TMP_Text backToMenuButtonText;
-        
-        public Button BackToMenuButton => backToMenuButton;
-        
-        public Button RestartButton => restartButton;
-        
-        public void Init()
+
+        private LifesController _lifesController;
+
+        public override void Open()
         {
+            OpenAnim();
             ApplyLocalization();
+            restartButton.onClick.AddListener(RestartButtonOnClick);
+            backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
+            _lifesController = AppControllers.Instance.GetController<LifesController>();
+        }
+        
+        protected override void Close(bool destroyAfterClose = false)
+        {
+            CloseAnim(destroyAfterClose);
         }
         
         private void ApplyLocalization()
         {
-            gameOverTitle.text = Localization.GetFieldText(LocaleFields.GameOverTitle);
-            restartButtonText.text = Localization.GetFieldText(LocaleFields.GameOverRestart);
-            backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.GameOverBackToMenu);
+            gameOverTitle.text = Localization.GetFieldText("GameOverTitle");
+            restartButtonText.text = Localization.GetFieldText("GameOverRestart");
+            backToMenuButtonText.text = Localization.GetFieldText("GameOverBackToMenu");
+        }
+        
+        private void BackToMenuButtonOnClick()
+        {
+            SceneManager.LoadScene((int)GameScenes.Packs);
+        }
+
+        private void RestartButtonOnClick()
+        {
+            _lifesController.RestartLevel();
+            Close(true);
         }
     }
 }

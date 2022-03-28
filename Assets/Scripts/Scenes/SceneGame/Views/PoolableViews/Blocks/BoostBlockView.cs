@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Core.ObjectPooling;
+using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
@@ -13,7 +14,6 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         private BonusBoostView bonusBoost;
         
         private IHasBoost _boost;
-        private const float ExecuteDelay = 0.05f;
         
         public override void SetBoost(IHasBoost boost)
         {
@@ -26,7 +26,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
                 .DestroyPoolObject(this);
         }
 
-        public override void BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
+        public override bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
             if (_boost is Boosts.BonusBoost)
             {
@@ -36,6 +36,8 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             {
                 StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
             }
+            
+            return CanDestroy;
         }
 
         private void Execute(int damage, bool countBlock, bool destroyImmediately)
@@ -46,7 +48,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         IEnumerator ExecuteWithDelay(int damage, bool countBlock, bool destroyImmediately)
         {
-            yield return new WaitForSeconds(ExecuteDelay);
+            yield return new WaitForSeconds(AppConfig.Instance.BoostsConfig.BombExecuteDelay);
             Execute(damage, countBlock, destroyImmediately);
         }
     }

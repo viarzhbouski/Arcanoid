@@ -1,0 +1,16 @@
+﻿{
+  "Title" : "ARKANOID",
+  "WinNextLevel": "LEVEL",
+  "WinBackToMenu": "TO PACKS",
+  "WinEndPacks": "GAME PASSED",
+  "WinBackToMenuEndPacks": "TO MENU",
+  "GameOverTitle": "GAME OVER",
+  "GameOverRestart": "RESTART",
+  "GameOverBackToMenu": "TO PACKS",
+  "PauseTitle": "PAUSE",
+  "PauseRestart": "RESTART",
+  "PauseBackToMenu": "TO PACKS",
+  "Level": "LEVEL",
+  "Pack1": "PACK1",
+  "Pack2": "PACK2"
+}

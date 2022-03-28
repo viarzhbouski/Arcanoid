@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
-using Core.Models;
 using UnityEngine;
 using Newtonsoft.Json;
 
@@ -9,7 +9,7 @@ namespace Core.Statics
 {
     public static class Localization
     {
-        private static Locale _locale;
+        private static Dictionary<string, string> _locale;
 
         static Localization()
         {
@@ -18,23 +18,29 @@ namespace Core.Statics
 
         private static void LoadLocalization()
         {
-            var localesJson =  Resources.Load<TextAsset>("locales").text;
-            _locale = JsonConvert.DeserializeObject<Locale>(localesJson);
+            var fileName = AppConfig.Instance.Localizations.FirstOrDefault(e => e.LocaleLanguage == GameCache.GetCurrentLocalization())?.LocaleFileName;
+            
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                var localesJson = Resources.Load<TextAsset>($"Localization/{fileName}").text;
+                _locale = JsonConvert.DeserializeObject<Dictionary<string, string>>(localesJson);
+            }
         }
         
-        public static string GetFieldText(LocaleFields localeField)
+        public static string GetFieldText(string key)
         {
-            var currentLocalization = GameCache.GetCurrentLocalization();
-            var localeContent = _locale.LocaleContents.First(e => e.LocaleLanguage == currentLocalization);
-            var localeFieldContent = localeContent.LocaleFieldContents.First(e => e.LocaleField == localeField);
-
-            return localeFieldContent.Text;
+            if (!_locale.Any() || !_locale.ContainsKey(key))
+            {
+                return "LOCALE ERROR!";
+            }
+            
+            return _locale[key];
         }
 
         public static LocaleLanguages ToogleLocalization(LocaleLanguages prevLanguage)
         {
             var langs = Enum.GetValues(typeof(LocaleLanguages));
-
+            var newLocalizationLang = (LocaleLanguages)langs.GetValue(0);
             for (var i = 0; i < langs.Length; i++)
             {
                 var lang = (LocaleLanguages)langs.GetValue(i);
@@ -43,14 +49,19 @@ namespace Core.Statics
                     var nextId = i + 1;
                     if (nextId < langs.Length)
                     {
-                        return (LocaleLanguages)langs.GetValue(nextId);
+                        newLocalizationLang = (LocaleLanguages)langs.GetValue(nextId);
+                        GameCache.SetLocalization(newLocalizationLang);
+                        LoadLocalization();
+                        return newLocalizationLang;
                     }
                     
                     break;
                 }
             }
             
-            return (LocaleLanguages)langs.GetValue(0); 
+            GameCache.SetLocalization(newLocalizationLang);
+            LoadLocalization();
+            return newLocalizationLang; 
         }
     }
 }

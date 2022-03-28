@@ -1,38 +1,26 @@
 ﻿using System.Collections.Generic;
+using ScriptableObjects.BlockConfigs;
 using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "MainConfig", menuName = "Create main config")]
+    [CreateAssetMenu(fileName = "New MainConfig", menuName = "Create Main Config")]
     public class MainConfig : ScriptableObject
     {
-        [Header("\tLocalization")] 
+        [Header("\tLOCALIZATION")] 
         [Space]
         [SerializeField]
         private List<LocalizationConfig> localizationConfigs;
-        
+
         [Header("\tBALL AND PLATFORM")] 
         [Space]
         [SerializeField]
-        private float ballSpeed;
-        [SerializeField]
-        private float minBounceAngle;
-        [SerializeField]
-        private float platformSpeed;
-        [SerializeField]
-        private int lifeCount;
-        [SerializeField]
-        private int maxLifeCount;
-        
-        [Header("\tGRID")] 
+        private BallAndPlatformConfig ballAndPlatformConfig;
+
+        [Header("\tGAMEFIELD")] 
         [Space]
-        [Range(0.1f, 1f)]
         [SerializeField]
-        private float maxViewportSize = 1f;
-        [SerializeField]
-        private float spaceWidth;
-        [SerializeField]
-        private float spaceHeight;
+        private GamefieldConfig gamefieldConfig;
  
         [Header("\tPACKS")] 
         [Space]
@@ -42,36 +30,30 @@ namespace ScriptableObjects
         [Header("\tBLOCKS")] 
         [Space]
         [SerializeField]
-        private Block[] blocks;
+        private List<BaseBlockConfig> blocks;
 
         [Header("\tPOPUPS")] 
         [Space]
         [SerializeField]
-        private float pausePopupDelayAfterContinue;
+        public PopupsConfig popupsConfig;
+        
+        [Header("\tBOOSTS")] 
+        [Space]
+        [SerializeField]
+        public BoostsConfig boostsConfig;
 
         public List<LocalizationConfig> LocalizationConfigs => localizationConfigs;
+
+        public BallAndPlatformConfig BallAndPlatformConfig => ballAndPlatformConfig;
         
-        public int LifeCount => lifeCount;
-        
-        public int MaxLifeCount => maxLifeCount;
-        
-        public float BallSpeed => ballSpeed;
-        
-        public float MinBounceAngle => minBounceAngle;
-        
-        public float PlatformSpeed => platformSpeed;
-        
+        public GamefieldConfig GamefieldConfig => gamefieldConfig;
+
         public List<PackConfig> Packs => packs;
         
-        public Block[] Blocks => blocks;
+        public List<BaseBlockConfig> Blocks => blocks;
         
-        public float MaxViewportSize => maxViewportSize;
-
-        public float SpaceWidth => spaceWidth;
+        public PopupsConfig PopupsConfig => popupsConfig;
         
-        public float SpaceHeight => spaceHeight;
-        
-        public float PausePopupDelayAfterContinue => pausePopupDelayAfterContinue;
-        
+        public BoostsConfig BoostsConfig => boostsConfig;
     }
 }
