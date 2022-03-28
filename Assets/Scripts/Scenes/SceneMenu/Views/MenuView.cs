@@ -36,7 +36,7 @@ namespace Scenes.SceneMenu.Views
         
         public void Bind(IModel model, IController controller)
         {
-            logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
+            logoText.text = Localization.GetFieldText("Title");
             _menuModel = model as MenuModel;
             startButton.onClick.AddListener(StartOnClick);
             localizationButton.onClick.AddListener(LocalizationOnClick);
@@ -72,9 +72,9 @@ namespace Scenes.SceneMenu.Views
         {
             var newLocalizationLang = Localization.ToogleLocalization(_currentLocalization.LocaleLanguage);
             _currentLocalization = AppConfig.Instance.Localizations.First(e => e.LocaleLanguage == newLocalizationLang);
-            GameCache.SetLocalization(newLocalizationLang);
+
             localizationButtonImage.sprite = _currentLocalization.Flag;
-            logoText.text = Localization.GetFieldText(LocaleFields.MainTitle);
+            logoText.text = Localization.GetFieldText("Title");
         }
     }
 }

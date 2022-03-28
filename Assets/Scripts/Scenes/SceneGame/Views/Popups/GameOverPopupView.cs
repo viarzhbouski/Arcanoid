@@ -44,9 +44,9 @@ namespace Scenes.SceneGame.Views.Popups
         
         private void ApplyLocalization()
         {
-            gameOverTitle.text = Localization.GetFieldText(LocaleFields.GameOverTitle);
-            restartButtonText.text = Localization.GetFieldText(LocaleFields.GameOverRestart);
-            backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.GameOverBackToMenu);
+            gameOverTitle.text = Localization.GetFieldText("GameOverTitle");
+            restartButtonText.text = Localization.GetFieldText("GameOverRestart");
+            backToMenuButtonText.text = Localization.GetFieldText("GameOverBackToMenu");
         }
         
         private void BackToMenuButtonOnClick()

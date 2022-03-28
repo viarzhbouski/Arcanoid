@@ -1,0 +1,14 @@
+﻿{
+  "Title" : "АРКАНОИД",
+  "WinNextLevel": "СЛЕД. УРОВЕНЬ",
+  "WinBackToMenu": "В МЕНЮ",
+  "GameOverTitle": "КОНЕЦ ИГРЫ",
+  "GameOverRestart": "ЗАНОВО",
+  "GameOverBackToMenu": "В МЕНЮ",
+  "PauseTitle": "ПАУЗА",
+  "PauseRestart": "ЗАНОВО",
+  "PauseBackToMenu": "В МЕНЮ",
+  "Level": "УРОВЕНЬ",
+  "Pack1": "ПАК1",
+  "Pack2": "ПАК2"
+}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Common.Enums;
 using Core.Popup;
 using Core.Statics;
@@ -76,9 +77,9 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void ApplyLocalization(PackConfig currentPack)
         {
-            packName.text = Localization.GetFieldText(currentPack.LocaleField);
-            nextLevelButtonText.text = Localization.GetFieldText(LocaleFields.WinNextLevel);
-            backToMenuButtonText.text = Localization.GetFieldText(LocaleFields.WinBackToMenu);
+            packName.text = Localization.GetFieldText(Enum.GetName(typeof(Packs), currentPack.Pack));
+            nextLevelButtonText.text = Localization.GetFieldText("WinNextLevel");
+            backToMenuButtonText.text = Localization.GetFieldText("WinBackToMenu");
         }
 
         private void BackToMenuButtonOnClick()

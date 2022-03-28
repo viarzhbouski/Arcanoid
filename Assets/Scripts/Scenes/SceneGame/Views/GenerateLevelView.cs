@@ -42,7 +42,7 @@ namespace Scenes.SceneGame.Views
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
             _generateLevelModel.TopPanelPosition = topPanel.transform.position;
-            levelText.text = Localization.GetFieldText(LocaleFields.Level);
+            levelText.text = Localization.GetFieldText("Level");
         }
         
         public void RenderChanges()

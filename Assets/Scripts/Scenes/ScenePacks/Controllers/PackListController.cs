@@ -4,7 +4,6 @@ using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.ScenePack.Models;
 using Scenes.ScenePacks.Views;
-using ScriptableObjects;
 using Pack = Scenes.ScenePack.Models.PackListModel.Pack;
 
 namespace Scenes.ScenePacks.Controllers
@@ -42,7 +41,7 @@ namespace Scenes.ScenePacks.Controllers
                 var pack = new Pack
                 {
                     Id = i,
-                    Name = canChoose ? Localization.GetFieldText(packConfig.LocaleField) : "???",
+                    Name = canChoose ? Localization.GetFieldText($"Pack{i + 1}") : "???",
                     CurrentLevel = canChoose ? currentLevel : 0,
                     MaxLevels = packConfig.Levels.Count,
                     PackIcon = canChoose ? packConfig.Image : null,

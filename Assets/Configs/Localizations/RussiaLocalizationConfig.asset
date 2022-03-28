@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flag: {fileID: 8697251012617859226, guid: 4f8b739c060ad834696c5e2213e10504, type: 3}
   localeLanguage: 1
+  localeFileName: russian

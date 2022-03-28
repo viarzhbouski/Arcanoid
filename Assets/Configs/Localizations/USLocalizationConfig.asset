@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flag: {fileID: -5528894423819592419, guid: d550aa2131d3afb4eb2052d0cf7dd360, type: 3}
   localeLanguage: 0
+  localeFileName: english
