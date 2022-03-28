@@ -36,14 +36,19 @@ namespace Scenes.SceneGame.Views.Popups
         private RectTransform progressBar;
 
         private LevelProgressController _levelProgressController;
+        private const float ProgressBarSpeed = 1.5f;
         private const float ProgressBarDelay = 0.1f;
         private const float WinPopupDelay = 0.75f;
+        private const float ButtonsScaleSpeed = 0.2f;
 
         public override void Open()
         {
             var currentPackId = DataRepository.SelectedPack;
             var currentPack = AppConfig.Instance.Packs[currentPackId];
             transform.localScale = Vector3.zero;
+            nextLevelButton.transform.localScale = Vector3.zero;
+            backToMenuButton.transform.localScale = Vector3.zero;
+            
             nextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
@@ -65,12 +70,10 @@ namespace Scenes.SceneGame.Views.Popups
             
             var currentLevel = DataRepository.SelectedLevel;
             var progressBarStep = 1f / currentPack.Levels.Count;
-            var progressBarPositionX = 0f;
+            var progressBarPositionX = currentLevel * progressBarStep;
             
-            for (var i = 0; i <= currentLevel; i++)
-            {
-                progressBarPositionX += progressBarStep;
-            }
+            progressBar.localScale = new Vector2(progressBarPositionX, 1f);
+            progressBarPositionX += progressBarStep;
             
             StartCoroutine(ShowProgressBar(progressBarPositionX));
         }
@@ -104,7 +107,11 @@ namespace Scenes.SceneGame.Views.Popups
         {
             yield return new WaitForSeconds(ProgressBarDelay);
             progressBar.DOKill();
-            progressBar.DOScaleX(progressBarPositionX, 0.5f);
+            progressBar.DOScaleX(progressBarPositionX, ProgressBarSpeed).onComplete += () =>
+            {
+                backToMenuButton.transform.DOScale(Vector2.one, ButtonsScaleSpeed);
+                nextLevelButton.transform.DOScale(Vector2.one, ButtonsScaleSpeed);
+            };
             _levelProgressController.SaveProgress();
         }
     }
