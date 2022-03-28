@@ -36,10 +36,6 @@ namespace Scenes.SceneGame.Views.Popups
         private RectTransform progressBar;
 
         private LevelProgressController _levelProgressController;
-        private const float ProgressBarSpeed = 1.5f;
-        private const float ProgressBarDelay = 0.1f;
-        private const float WinPopupDelay = 0.75f;
-        private const float ButtonsScaleSpeed = 0.2f;
 
         public override void Open()
         {
@@ -98,19 +94,19 @@ namespace Scenes.SceneGame.Views.Popups
 
         IEnumerator OpenWithDelay(PackConfig currentPack)
         {
-            yield return new WaitForSeconds(WinPopupDelay);
+            yield return new WaitForSeconds(AppConfig.Instance.PopupsConfig.WinPopupDelay);
             OpenAnim();
             InitPackProgressBar(currentPack);
         }
         
         IEnumerator ShowProgressBar(float progressBarPositionX)
         {
-            yield return new WaitForSeconds(ProgressBarDelay);
+            yield return new WaitForSeconds(AppConfig.Instance.PopupsConfig.WinPopupProgressBarDelay);
             progressBar.DOKill();
-            progressBar.DOScaleX(progressBarPositionX, ProgressBarSpeed).onComplete += () =>
+            progressBar.DOScaleX(progressBarPositionX, AppConfig.Instance.PopupsConfig.WinPopupProgressBarSpeed).onComplete += () =>
             {
-                backToMenuButton.transform.DOScale(Vector2.one, ButtonsScaleSpeed);
-                nextLevelButton.transform.DOScale(Vector2.one, ButtonsScaleSpeed);
+                backToMenuButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
+                nextLevelButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
             };
             _levelProgressController.SaveProgress();
         }

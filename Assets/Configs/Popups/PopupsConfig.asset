@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: PopupsConfig
   m_EditorClassIdentifier: 
   pausePopupDelayAfterContinue: 0.5
+  winPopupProgressBarSpeed: 1.5
+  winPopupProgressBarDelay: 0.1
+  winPopupDelay: 0.75
+  winPopupButtonsScaleSpeed: 0.2
