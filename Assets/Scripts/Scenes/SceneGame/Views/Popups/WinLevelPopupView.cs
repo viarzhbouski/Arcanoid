@@ -105,7 +105,7 @@ namespace Scenes.SceneGame.Views.Popups
             yield return new WaitForSeconds(ProgressBarDelay);
             progressBar.DOKill();
             progressBar.DOScaleX(progressBarPositionX, 0.5f);
-           // _levelProgressController.SaveProgress();
+            _levelProgressController.SaveProgress();
         }
     }
 }

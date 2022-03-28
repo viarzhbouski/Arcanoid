@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using Common.Enums;
-using Core.ObjectPooling;
 using Core.Popup;
 using Core.Statics;
 using Scenes.SceneGame.Controllers;
-using Scenes.SceneGame.ScenePools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,15 +27,12 @@ namespace Scenes.SceneGame.Views.Popups
         private TMP_Text continueButtonText;
 
         private PauseGameController _pauseGameController;
-        private PlatformController _platformController;
 
         public override void Open()
         {
             OpenAnim();
             ApplyLocalization();
             _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
-            _platformController = AppControllers.Instance.GetController<PlatformController>();
-            //_platformController.IsStarted(false);
             restartButton.onClick.AddListener(RestartButtonOnClick);
             continueButton.onClick.AddListener(ContinueButtonOnClick);
         }
