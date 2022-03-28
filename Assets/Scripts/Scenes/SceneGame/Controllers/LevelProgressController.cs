@@ -54,7 +54,7 @@ namespace Scenes.SceneGame.Controllers
             
             if (_levelProgressModel.BlocksAtGameField == 0)
             {
-                _pauseGameController.GameInPause(true);
+                //_pauseGameController.GameInPause(true);
             }
         }
 

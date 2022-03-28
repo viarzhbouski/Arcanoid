@@ -50,7 +50,7 @@ namespace Scenes.SceneGame.Controllers
 
             if (_lifesModel.LifesCount == 0)
             {
-                _pauseGameController.GameInPause(true);
+                //_pauseGameController.GameInPause(true);
             }
         }
 

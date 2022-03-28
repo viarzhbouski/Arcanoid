@@ -18,6 +18,8 @@ namespace Scenes.SceneGame.Models
 
         public float PlatformSpeed => Speed + ExtraSpeed;
         
+        public Vector2 StartPosition { get; set; }
+        
         public Vector2 Position { get; set; }
 
         public Action OnChange { get; set; }

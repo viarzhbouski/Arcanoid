@@ -31,10 +31,23 @@ namespace Scenes.SceneGame.Views
         
         public void RenderChanges()
         {
-            SetBallState();
-            
-            if (!_ballModel.BallIsStopped)
+            if (AppPopups.Instance.ActivePopups > 0)
             {
+                ballTrail.enabled = false;
+                if (ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    _movementVectorBeforePause = ballRigidbody.velocity;
+                    ballRigidbody.bodyType = RigidbodyType2D.Static;
+                }
+            }
+            else
+            {
+                if (ballRigidbody.bodyType == RigidbodyType2D.Static)
+                {
+                    ballRigidbody.bodyType = RigidbodyType2D.Dynamic;
+                    ballRigidbody.velocity = _movementVectorBeforePause;
+                }
+                
                 if (!_ballModel.IsStarted)
                 {
                     ballRigidbody.velocity = Vector2.zero;
@@ -42,42 +55,12 @@ namespace Scenes.SceneGame.Views
                 }
                 else
                 {
-                    PushBall();
-                }
-            }
-        }
-
-        private void Move()
-        {
-            if (!_ballModel.BallIsStopped)
-            {
-                _prevMovementVector = ballRigidbody.velocity;
-                
-                if (!_ballModel.IsStarted)
-                {
-                    UpdateBallPosition();
-                }
-                else
-                {
+                    ballTrail.enabled = true;
                     PushBall();
                 }
             }
         }
         
-        private void SetBallState()
-        {
-            if (_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
-            {
-                _movementVectorBeforePause = ballRigidbody.velocity;
-                ballRigidbody.bodyType = RigidbodyType2D.Static;
-            }
-            if (!_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Static)
-            {
-                ballRigidbody.bodyType = RigidbodyType2D.Dynamic;
-                ballRigidbody.velocity = _movementVectorBeforePause;
-            }
-        }
-
         private void UpdateBallPosition()
         {
             ballRigidbody.velocity = Vector2.zero;
@@ -117,7 +100,7 @@ namespace Scenes.SceneGame.Views
 
             if (currentAngle < _ballModel.MinBounceAngle)
             {
-                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle * 2, 0));
+                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle, 0));
                 var x = ballVector.x * Mathf.Cos(angleVector.x) - ballVector.y * Mathf.Sin(angleVector.x);
                 var y = ballVector.y * Mathf.Cos(angleVector.x) + ballVector.x * Mathf.Sin(angleVector.x);
                 var newBallVector = new Vector2(x, y);

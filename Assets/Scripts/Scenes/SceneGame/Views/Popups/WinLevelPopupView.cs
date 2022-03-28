@@ -36,7 +36,6 @@ namespace Scenes.SceneGame.Views.Popups
         private RectTransform progressBar;
 
         private LevelProgressController _levelProgressController;
-        private PlatformController _platformController;
         private const float ProgressBarDelay = 0.1f;
         private const float WinPopupDelay = 0.75f;
 
@@ -48,8 +47,6 @@ namespace Scenes.SceneGame.Views.Popups
             nextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
-            _platformController = AppControllers.Instance.GetController<PlatformController>();
-            _platformController.IsStarted(false);
             ApplyLocalization(currentPack);
             StartCoroutine(OpenWithDelay(currentPack));
         }

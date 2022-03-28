@@ -12,7 +12,6 @@ namespace Scenes.SceneGame.Controllers
         private readonly BallView _ballView;
 
         private LifesController _lifesController;
-        private LevelProgressController _levelProgressController;
         private PlatformController _platformController;
         private bool _isHold;
 
@@ -29,7 +28,6 @@ namespace Scenes.SceneGame.Controllers
         public void StartController()
         {
             _lifesController = AppControllers.Instance.GetController<LifesController>();
-            _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
             _platformController = AppControllers.Instance.GetController<PlatformController>();
         }
 
@@ -37,11 +35,11 @@ namespace Scenes.SceneGame.Controllers
         {
             _ballModel.IsStarted = _platformController.IsStarted();
 
-            if (!_ballModel.IsStarted)
+            if (!_ballModel.BallCanMove)
             {
                 _ballModel.BallPosition = _platformController.GetPlatformBallStartPosition();
             }
-            
+
             _ballModel.OnChange?.Invoke();
         }
 
@@ -53,11 +51,6 @@ namespace Scenes.SceneGame.Controllers
         public void SetBallCanDestroyAllBlocks(bool state)
         {
             _ballModel.BallCanDestroyAllBlocks = state;
-        }
-        
-        public void StopBall(bool isStopped)
-        {
-            _ballModel.BallIsStopped = isStopped;
         }
         
         public void ControllerOnChange()

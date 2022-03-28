@@ -37,7 +37,7 @@ namespace Scenes.SceneGame.Views.Popups
             ApplyLocalization();
             _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
             _platformController = AppControllers.Instance.GetController<PlatformController>();
-            _platformController.IsStarted(false);
+            //_platformController.IsStarted(false);
             restartButton.onClick.AddListener(RestartButtonOnClick);
             continueButton.onClick.AddListener(ContinueButtonOnClick);
         }
@@ -69,7 +69,6 @@ namespace Scenes.SceneGame.Views.Popups
         {
             Close();
             yield return new WaitForSeconds(AppConfig.Instance.PopupsConfig.PausePopupDelayAfterContinue);
-            _pauseGameController.GameInPause(false);
             Destroy(gameObject);
         }
     }

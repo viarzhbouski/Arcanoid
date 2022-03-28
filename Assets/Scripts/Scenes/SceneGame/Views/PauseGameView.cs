@@ -30,7 +30,6 @@ namespace Scenes.SceneGame.Views
 
         private void PauseButtonOnClick()
         {
-            _pauseGameController.GameInPause(true);
             AppPopups.Instance.OpenPopup<PausePopupView>();
         }
     }

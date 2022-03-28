@@ -41,11 +41,6 @@ namespace Scenes.SceneGame.Controllers
         {
             _pauseGameView.RenderChanges();
         }
-
-        public void GameInPause(bool stopBall)
-        {
-            _ballController.StopBall(stopBall);
-        }
         
         private void ClearBlockPools()
         {
@@ -60,7 +55,8 @@ namespace Scenes.SceneGame.Controllers
         public void RestartLevel()
         {
             ClearBlockPools();
-            GameInPause(false);
+            _platformController.IsStarted(false);
+            _platformController.PastePlatformOnStartPosition();
             _generateLevelController.ReloadLevel();
             _levelProgressController.InitLevelProgressBar();
             _lifesController.LoadLifes();

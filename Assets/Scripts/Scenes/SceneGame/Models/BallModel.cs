@@ -6,11 +6,9 @@ namespace Scenes.SceneGame.Models
 {
     public class BallModel : IModel
     {
-        public bool BallIsPushed { get; set; }
+        public bool BallCanMove { get; set; }
         
         public bool IsStarted { get; set; }
-        
-        public bool BallIsStopped { get; set; }
         
         public Vector2 BallPosition { get; set; }
 
@@ -21,8 +19,6 @@ namespace Scenes.SceneGame.Models
         public float BallSpeed => Speed + ExtraSpeed;
         
         public float MinBounceAngle { get; set; }
-        
-        public float ProgressBarStep { get; set; }
         
         public bool BallCanDestroyAllBlocks { get; set; }
         

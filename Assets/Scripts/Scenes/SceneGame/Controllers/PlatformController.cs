@@ -3,17 +3,14 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
 {
-    public class PlatformController : IController, IHasStart, IHasUpdate
+    public class PlatformController : IController, IHasUpdate
     {
         private readonly PlatformModel _platformModel;
         private readonly PlatformView _platformView;
-        
-        private BallController _ballController;
 
         public PlatformController(IView view)
         {
@@ -26,18 +23,8 @@ namespace Scenes.SceneGame.Controllers
             _platformModel.Size = 1f;
         }
         
-        public void StartController()
-        {
-            _ballController = AppControllers.Instance.GetController<BallController>();
-        }
-        
         public void UpdateController()
         {
-            if (AppPopups.Instance.ActivePopups > 0)
-            {
-                return;
-            }
-            
             Move();
         }
         
@@ -54,8 +41,8 @@ namespace Scenes.SceneGame.Controllers
             }
             
             return _platformModel.IsStarted;
-        } 
-
+        }
+        
         public void ResizePlatform(float extraSize)
         {
             _platformModel.ExtraSize = extraSize;
@@ -77,14 +64,19 @@ namespace Scenes.SceneGame.Controllers
             _platformModel.IsHold = true;
             _platformModel.Position = inputPosition;
         }
-        
+
+        public void PastePlatformOnStartPosition()
+        {
+            _platformModel.Position = _platformModel.StartPosition;
+        }
+
         private void Move()
         {
-            if (Input.touchCount > 0)
+            if (Input.touchCount > 0 && AppPopups.Instance.ActivePopups == 0)
             {
                 SetInputPosition(Input.GetTouch(0).position);
             }
-            else if (Input.GetMouseButton(0))
+            else if (Input.GetMouseButton(0) && AppPopups.Instance.ActivePopups == 0)
             {
                 SetInputPosition(Input.mousePosition);
             }
@@ -92,7 +84,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 _platformModel.IsHold = false;
                 
-                if (!_platformModel.IsStarted)
+                if (!_platformModel.IsStarted && AppPopups.Instance.ActivePopups == 0)
                 {
                     _platformModel.IsStarted = true;
                 }
