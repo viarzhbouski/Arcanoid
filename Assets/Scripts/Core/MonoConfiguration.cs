@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Interfaces;
 using Core.Interfaces.MVC;
 using Core.ObjectPooling;
 using Core.ObjectPooling.Pools;
 using Core.Statics;
+using UnityEngine;
 
 namespace Core
 {
@@ -45,6 +45,7 @@ namespace Core
 
         public void InitPools(List<PoolProvider> poolProviders)
         {
+            ObjectPools.Instance = null;
             var objectPools = new ObjectPools();
             foreach (var poolProvider in poolProviders)
             {

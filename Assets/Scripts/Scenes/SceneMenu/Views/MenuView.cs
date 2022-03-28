@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Common.Enums;
 using Core.Interfaces.MVC;
 using Core.Models;
@@ -55,7 +54,17 @@ namespace Scenes.SceneMenu.Views
         private void StartOnClick()
         {
             startButton.transform.DOKill();
-            SceneManager.LoadScene((int)GameScenes.Packs);
+            var currentGameProgress = GameCache.GetCurrentGameProgress();
+            if (currentGameProgress.CurrentPack == 0 && currentGameProgress.CurrentLevel == 0)
+            {
+                DataRepository.SelectedLevel = currentGameProgress.CurrentLevel;
+                DataRepository.SelectedPack = currentGameProgress.CurrentPack;
+                SceneManager.LoadScene((int)GameScenes.Game);
+            }
+            else
+            {
+                SceneManager.LoadScene((int)GameScenes.Packs);
+            }
         }
 
         public void RenderChanges()
