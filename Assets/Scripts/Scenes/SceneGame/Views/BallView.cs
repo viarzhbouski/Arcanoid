@@ -16,21 +16,27 @@ namespace Scenes.SceneGame.Views
         private Rigidbody2D ballRigidbody;
         [SerializeField]
         private TrailRenderer ballTrail;
-        
+        [SerializeField]
+        private SpriteRenderer ballSpriteRenderer;
         private BallModel _ballModel;
         private BallController _ballController;
 
         private Vector2 _prevMovementVector;
         private Vector2 _movementVectorBeforePause;
 
+        private bool _isFuryBall;
+        
         public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
             _ballController = controller as BallController;
+            _isFuryBall = false;
+            ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
         }
         
         public void RenderChanges()
         {
+            ChangeBallSprite();
             if (AppPopups.Instance.ActivePopups > 0)
             {
                 ballTrail.enabled = false;
@@ -58,6 +64,23 @@ namespace Scenes.SceneGame.Views
                     ballTrail.enabled = true;
                     PushBall();
                 }
+            }
+        }
+
+        private void ChangeBallSprite()
+        {
+            if (_ballModel.BallCanDestroyAllBlocks && !_isFuryBall)
+            {
+                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.FuryBallTrail;
+                ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.FuryBallSprite;
+                _isFuryBall = true;
+            }
+            
+            if (!_ballModel.BallCanDestroyAllBlocks && _isFuryBall)
+            {
+                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
+                ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.BallSprite;
+                _isFuryBall = false;
             }
         }
         

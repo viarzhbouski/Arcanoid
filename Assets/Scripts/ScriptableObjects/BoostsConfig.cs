@@ -61,7 +61,7 @@ namespace ScriptableObjects
         [Space]
         [SerializeField]
         private float furyBallWorkingDelay;
-
+        
         public float BombExecuteDelay => bombExecuteDelay;
         
         public float ChainBombExecuteDelay => chainBombExecuteDelay;

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using Common.Enums;
+using Core;
 using Core.Popup;
 using Core.Statics;
 using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scenes.SceneGame.Views.Popups
@@ -18,13 +20,16 @@ namespace Scenes.SceneGame.Views.Popups
         private Button restartButton;
 
         [SerializeField]
+        private Button backToMenuButton;
+        
+        [SerializeField]
         private Button continueButton;
         
         [SerializeField]
         private TMP_Text restartButtonText;
         
         [SerializeField]
-        private TMP_Text continueButtonText;
+        private TMP_Text backToMenuButtonText;
 
         private PauseGameController _pauseGameController;
 
@@ -34,6 +39,7 @@ namespace Scenes.SceneGame.Views.Popups
             ApplyLocalization();
             _pauseGameController = AppControllers.Instance.GetController<PauseGameController>();
             restartButton.onClick.AddListener(RestartButtonOnClick);
+            backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
             continueButton.onClick.AddListener(ContinueButtonOnClick);
         }
 
@@ -44,10 +50,15 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void ApplyLocalization()
         {
-            pauseTitle.text = Localization.GetFieldText(LocaleFields.PauseTitle);
-            restartButtonText.text = Localization.GetFieldText(LocaleFields.PauseRestart);
-            continueButtonText.text = Localization.GetFieldText(LocaleFields.PauseContinue);
+            //pauseTitle.text = Localization.GetFieldText(LocaleFields.PauseTitle);
+            //restartButtonText.text = Localization.GetFieldText(LocaleFields.PauseRestart);
+            //continueButtonText.text = Localization.GetFieldText(LocaleFields.PauseContinue);
         }
+        
+        private void BackToMenuButtonOnClick()
+        {
+            SceneManager.LoadScene((int)GameScenes.Packs);
+        } 
         
         private void ContinueButtonOnClick()
         {

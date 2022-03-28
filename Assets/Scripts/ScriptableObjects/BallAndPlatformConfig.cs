@@ -16,7 +16,19 @@ namespace ScriptableObjects
         [SerializeField]
         private int lifeCount;
         [SerializeField]
-        private int maxLifeCount;
+        private int maxLifeCount;        
+        [SerializeField]
+        private Sprite ballSprite;
+        [SerializeField]
+        private Sprite furyBallSprite;
+        [SerializeField]
+        private Gradient ballTrail;
+        [SerializeField]
+        private Gradient furyBallTrail;
+        
+        public Sprite BallSprite => ballSprite;
+        
+        public Sprite FuryBallSprite => furyBallSprite;
         
         public float BallSpeed => ballSpeed;
         
@@ -29,5 +41,9 @@ namespace ScriptableObjects
         public int MaxLifeCount => maxLifeCount;
         
         public float PlatformSpeed => platformSpeed;
+        
+        public Gradient BallTrail => ballTrail;
+        
+        public Gradient FuryBallTrail => furyBallTrail;
     }
 }
