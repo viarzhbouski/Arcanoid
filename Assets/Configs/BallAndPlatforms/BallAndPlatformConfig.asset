@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BallAndPlatformConfig
   m_EditorClassIdentifier: 
   ballSpeed: 15
+  ballSpeedEncrease: 0.5
   ballDamage: 1
   minBounceAngle: 30
   platformSpeed: 10

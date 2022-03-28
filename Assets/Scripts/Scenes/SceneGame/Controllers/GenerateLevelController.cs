@@ -84,7 +84,7 @@ namespace Scenes.SceneGame.Controllers
         private LevelMap GetLevel()
         {
             var selectedPack = DataRepository.SelectedPack;
-            var selectedLevel = DataRepository.SelectedLevel;;
+            var selectedLevel = DataRepository.SelectedLevel;
             var pack = AppConfig.Instance.Packs[selectedPack];
             var levelData = pack.Levels[selectedLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);

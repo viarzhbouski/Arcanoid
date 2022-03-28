@@ -1,7 +1,7 @@
 { 
   "level_map": [1, 1, 1, 1,
                 1, 1, 1, 1,
-                1, 2, 3, 1],
+                1, 2, 2, 3],
   "level_map_properties": 
   [
     {
@@ -41,12 +41,8 @@
       "attribute_color": [1.0, 0.5, 1.0]
     },
     {
-      "index": 10,
-      "attribute_boost_name": "ColorChainBomb"
-    },
-    {
       "index": 11,
-      "attribute_color": [1.0, 0.5, 1.0]
+      "attribute_boost_name": "ColorChainBomb"
     }
   ],
   "rows": 3,

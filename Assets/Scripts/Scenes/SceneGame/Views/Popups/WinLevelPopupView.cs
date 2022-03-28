@@ -37,7 +37,8 @@ namespace Scenes.SceneGame.Views.Popups
         private RectTransform progressBar;
 
         private LevelProgressController _levelProgressController;
-
+        private bool _gameIsPassed;
+        
         public override void Open()
         {
             var currentPackId = DataRepository.SelectedPack;
@@ -49,6 +50,7 @@ namespace Scenes.SceneGame.Views.Popups
             nextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
+            _gameIsPassed = false;
             ApplyLocalization(currentPack);
             StartCoroutine(OpenWithDelay(currentPack));
         }
@@ -77,8 +79,31 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void ApplyLocalization(PackConfig currentPack)
         {
-            packName.text = Localization.GetFieldText(Enum.GetName(typeof(Packs), currentPack.Pack));
-            nextLevelButtonText.text = Localization.GetFieldText("WinNextLevel");
+            var nextLevel = DataRepository.SelectedLevel + 1;
+            if (nextLevel < currentPack.Levels.Count)
+            {
+                packName.text = Localization.GetFieldText(Enum.GetName(typeof(Packs), currentPack.Pack));
+                nextLevelButtonText.text = $"{Localization.GetFieldText("WinNextLevel")} {nextLevel + 1}";
+            }
+            else
+            {
+                var nextPackId = DataRepository.SelectedPack + 1;
+                if (nextPackId < AppConfig.Instance.Packs.Count)
+                {
+                    var nextPack = AppConfig.Instance.Packs[nextPackId];
+                    var nextPackName = Enum.GetName(typeof(Packs), nextPack.Pack);
+                    packImage.sprite = nextPack.Image;
+                    packName.text = Localization.GetFieldText(nextPackName);
+                    nextLevelButtonText.text = Localization.GetFieldText(nextPackName);
+                }
+                else
+                {
+                    packName.text = Localization.GetFieldText("WinEndPacks");
+                    nextLevelButtonText.text = Localization.GetFieldText("WinBackToMenuEndPacks");
+                    _gameIsPassed = true;
+                }
+            }
+            
             backToMenuButtonText.text = Localization.GetFieldText("WinBackToMenu");
         }
 
@@ -90,6 +115,12 @@ namespace Scenes.SceneGame.Views.Popups
         private void NextLevelButtonOnClick()
         {
             Close(true);
+            
+            if (_gameIsPassed)
+            {
+                SceneManager.LoadScene((int)GameScenes.MainMenu);
+            }
+            
             _levelProgressController.NextLevel();
         }
 

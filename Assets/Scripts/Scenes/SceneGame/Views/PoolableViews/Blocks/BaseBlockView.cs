@@ -40,20 +40,22 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public abstract void DestroyBlock();
         
-        public virtual void BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
+        public virtual bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
             if (destroyImmediately)
             {
                 BlockHitHandle(countBlock);
-                return;
+                return true;
             }
             
             BlockHitAnim();
-
+            
             if (CanDestroy)
             {
                 BlockHitHandle(countBlock);
             }
+            
+            return CanDestroy;
         }
         
         public virtual void BlockHitAnim()

@@ -40,6 +40,7 @@ namespace Scenes.SceneMenu.Views
             _menuModel = model as MenuModel;
             startButton.onClick.AddListener(StartOnClick);
             localizationButton.onClick.AddListener(LocalizationOnClick);
+            startButton.transform.DOKill();
             startButton.transform.DOScale(0.9f, 0.5f).SetLoops(int.MaxValue, LoopType.Yoyo);
             InitLocalizationButton();
             

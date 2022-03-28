@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3b68f2b8724489b40ad16f8e1478fb, type: 3}
   m_Name: ColorBlockConfig
   m_EditorClassIdentifier: 
-  healthPoints: 1
+  healthPoints: 2
   blockType: 1
   blockPrefab: {fileID: 8677263749969595748, guid: ecd7e221e56239b478d6a51773a9e4e2, type: 3}

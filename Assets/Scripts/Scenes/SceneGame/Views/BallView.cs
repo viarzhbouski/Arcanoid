@@ -148,7 +148,7 @@ namespace Scenes.SceneGame.Views
                 if (blockView != null)
                 {
                     SpawnBallCollisionEffect();
-                    blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage, blockView.BlockType != BlockTypes.Granite, true);
+                    blockView.BlockHit(int.MaxValue, blockView.BlockType != BlockTypes.Granite, true);
                     ballRigidbody.velocity = _prevMovementVector;
                 }
             }
@@ -161,7 +161,11 @@ namespace Scenes.SceneGame.Views
                 if (blockView != null)
                 {
                     SpawnBallCollisionEffect();
-                    blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage);
+                    var blockIsDestroyed = blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage);
+                    if (blockIsDestroyed)
+                    {
+                        _ballModel.Speed += AppConfig.Instance.BallAndPlatform.BallSpeedEncrease;
+                    }
                 }
             }
         }

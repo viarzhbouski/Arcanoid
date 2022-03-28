@@ -35,6 +35,7 @@ namespace Scenes.SceneGame.Controllers
             _lifesController = AppControllers.Instance.GetController<LifesController>();
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
             _platformController = AppControllers.Instance.GetController<PlatformController>();
+            _ballController = AppControllers.Instance.GetController<BallController>();
         }
 
         public void ControllerOnChange()
@@ -60,6 +61,7 @@ namespace Scenes.SceneGame.Controllers
             _generateLevelController.ReloadLevel();
             _levelProgressController.InitLevelProgressBar();
             _lifesController.LoadLifes();
+            _ballController.SetDefaultSpeed();
         }
     }
 }

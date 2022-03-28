@@ -47,11 +47,6 @@ namespace Scenes.SceneGame.Controllers
         {
             _lifesModel.LifesCount--;
             _lifesModel.OnChange?.Invoke();
-
-            if (_lifesModel.LifesCount == 0)
-            {
-                //_pauseGameController.GameInPause(true);
-            }
         }
 
         public void EncreaseLife()

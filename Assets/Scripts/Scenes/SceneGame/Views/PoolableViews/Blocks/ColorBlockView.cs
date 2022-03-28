@@ -51,7 +51,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             _boost = boost;
         }
 
-        public override void BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
+        public override bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
             if (_boost == null)
             {
@@ -62,6 +62,8 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             {
                 StartCoroutine(Execute(damage));
             }
+            
+            return CanDestroy;
         }
 
         private void SetBlockDamage(int damage)

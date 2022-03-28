@@ -4,6 +4,7 @@ using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Scenes.SceneGame.Controllers
@@ -51,11 +52,6 @@ namespace Scenes.SceneGame.Controllers
         {
             _levelProgressModel.BlocksAtGameField--;
             _levelProgressModel.OnChange?.Invoke();
-            
-            if (_levelProgressModel.BlocksAtGameField == 0)
-            {
-                //_pauseGameController.GameInPause(true);
-            }
         }
 
         public void SaveProgress()
@@ -100,15 +96,10 @@ namespace Scenes.SceneGame.Controllers
                     currentGameProgress.CurrentLevel = 0;
                     currentGameProgress.CurrentPack = nextPack;
                 }
-                else
-                {
-                    SceneManager.LoadScene((int)GameScenes.Packs);
-                }
             }
             
             DataRepository.SelectedPack = currentGameProgress.CurrentPack;
             DataRepository.SelectedLevel = currentGameProgress.CurrentLevel;
-            
             GameCache.SetCurrentGameProgress(currentGameProgress);
         }
 

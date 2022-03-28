@@ -1,9 +1,12 @@
-﻿using Core.Interfaces;
+﻿using System;
+using Common.Enums;
+using Core.Interfaces;
 using Core.Interfaces.MVC;
 using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.ScenePack.Models;
 using Scenes.ScenePacks.Views;
+using UnityEngine;
 using Pack = Scenes.ScenePack.Models.PackListModel.Pack;
 
 namespace Scenes.ScenePacks.Controllers
@@ -35,13 +38,18 @@ namespace Scenes.ScenePacks.Controllers
             {
                 var packConfig = packsConfig[i];
                 var currentLevel = i == currentGameProgress.CurrentPack ? currentGameProgress.CurrentLevel
-                                                                            : packConfig.Levels.Count;
+                                                                           : packConfig.Levels.Count;
+
+                if (i == currentGameProgress.CurrentPack && i == packsConfig.Count - 1 && currentGameProgress.CurrentLevel == packsConfig[i].Levels.Count - 1)
+                {
+                    currentLevel += 1;
+                }
                 
                 var canChoose = i <= currentGameProgress.CurrentPack;
                 var pack = new Pack
                 {
                     Id = i,
-                    Name = canChoose ? Localization.GetFieldText($"Pack{i + 1}") : "???",
+                    Name = canChoose ? Localization.GetFieldText(Enum.GetName(typeof(Packs), packConfig.Pack)) : "???",
                     CurrentLevel = canChoose ? currentLevel : 0,
                     MaxLevels = packConfig.Levels.Count,
                     PackIcon = canChoose ? packConfig.Image : null,

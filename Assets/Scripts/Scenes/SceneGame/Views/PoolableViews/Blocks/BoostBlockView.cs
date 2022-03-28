@@ -26,7 +26,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
                 .DestroyPoolObject(this);
         }
 
-        public override void BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
+        public override bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
             if (_boost is Boosts.BonusBoost)
             {
@@ -36,6 +36,8 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             {
                 StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
             }
+            
+            return CanDestroy;
         }
 
         private void Execute(int damage, bool countBlock, bool destroyImmediately)

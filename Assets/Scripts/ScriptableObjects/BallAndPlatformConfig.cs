@@ -8,6 +8,8 @@ namespace ScriptableObjects
         [SerializeField]
         private float ballSpeed;
         [SerializeField]
+        private float ballSpeedEncrease;
+        [SerializeField]
         private int ballDamage;
         [SerializeField]
         private float minBounceAngle;
@@ -31,6 +33,8 @@ namespace ScriptableObjects
         public Sprite FuryBallSprite => furyBallSprite;
         
         public float BallSpeed => ballSpeed;
+        
+        public float BallSpeedEncrease => ballSpeedEncrease;
         
         public int BallDamage => ballDamage;
         
