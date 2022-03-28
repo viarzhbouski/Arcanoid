@@ -11,9 +11,14 @@ namespace ScriptableObjects
         
         [SerializeField]
         private LocaleLanguages localeLanguage;
+        
+        [SerializeField]
+        private string localeFileName;
 
         public Sprite Flag => flag;
         
         public LocaleLanguages LocaleLanguage => localeLanguage;
+        
+        public string LocaleFileName => localeFileName;
     }
 }

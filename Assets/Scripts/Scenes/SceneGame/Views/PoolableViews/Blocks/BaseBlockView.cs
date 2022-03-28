@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Linq;
 using Common.Enums;
 using Core.ObjectPooling;
 using Core.ObjectPooling.Interfaces;
 using DG.Tweening;
 using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
-using ScriptableObjects;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 {
@@ -16,9 +14,10 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
     {
         [SerializeField]
         private protected SpriteRenderer blockSpriteRenderer;
+
         private Action _destroyBlockEvent;
         
-        protected Block Block;
+        protected BlockInfo Block;
         
         public SpriteRenderer BlockSpriteRenderer => blockSpriteRenderer;
         
@@ -30,22 +29,10 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public bool CanDestroy => Block.BlockType != BlockTypes.Granite && Block.HealthPoints <= 0;
         
-        public virtual void SetBlockConfig(Block block, Action destroyBlockEvent)
+        public virtual void SetBlockConfig(BlockInfo block, Action destroyBlockEvent)
         {
             Block = block;
-            
-            if (block.BlockType != BlockTypes.Boost)
-            {
-                blockSpriteRenderer.color = block.Colors.Length == 1
-                    ? block.Colors.First()
-                    : block.Colors[Random.Range(0, block.Colors.Length - 1)];
-            }
-            else
-            {
-                blockSpriteRenderer.color =
-                    block.Colors[(int) block.BoostType!.Value - Enum.GetValues(typeof(BlockTypes)).Length];
-            }
-            
+            blockSpriteRenderer.color = block.Color;
             _destroyBlockEvent = destroyBlockEvent;
         }
 
@@ -53,25 +40,42 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public abstract void DestroyBlock();
         
-        public virtual void BlockHit(int damage = 1)
+        public virtual bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
-            PlayBlockHitAnim();
+            if (destroyImmediately)
+            {
+                BlockHitHandle(countBlock);
+                return true;
+            }
+            
+            BlockHitAnim();
+            
+            if (CanDestroy)
+            {
+                BlockHitHandle(countBlock);
+            }
+            
+            return CanDestroy;
         }
-
-        protected virtual void PlayBlockHitAnim()
+        
+        public virtual void BlockHitAnim()
         {
             transform.DOKill();
             transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
-
-            if (CanDestroy)
+        }
+        
+        private void BlockHitHandle(bool countBlock)
+        {
+            if (countBlock)
             {
-                _destroyBlockEvent?.Invoke();
-                var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
-                var blockDestroyEffect = objectPool.GetObject();
-                blockDestroyEffect.transform.position = transform.position;
-                objectPool.DestroyPoolObject(blockDestroyEffect);
-                DestroyBlock();
+                _destroyBlockEvent.Invoke();
             }
+
+            var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
+            var blockDestroyEffect = objectPool.GetObject();
+            blockDestroyEffect.transform.position = transform.position;
+            objectPool.DestroyPoolObject(blockDestroyEffect);
+            DestroyBlock();
         }
 
         public GameObject GetGameObject()

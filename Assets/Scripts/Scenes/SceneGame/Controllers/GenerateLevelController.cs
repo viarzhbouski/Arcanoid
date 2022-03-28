@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
 using Core.Interfaces;
 using Core.Interfaces.MVC;
 using Core.Models;
-using Core.ObjectPooling;
 using Core.Statics;
 using Newtonsoft.Json;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views;
-using ScriptableObjects;
+using ScriptableObjects.BlockConfigs;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
@@ -18,16 +16,12 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly GenerateLevelModel _generateLevelModel;
         private readonly GenerateLevelView _generateLevelView;
-        private readonly MainConfig _mainConfig;
-        private readonly Dictionary<BlockTypes, Block> _blocks;
         private LevelProgressController _levelProgressController;
 
-        public GenerateLevelController(IView view, MainConfig mainConfig)
+        public GenerateLevelController(IView view)
         {
-            _mainConfig = mainConfig;
             _generateLevelModel = new GenerateLevelModel();
             _generateLevelView = view as GenerateLevelView;
-            _blocks = new Dictionary<BlockTypes, Block>();
             _generateLevelView!.Bind(_generateLevelModel, this);
             _generateLevelModel.OnChangeHandler(ControllerOnChange);
             _generateLevelModel.DestroyBlockEvent = DestroyBlock;
@@ -53,7 +47,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 for (var j = 0; j < _generateLevelModel.Blocks.GetLength(1); j++)
                 {
-                    if (_generateLevelModel.Blocks[i, j].BlockType != BlockTypes.Granite)
+                    if (_generateLevelModel.Blocks[i, j].BlockType != BlockTypes.Granite && _generateLevelModel.Blocks[i, j].BlockType != BlockTypes.Empty)
                     {
                         blockCount++;
                     }
@@ -76,7 +70,6 @@ namespace Scenes.SceneGame.Controllers
         private void LoadLevel()
         {
             var level = GetLevel();
-            FillDict();
             GenerateBlocksGrid(level);
         }
 
@@ -86,18 +79,13 @@ namespace Scenes.SceneGame.Controllers
             {
                 _generateLevelModel.Blocks = null;
             }
-
-            if (_blocks.Any())
-            {
-                _blocks.Clear();
-            }
         }
         
         private LevelMap GetLevel()
         {
             var selectedPack = DataRepository.SelectedPack;
-            var selectedLevel = DataRepository.SelectedLevel;;
-            var pack = AppConfig.Instance.Config.Packs[selectedPack];
+            var selectedLevel = DataRepository.SelectedLevel;
+            var pack = AppConfig.Instance.Packs[selectedPack];
             var levelData = pack.Levels[selectedLevel];
             var levelMap = JsonConvert.DeserializeObject<LevelMap>(levelData.text);
 
@@ -109,61 +97,67 @@ namespace Scenes.SceneGame.Controllers
 
         private void GenerateBlocksGrid(LevelMap level)
         {
+            var gamefieldConfig = AppConfig.Instance.Gamefield;
+            
             _generateLevelModel.CellSize = new Vector2
             {
-                x = (_mainConfig.MaxViewportSize - _mainConfig.SpaceWidth * (level.Width + 1)) / level.Width
+                x = (gamefieldConfig.MaxViewportSize - gamefieldConfig.SpaceWidth * (level.Columns + 1)) / level.Columns
             };
             
-            var blocksGrid = new Block[level.Height, level.Width];
+            var blocksGrid = new BlockInfo[level.Rows, level.Columns];
             var blockId = 0;
-            var blocks = level.Layers.First().Data;
+            var blocks = level.LevelMapData;
             var ratio = (float)Screen.width / Screen.height;
             var cellWidth = _generateLevelModel.CellSize.x / 2;
             var cellHeight = cellWidth * ratio;
-            var topPanelWidth = _mainConfig.MaxViewportSize / (_generateLevelModel.TopPanelPosition.y / 2) * ratio;
-            var y = _mainConfig.MaxViewportSize - cellHeight / 2 - _mainConfig.SpaceHeight - topPanelWidth;
+            var topPanelWidth = gamefieldConfig.MaxViewportSize / (_generateLevelModel.TopPanelPosition.y / 2) * ratio;
+            var y = gamefieldConfig.MaxViewportSize - cellHeight / 2 - gamefieldConfig.SpaceHeight - topPanelWidth;
             
-            for (var i = 0; i < level.Height; i++)
+            for (var i = 0; i < level.Rows; i++)
             {
-                var x = cellWidth + _mainConfig.SpaceWidth;
+                var x = cellWidth + gamefieldConfig.SpaceWidth;
                 
-                for (var j = 0; j < level.Width; j++)
+                for (var j = 0; j < level.Columns; j++)
                 {
-                    var position = new Vector2(x, y);
-                    BoostTypes? boostType = null;
-                    
-                    if ((int)BlockTypes.Boost < blocks[blockId])
+                    var blockType = (BlockTypes)blocks[blockId];
+                    var block = AppConfig.Instance.Blocks.First(e => e.BlockType == blockType);
+                    var blockInfo = new BlockInfo
                     {
-                        boostType = (BoostTypes)blocks[blockId];
-                        blocks[blockId] = (int)BlockTypes.Boost;
+                        HealthPoints = block.HealthPoints,
+                        Position = new Vector2(x, y),
+                        BlockType = blockType
+                    };
+
+                    var blockProperty = level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId);
+                    
+                    switch (blockType)
+                    {
+                        case BlockTypes.Granite:
+                            var graniteBlock = (GraniteBlockConfig)block;
+                            blockInfo.Color = graniteBlock.BlockColor;
+                            break;
+                        case BlockTypes.Color:
+                            blockInfo.Color = blockProperty?.BlockColor ?? Color.white;
+                            break;
+                        case BlockTypes.Boost:
+                            var boostBlock = (BoostBlockConfig)block;
+                            var boostType = blockProperty?.BoostType ?? BoostTypes.Bomb;
+                            var boostColor = boostBlock.BoostColor.First(e => e.BoostType == boostType);
+                            blockInfo.Color = boostColor.Color;
+                            blockInfo.BoostType = boostColor.BoostType;
+                            break;
                     }
                     
-                    var block = _blocks[(BlockTypes)blocks[blockId]];
-                    block.Position = position;
-                    x += _generateLevelModel.CellSize.x + _mainConfig.SpaceWidth;
+                    x += _generateLevelModel.CellSize.x + gamefieldConfig.SpaceWidth;
+                    blocksGrid[i, j] = blockInfo;
                     blockId++;
-
-                    if (boostType.HasValue)
-                    {
-                        block.BoostType = boostType!.Value;
-                    }
-
-                    blocksGrid[i, j] = block;
                 }
 
-                y -= cellHeight + _mainConfig.SpaceHeight;
+                y -= cellHeight + gamefieldConfig.SpaceHeight;
             }
-
+            
             _generateLevelModel.Blocks = blocksGrid;
             _generateLevelModel.OnChange?.Invoke();
-        }
-
-        private void FillDict()
-        {
-            foreach (var block in _mainConfig.Blocks)
-            {
-                _blocks.Add(block.BlockType, block);
-            }
         }
     }
 }

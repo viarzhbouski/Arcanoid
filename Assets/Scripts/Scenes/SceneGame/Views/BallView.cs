@@ -1,5 +1,7 @@
-﻿using Core.Interfaces.MVC;
+﻿using Common.Enums;
+using Core.Interfaces.MVC;
 using Core.ObjectPooling;
+using Core.Statics;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
@@ -14,51 +16,74 @@ namespace Scenes.SceneGame.Views
         private Rigidbody2D ballRigidbody;
         [SerializeField]
         private TrailRenderer ballTrail;
-        
+        [SerializeField]
+        private SpriteRenderer ballSpriteRenderer;
         private BallModel _ballModel;
         private BallController _ballController;
 
         private Vector2 _prevMovementVector;
         private Vector2 _movementVectorBeforePause;
+
+        private bool _isFuryBall;
         
         public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
             _ballController = controller as BallController;
+            _isFuryBall = false;
+            ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
         }
         
         public void RenderChanges()
         {
-            SetBallState();
-
-            if (!_ballModel.BallIsStopped)
+            ChangeBallSprite();
+            if (AppPopups.Instance.ActivePopups > 0)
             {
-                _prevMovementVector = ballRigidbody.velocity;
+                ballTrail.enabled = false;
+                if (ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    _movementVectorBeforePause = ballRigidbody.velocity;
+                    ballRigidbody.bodyType = RigidbodyType2D.Static;
+                }
+            }
+            else
+            {
+                if (ballRigidbody.bodyType == RigidbodyType2D.Static)
+                {
+                    ballRigidbody.bodyType = RigidbodyType2D.Dynamic;
+                    ballRigidbody.velocity = _movementVectorBeforePause;
+                }
+                
                 if (!_ballModel.IsStarted)
                 {
+                    ballRigidbody.velocity = Vector2.zero;
                     UpdateBallPosition();
                 }
                 else
                 {
+                    ballTrail.enabled = true;
                     PushBall();
                 }
             }
         }
 
-        private void SetBallState()
+        private void ChangeBallSprite()
         {
-            if (_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
+            if (_ballModel.BallCanDestroyAllBlocks && !_isFuryBall)
             {
-                _movementVectorBeforePause = ballRigidbody.velocity;
-                ballRigidbody.bodyType = RigidbodyType2D.Static;
+                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.FuryBallTrail;
+                ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.FuryBallSprite;
+                _isFuryBall = true;
             }
-            if (!_ballModel.BallIsStopped && ballRigidbody.bodyType == RigidbodyType2D.Static)
+            
+            if (!_ballModel.BallCanDestroyAllBlocks && _isFuryBall)
             {
-                ballRigidbody.bodyType = RigidbodyType2D.Dynamic;
-                ballRigidbody.velocity = _movementVectorBeforePause;
+                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
+                ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.BallSprite;
+                _isFuryBall = false;
             }
         }
-
+        
         private void UpdateBallPosition()
         {
             ballRigidbody.velocity = Vector2.zero;
@@ -74,11 +99,11 @@ namespace Scenes.SceneGame.Views
             
             if (ballRigidbody.velocity.magnitude == 0f)
             {
-                ballRigidbody.velocity = Vector2.up * _ballModel.Speed;
+                ballRigidbody.velocity = Vector2.up * _ballModel.BallSpeed;
             }
             else
             {
-                ballRigidbody.velocity = _ballModel.Speed * ballRigidbody.velocity.normalized;
+                ballRigidbody.velocity = _ballModel.BallSpeed * ballRigidbody.velocity.normalized;
             }
         }
 
@@ -98,7 +123,7 @@ namespace Scenes.SceneGame.Views
 
             if (currentAngle < _ballModel.MinBounceAngle)
             {
-                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle * 2, 0));
+                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle, 0));
                 var x = ballVector.x * Mathf.Cos(angleVector.x) - ballVector.y * Mathf.Sin(angleVector.x);
                 var y = ballVector.y * Mathf.Cos(angleVector.x) + ballVector.x * Mathf.Sin(angleVector.x);
                 var newBallVector = new Vector2(x, y);
@@ -108,21 +133,40 @@ namespace Scenes.SceneGame.Views
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            var platformView = collision.collider.gameObject.GetComponent<PlatformView>();
+            var platformView = collision.gameObject.GetComponent<PlatformView>();
             
             if (platformView)
             {
                 return;
             }
-            
-            CorrectBallMovement();
-            
-            var blockView = collision.collider.gameObject.GetComponent<BaseBlockView>();
-            
-            if (blockView != null)
+
+            if (_ballModel.BallCanDestroyAllBlocks && collision.collider is BoxCollider2D)
             {
                 SpawnBallCollisionEffect();
-                blockView.BlockHit();
+                var blockView = collision.gameObject.GetComponent<BaseBlockView>();
+
+                if (blockView != null)
+                {
+                    SpawnBallCollisionEffect();
+                    blockView.BlockHit(int.MaxValue, blockView.BlockType != BlockTypes.Granite, true);
+                    ballRigidbody.velocity = _prevMovementVector;
+                }
+            }
+            else
+            {
+                CorrectBallMovement();
+
+                var blockView = collision.gameObject.GetComponent<BaseBlockView>();
+
+                if (blockView != null)
+                {
+                    SpawnBallCollisionEffect();
+                    var blockIsDestroyed = blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage);
+                    if (blockIsDestroyed)
+                    {
+                        _ballModel.Speed += AppConfig.Instance.BallAndPlatform.BallSpeedEncrease;
+                    }
+                }
             }
         }
 

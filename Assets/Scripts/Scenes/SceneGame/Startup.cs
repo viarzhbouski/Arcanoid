@@ -29,15 +29,15 @@ namespace Scenes.SceneGame
         [SerializeField]
         private PauseGameView pauseGameView;
 
-        public override void InitializeStartup(MonoConfiguration monoConfiguration, MainConfig mainConfig)
+        public override void InitializeStartup(MonoConfiguration monoConfiguration)
         {
-            monoConfiguration.AddController(new GenerateLevelController(generateLevelView, mainConfig));
-            monoConfiguration.AddController(new LevelProgressController(levelProgressView, mainConfig));
-            monoConfiguration.AddController(new BordersController(bordersView, mainConfig));
-            monoConfiguration.AddController(new LifesController(lifesView, mainConfig));
-            monoConfiguration.AddController(new BallController(ballView, mainConfig));
-            monoConfiguration.AddController(new PlatformController(platformView, mainConfig));
-            monoConfiguration.AddController(new PauseGameController(pauseGameView, mainConfig));
+            monoConfiguration.AddController(new GenerateLevelController(generateLevelView));
+            monoConfiguration.AddController(new LevelProgressController(levelProgressView));
+            monoConfiguration.AddController(new BordersController(bordersView));
+            monoConfiguration.AddController(new LifesController(lifesView));
+            monoConfiguration.AddController(new BallController(ballView));
+            monoConfiguration.AddController(new PlatformController(platformView));
+            monoConfiguration.AddController(new PauseGameController(pauseGameView));
         }
     }
 }

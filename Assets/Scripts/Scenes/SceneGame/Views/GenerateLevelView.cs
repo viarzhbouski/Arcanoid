@@ -3,10 +3,10 @@ using Core.Interfaces.MVC;
 using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Boosts;
+using Scenes.SceneGame.Boosts.Bonuses;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
-using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +42,7 @@ namespace Scenes.SceneGame.Views
             _generateLevelModel = model as GenerateLevelModel;
             _generateLevelModel!.StartPosition = mapPivot.position;
             _generateLevelModel.TopPanelPosition = topPanel.transform.position;
-            levelText.text = Localization.GetFieldText(LocaleFields.Level);
+            levelText.text = Localization.GetFieldText("Level");
         }
         
         public void RenderChanges()
@@ -52,25 +52,21 @@ namespace Scenes.SceneGame.Views
 
         private void RenderLevelMap()
         {
-            var height = _generateLevelModel.Blocks.GetLength(0);
-            var width = _generateLevelModel.Blocks.GetLength(1);
-            _blocksGrid = new BaseBlockView[height, width];
+            var rows = _generateLevelModel.Blocks.GetLength(0);
+            var columns = _generateLevelModel.Blocks.GetLength(1);
+            _blocksGrid = new BaseBlockView[rows, columns];
             SetLevelUI();
             
-            for (var i = 0; i < height; i++)
+            for (var i = 0; i < rows; i++)
             {
-                for (var j = 0; j < width; j++)
+                for (var j = 0; j < columns; j++)
                 {
                     var block = _generateLevelModel.Blocks[i, j];
-                    if (block.BlockType == BlockTypes.Empty)
-                    {
-                        continue;
-                    }
 
                     switch (block.BlockType)
                     {
                         case BlockTypes.Empty:
-                            continue;
+                            break;
                         case BlockTypes.Color:
                             SetBlockTransform(ObjectPools.Instance.GetObjectPool<ColorBlockPool>().GetObject(), block, i, j);
                             break;
@@ -84,11 +80,11 @@ namespace Scenes.SceneGame.Views
                 }
             }
 
-            for (var i = 0; i < height; i++)
+            for (var i = 0; i < rows; i++)
             {
-                for (var j = 0; j < width; j++)
+                for (var j = 0; j < columns; j++)
                 {
-                    if (_blocksGrid[i, j].BlockType == BlockTypes.Boost)
+                    if (_blocksGrid[i, j] != null && _blocksGrid[i, j].BlockType == BlockTypes.Boost)
                     {
                         SetBoost((BoostBlockView)_blocksGrid[i, j], i, j);
                     }
@@ -96,7 +92,7 @@ namespace Scenes.SceneGame.Views
             }
         }
 
-        private void SetBlockTransform<T>(T blockMono, Block block, int i, int j) where T : BaseBlockView
+        private void SetBlockTransform<T>(T blockMono, BlockInfo block, int i, int j) where T : BaseBlockView
         {
             blockMono.SetBlockConfig(block, _generateLevelModel.DestroyBlockEvent);
             blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);
@@ -114,10 +110,36 @@ namespace Scenes.SceneGame.Views
                 case BoostTypes.ColorChainBomb:
                     blockMono.SetBoost(new ColorChainBombBoost(_blocksGrid, i, j));
                     break;
+                case BoostTypes.BallAcceleration:
+                    blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.BallSlowdown:
+                    blockMono.SetBoost(new BonusBoost(new BallSlowdownBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformSizeEncrease:
+                    blockMono.SetBoost(new BonusBoost(new PlatformSizeEncreaseBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformSizeDecrease:
+                    blockMono.SetBoost(new BonusBoost(new PlatformSizeDecreaseBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.FuryBall:
+                    blockMono.SetBoost(new BonusBoost(new FuryBallBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformAcceleration:
+                    blockMono.SetBoost(new BonusBoost(new PlatformAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.PlatformSlowdown:
+                    blockMono.SetBoost(new BonusBoost(new PlatformSlowdownBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.BlackLabel:
+                    blockMono.SetBoost(new BonusBoost(new BlackLabelBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
+                case BoostTypes.SourceOfLife:
+                    blockMono.SetBoost(new BonusBoost(new SourceOfLifeBonus(blockMono.BlockColor), blockMono.transform.position));
+                    break;
             }
         }
-
-
+        
         private void SetLevelUI()
         {
             levelNumber.text = _generateLevelModel.LevelNumber;

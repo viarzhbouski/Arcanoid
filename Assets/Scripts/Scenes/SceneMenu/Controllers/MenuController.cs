@@ -12,11 +12,9 @@ namespace Scenes.SceneMenu.Controllers
     {
         private readonly MenuModel _menuModel;
         private readonly MenuView _menuView;
-        private readonly MainConfig _mainConfig;
 
-        public MenuController(IView view, MainConfig mainConfig)
+        public MenuController(IView view)
         {
-            _mainConfig = mainConfig;
             _menuModel = new MenuModel();
             _menuView = view as MenuView;
             _menuView!.Bind(_menuModel, this);

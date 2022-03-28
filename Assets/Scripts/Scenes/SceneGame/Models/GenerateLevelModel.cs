@@ -1,10 +1,23 @@
 ﻿using System;
+using Common.Enums;
 using Core.Interfaces.MVC;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Models
 {
+    public struct BlockInfo
+    {
+        public int HealthPoints { get; set; }
+        
+        public Color Color { get; set; }
+        
+        public Vector2 Position { get; set; }
+        
+        public BlockTypes BlockType { get; set; }
+        
+        public BoostTypes? BoostType { get; set; }
+    }
+    
     public class GenerateLevelModel : IModel
     {
         public string LevelNumber { get; set; }
@@ -17,7 +30,7 @@ namespace Scenes.SceneGame.Models
         
         public Vector2 StartPosition { get; set; }
 
-        public Block[,] Blocks { get; set; }
+        public BlockInfo[,] Blocks { get; set; }
         
         public Action DestroyBlockEvent { get; set; }
         

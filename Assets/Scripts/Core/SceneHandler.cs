@@ -24,7 +24,7 @@ namespace Core
             _monoConfiguration = new MonoConfiguration();
             _monoConfiguration.InitPools(poolProviders);
             _appConfig = new AppConfig(mainConfig);
-            startUp.InitializeStartup(_monoConfiguration, mainConfig);
+            startUp.InitializeStartup(_monoConfiguration);
             SceneManager.GetActiveScene();
         }
 
