@@ -26,4 +26,4 @@ MonoBehaviour:
   platformSizeEncreaseWorkingDelay: 3
   platformSizeDecrease: -0.5
   platformSizeDecreaseWorkingDelay: 3
-  furyBallWorkingDelay: 3
+  furyBallWorkingDelay: 10

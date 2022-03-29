@@ -1,11 +1,12 @@
 ﻿using Common.Enums;
 using Core.Popup;
 using Core.Statics;
+using DG.Tweening;
 using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Scenes.SceneGame.Views.Popups
 {
@@ -51,7 +52,13 @@ namespace Scenes.SceneGame.Views.Popups
         
         private void BackToMenuButtonOnClick()
         {
-            SceneManager.LoadScene((int)GameScenes.Packs);
+            transform.DOKill();
+            transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(GameOverPopupOnComplete);
+        }
+
+        private void GameOverPopupOnComplete()
+        {
+            AppSceneLoader.Instance.LoadScene(GameScenes.Packs);
         }
 
         private void RestartButtonOnClick()

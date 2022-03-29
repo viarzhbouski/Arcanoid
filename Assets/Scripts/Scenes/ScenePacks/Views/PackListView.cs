@@ -28,7 +28,7 @@ namespace Scenes.ScenePacks.Views
 
         private void BackToMainMenuButtonOnClick()
         {
-            SceneManager.LoadScene((int)GameScenes.MainMenu);
+            AppSceneLoader.Instance.LoadScene(GameScenes.MainMenu);
         }
 
         public void RenderChanges()
@@ -67,8 +67,8 @@ namespace Scenes.ScenePacks.Views
             {
                 DataRepository.SelectedLevel = 0;
             }
-
-            SceneManager.LoadScene((int)GameScenes.Game);
+            
+            AppSceneLoader.Instance.LoadScene(GameScenes.Game);
         }
     }
 }

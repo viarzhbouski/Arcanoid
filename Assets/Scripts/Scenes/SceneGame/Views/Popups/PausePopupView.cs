@@ -3,6 +3,7 @@ using Common.Enums;
 using Core;
 using Core.Popup;
 using Core.Statics;
+using DG.Tweening;
 using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
@@ -54,11 +55,17 @@ namespace Scenes.SceneGame.Views.Popups
             restartButtonText.text = Localization.GetFieldText("PauseRestart");
             backToMenuButtonText.text = Localization.GetFieldText("PauseBackToMenu");
         }
-        
+
         private void BackToMenuButtonOnClick()
         {
-            SceneManager.LoadScene((int)GameScenes.Packs);
-        } 
+            transform.DOKill();
+            transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(PausePopupOnComplete);
+        }
+
+        private void PausePopupOnComplete()
+        {
+            AppSceneLoader.Instance.LoadScene(GameScenes.Packs);
+        }
         
         private void ContinueButtonOnClick()
         {
