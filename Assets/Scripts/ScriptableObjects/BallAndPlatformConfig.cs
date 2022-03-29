@@ -26,11 +26,19 @@ namespace ScriptableObjects
         [SerializeField]
         private Gradient ballTrail;
         [SerializeField]
+        private Color ballColor;
+        [SerializeField]
         private Gradient furyBallTrail;
+        [SerializeField]
+        private Color furyBallColor;
         
         public Sprite BallSprite => ballSprite;
         
         public Sprite FuryBallSprite => furyBallSprite;
+        
+        public Color BallColor => ballColor;
+        
+        public Color FuryBallColor => furyBallColor;
         
         public float BallSpeed => ballSpeed;
         

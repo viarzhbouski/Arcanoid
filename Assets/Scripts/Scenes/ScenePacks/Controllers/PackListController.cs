@@ -24,6 +24,11 @@ namespace Scenes.ScenePacks.Controllers
             _packListModel.OnChangeHandler(ControllerOnChange);
         }
         
+        public void StartController()
+        {
+            GetPacks();
+        }
+        
         public void ControllerOnChange()
         {
             _packListView.RenderChanges();
@@ -60,12 +65,6 @@ namespace Scenes.ScenePacks.Controllers
             }
             
             _packListModel.OnChange?.Invoke();
-        }
-
-        public void StartController()
-        {
-            ObjectPools.Instance = null;
-            GetPacks();
         }
     }
 }

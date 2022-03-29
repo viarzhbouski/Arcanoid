@@ -20,6 +20,7 @@ MonoBehaviour:
   packs:
   - {fileID: 11400000, guid: 67702e192ea0d4648986c9edb3643016, type: 2}
   - {fileID: 11400000, guid: 9233eec92e2e84a4ea6f41373dd2684a, type: 2}
+  - {fileID: 11400000, guid: b0a5508a3deab00469966ddc86fa2bed, type: 2}
   blocks:
   - {fileID: 11400000, guid: c387f1bdb3e6b4b47b6c4428e9301c96, type: 2}
   - {fileID: 11400000, guid: ceddc3dee635d794b81ee94ea5c2349d, type: 2}

@@ -1,7 +1,7 @@
 { 
   "level_map": [1, 1, 1, 1,
-                1, 1, 1, 1,
-                1, 2, 2, 3],
+                3, 3, 3, 3,
+                3, 3, 3, 3],
   "level_map_properties": 
   [
     {
@@ -22,27 +22,35 @@
     },
     {
       "index": 4,
-      "attribute_color": [1.0, 0.5, 1.0]
+      "attribute_boost_name": "SourceOfLife"
     },
     {
       "index": 5,
-      "attribute_color": [1.0, 0.5, 1.0]
+      "attribute_boost_name": "SourceOfLife"
     },
     {
       "index": 6,
-      "attribute_color": [1.0, 0.5, 1.0]
+      "attribute_boost_name": "SourceOfLife"
     },
     {
       "index": 7,
-      "attribute_color": [1.0, 0.5, 1.0]
+      "attribute_boost_name": "SourceOfLife"
     },
     {
       "index": 8,
-      "attribute_color": [1.0, 0.5, 1.0]
+      "attribute_boost_name": "SourceOfLife"
+    },
+    {
+      "index": 9,
+      "attribute_boost_name": "SourceOfLife"
+    },
+    {
+      "index": 10,
+      "attribute_boost_name": "SourceOfLife"
     },
     {
       "index": 11,
-      "attribute_boost_name": "ColorChainBomb"
+      "attribute_boost_name": "SourceOfLife"
     }
   ],
   "rows": 3,
