@@ -109,16 +109,28 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void BackToMenuButtonOnClick()
         {
-            SceneManager.LoadScene((int)GameScenes.Packs);
+            transform.DOKill();
+            transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(WinPopupBackToMenuOnComplete);
+        }
+
+        private void WinPopupBackToMenuOnComplete()
+        {
+            AppSceneLoader.Instance.LoadScene(GameScenes.Packs);
         }
         
+        private void WinPopupNextLevelOnComplete()
+        {
+            SceneManager.LoadScene((int)GameScenes.MainMenu);
+        }
+
         private void NextLevelButtonOnClick()
         {
             Close(true);
             
             if (_gameIsPassed)
             {
-                SceneManager.LoadScene((int)GameScenes.MainMenu);
+                transform.DOKill();
+                transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(WinPopupNextLevelOnComplete);
             }
             
             _levelProgressController.NextLevel();
@@ -137,7 +149,9 @@ namespace Scenes.SceneGame.Views.Popups
             progressBar.DOKill();
             progressBar.DOScaleX(progressBarPositionX, AppConfig.Instance.PopupsConfig.WinPopupProgressBarSpeed).onComplete += () =>
             {
+                backToMenuButton.transform.DOKill();
                 backToMenuButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
+                nextLevelButton.transform.DOKill();
                 nextLevelButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
             };
             _levelProgressController.SaveProgress();

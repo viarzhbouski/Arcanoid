@@ -62,11 +62,21 @@ namespace Scenes.SceneGame.Views
                 
                 if (!_ballModel.IsStarted)
                 {
+                    if (!_isFuryBall && ballEffect.gameObject.activeSelf)
+                    {
+                        ballEffect.gameObject.SetActive(false);
+                    }
+                    
                     ballRigidbody.velocity = Vector2.zero;
                     UpdateBallPosition();
                 }
                 else
                 {
+                    if (!_isFuryBall && !ballEffect.gameObject.activeSelf)
+                    {
+                        ballEffect.gameObject.SetActive(true);
+                    }
+
                     ballTrail.enabled = true;
                     PushBall();
                 }

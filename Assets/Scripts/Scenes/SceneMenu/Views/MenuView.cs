@@ -53,17 +53,19 @@ namespace Scenes.SceneMenu.Views
 
         private void StartOnClick()
         {
+            
             startButton.transform.DOKill();
+            
             var currentGameProgress = GameCache.GetCurrentGameProgress();
             if (currentGameProgress.CurrentPack == 0 && currentGameProgress.CurrentLevel == 0)
             {
                 DataRepository.SelectedLevel = currentGameProgress.CurrentLevel;
                 DataRepository.SelectedPack = currentGameProgress.CurrentPack;
-                SceneManager.LoadScene((int)GameScenes.Game);
+                AppSceneLoader.Instance.LoadScene(GameScenes.Game);
             }
             else
             {
-                SceneManager.LoadScene((int)GameScenes.Packs);
+                AppSceneLoader.Instance.LoadScene(GameScenes.Packs);
             }
         }
 
