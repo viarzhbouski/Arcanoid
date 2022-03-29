@@ -1713,7 +1713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifePrefab: {fileID: 5884451892266865888, guid: 60fc87302a7af7e48bc6ae4893c06dff, type: 3}
-  lifeGridUI: {fileID: 1663745043}
+  lifeGridLayoutGroup: {fileID: 1663745044}
 --- !u!1 &1699194543
 GameObject:
   m_ObjectHideFlags: 0

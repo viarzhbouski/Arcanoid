@@ -16,9 +16,9 @@ MonoBehaviour:
   ballSpeedEncrease: 0.5
   ballDamage: 1
   minBounceAngle: 30
-  platformSpeed: 10
+  platformSpeed: 15
   lifeCount: 3
-  maxLifeCount: 3
+  maxLifeCount: 20
   ballSprite: {fileID: 3768298933040644959, guid: 166392c73d241c64ba7ea8f12ba37005, type: 3}
   furyBallSprite: {fileID: 21300000, guid: 00b419c5babadb743a0fafdb2b776342, type: 3}
   ballTrail:

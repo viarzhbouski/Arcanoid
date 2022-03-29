@@ -2,10 +2,12 @@
 using System.Linq;
 using Core.Interfaces.MVC;
 using Core.Statics;
+using DG.Tweening;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.Views.Popups;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Scenes.SceneGame.Views
 {
@@ -15,12 +17,14 @@ namespace Scenes.SceneGame.Views
         private GameObject lifePrefab; 
         
         [SerializeField]
-        private Transform lifeGridUI;
+        private GridLayoutGroup lifeGridLayoutGroup;
         
         private LifesModel _lifesModel;
         private LifesController _lifesController;
         private readonly Stack<GameObject> _lifesStack = new Stack<GameObject>();
-
+        private const float DefaultGridCellSize = 80f;
+        private const int DefaultLifeCountStep = 4;
+        
         public void Bind(IModel model, IController controller)
         {
             _lifesModel = model as LifesModel;
@@ -46,7 +50,10 @@ namespace Scenes.SceneGame.Views
             {
                 for (var i = _lifesStack.Count; i < _lifesModel.LifesCount; i++)
                 {
-                    var lifeGameObject = Instantiate(lifePrefab, lifeGridUI);
+                    var lifeGameObject = Instantiate(lifePrefab, lifeGridLayoutGroup.transform);
+                    lifeGameObject.transform.localScale = Vector2.zero;
+                    lifeGameObject.transform.DOKill();
+                    lifeGameObject.transform.DOScale(Vector2.one, 0.5f).SetEase(Ease.InBack);
                     _lifesStack.Push(lifeGameObject);
                 }
             }
@@ -56,7 +63,10 @@ namespace Scenes.SceneGame.Views
                 {
                     if (_lifesStack.Any())
                     {
-                        Destroy(_lifesStack.Pop());
+                        var deletableLifeObject = _lifesStack.Pop();
+                        deletableLifeObject.transform.DOKill();
+                        deletableLifeObject.transform.DOScale(Vector2.zero, 0.5f).SetEase(Ease.InBack).onComplete +=
+                            () => { Destroy(deletableLifeObject); };
                     }
                 }
             }
@@ -65,6 +75,27 @@ namespace Scenes.SceneGame.Views
             {
                 AppPopups.Instance.OpenPopup<GameOverPopupView>();
             }
+
+            ResizeLifeGrid();
         }
+        
+        private void ResizeLifeGrid()
+        {
+            if (_lifesModel.LifesCount > DefaultLifeCountStep)
+            {
+                lifeGridLayoutGroup.constraintCount = (int)Mathf.Sqrt(_lifesModel.LifesCount) + DefaultLifeCountStep;
+                var size = DefaultGridCellSize / lifeGridLayoutGroup.constraintCount * DefaultLifeCountStep;
+                if (size <= DefaultGridCellSize)
+                {
+                    lifeGridLayoutGroup.cellSize = new Vector2(size, size);
+                }
+            }
+            else
+            {
+                lifeGridLayoutGroup.cellSize = new Vector2(DefaultGridCellSize, DefaultGridCellSize);
+                lifeGridLayoutGroup.constraintCount = _lifesModel.LifesCount;
+            }
+        }
+
     }
 }

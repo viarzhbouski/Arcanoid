@@ -22,7 +22,7 @@ namespace Scenes.ScenePacks.SceneLoader
         {
             _gameScene = gameScene;
             topPanel.DOKill();
-            topPanel.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack).OnComplete(TopPanelOnComplete);
+            topPanel.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack).OnComplete(TopPanelOnComplete);
         }
         
         private void Start()
@@ -41,14 +41,14 @@ namespace Scenes.ScenePacks.SceneLoader
 
         IEnumerator InitWithDelay(Vector2 newTopPanelPosition, Vector2 newPacksPosition)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             InitTopPanel(newTopPanelPosition, newPacksPosition);
         }
 
         private void InitTopPanel(Vector2 newLogoPosition, Vector2 newPacksPosition)
         {
             topPanel.DOKill();
-            topPanel.DOLocalMoveX(newLogoPosition.x - sceneCanvasScaler.referenceResolution.x, 0.25f)
+            topPanel.DOLocalMoveX(newLogoPosition.x - sceneCanvasScaler.referenceResolution.x, 0.15f)
                 .SetEase(Ease.InBack).OnComplete(delegate { InitPacksOnComplete(newPacksPosition); });
 
         }
@@ -56,13 +56,13 @@ namespace Scenes.ScenePacks.SceneLoader
         private void InitPacksOnComplete(Vector2 newPacksPosition)
         {
             packs.DOKill();
-            packs.DOLocalMoveX( newPacksPosition.x - sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack);
+            packs.DOLocalMoveX( newPacksPosition.x - sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack);
         }
         
         private void TopPanelOnComplete()
         {
             packs.DOKill();
-            packs.DOLocalMoveX( -sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack).OnComplete(PacksOnComplete);
+            packs.DOLocalMoveX( -sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack).OnComplete(PacksOnComplete);
         }
 
         private void PacksOnComplete()

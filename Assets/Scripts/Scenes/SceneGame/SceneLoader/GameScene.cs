@@ -43,47 +43,47 @@ namespace Scenes.SceneGame.SceneLoader
 
         IEnumerator InitWithDelay(Vector2 newTopPanelPosition, Vector2 newGameFieldPosition, Vector2 newBlocksPosition)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             InitTopPanel(newTopPanelPosition, newGameFieldPosition, newBlocksPosition);
         }
 
         private void InitTopPanel(Vector2 newLogoPosition, Vector2 newGameFieldPosition, Vector2 newBlocksPosition)
         {
             topPanel.DOKill();
-            topPanel.DOLocalMoveX(newLogoPosition.x - sceneCanvasScaler.referenceResolution.x, 0.25f)
+            topPanel.DOLocalMoveX(newLogoPosition.x - sceneCanvasScaler.referenceResolution.x, 0.15f)
                 .SetEase(Ease.InBack).OnComplete(delegate { InitGameFieldOnComplete(newGameFieldPosition, newBlocksPosition); });
         }
         
         private void InitGameFieldOnComplete(Vector2 newGameFieldPosition, Vector2 newBlocksPosition)
         {
             gameField.DOKill();
-            gameField.DOMoveY(newGameFieldPosition.y + GameFieldOffset, 0.25f).SetEase(Ease.InBack)
+            gameField.DOMoveY(newGameFieldPosition.y + GameFieldOffset, 0.15f).SetEase(Ease.InBack)
                 .OnComplete(delegate { InitBlocksOnComplete(newBlocksPosition); });
         }
 
         private void InitBlocksOnComplete(Vector2 newBlocksPosition)
         {
             blocks.DOKill();
-            blocks.DOScale(Vector3.one, 0.25f).SetEase(Ease.InFlash);
+            blocks.DOScale(Vector3.one, 0.15f).SetEase(Ease.InFlash);
         }
         
         public override void LoadScene(GameScenes gameScene)
         {
             _gameScene = gameScene;
             topPanel.DOKill();
-            topPanel.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack).OnComplete(TopPanelOnComplete);
+            topPanel.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack).OnComplete(TopPanelOnComplete);
         }
 
         private void TopPanelOnComplete()
         {
             gameField.DOKill();
-            gameField.DOLocalMoveY( -GameFieldOffset, 0.25f).SetEase(Ease.InBack).OnComplete(GameFieldOnComplete);
+            gameField.DOLocalMoveY( -GameFieldOffset, 0.15f).SetEase(Ease.InBack).OnComplete(GameFieldOnComplete);
         }
         
         private void GameFieldOnComplete()
         {
             blocks.DOKill();
-            blocks.DOScale( Vector3.forward, 0.25f).SetEase(Ease.InBack).OnComplete(BlocksOnComplete);
+            blocks.DOScale( Vector3.forward, 0.15f).SetEase(Ease.InBack).OnComplete(BlocksOnComplete);
         }
 
         private void BlocksOnComplete()

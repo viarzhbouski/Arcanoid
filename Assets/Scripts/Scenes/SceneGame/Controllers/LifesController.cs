@@ -52,6 +52,12 @@ namespace Scenes.SceneGame.Controllers
         public void EncreaseLife()
         {
             _lifesModel.LifesCount++;
+            
+            if (_lifesModel.LifesCount >= AppConfig.Instance.BallAndPlatform.MaxLifeCount)
+            {
+                _lifesModel.LifesCount = AppConfig.Instance.BallAndPlatform.MaxLifeCount;
+            }
+            
             _lifesModel.OnChange?.Invoke();
         }
 

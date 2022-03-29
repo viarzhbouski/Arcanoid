@@ -21,19 +21,19 @@ namespace Scenes.SceneMenu.SceneLoader
         {
             _gameScene = gameScene;
             logo.DOKill();
-            logo.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack).OnComplete(LogoOnComplete);
+            logo.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack).OnComplete(LogoOnComplete);
         }
 
         private void LogoOnComplete()
         {
             startButton.DOKill();
-            startButton.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack).OnComplete(StartButtonOnComplete);
+            startButton.DOLocalMoveX(-sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack).OnComplete(StartButtonOnComplete);
         }
         
         private void StartButtonOnComplete()
         {
             localizationButton.DOKill();
-            localizationButton.DOLocalMoveX(sceneCanvasScaler.referenceResolution.x, 0.25f).SetEase(Ease.InBack).OnComplete(LocalizationButtonOnComplete);
+            localizationButton.DOLocalMoveX(sceneCanvasScaler.referenceResolution.x, 0.15f).SetEase(Ease.InBack).OnComplete(LocalizationButtonOnComplete);
         }
         
         private void LocalizationButtonOnComplete()
