@@ -16,6 +16,4 @@ MonoBehaviour:
   levels:
   - {fileID: 4900000, guid: 15b86058ac444144ba31d990b6f7f3d4, type: 3}
   - {fileID: 4900000, guid: 8de1335e618d1304b9a987827ffd8694, type: 3}
-  - {fileID: 4900000, guid: 377b5e37d95eaf544b734181e08a10cb, type: 3}
-  - {fileID: 4900000, guid: 3ca57551e2e5b6849b515e174845be81, type: 3}
-  localeField: 11
+  pack: 1

@@ -18,6 +18,11 @@ namespace Scenes.SceneGame.Views
         private TrailRenderer ballTrail;
         [SerializeField]
         private SpriteRenderer ballSpriteRenderer;
+        [SerializeField]
+        private ParticleSystem furyBallEffect;
+        [SerializeField]
+        private ParticleSystem ballEffect;
+        
         private BallModel _ballModel;
         private BallController _ballController;
 
@@ -32,6 +37,7 @@ namespace Scenes.SceneGame.Views
             _ballController = controller as BallController;
             _isFuryBall = false;
             ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
+            ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
         }
         
         public void RenderChanges()
@@ -73,6 +79,9 @@ namespace Scenes.SceneGame.Views
             {
                 ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.FuryBallTrail;
                 ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.FuryBallSprite;
+                ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.FuryBallColor;
+                furyBallEffect.gameObject.SetActive(true);
+                ballEffect.gameObject.SetActive(false);
                 _isFuryBall = true;
             }
             
@@ -80,6 +89,9 @@ namespace Scenes.SceneGame.Views
             {
                 ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
                 ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.BallSprite;
+                ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
+                furyBallEffect.gameObject.SetActive(false);
+                ballEffect.gameObject.SetActive(true);
                 _isFuryBall = false;
             }
         }
