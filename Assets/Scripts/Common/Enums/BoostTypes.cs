@@ -13,6 +13,8 @@
         PlatformSlowdown,
         BlackLabel,
         SourceOfLife,
-        CaptiveBall
+        CaptiveBall,
+        HorizontalBomb,
+        VerticalBomb
     }
 }

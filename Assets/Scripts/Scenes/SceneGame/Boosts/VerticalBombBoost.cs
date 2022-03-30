@@ -5,30 +5,31 @@ using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 
+
 namespace Scenes.SceneGame.Boosts
 {
-    public class BombBoost : IHasBoost
+    public class VerticalBombBoost : IHasBoost
     {
         private readonly BaseBlockView[,] _levelBlocks;
-        private readonly List<BaseBlockView> _neighbourBlocks;
+        private readonly List<BaseBlockView> _verticalBlocks;
         private readonly Queue<BoostBlockView> _blocksQueue;
         
-        public BombBoost(BaseBlockView[,] levelBlocks, int blockGridPositionX, int blockGridPositionY)
+        public VerticalBombBoost(BaseBlockView[,] levelBlocks, int blockGridPositionX, int blockGridPositionY)
         {
             _levelBlocks = levelBlocks;
-            _neighbourBlocks = new List<BaseBlockView>();
+            _verticalBlocks = new List<BaseBlockView>();
             _blocksQueue = new Queue<BoostBlockView>();
-            FillNeighbourBlocks(blockGridPositionX, blockGridPositionY);
+            FillVerticalBlocks(blockGridPositionX, blockGridPositionY);
         }
         
         public void ExecuteBoost(BonusBoostView bonusBoost)
         {
-            DestroyNeighbours();
+            DestroyVerticalBlocks();
         }
 
-        public void DestroyNeighbours()
+        public void DestroyVerticalBlocks()
         {
-            foreach (var block in _neighbourBlocks)
+            foreach (var block in _verticalBlocks)
             {
                 if (!block.gameObject.activeSelf)
                 {
@@ -38,7 +39,7 @@ namespace Scenes.SceneGame.Boosts
                 switch (block.BlockType)
                 {
                     case BlockTypes.Color:
-                        block.BlockHit();
+                        block.BlockHit(999);
                         break;
                     case BlockTypes.Granite:
                         block.DestroyBlock();
@@ -62,22 +63,18 @@ namespace Scenes.SceneGame.Boosts
             }
         }
         
-        private void FillNeighbourBlocks(int i, int j)
+        private void FillVerticalBlocks(int i, int j)
         {
-            var rowMinimum = i - 1 < 0 ? i : i - 1;
-            var rowMaximum = i + 1 > _levelBlocks.GetLength(0) - 1 ? i : i + 1;
-            var columnMinimum = j - 1 < 0 ? j : j - 1;
-            var columnMaximum = j + 1 > _levelBlocks.GetLength(1) - 1 ? j : j + 1;
-
-            for (var x = rowMinimum; x <= rowMaximum; x++)
+            var y = j;
+            
+            for (var x = 0; x < _levelBlocks.GetLength(0) ; x++)
             {
-                for (var y = columnMinimum; y <= columnMaximum; y++)
+                if (x == i && y == j)
                 {
-                    if (x != i || y != j)
-                    {
-                        _neighbourBlocks.Add(_levelBlocks[x, y]);
-                    }
+                    continue;
                 }
+                
+                _verticalBlocks.Add(_levelBlocks[x, y]);
             }
         }
     }
