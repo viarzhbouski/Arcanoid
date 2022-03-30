@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scenes.SceneGame.Views;
+using UnityEngine;
 
 namespace ScriptableObjects
 {
@@ -14,8 +15,17 @@ namespace ScriptableObjects
         [Space]
         [SerializeField]
         private float chainBombExecuteDelay;
+        
+        [Header("\tCAPTIVE BALL")]
+        [Space]
+        [SerializeField]
+        private int ballCount;
+        [SerializeField]
+        private float ballLifeTime;
+        [SerializeField]
+        private CaptiveBallView ballPrefab;
 
-        [Header("\t BALL ACCELERATION")]
+        [Header("\tBALL ACCELERATION")]
         [Space]
         [SerializeField]
         private float ballAccelerationSpeed;
@@ -65,6 +75,12 @@ namespace ScriptableObjects
         public float BombExecuteDelay => bombExecuteDelay;
         
         public float ChainBombExecuteDelay => chainBombExecuteDelay;
+        
+        public int BallCount => ballCount;
+        
+        public float BallLifeTime => ballLifeTime;
+        
+        public CaptiveBallView BallPrefab => ballPrefab;
         
         public float BallAccelerationSpeed => ballAccelerationSpeed;
         

@@ -81,3 +81,5 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   furyBallColor: {r: 1, g: 0.15294118, b: 0, a: 1}
+  platformNonCollisionColor: {r: 1, g: 1, b: 1, a: 1}
+  platformCollisionColor: {r: 0.4292453, g: 0.9411622, b: 1, a: 1}

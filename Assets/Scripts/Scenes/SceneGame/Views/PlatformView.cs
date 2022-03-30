@@ -14,6 +14,8 @@ namespace Scenes.SceneGame.Views
         private Camera platformCamera;
         [SerializeField]
         private Transform platformBallStartPosition;
+        [SerializeField]
+        private SpriteRenderer platformIndicator;
         
         private PlatformModel _platformModel;
         private readonly float _clickPointAndPlatformMinDir = 0.25f;
@@ -68,6 +70,20 @@ namespace Scenes.SceneGame.Views
             else
             {
                 platformRigidbody2D.velocity = mouseDir.normalized * _platformModel.PlatformSpeed;
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.collider.CompareTag("Ball") || other.collider.CompareTag("Boost"))
+            {
+                platformIndicator.DOKill();
+                platformIndicator.DOColor(AppConfig.Instance.BallAndPlatform.PlatformCollisionColor, 0.2f)
+                    .SetEase(Ease.InBounce).onComplete += () =>
+                {
+                    platformIndicator.DOColor(AppConfig.Instance.BallAndPlatform.PlatformNonCollisionColor, 0.2f)
+                        .SetEase(Ease.OutBounce);
+                };
             }
         }
     }

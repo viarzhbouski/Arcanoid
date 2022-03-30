@@ -110,6 +110,15 @@ namespace Scenes.SceneGame.Views
                 case BoostTypes.ColorChainBomb:
                     blockMono.SetBoost(new ColorChainBombBoost(_blocksGrid, i, j));
                     break;
+                case BoostTypes.VerticalBomb:
+                    blockMono.SetBoost(new VerticalBombBoost(_blocksGrid, i, j));
+                    break;
+                case BoostTypes.HorizontalBomb:
+                    blockMono.SetBoost(new HorizontalBombBoost(_blocksGrid, i, j));
+                    break;
+                case BoostTypes.CaptiveBall:
+                    blockMono.SetBoost(new CaptiveBallBoost());
+                    break;
                 case BoostTypes.BallAcceleration:
                     blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));
                     break;

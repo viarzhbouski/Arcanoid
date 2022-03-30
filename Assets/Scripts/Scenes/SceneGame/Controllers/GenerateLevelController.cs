@@ -142,9 +142,10 @@ namespace Scenes.SceneGame.Controllers
                         case BlockTypes.Boost:
                             var boostBlock = (BoostBlockConfig)block;
                             var boostType = blockProperty?.BoostType ?? BoostTypes.Bomb;
-                            var boostColor = boostBlock.BoostColor.First(e => e.BoostType == boostType);
-                            blockInfo.Color = boostColor.Color;
-                            blockInfo.BoostType = boostColor.BoostType;
+                            var boostSprite = boostBlock.BoostSprites.First(e => e.BoostType == boostType);
+                            
+                            blockInfo.Sprite = boostSprite.Sprite;
+                            blockInfo.BoostType = boostSprite.BoostType;
                             break;
                     }
                     
