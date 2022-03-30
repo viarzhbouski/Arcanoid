@@ -16,7 +16,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         private protected SpriteRenderer blockSpriteRenderer;
 
         private Action _destroyBlockEvent;
-        
+        private bool _counted;
         protected BlockInfo Block;
         
         public SpriteRenderer BlockSpriteRenderer => blockSpriteRenderer;
@@ -63,12 +63,13 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             transform.DOKill();
             transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
         }
-        
+
         private void BlockHitHandle(bool countBlock)
         {
-            if (countBlock)
+            if (countBlock && !_counted)
             {
                 _destroyBlockEvent.Invoke();
+                _counted = true;
             }
 
             var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
@@ -78,6 +79,11 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             DestroyBlock();
         }
 
+        private void OnEnable()
+        {
+            _counted = false;
+        }
+        
         public GameObject GetGameObject()
         {
             return gameObject;

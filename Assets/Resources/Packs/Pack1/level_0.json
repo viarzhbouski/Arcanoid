@@ -42,11 +42,11 @@
     },
     {
       "index": 9,
-      "attribute_boost_name": "SourceOfLife"
+      "attribute_boost_name": "CaptiveBall"
     },
     {
       "index": 10,
-      "attribute_boost_name": "SourceOfLife"
+      "attribute_boost_name": "BallAcceleration"
     },
     {
       "index": 11,

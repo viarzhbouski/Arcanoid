@@ -16,7 +16,7 @@ MonoBehaviour:
   ballSpeedEncrease: 0.5
   ballDamage: 1
   minBounceAngle: 30
-  platformSpeed: 15
+  platformSpeed: 25
   lifeCount: 3
   maxLifeCount: 20
   ballSprite: {fileID: 3768298933040644959, guid: 166392c73d241c64ba7ea8f12ba37005, type: 3}

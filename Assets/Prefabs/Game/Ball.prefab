@@ -9739,6 +9739,7 @@ GameObject:
   - component: {fileID: 3363839207106457678}
   - component: {fileID: 3363839207106457679}
   - component: {fileID: 3363839207106457676}
+  - component: {fileID: 3004720743688330128}
   - component: {fileID: 251752543}
   m_Layer: 0
   m_Name: Ball
@@ -9868,6 +9869,19 @@ MonoBehaviour:
   ballSpriteRenderer: {fileID: 3363839207106457677}
   furyBallEffect: {fileID: 1046537343}
   ballEffect: {fileID: 7147268425240664167}
+--- !u!114 &3004720743688330128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363839207106457665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf865ea281f41f7961cb3c7cddd9b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballView: {fileID: 3363839207106457676}
 --- !u!96 &251752543
 TrailRenderer:
   serializedVersion: 2

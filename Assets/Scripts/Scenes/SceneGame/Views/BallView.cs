@@ -30,6 +30,8 @@ namespace Scenes.SceneGame.Views
         private Vector2 _movementVectorBeforePause;
 
         private bool _isFuryBall;
+
+        public bool IsCaptive { get; set; } = false;
         
         public void Bind(IModel model, IController controller)
         {
@@ -39,7 +41,7 @@ namespace Scenes.SceneGame.Views
             ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
             ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
         }
-        
+
         public void RenderChanges()
         {
             ChangeBallSprite();
@@ -60,7 +62,7 @@ namespace Scenes.SceneGame.Views
                     ballRigidbody.velocity = _movementVectorBeforePause;
                 }
                 
-                if (!_ballModel.IsStarted)
+                if (!_ballModel.IsStarted && !IsCaptive)
                 {
                     if (!_isFuryBall && ballEffect.gameObject.activeSelf)
                     {
@@ -112,7 +114,7 @@ namespace Scenes.SceneGame.Views
             transform.position = _ballModel.BallPosition;
         }
 
-        private void PushBall()
+        public void PushBall()
         {
             if (!ballTrail.enabled)
             {
@@ -166,7 +168,6 @@ namespace Scenes.SceneGame.Views
             {
                 SpawnBallCollisionEffect();
                 var blockView = collision.gameObject.GetComponent<BaseBlockView>();
-
                 if (blockView != null)
                 {
                     SpawnBallCollisionEffect();
@@ -194,8 +195,16 @@ namespace Scenes.SceneGame.Views
 
         private void OnTriggerEnter2D(Collider2D otherCollider)
         {
-            _ballController.BallOutOfGameField();
-            ballTrail.enabled = false;
+            if (!IsCaptive)
+            {
+                _ballController.BallOutOfGameField();
+                ballTrail.enabled = false;
+            }
+            else
+            {
+                _ballController.RemoveCaptiveBall(this);
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -12,6 +12,7 @@
         PlatformAcceleration,
         PlatformSlowdown,
         BlackLabel,
-        SourceOfLife
+        SourceOfLife,
+        CaptiveBall
     }
 }
