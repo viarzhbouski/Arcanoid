@@ -8,7 +8,6 @@ using Scenes.SceneGame.Controllers;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scenes.SceneGame.Views.Popups
@@ -120,7 +119,7 @@ namespace Scenes.SceneGame.Views.Popups
         
         private void WinPopupNextLevelOnComplete()
         {
-            SceneManager.LoadScene((int)GameScenes.MainMenu);
+            AppSceneLoader.Instance.LoadScene(GameScenes.MainMenu);
         }
 
         private void NextLevelButtonOnClick()

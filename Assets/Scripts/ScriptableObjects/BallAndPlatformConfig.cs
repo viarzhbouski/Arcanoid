@@ -31,6 +31,10 @@ namespace ScriptableObjects
         private Gradient furyBallTrail;
         [SerializeField]
         private Color furyBallColor;
+        [SerializeField]
+        private Color platformNonCollisionColor;
+        [SerializeField]
+        private Color platformCollisionColor;
         
         public Sprite BallSprite => ballSprite;
         
@@ -57,5 +61,9 @@ namespace ScriptableObjects
         public Gradient BallTrail => ballTrail;
         
         public Gradient FuryBallTrail => furyBallTrail;
+        
+        public Color PlatformNonCollisionColor => platformNonCollisionColor;
+        
+        public Color PlatformCollisionColor => platformCollisionColor;
     }
 }
