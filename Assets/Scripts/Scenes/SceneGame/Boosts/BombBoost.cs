@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enums;
-using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
-using UnityEngine;
 
 namespace Scenes.SceneGame.Boosts
 {

@@ -11,6 +11,8 @@ namespace Scenes.SceneGame.Models
         
         public Color Color { get; set; }
         
+        public Sprite Sprite { get; set; }
+        
         public Vector2 Position { get; set; }
         
         public BlockTypes BlockType { get; set; }

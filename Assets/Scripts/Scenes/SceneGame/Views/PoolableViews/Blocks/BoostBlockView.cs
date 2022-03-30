@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 using UnityEngine;
@@ -14,7 +16,14 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         private BonusBoostView bonusBoost;
         
         private IHasBoost _boost;
-        
+
+        public override void SetBlockConfig(BlockInfo block, Action destroyBlockEvent)
+        {
+            Block = block;
+            DestroyBlockEvent = destroyBlockEvent;
+            BlockSpriteRenderer.sprite = block.Sprite;
+        }
+
         public override void SetBoost(IHasBoost boost)
         {
             _boost = boost;

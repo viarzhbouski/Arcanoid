@@ -15,9 +15,9 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         [SerializeField]
         private protected SpriteRenderer blockSpriteRenderer;
 
-        private Action _destroyBlockEvent;
-        
+        protected Action DestroyBlockEvent;
         protected BlockInfo Block;
+        private bool _counted;
         
         public SpriteRenderer BlockSpriteRenderer => blockSpriteRenderer;
         
@@ -33,7 +33,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         {
             Block = block;
             blockSpriteRenderer.color = block.Color;
-            _destroyBlockEvent = destroyBlockEvent;
+            DestroyBlockEvent = destroyBlockEvent;
         }
 
         public abstract void SetBoost(IHasBoost boost);
@@ -63,12 +63,13 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             transform.DOKill();
             transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
         }
-        
+
         private void BlockHitHandle(bool countBlock)
         {
-            if (countBlock)
+            if (countBlock && !_counted)
             {
-                _destroyBlockEvent.Invoke();
+                DestroyBlockEvent.Invoke();
+                _counted = true;
             }
 
             var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
@@ -78,6 +79,11 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             DestroyBlock();
         }
 
+        private void OnEnable()
+        {
+            _counted = false;
+        }
+        
         public GameObject GetGameObject()
         {
             return gameObject;
