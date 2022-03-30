@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Enums;
-using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 
 namespace ScriptableObjects.BlockConfigs
 {
     [Serializable]
-    public struct BoostColor
+    public struct BoostSprite
     {
         [SerializeField]
         private BoostTypes boostType;
         
         [SerializeField]
-        private Color boostColor;
+        private Sprite sprite;
 
         public BoostTypes BoostType
         {
@@ -21,15 +20,15 @@ namespace ScriptableObjects.BlockConfigs
             set => boostType = value;
         }
 
-        public Color Color => boostColor;
+        public Sprite Sprite => sprite;
     }
     
     [CreateAssetMenu(fileName = "New BoostBlockConfig", menuName = "Create Boost Block Config")]
     public class BoostBlockConfig : BaseBlockConfig
     {
         [SerializeField]
-        private List<BoostColor> boostColor;
+        private List<BoostSprite> boostSprites;
 
-        public List<BoostColor> BoostColor => boostColor;
+        public List<BoostSprite> BoostSprites => boostSprites;
     }
 }

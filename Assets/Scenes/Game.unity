@@ -2111,9 +2111,5 @@ PrefabInstance:
       propertyPath: platformCamera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 3988142884783474127, guid: 3342caeda843cb24492aa164a6e3f086, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3342caeda843cb24492aa164a6e3f086, type: 3}

@@ -15,32 +15,32 @@ MonoBehaviour:
   healthPoints: 0
   blockType: 3
   blockPrefab: {fileID: -3562405115684736835, guid: f0aaeb53c788e7e4fa6c3d2b4aabb392, type: 3}
-  boostColor:
+  boostSprites:
   - boostType: 0
-    boostColor: {r: 1, g: 0.96794057, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: 172b94baffbd8cf4d881ca57690f1d52, type: 3}
   - boostType: 1
-    boostColor: {r: 1, g: 0, b: 0.7180629, a: 1}
+    sprite: {fileID: 21300000, guid: 0c21afd2fa3fb704bb6a4efdd2666901, type: 3}
   - boostType: 2
-    boostColor: {r: 0, g: 0.95156765, b: 1, a: 1}
+    sprite: {fileID: 21300000, guid: b4f1dbfbd1040034fb6c05ac476498a8, type: 3}
   - boostType: 3
-    boostColor: {r: 0.2688679, g: 0.5103946, b: 1, a: 1}
+    sprite: {fileID: 21300000, guid: 102e84f2f0f626a428415bdac3c14d19, type: 3}
   - boostType: 4
-    boostColor: {r: 1, g: 0.6172372, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: 1bdedba8c03f9d945aa20bc737c4e2b3, type: 3}
   - boostType: 5
-    boostColor: {r: 0.8301887, g: 0.35930902, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: ff925665607c4784bae4769f77d6ae99, type: 3}
   - boostType: 6
-    boostColor: {r: 1, g: 0, b: 0.009498596, a: 1}
+    sprite: {fileID: 21300000, guid: 87944754943a7754596c5f4a4778d4b6, type: 3}
   - boostType: 7
-    boostColor: {r: 0.89305365, g: 1, b: 0.4669811, a: 1}
+    sprite: {fileID: 21300000, guid: 9678727f4968b574d830b7047ac23119, type: 3}
   - boostType: 8
-    boostColor: {r: 1, g: 0.7045615, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: 59ce00612f185b6498da4d94894e2539, type: 3}
   - boostType: 9
-    boostColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+    sprite: {fileID: 21300000, guid: 905bdeea249ead34d8e40bcb4fcf24e1, type: 3}
   - boostType: 10
-    boostColor: {r: 0, g: 1, b: 0.52395153, a: 1}
+    sprite: {fileID: 21300000, guid: 77693f776ea15c34983fc6f87fa4ba6b, type: 3}
   - boostType: 11
-    boostColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
-  - boostType: 13
-    boostColor: {r: 0.5493487, g: 0.514151, b: 1, a: 1}
+    sprite: {fileID: 21300000, guid: f7c7e9adbc01d92428bf17aa8c96e8a2, type: 3}
   - boostType: 12
-    boostColor: {r: 0.8917852, g: 0.5137255, b: 1, a: 1}
+    sprite: {fileID: 21300000, guid: bb06948c5d7be68409efeb9a42454aa7, type: 3}
+  - boostType: 13
+    sprite: {fileID: 21300000, guid: d0a789d20dd1ec74da9774e939375135, type: 3}

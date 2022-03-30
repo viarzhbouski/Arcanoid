@@ -15,9 +15,9 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         [SerializeField]
         private protected SpriteRenderer blockSpriteRenderer;
 
-        private Action _destroyBlockEvent;
-        private bool _counted;
+        protected Action DestroyBlockEvent;
         protected BlockInfo Block;
+        private bool _counted;
         
         public SpriteRenderer BlockSpriteRenderer => blockSpriteRenderer;
         
@@ -33,7 +33,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         {
             Block = block;
             blockSpriteRenderer.color = block.Color;
-            _destroyBlockEvent = destroyBlockEvent;
+            DestroyBlockEvent = destroyBlockEvent;
         }
 
         public abstract void SetBoost(IHasBoost boost);
@@ -68,7 +68,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         {
             if (countBlock && !_counted)
             {
-                _destroyBlockEvent.Invoke();
+                DestroyBlockEvent.Invoke();
                 _counted = true;
             }
 
