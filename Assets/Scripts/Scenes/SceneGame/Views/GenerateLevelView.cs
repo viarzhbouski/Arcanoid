@@ -7,6 +7,7 @@ using Scenes.SceneGame.Boosts.Bonuses;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
+using ScriptableObjects.BlockConfigs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,6 +67,7 @@ namespace Scenes.SceneGame.Views
                     switch (block.BlockType)
                     {
                         case BlockTypes.Empty:
+                            _blocksGrid[i, j] = gameObject.AddComponent<EmptyBlockView>();
                             break;
                         case BlockTypes.Color:
                             SetBlockTransform(ObjectPools.Instance.GetObjectPool<ColorBlockPool>().GetObject(), block, i, j);

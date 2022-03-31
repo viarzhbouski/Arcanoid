@@ -1,13 +1,76 @@
 { 
-  "level_map": [2, 2, 2, 1, 2, 2, 2, 2,
-                2, 2, 2, 2, 2, 2, 2, 2],
+  "level_map": [2, 1, 2, 1, 1, 2, 2, 1,
+                2, 1, 1, 1, 1, 1, 1, 2,
+                0, 0, 0, 1, 1, 0, 0, 0,
+                0, 0, 0, 1, 1, 0, 0, 0,
+                0, 0, 0, 3, 1, 0, 0, 0],
   "level_map_properties":
   [
     {
+      "index": 1,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
       "index": 3,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 4,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 7,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 9,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 10,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 11,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 12,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 13,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 14,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 19,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 20,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 27,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 28,
+      "attribute_color": [0.5, 0.5, 5.0]
+    },
+    {
+      "index": 35,
+      "attribute_boost_name": "ColorChainBomb"
+    },
+    {
+      "index": 36,
       "attribute_color": [0.5, 0.5, 5.0]
     }
   ],
-  "rows": 2,
+  "rows": 5,
   "columns": 8
 }

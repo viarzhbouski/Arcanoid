@@ -102,6 +102,7 @@ namespace Scenes.SceneGame.Boosts
                 return;
             }
             
+
             var block = _levelBlocks[row!.Value, column!.Value];
             
             if (block.BlockType == BlockTypes.Color && block.gameObject.activeSelf)
