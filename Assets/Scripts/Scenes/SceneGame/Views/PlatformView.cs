@@ -63,9 +63,6 @@ namespace Scenes.SceneGame.Views
             var positionX = new Vector3(transform.position.x, Vector2.zero.y);
             var mouseDir = tapPositionX - positionX;
             
-            
-            platformRigidbody2D.velocity = Vector2.ClampMagnitude(platformRigidbody2D.velocity, 15);
-            
             if (mouseDir.magnitude <= _clickPointAndPlatformMinDir)
             {
                 platformRigidbody2D.velocity = Vector3.zero;
