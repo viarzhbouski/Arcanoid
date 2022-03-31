@@ -21,6 +21,8 @@ namespace Scenes.SceneGame.Views.Popups
         private Button closePopupButton;
         [SerializeField]
         private Button buyLifeButton;
+        [SerializeField]
+        private TMP_Text buyLifeButtonText;
         
         private EnergyView _energyView;
 
@@ -48,6 +50,7 @@ namespace Scenes.SceneGame.Views.Popups
         {
             energyInfoText.text = Localization.GetFieldText("EnergyInfoText");
             notEnoughEnergyText.text = Localization.GetFieldText("BuyLifeNotEnoughEnergyText");
+            buyLifeButtonText.text = Localization.GetFieldText("BuyLifeButtonText");
         }
 
         private void BuyLifeButtonOnClick()

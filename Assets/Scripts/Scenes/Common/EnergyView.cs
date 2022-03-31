@@ -27,11 +27,9 @@ namespace Scenes.Common
                 var minutes = (currentSession - lastSession).TotalMinutes;
                 var energy = minutes > AppConfig.Instance.EnergyConfig.Minutes ? Math.Floor(minutes * AppConfig.Instance.EnergyConfig.EnergyPerPeriod) : 0;
                 var currentEnergy = (int)energy + GameCache.GetCurrentEnergy();
-                var maxEnergy = AppConfig.Instance.EnergyConfig.MaxEnergy;
                 
                 DataRepository.IsStarted = true;
-                DataRepository.CurrentEnergy = currentEnergy < maxEnergy ? currentEnergy 
-                                                                         : maxEnergy;
+                DataRepository.CurrentEnergy = currentEnergy;
                 DataRepository.CurrentTime = _seconds;
             }
             
@@ -62,16 +60,28 @@ namespace Scenes.Common
             }
         }
         
-        public void EncreaseEnergyForWin()
+        public void EncreaseEnergy()
         {
-            DataRepository.CurrentEnergy += AppConfig.Instance.EnergyConfig.CompleteLevelEnergy;
+            DataRepository.CurrentEnergy++;
+            if (DataRepository.CurrentEnergy >= AppConfig.Instance.EnergyConfig.MaxEnergy)
+            {
+                DataRepository.CurrentTime = _seconds;
+                UpdateTimer();
+            }
+            
             SetEnergy();
         }
 
         public void SetEnergy()
         {
             energyValue.transform.DOKill();
-            energyValue.transform.DOPunchScale(new Vector2(1.1f, 1.1f), 0.2f);
+            energyValue.transform.DOPunchScale(new Vector2(1.01f, 1.01f), 0.1f).onComplete += () =>
+            {
+                if (energyValue.transform.localScale != Vector3.one)
+                {
+                    energyValue.transform.DOScale(Vector2.one, 0.2f);
+                }
+            };
             energyValue.text = $"{DataRepository.CurrentEnergy}/{AppConfig.Instance.EnergyConfig.MaxEnergy}";
         }
 

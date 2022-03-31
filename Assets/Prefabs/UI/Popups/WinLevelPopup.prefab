@@ -233,7 +233,7 @@ MonoBehaviour:
   m_text: PACK NAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -523,6 +523,7 @@ MonoBehaviour:
   backToMenuButtonText: {fileID: 2391631715291823188}
   packName: {fileID: 365079667506276036}
   progressBar: {fileID: 364661289978030763}
+  energySprite: {fileID: 1057618526036942853, guid: a9a73dbfcc54d0b4d9b05bc9db33318a, type: 3}
 --- !u!1 &5884497778600955039
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +878,7 @@ MonoBehaviour:
   m_text: BACK TO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1011,7 +1012,7 @@ MonoBehaviour:
   m_text: NEXT LEVEL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

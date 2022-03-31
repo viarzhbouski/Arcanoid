@@ -29,7 +29,9 @@ namespace Scenes.SceneGame.Views.Popups
         private TMP_Text restartButtonText;
         [SerializeField]
         private TMP_Text backToMenuButtonText;
-
+        [SerializeField]
+        private TMP_Text buyLifeButtonText;
+        
         private LifesController _lifesController;
 
         public override void Open()
@@ -54,6 +56,7 @@ namespace Scenes.SceneGame.Views.Popups
             restartButtonText.text = Localization.GetFieldText("GameOverRestart");
             backToMenuButtonText.text = Localization.GetFieldText("GameOverBackToMenu");
             notEnoughEnergyText.text = Localization.GetFieldText("GameOverNotEnoughEnergyText");
+            buyLifeButtonText.text = Localization.GetFieldText("GameOverBuyLifeButtonText");
         }
         
         private void BackToMenuButtonOnClick()

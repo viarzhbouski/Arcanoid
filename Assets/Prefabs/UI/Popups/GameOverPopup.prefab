@@ -68,7 +68,7 @@ MonoBehaviour:
   m_text: BUY LIFE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_text: RESTART
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -492,6 +492,7 @@ MonoBehaviour:
   buyLifeButton: {fileID: 8333665209104363238}
   restartButtonText: {fileID: 3895160670882987938}
   backToMenuButtonText: {fileID: 6326279120889160703}
+  buyLifeButtonText: {fileID: 8850044077623156369}
 --- !u!1 &2801572634176872633
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +682,7 @@ MonoBehaviour:
   m_text: BACK TO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -936,7 +937,7 @@ MonoBehaviour:
   m_text: GAME OVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -999,7 +999,7 @@ MonoBehaviour:
   m_text: ARKANOID
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
-  m_sharedMaterial: {fileID: -127728387610457843, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
+  m_sharedMaterial: {fileID: 6747317842103888124, guid: 0ba88318f62976d4682057dbfee01d45, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
+  m_overrideHtmlColors: 1
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
