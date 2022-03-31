@@ -20,9 +20,6 @@ namespace Scenes.SceneMenu.Views
         
         [SerializeField]
         private Button localizationButton;
-        
-        [SerializeField]
-        private Button clearCache;
 
         [SerializeField]
         private Image localizationButtonImage;
@@ -42,18 +39,10 @@ namespace Scenes.SceneMenu.Views
             startButton.transform.DOKill();
             startButton.transform.DOScale(0.9f, 0.5f).SetLoops(int.MaxValue, LoopType.Yoyo);
             InitLocalizationButton();
-            
-            clearCache.onClick.AddListener(ClearCache);
-        }
-
-        private void ClearCache()
-        {
-            GameCache.SetCurrentGameProgress(new GameProgress());
         }
 
         private void StartOnClick()
         {
-            
             startButton.transform.DOKill();
             
             var currentGameProgress = GameCache.GetCurrentGameProgress();

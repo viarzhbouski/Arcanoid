@@ -26,7 +26,7 @@ namespace Core.Statics
             }
         }
         
-        public void OpenPopup<T>() where T : BasePopupView
+        public T OpenPopup<T>() where T : BasePopupView
         {
             var popup = popups.FirstOrDefault(e => e is T);
             if (popup == null)
@@ -37,6 +37,8 @@ namespace Core.Statics
             ActivePopups++;
             var popupObject = Instantiate(popup, canvas);
             popupObject.Open();
+
+            return (T)popupObject;
         }
     }
 }

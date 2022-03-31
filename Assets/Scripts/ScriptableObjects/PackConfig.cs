@@ -17,12 +17,17 @@ namespace ScriptableObjects
         
         [SerializeField]
         private Packs pack;
+
+        [SerializeField] 
+        private int packCost;
         
         public Sprite Image => image;
         
         public List<TextAsset> Levels => levels;
         
         public Packs Pack => pack;
+        
+        public int PackCost => packCost;
         
         private void OnEnable()
         {

@@ -31,6 +31,8 @@ namespace Scenes.ScenePack.Models
             
             public int MaxLevels { get; set; }
             
+            public int PackCost { get; set; }
+            
             public bool CanChoose { get; set; }
         }
 

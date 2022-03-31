@@ -11,6 +11,9 @@ namespace Scenes.ScenePacks.Views
         
         [SerializeField]
         private TMP_Text levelProgressUI;
+
+        [SerializeField]
+        private TMP_Text energyCostUI;
         
         [SerializeField]
         private Image packImageUI;
@@ -23,6 +26,8 @@ namespace Scenes.ScenePacks.Views
         public TMP_Text PackNameUI => packNameUI;
         
         public TMP_Text LevelProgressUI => levelProgressUI;
+        
+        public TMP_Text EnergyCostUI => energyCostUI;
         
         public Button PackButtonUI => packButtonUI;
     }

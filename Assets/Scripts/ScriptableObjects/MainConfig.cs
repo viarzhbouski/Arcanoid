@@ -42,6 +42,11 @@ namespace ScriptableObjects
         [SerializeField]
         public BoostsConfig boostsConfig;
 
+        [Header("\tENERGY")] 
+        [Space]
+        [SerializeField]
+        public EnergyConfig energyConfig;
+        
         public List<LocalizationConfig> LocalizationConfigs => localizationConfigs;
 
         public BallAndPlatformConfig BallAndPlatformConfig => ballAndPlatformConfig;
@@ -55,5 +60,7 @@ namespace ScriptableObjects
         public PopupsConfig PopupsConfig => popupsConfig;
         
         public BoostsConfig BoostsConfig => boostsConfig;
+        
+        public EnergyConfig EnergyConfig => energyConfig;
     }
 }

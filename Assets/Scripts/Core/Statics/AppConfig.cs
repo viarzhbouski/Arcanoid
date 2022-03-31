@@ -23,6 +23,8 @@ namespace Core.Statics
         public PopupsConfig PopupsConfig => _mainConfig.PopupsConfig;
         
         public BoostsConfig BoostsConfig => _mainConfig.BoostsConfig;
+        
+        public EnergyConfig EnergyConfig => _mainConfig.EnergyConfig;
 
         public AppConfig(MainConfig mainConfig)
         {

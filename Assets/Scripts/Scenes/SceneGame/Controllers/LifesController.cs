@@ -38,9 +38,20 @@ namespace Scenes.SceneGame.Controllers
             _lifesModel.IsStartGame = true;
             _lifesModel.LifesCount = ballAndPlatform.LifeCount > ballAndPlatform.MaxLifeCount ? ballAndPlatform.MaxLifeCount 
                                                                                                 : ballAndPlatform.LifeCount;
-            
+
+            if (_lifesModel.ExtraLifeCount > 0)
+            {
+                _lifesModel.LifesCount += _lifesModel.ExtraLifeCount;
+                _lifesModel.ExtraLifeCount = 0;
+            }
+
             _lifesModel.OnChange?.Invoke();
             _lifesModel.IsStartGame = false;
+        }
+
+        public void AddExtraLife()
+        {
+            _lifesModel.ExtraLifeCount++;
         }
 
         public void DecreaseLife()

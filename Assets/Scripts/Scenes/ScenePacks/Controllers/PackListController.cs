@@ -58,7 +58,8 @@ namespace Scenes.ScenePacks.Controllers
                     CurrentLevel = canChoose ? currentLevel : 0,
                     MaxLevels = packConfig.Levels.Count,
                     PackIcon = canChoose ? packConfig.Image : null,
-                    CanChoose = canChoose
+                    CanChoose = canChoose,
+                    PackCost = packConfig.PackCost
                 };
 
                 _packListModel.Packs.Add(pack);

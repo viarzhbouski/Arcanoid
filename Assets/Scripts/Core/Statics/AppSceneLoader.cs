@@ -7,6 +7,9 @@ namespace Core.Statics
     {
         public static AppSceneLoader Instance;
         private readonly BaseScene _currentScene;
+
+        public delegate void Load();
+        public event Load SceneOnLoad;
         
         public AppSceneLoader(BaseScene currentScene)
         {
@@ -14,6 +17,10 @@ namespace Core.Statics
             _currentScene = currentScene;
         }
 
-        public void LoadScene(GameScenes gameScene) => _currentScene.LoadScene(gameScene);
+        public void LoadScene(GameScenes gameScene)
+        {
+            SceneOnLoad?.Invoke();
+            _currentScene.LoadScene(gameScene);
+        }
     }
 }
