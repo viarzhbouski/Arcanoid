@@ -4,7 +4,6 @@ using Core.Models;
 using Core.Statics;
 using Scenes.ScenePack.Models;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Scenes.ScenePacks.Views
@@ -69,11 +68,11 @@ namespace Scenes.ScenePacks.Views
                 DataRepository.SelectedLevel = 0;
             }
 
-            var currentEnergy = GameCache.GetCurrentEnergy();
+            var currentEnergy = DataRepository.CurrentEnergy;
             if (currentEnergy >= packCost)
             {
                 currentEnergy -= packCost;
-                GameCache.SetCurrentEnergy(currentEnergy);
+                DataRepository.CurrentEnergy = currentEnergy;
                 AppSceneLoader.Instance.LoadScene(GameScenes.Game);
             }
         }

@@ -74,8 +74,15 @@ namespace Scenes.SceneGame.Views.Popups
         
         private void RestartButtonOnClick()
         {
-            Close(true);
-            _pauseGameController.RestartLevel();
+            var currentEnergy = DataRepository.CurrentEnergy;
+
+            if (currentEnergy > 0)
+            {
+                Close(true);
+                currentEnergy--;
+                DataRepository.CurrentEnergy = currentEnergy;
+                _pauseGameController.RestartLevel();
+            }
         }
 
         IEnumerator ContinueGame()

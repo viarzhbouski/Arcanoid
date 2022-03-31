@@ -16,3 +16,4 @@ MonoBehaviour:
   energyPerPeriod: 1
   maxEnergy: 30
   completeLevelEnergy: 5
+  lifeCost: 7

@@ -4,6 +4,7 @@ using Common.Enums;
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
+using Scenes.Common;
 using Scenes.SceneGame.Controllers;
 using ScriptableObjects;
 using TMPro;
@@ -14,6 +15,9 @@ namespace Scenes.SceneGame.Views.Popups
 {
     public class WinLevelPopupView : BasePopupView
     {
+        [SerializeField]
+        private EnergyView energyView;
+        
         [SerializeField]
         private Image packImage;
         
@@ -45,11 +49,11 @@ namespace Scenes.SceneGame.Views.Popups
             transform.localScale = Vector3.zero;
             nextLevelButton.transform.localScale = Vector3.zero;
             backToMenuButton.transform.localScale = Vector3.zero;
-            
             nextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
             _gameIsPassed = false;
+            energyView.EncreaseEnergyForWin();
             ApplyLocalization(currentPack);
             StartCoroutine(OpenWithDelay(currentPack));
         }

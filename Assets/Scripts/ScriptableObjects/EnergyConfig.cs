@@ -13,6 +13,8 @@ namespace ScriptableObjects
         private int maxEnergy;
         [SerializeField]
         private int completeLevelEnergy;
+        [SerializeField]
+        private int lifeCost;
         
         public int Minutes => minutes;
         
@@ -21,5 +23,7 @@ namespace ScriptableObjects
         public int MaxEnergy => maxEnergy;
         
         public int CompleteLevelEnergy => completeLevelEnergy;
+        
+        public int LifeCost => lifeCost;
     }
 }

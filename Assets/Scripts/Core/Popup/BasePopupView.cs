@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Statics;
+﻿using Core.Statics;
 using DG.Tweening;
 using UnityEngine;
 
