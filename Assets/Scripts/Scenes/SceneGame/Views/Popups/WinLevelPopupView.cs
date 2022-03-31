@@ -4,6 +4,7 @@ using Common.Enums;
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
+using Scenes.Common;
 using Scenes.SceneGame.Controllers;
 using ScriptableObjects;
 using TMPro;
@@ -15,26 +16,24 @@ namespace Scenes.SceneGame.Views.Popups
     public class WinLevelPopupView : BasePopupView
     {
         [SerializeField]
+        private EnergyView energyView;
+        [SerializeField]
         private Image packImage;
-        
         [SerializeField]
         private Button nextLevelButton;
-        
         [SerializeField]
         private TMP_Text nextLevelButtonText;
-        
         [SerializeField]
         private Button backToMenuButton;
-        
         [SerializeField]
         private TMP_Text backToMenuButtonText;
-        
         [SerializeField]
         private TMP_Text packName;
-
         [SerializeField]
         private RectTransform progressBar;
-
+        [SerializeField]
+        private RectTransform energySprite;
+        
         private LevelProgressController _levelProgressController;
         private bool _gameIsPassed;
         
@@ -45,7 +44,6 @@ namespace Scenes.SceneGame.Views.Popups
             transform.localScale = Vector3.zero;
             nextLevelButton.transform.localScale = Vector3.zero;
             backToMenuButton.transform.localScale = Vector3.zero;
-            
             nextLevelButton.onClick.AddListener(NextLevelButtonOnClick);
             backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
             _levelProgressController = AppControllers.Instance.GetController<LevelProgressController>();
@@ -152,8 +150,25 @@ namespace Scenes.SceneGame.Views.Popups
                 backToMenuButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
                 nextLevelButton.transform.DOKill();
                 nextLevelButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
+                StartCoroutine(AddEnergy());
             };
             _levelProgressController.SaveProgress();
         }
+        
+        
+        IEnumerator AddEnergy()
+        {
+            for (var i = 0; i < AppConfig.Instance.EnergyConfig.CompleteLevelEnergy; i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+                var sprite = Instantiate(energySprite, transform);
+                sprite.DOLocalJump(energyView.transform.localPosition, 1f, 1, 1f).onComplete += () =>
+                {
+                    energyView.EncreaseEnergy();
+                    Destroy(sprite.gameObject);
+                };
+            }
+        }
+
     }
 }

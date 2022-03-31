@@ -9,6 +9,8 @@ namespace Scenes.SceneGame.Models
         
         public int LifesCount { get; set; }
         
+        public int ExtraLifeCount { get; set; }
+        
         public Action OnChange { get; set; }
 
         public void OnChangeHandler(Action onChange)

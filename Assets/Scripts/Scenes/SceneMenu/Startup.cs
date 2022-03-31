@@ -1,7 +1,6 @@
 ﻿using Core;
 using Scenes.SceneMenu.Controllers;
 using Scenes.SceneMenu.Views;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace Scenes.SceneMenu

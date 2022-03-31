@@ -2,6 +2,7 @@
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
+using Scenes.Common;
 using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
@@ -12,21 +13,25 @@ namespace Scenes.SceneGame.Views.Popups
 {
     public class GameOverPopupView : BasePopupView
     {
+        [SerializeField] 
+        private EnergyView energyView;
         [SerializeField]
         private TMP_Text gameOverTitle;
-        
+        [SerializeField]
+        private TMP_Text notEnoughEnergyText;
         [SerializeField]
         private Button backToMenuButton;
-        
         [SerializeField]
         private Button restartButton;
-        
+        [SerializeField]
+        private Button buyLifeButton;
         [SerializeField]
         private TMP_Text restartButtonText;
-        
         [SerializeField]
         private TMP_Text backToMenuButtonText;
-
+        [SerializeField]
+        private TMP_Text buyLifeButtonText;
+        
         private LifesController _lifesController;
 
         public override void Open()
@@ -35,6 +40,8 @@ namespace Scenes.SceneGame.Views.Popups
             ApplyLocalization();
             restartButton.onClick.AddListener(RestartButtonOnClick);
             backToMenuButton.onClick.AddListener(BackToMenuButtonOnClick);
+            buyLifeButton.onClick.AddListener(BuyLifeButtonOnClick);
+            notEnoughEnergyText.transform.localScale = Vector2.zero;
             _lifesController = AppControllers.Instance.GetController<LifesController>();
         }
         
@@ -48,6 +55,8 @@ namespace Scenes.SceneGame.Views.Popups
             gameOverTitle.text = Localization.GetFieldText("GameOverTitle");
             restartButtonText.text = Localization.GetFieldText("GameOverRestart");
             backToMenuButtonText.text = Localization.GetFieldText("GameOverBackToMenu");
+            notEnoughEnergyText.text = Localization.GetFieldText("GameOverNotEnoughEnergyText");
+            buyLifeButtonText.text = Localization.GetFieldText("GameOverBuyLifeButtonText");
         }
         
         private void BackToMenuButtonOnClick()
@@ -63,8 +72,35 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void RestartButtonOnClick()
         {
-            _lifesController.RestartLevel();
-            Close(true);
+            var currentEnergy = DataRepository.CurrentEnergy;
+            currentEnergy--;
+            
+            if (currentEnergy >= 0)
+            {
+                DataRepository.CurrentEnergy = currentEnergy;
+                _lifesController.RestartLevel();
+                Close(true);
+            }
+            else if (!notEnoughEnergyText.gameObject.activeSelf)
+            {
+                notEnoughEnergyText.gameObject.SetActive(true);
+                notEnoughEnergyText.transform.DOKill();
+                notEnoughEnergyText.transform.DOScale(Vector2.one, 0.5f).SetEase(Ease.OutBounce);
+            }
+            else
+            {
+                notEnoughEnergyText.transform.DOKill();
+                notEnoughEnergyText.transform.DOPunchScale(Vector2.one * 0.1f, 0.5f).SetEase(Ease.OutBounce).onComplete += () =>
+                {
+                    notEnoughEnergyText.transform.localScale = Vector2.one;
+                };
+            }
+        }
+
+        private void BuyLifeButtonOnClick()
+        {
+            var buyLifePopup = AppPopups.Instance.OpenPopup<BuyLifePopupView>();
+            buyLifePopup.SetEnergyTimer(energyView);
         }
     }
 }
