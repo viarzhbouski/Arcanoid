@@ -62,10 +62,13 @@ namespace Scenes.SceneGame.Views
             var tapPositionX = new Vector3(tapPosition.x, Vector2.zero.y);
             var positionX = new Vector3(transform.position.x, Vector2.zero.y);
             var mouseDir = tapPositionX - positionX;
-
+            
+            
+            platformRigidbody2D.velocity = Vector2.ClampMagnitude(platformRigidbody2D.velocity, 15);
+            
             if (mouseDir.magnitude <= _clickPointAndPlatformMinDir)
             {
-                platformRigidbody2D.velocity = Vector2.zero;
+                platformRigidbody2D.velocity = Vector3.zero;
             }
             else
             {
@@ -78,8 +81,7 @@ namespace Scenes.SceneGame.Views
             if (other.collider.CompareTag("Ball") || other.collider.CompareTag("Boost"))
             {
                 platformIndicator.DOKill();
-                platformIndicator.DOColor(AppConfig.Instance.BallAndPlatform.PlatformCollisionColor, 0.2f)
-                    .SetEase(Ease.InBounce).onComplete += () =>
+                platformIndicator.DOColor(AppConfig.Instance.BallAndPlatform.PlatformCollisionColor, 0.2f).SetEase(Ease.InBounce).onComplete += () =>
                 {
                     platformIndicator.DOColor(AppConfig.Instance.BallAndPlatform.PlatformNonCollisionColor, 0.2f)
                         .SetEase(Ease.OutBounce);
