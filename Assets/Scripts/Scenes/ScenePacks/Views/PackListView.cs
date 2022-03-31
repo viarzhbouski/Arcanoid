@@ -46,10 +46,11 @@ namespace Scenes.ScenePacks.Views
                 packObject.PackNameUI.text = pack.Name;
                 packObject.LevelProgressUI.text = $"{pack.CurrentLevel}/{pack.MaxLevels}";
                 packObject.PackImageUI.sprite = pack.PackIcon;
+                packObject.EnergyCostUI.text = pack.PackCost.ToString();
                 
                 if (pack.CanChoose)
                 {
-                    packObject.PackButtonUI.onClick.AddListener(delegate { PackOnClick(pack.Id, currentGameProgress); });
+                    packObject.PackButtonUI.onClick.AddListener(delegate { PackOnClick(pack.Id,  pack.PackCost, currentGameProgress); });
                 }
                 else
                 {
@@ -58,7 +59,7 @@ namespace Scenes.ScenePacks.Views
             }
         }
 
-        private void PackOnClick(int packId, GameProgress currentGameProgress)
+        private void PackOnClick(int packId, int packCost, GameProgress currentGameProgress)
         {
             DataRepository.SelectedPack = packId;
             DataRepository.SelectedLevel = packId == currentGameProgress.CurrentPack ? currentGameProgress.CurrentLevel : 0;
@@ -67,8 +68,14 @@ namespace Scenes.ScenePacks.Views
             {
                 DataRepository.SelectedLevel = 0;
             }
-            
-            AppSceneLoader.Instance.LoadScene(GameScenes.Game);
+
+            var currentEnergy = GameCache.GetCurrentEnergy();
+            if (currentEnergy >= packCost)
+            {
+                currentEnergy -= packCost;
+                GameCache.SetCurrentEnergy(currentEnergy);
+                AppSceneLoader.Instance.LoadScene(GameScenes.Game);
+            }
         }
     }
 }

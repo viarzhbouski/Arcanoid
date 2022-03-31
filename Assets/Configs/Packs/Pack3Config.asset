@@ -16,3 +16,4 @@ MonoBehaviour:
   levels:
   - {fileID: 4900000, guid: f9729980cdb188e4d81084039d2c1015, type: 3}
   pack: 2
+  packCost: 3

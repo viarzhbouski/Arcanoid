@@ -11,11 +11,15 @@ namespace ScriptableObjects
         private int energyPerPeriod;
         [SerializeField]
         private int maxEnergy;
+        [SerializeField]
+        private int completeLevelEnergy;
         
         public int Minutes => minutes;
         
         public int EnergyPerPeriod => energyPerPeriod;
         
         public int MaxEnergy => maxEnergy;
+        
+        public int CompleteLevelEnergy => completeLevelEnergy;
     }
 }

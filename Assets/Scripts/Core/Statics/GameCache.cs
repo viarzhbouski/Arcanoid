@@ -47,7 +47,7 @@ namespace Core.Statics
             return DateTime.Parse(lastSession);
         }
 
-        public static int GetCurrentEnergy() => PlayerPrefs.GetInt(CurrentEnergy);
+        public static int GetCurrentEnergy() => PlayerPrefs.GetInt(CurrentEnergy, AppConfig.Instance.EnergyConfig.MaxEnergy);
         
         public static void SetLastSessionTime()
         {

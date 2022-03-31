@@ -15,3 +15,4 @@ MonoBehaviour:
   minutes: 1
   energyPerPeriod: 1
   maxEnergy: 30
+  completeLevelEnergy: 5
