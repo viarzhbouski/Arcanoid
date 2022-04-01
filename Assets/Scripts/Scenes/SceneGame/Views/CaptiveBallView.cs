@@ -1,11 +1,13 @@
 ﻿using System.Collections;
+using Core.ObjectPooling.Interfaces;
 using Core.Statics;
 using Scenes.SceneGame.Controllers;
+using Scenes.SceneGame.ScenePools;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Views
 {
-    public class CaptiveBallView : MonoBehaviour
+    public class CaptiveBallView : MonoBehaviour, IPoolable
     {
         [SerializeField]
         private BallView ballView;
@@ -23,7 +25,14 @@ namespace Scenes.SceneGame.Views
         {
             yield return new WaitForSeconds(AppConfig.Instance.BoostsConfig.BallLifeTime);
             _ballController.RemoveCaptiveBall(ballView);
-            Destroy(gameObject);
+            _ballController = null;
+            AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
+                            .DestroyPoolObject(this);
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
     }
 }

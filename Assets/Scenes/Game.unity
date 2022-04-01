@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &15933671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15933672}
+  - component: {fileID: 15933673}
+  m_Layer: 0
+  m_Name: CaptiveBallBoostPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &15933672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15933671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763141834}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &15933673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15933671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2431b6c594ec4918999427fbf9ece899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 10
+  prefab: {fileID: 3004720743688330128, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
 --- !u!1 &39559465
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +690,8 @@ Transform:
   - {fileID: 1263779621}
   - {fileID: 96890666}
   - {fileID: 80572374}
+  - {fileID: 969164568}
+  - {fileID: 15933672}
   m_Father: {fileID: 1380058848}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -757,7 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cc60ca513446898bdc9657ecebc740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 5
+  poolSize: 50
   prefab: {fileID: 8677263749969595748, guid: ecd7e221e56239b478d6a51773a9e4e2, type: 3}
 --- !u!4 &847691108
 Transform:
@@ -773,6 +820,51 @@ Transform:
   m_Father: {fileID: 763141834}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &969164567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 969164568}
+  - component: {fileID: 969164569}
+  m_Layer: 0
+  m_Name: BonusBoostPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &969164568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969164567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763141834}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &969164569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969164567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531ca1651b6040399e5f45d4a15b3ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 10
+  prefab: {fileID: -1040354504090482864, guid: e446e69884fc29c47bdc7bc1878b2f3d, type: 3}
 --- !u!1 &1007025949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95713ca7d1ee4555b178a2379a2a739c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 5
+  poolSize: 50
   prefab: {fileID: 7021143536865510068, guid: 6579178bdc5ed5647892d002d003ee51, type: 3}
 --- !u!1 &1263779620
 GameObject:
@@ -1190,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad940d8bc57444cac8d7521a0d5431c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 5
+  poolSize: 50
   prefab: {fileID: -3562405115684736835, guid: f0aaeb53c788e7e4fa6c3d2b4aabb392, type: 3}
 --- !u!1 &1271733109
 GameObject:
@@ -1335,6 +1427,8 @@ MonoBehaviour:
   - {fileID: 1209997572}
   - {fileID: 1263779622}
   - {fileID: 80572375}
+  - {fileID: 969164569}
+  - {fileID: 15933673}
   currentScene: {fileID: 2066322613}
 --- !u!4 &1380058848
 Transform:

@@ -1,4 +1,6 @@
-﻿using Scenes.SceneGame.Boosts.Interfaces;
+﻿using Core.Statics;
+using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 using UnityEngine;
 
@@ -17,7 +19,9 @@ namespace Scenes.SceneGame.Boosts
         
         public void ExecuteBoost(BonusBoostView bonusBoostView)
         {
-            var bonusBoostViewObject = Object.Instantiate(bonusBoostView, _blockPosition, Quaternion.identity);
+            var bonusBoostPool = AppObjectPools.Instance.GetObjectPool<BonusBoostPool>();
+            var bonusBoostViewObject = bonusBoostPool.GetObject();
+            bonusBoostViewObject.transform.position = _blockPosition;
             bonusBoostViewObject.Init(_bonusBoost);
         }
     }

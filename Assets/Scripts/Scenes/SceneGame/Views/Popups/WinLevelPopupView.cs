@@ -201,7 +201,7 @@ namespace Scenes.SceneGame.Views.Popups
                 yield return new WaitForSeconds(0.1f);
                 var sprite = Instantiate(energySprite, transform);
                 sprite.DOKill();
-                sprite.DOLocalJump(energyView.transform.localPosition, 1f, 1, 1f).onComplete += () =>
+                sprite.DOJump(energyView.LogoTransform.position, 1f, 1, 1f).onComplete += () =>
                 {
                     energyView.EncreaseEnergy();
                     Destroy(sprite.gameObject);

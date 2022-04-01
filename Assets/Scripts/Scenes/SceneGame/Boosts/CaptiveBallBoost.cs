@@ -1,5 +1,6 @@
 ﻿using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 using UnityEngine;
 
@@ -24,8 +25,10 @@ namespace Scenes.SceneGame.Boosts
             
             for (var i = 0; i < boostConfig.BallCount; i++)
             {
-                var captiveBallView = Object.Instantiate(boostConfig.BallPrefab, _boostBlockTransform.position, _boostBlockTransform.rotation);
-                captiveBallView.Init();
+                var ballPool = AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>();
+                var ballObject = ballPool.GetObject();
+                ballObject.transform.position = _boostBlockTransform.position;
+                ballObject.Init();
             }
         }
     }

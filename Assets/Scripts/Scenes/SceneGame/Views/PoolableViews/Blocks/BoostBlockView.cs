@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Models;
