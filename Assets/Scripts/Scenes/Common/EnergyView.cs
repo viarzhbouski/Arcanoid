@@ -25,8 +25,15 @@ namespace Scenes.Common
                 var lastSession = GameCache.GetLastSessionTime();
                 var currentSession = DateTime.UtcNow;
                 var minutes = (currentSession - lastSession).TotalMinutes;
-                var energy = minutes > AppConfig.Instance.EnergyConfig.Minutes ? Math.Floor(minutes * AppConfig.Instance.EnergyConfig.EnergyPerPeriod) : 0;
-                var currentEnergy = (int)energy + GameCache.GetCurrentEnergy();
+                var energy = minutes > AppConfig.Instance.EnergyConfig.Minutes ? (int)Math.Floor(minutes * AppConfig.Instance.EnergyConfig.EnergyPerPeriod) : 0;
+                var currentEnergy = GameCache.GetCurrentEnergy();
+                if (currentEnergy < AppConfig.Instance.EnergyConfig.MaxEnergy)
+                {
+                    energy += currentEnergy;
+                    currentEnergy = energy < AppConfig.Instance.EnergyConfig.MaxEnergy
+                        ? energy
+                        : AppConfig.Instance.EnergyConfig.MaxEnergy;
+                }
                 
                 DataRepository.IsStarted = true;
                 DataRepository.CurrentEnergy = currentEnergy;
