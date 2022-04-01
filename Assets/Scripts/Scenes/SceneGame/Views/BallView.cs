@@ -201,8 +201,7 @@ namespace Scenes.SceneGame.Views
             }
             else
             {
-                _ballController.RemoveCaptiveBall(this);
-                Destroy(gameObject);
+                _ballController.RemoveCaptiveBall(this.GetComponent<CaptiveBallView>());
             }
         }
     }

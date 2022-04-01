@@ -113,6 +113,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void BackToMenuButtonOnClick()
         {
+            backToMenuButton.enabled = false;
             DOTween.KillAll();
             transform.DOKill();
             transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(WinPopupBackToMenuOnComplete);
@@ -130,6 +131,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void NextLevelButtonOnClick()
         {
+            nextLevelButton.enabled = false;
             DOTween.KillAll();
             Close(true);
             

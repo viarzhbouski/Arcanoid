@@ -27,6 +27,7 @@ namespace Scenes.ScenePacks.Views
 
         private void BackToMainMenuButtonOnClick()
         {
+            backToMainMenuButton.enabled = false;
             AppSceneLoader.Instance.LoadScene(GameScenes.MainMenu);
         }
 
@@ -49,7 +50,7 @@ namespace Scenes.ScenePacks.Views
                 
                 if (pack.CanChoose)
                 {
-                    packObject.PackButtonUI.onClick.AddListener(delegate { PackOnClick(pack.Id,  pack.PackCost, currentGameProgress); });
+                    packObject.PackButtonUI.onClick.AddListener(delegate { PackOnClick(packObject.PackButtonUI, pack.Id,  pack.PackCost, currentGameProgress); });
                 }
                 else
                 {
@@ -58,8 +59,9 @@ namespace Scenes.ScenePacks.Views
             }
         }
 
-        private void PackOnClick(int packId, int packCost, GameProgress currentGameProgress)
+        private void PackOnClick(Button packButton, int packId, int packCost, GameProgress currentGameProgress)
         {
+            packButton.enabled = false;
             DataRepository.SelectedPack = packId;
             DataRepository.SelectedLevel = packId == currentGameProgress.CurrentPack ? currentGameProgress.CurrentLevel : 0;
             

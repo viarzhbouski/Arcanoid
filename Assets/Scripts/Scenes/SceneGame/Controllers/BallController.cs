@@ -4,8 +4,8 @@ using Core.Interfaces;
 using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Models;
+using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views;
-using Object = UnityEngine.Object;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -13,7 +13,7 @@ namespace Scenes.SceneGame.Controllers
     {
         private readonly BallModel _ballModel;
         private readonly BallView _ballView;
-        private readonly List<BallView> _captiveBalls;
+        private readonly List<CaptiveBallView> _captiveBalls;
         
         private LifesController _lifesController;
         private PlatformController _platformController;
@@ -21,7 +21,7 @@ namespace Scenes.SceneGame.Controllers
 
         public BallController(IView view)
         {
-            _captiveBalls = new List<BallView>();
+            _captiveBalls = new List<CaptiveBallView>();
             _ballModel = new BallModel();
             _ballView = view as BallView;
             _ballView!.Bind(_ballModel, this);
@@ -73,7 +73,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 foreach (var ball in _captiveBalls)
                 {
-                    ball.RenderChanges();
+                    ball.BallView.RenderChanges();
                 }
             }
         }
@@ -84,14 +84,19 @@ namespace Scenes.SceneGame.Controllers
             _platformController.IsStarted(false);
         }
 
-        public void AddCaptiveBall(BallView captiveBall)
+        public void AddCaptiveBall(CaptiveBallView captiveBall)
         {
-            captiveBall.Bind(_ballModel, this);
-            captiveBall.IsCaptive = true;
+            captiveBall.BallView.Bind(_ballModel, this);
+            captiveBall.BallView.IsCaptive = true;
             _captiveBalls.Add(captiveBall);
         }
 
-        public void RemoveCaptiveBall(BallView captiveBall) => _captiveBalls.Remove(captiveBall);
+        public void RemoveCaptiveBall(CaptiveBallView captiveBall)
+        {
+            AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
+                .DestroyPoolObject(captiveBall);
+            _captiveBalls.Remove(captiveBall);
+        }
 
         private void DestroyAllCaptiveBalls()
         {
@@ -102,7 +107,8 @@ namespace Scenes.SceneGame.Controllers
 
             foreach (var captiveBall in _captiveBalls)
             {
-                Object.Destroy(captiveBall.gameObject);
+                AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
+                               .DestroyPoolObject(captiveBall);
             }
             
             _captiveBalls.Clear();

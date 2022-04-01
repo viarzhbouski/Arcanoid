@@ -61,6 +61,7 @@ namespace Scenes.SceneGame.Views.Popups
         
         private void BackToMenuButtonOnClick()
         {
+            backToMenuButton.enabled = false;
             transform.DOKill();
             transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(GameOverPopupOnComplete);
         }
@@ -72,6 +73,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void RestartButtonOnClick()
         {
+            restartButton.enabled = false;
             var currentEnergy = DataRepository.CurrentEnergy;
             currentEnergy--;
             
@@ -99,6 +101,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void BuyLifeButtonOnClick()
         {
+            buyLifeButton.enabled = false;
             var buyLifePopup = AppPopups.Instance.OpenPopup<BuyLifePopupView>();
             buyLifePopup.SetEnergyTimer(energyView);
         }
