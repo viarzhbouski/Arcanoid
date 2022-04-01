@@ -1,12 +1,13 @@
 ﻿using System.Collections;
+using Core.ObjectPooling.Interfaces;
 using Core.Statics;
-using DG.Tweening;
 using Scenes.SceneGame.Boosts.Interfaces;
+using Scenes.SceneGame.ScenePools;
 using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
 {
-    public class BonusBoostView : MonoBehaviour
+    public class BonusBoostView : MonoBehaviour, IPoolable
     {
         [SerializeField]
         private CapsuleCollider2D bonusBoostCollider;
@@ -24,6 +25,8 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             _bonusBoost = bonusBoost;
             bonusSpriteRenderer.color = bonusBoost.BonusColor;
             bonusRigidbody.AddForce(Vector2.down * AppConfig.Instance.BoostsConfig.BonusSpeed);
+            bonusParticleSystem.gameObject.SetActive(true);
+            bonusBoostCollider.enabled = true;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -48,7 +51,12 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             _bonusBoost.ApplyBonusBoost();
             yield return new WaitForSeconds(_bonusBoost.BonusWorkingDelay);
             _bonusBoost.CancelBonusBoost();
-            Destroy(gameObject);
+            AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
     }
 }

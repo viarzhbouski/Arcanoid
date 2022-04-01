@@ -1,6 +1,5 @@
 ﻿using Common.Enums;
 using Core.Interfaces.MVC;
-using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
