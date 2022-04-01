@@ -50,6 +50,10 @@ namespace Scenes.SceneGame.Controllers
                 .ClearPool();
             AppObjectPools.Instance.GetObjectPool<BoostBlockPool>()
                 .ClearPool();
+            AppObjectPools.Instance.GetObjectPool<BonusBoostPool>()
+                .ClearPool();
+            AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
+                .ClearPool();
         }
         
         public void RestartLevel()

@@ -13,6 +13,10 @@ namespace Scenes.Common
         private TMP_Text energyValue;
         [SerializeField]
         private TMP_Text timerText;
+        [SerializeField]
+        private RectTransform logoTransform;
+
+        public RectTransform LogoTransform => logoTransform;
         
         private int _seconds;
 
