@@ -3,7 +3,7 @@
                 2, 1, 2, 1, 2, 1, 2,
                 2, 1, 2, 1, 2, 1, 2,
                 2, 1, 2, 1, 2, 1, 2,
-                2, 3, 2, 1, 1, 1, 2],
+                2, 3, 2, 3, 1, 1, 2],
   "level_map_properties":
   [
     {
@@ -64,7 +64,7 @@
     },
     {
       "index": 31,
-      "attribute_color": [0.3, 1, 0]
+      "attribute_boost_name": "FuryBall"
     },
     {
       "index": 32,
