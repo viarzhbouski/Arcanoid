@@ -92,7 +92,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         public override void DestroyBlock()
         {
-            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+            AppObjectPools.Instance.GetObjectPool<ColorBlockPool>()
                 .DestroyPoolObject(this);
         }
     }

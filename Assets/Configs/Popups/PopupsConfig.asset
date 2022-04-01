@@ -17,3 +17,4 @@ MonoBehaviour:
   winPopupProgressBarDelay: 0.1
   winPopupDelay: 0.75
   winPopupButtonsScaleSpeed: 0.2
+  winPopupImageScaleSpeed: 0.5

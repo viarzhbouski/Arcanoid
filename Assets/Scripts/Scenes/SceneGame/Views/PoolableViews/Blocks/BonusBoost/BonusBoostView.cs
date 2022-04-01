@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Core.Statics;
+using DG.Tweening;
 using Scenes.SceneGame.Boosts.Interfaces;
 using UnityEngine;
 
@@ -10,6 +12,10 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         private CapsuleCollider2D bonusBoostCollider;
         [SerializeField]
         private SpriteRenderer bonusSpriteRenderer;
+        [SerializeField]
+        private ParticleSystem bonusParticleSystem;
+        [SerializeField] 
+        private Rigidbody2D bonusRigidbody;
         
         private IHasBonusBoost _bonusBoost;
         
@@ -17,6 +23,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         {
             _bonusBoost = bonusBoost;
             bonusSpriteRenderer.color = bonusBoost.BonusColor;
+            bonusRigidbody.AddForce(Vector2.down * AppConfig.Instance.BoostsConfig.BonusSpeed);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -33,6 +40,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         {
             bonusBoostCollider.enabled = false;
             bonusSpriteRenderer.color = new Color();
+            bonusParticleSystem.gameObject.SetActive(false);
         }
 
         IEnumerator ApplyBonusBoost()

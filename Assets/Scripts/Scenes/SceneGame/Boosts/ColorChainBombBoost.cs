@@ -65,7 +65,7 @@ namespace Scenes.SceneGame.Boosts
             while (_blocksQueue.Any())
             {
                 var colorBlock = _blocksQueue.Dequeue();
-                colorBlock.BlockHit();
+                colorBlock.BlockHit(int.MaxValue - 1);
             }
         }
 
@@ -102,6 +102,7 @@ namespace Scenes.SceneGame.Boosts
                 return;
             }
             
+
             var block = _levelBlocks[row!.Value, column!.Value];
             
             if (block.BlockType == BlockTypes.Color && block.gameObject.activeSelf)

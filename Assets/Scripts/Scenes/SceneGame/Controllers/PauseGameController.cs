@@ -1,6 +1,5 @@
 ﻿using Core.Interfaces;
 using Core.Interfaces.MVC;
-using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
@@ -45,11 +44,11 @@ namespace Scenes.SceneGame.Controllers
         
         private void ClearBlockPools()
         {
-            ObjectPools.Instance.GetObjectPool<ColorBlockPool>()
+            AppObjectPools.Instance.GetObjectPool<ColorBlockPool>()
                 .ClearPool();
-            ObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
+            AppObjectPools.Instance.GetObjectPool<GraniteBlockPool>()
                 .ClearPool();
-            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+            AppObjectPools.Instance.GetObjectPool<BoostBlockPool>()
                 .ClearPool();
         }
         
