@@ -6,6 +6,11 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "New BoostsConfig", menuName = "Create Boosts Config")]
     public class BoostsConfig : ScriptableObject
     {
+        [Header("\tCOMMON")]
+        [Space]
+        [SerializeField]
+        private float bonusSpeed;
+        
         [Header("\tBOMB")]
         [Space]
         [SerializeField]
@@ -71,6 +76,8 @@ namespace ScriptableObjects
         [Space]
         [SerializeField]
         private float furyBallWorkingDelay;
+        
+        public float BonusSpeed => bonusSpeed;
         
         public float BombExecuteDelay => bombExecuteDelay;
         

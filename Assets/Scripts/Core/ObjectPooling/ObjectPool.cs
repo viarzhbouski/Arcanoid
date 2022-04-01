@@ -30,13 +30,30 @@ namespace Core.ObjectPooling
         
         public T GetObject()
         {
-            var poolObject = _poolStack.Any() ? _poolStack.Pop() 
-                                                : SpawnObject();
-        
+            T poolObject;
+            
+            if (_poolStack.Any())
+            {
+                poolObject = _poolStack.Pop();
+            }
+            else
+            {
+                Resize();
+                poolObject = _poolStack.Pop();
+            }
+            
             poolObject.GetGameObject()
                       .SetActive(true);
             
             return poolObject;
+        }
+
+        private void Resize(int count = 1)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                SpawnObject();
+            }
         }
         
         public void ClearPool()
@@ -62,9 +79,9 @@ namespace Core.ObjectPooling
         private T SpawnObject()
         {
             var spawnedObject = Object.Instantiate(_objectPrefab.GetGameObject(), _objectTransform);
-            spawnedObject.SetActive(false);
-
             var obj = spawnedObject.GetComponent<T>();
+            
+            spawnedObject.SetActive(false);
             _poolStack.Push(obj);
             
             return obj;

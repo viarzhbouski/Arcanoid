@@ -24,8 +24,8 @@ namespace Core
         
         private void Awake()
         {
+            InitPools();
             _monoConfiguration = new MonoConfiguration();
-            _monoConfiguration.InitPools(poolProviders);
             _appConfig = new AppConfig(mainConfig);
             _appSceneLoader = new AppSceneLoader(currentScene);
             startUp.InitializeStartup(_monoConfiguration);
@@ -36,5 +36,16 @@ namespace Core
         private void Update() => _monoConfiguration.Update();
         
         private void FixedUpdate() => _monoConfiguration.FixedUpdate();
+        
+        private void InitPools()
+        {
+            AppObjectPools.Instance = null;
+            var objectPools = new AppObjectPools();
+            foreach (var poolProvider in poolProviders)
+            {
+                poolProvider.Init();
+                objectPools.PoolProviders[poolProvider.GetType()] = poolProvider;
+            }
+        }
     }
 }

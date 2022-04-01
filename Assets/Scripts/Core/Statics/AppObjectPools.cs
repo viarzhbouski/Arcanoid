@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using Core.ObjectPooling.Pools;
 
-namespace Core.ObjectPooling
+namespace Core.Statics
 {
-    public class ObjectPools
+    public class AppObjectPools
     {
-        public static ObjectPools Instance;
+        public static AppObjectPools Instance;
         
         public Dictionary<Type, PoolProvider> PoolProviders { get; private set; }
 
-        public ObjectPools()
+        public AppObjectPools()
         {
             if (Instance == null)
             {

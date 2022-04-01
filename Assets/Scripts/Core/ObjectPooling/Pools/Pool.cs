@@ -19,10 +19,10 @@ namespace Core.ObjectPooling.Pools
             ObjectPool.InitPool();
         }
 
-        public virtual T GetObject() => ObjectPool.GetObject();
+        public T GetObject() => ObjectPool.GetObject();
 
         public virtual void DestroyPoolObject(T obj) => ObjectPool.DestroyPoolObject(obj);
         
-        public virtual void ClearPool() => ObjectPool.ClearPool();
+        public void ClearPool() => ObjectPool.ClearPool();
     }
 }

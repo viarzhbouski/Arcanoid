@@ -31,7 +31,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         public override void DestroyBlock()
         {
-            ObjectPools.Instance.GetObjectPool<BoostBlockPool>()
+            AppObjectPools.Instance.GetObjectPool<BoostBlockPool>()
                 .DestroyPoolObject(this);
         }
 

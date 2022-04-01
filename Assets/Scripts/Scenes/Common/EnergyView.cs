@@ -79,6 +79,7 @@ namespace Scenes.Common
             {
                 if (energyValue.transform.localScale != Vector3.one)
                 {
+                    energyValue.transform.DOKill();
                     energyValue.transform.DOScale(Vector2.one, 0.2f);
                 }
             };

@@ -70,13 +70,13 @@ namespace Scenes.SceneGame.Views
                             _blocksGrid[i, j] = gameObject.AddComponent<EmptyBlockView>();
                             break;
                         case BlockTypes.Color:
-                            SetBlockTransform(ObjectPools.Instance.GetObjectPool<ColorBlockPool>().GetObject(), block, i, j);
+                            SetBlockTransform(AppObjectPools.Instance.GetObjectPool<ColorBlockPool>().GetObject(), block, i, j);
                             break;
                         case BlockTypes.Granite:
-                            SetBlockTransform(ObjectPools.Instance.GetObjectPool<GraniteBlockPool>().GetObject(), block, i, j);
+                            SetBlockTransform(AppObjectPools.Instance.GetObjectPool<GraniteBlockPool>().GetObject(), block, i, j);
                             break;
                         case BlockTypes.Boost:
-                            SetBlockTransform(ObjectPools.Instance.GetObjectPool<BoostBlockPool>().GetObject(), block, i, j);
+                            SetBlockTransform(AppObjectPools.Instance.GetObjectPool<BoostBlockPool>().GetObject(), block, i, j);
                             break;
                     }
                 }
@@ -119,7 +119,7 @@ namespace Scenes.SceneGame.Views
                     blockMono.SetBoost(new HorizontalBombBoost(_blocksGrid, i, j));
                     break;
                 case BoostTypes.CaptiveBall:
-                    blockMono.SetBoost(new CaptiveBallBoost());
+                    blockMono.SetBoost(new CaptiveBallBoost(blockMono.transform));
                     break;
                 case BoostTypes.BallAcceleration:
                     blockMono.SetBoost(new BonusBoost(new BallAccelerationBonus(blockMono.BlockColor), blockMono.transform.position));

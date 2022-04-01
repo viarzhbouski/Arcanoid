@@ -20,7 +20,9 @@ namespace ScriptableObjects
         private float winPopupDelay;
         [SerializeField]
         private float winPopupButtonsScaleSpeed;
-
+        [SerializeField]
+        private float winPopupImageScaleSpeed;
+        
         public float PausePopupDelayAfterContinue => pausePopupDelayAfterContinue;
         
         public float WinPopupProgressBarSpeed => winPopupProgressBarSpeed;
@@ -29,6 +31,8 @@ namespace ScriptableObjects
         
         public float WinPopupDelay => winPopupDelay;
         
-        public float WnPopupButtonsScaleSpeed => winPopupButtonsScaleSpeed;
+        public float WinPopupButtonsScaleSpeed => winPopupButtonsScaleSpeed;
+        
+        public float WinPopupImageScaleSpeed => winPopupImageScaleSpeed;
     }
 }

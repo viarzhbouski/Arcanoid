@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc31d9f2bda4e77a665c2fd6510edc6, type: 3}
   m_Name: BoostsConfig
   m_EditorClassIdentifier: 
-  bombExecuteDelay: 0.05
-  chainBombExecuteDelay: 0.05
+  bonusSpeed: 200
+  bombExecuteDelay: 0.15
+  chainBombExecuteDelay: 0.15
   ballCount: 2
   ballLifeTime: 10
   ballPrefab: {fileID: 3004720743688330128, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
