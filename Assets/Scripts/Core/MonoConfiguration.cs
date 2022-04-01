@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Interfaces;
 using Core.Interfaces.MVC;
-using Core.ObjectPooling;
-using Core.ObjectPooling.Pools;
 using Core.Statics;
 
 namespace Core
@@ -40,17 +38,6 @@ namespace Core
             }
             
             AppControllers.Instance.AddController(controller);
-        }
-
-        public void InitPools(List<PoolProvider> poolProviders)
-        {
-            ObjectPools.Instance = null;
-            var objectPools = new ObjectPools();
-            foreach (var poolProvider in poolProviders)
-            {
-                poolProvider.Init();
-                objectPools.PoolProviders[poolProvider.GetType()] = poolProvider;
-            }
         }
 
         public void Start()

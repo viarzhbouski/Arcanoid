@@ -38,7 +38,7 @@ namespace Scenes.SceneGame.Boosts
                 switch (block.BlockType)
                 {
                     case BlockTypes.Color:
-                        block.BlockHit();
+                        block.BlockHit(int.MaxValue - 1);
                         break;
                     case BlockTypes.Granite:
                         block.DestroyBlock();
@@ -58,7 +58,7 @@ namespace Scenes.SceneGame.Boosts
             while (_blocksQueue.Any())
             {
                 var blockBoost = _blocksQueue.Dequeue();
-                blockBoost.BlockHit();
+                blockBoost.BlockHit(int.MaxValue - 1);
             }
         }
         

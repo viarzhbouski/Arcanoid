@@ -30,13 +30,18 @@ namespace Scenes.SceneGame.Views.Popups
         [SerializeField]
         private TMP_Text packName;
         [SerializeField]
+        private Text percents;
+        [SerializeField]
         private RectTransform progressBar;
         [SerializeField]
         private RectTransform energySprite;
+        [SerializeField]
+        private ParticleSystem winEffect;
         
+        private PackConfig _nextPack;
         private LevelProgressController _levelProgressController;
         private bool _gameIsPassed;
-        
+  
         public override void Open()
         {
             var currentPackId = DataRepository.SelectedPack;
@@ -67,11 +72,13 @@ namespace Scenes.SceneGame.Views.Popups
             var currentLevel = DataRepository.SelectedLevel;
             var progressBarStep = 1f / currentPack.Levels.Count;
             var progressBarPositionX = currentLevel * progressBarStep;
-            
-            progressBar.localScale = new Vector2(progressBarPositionX, 1f);
+            var progressBarCurrentPositionX = progressBarPositionX;
+
+            percents.text = ((int)(progressBarCurrentPositionX * 100)).ToString();
+            progressBar.localScale = new Vector2(progressBarCurrentPositionX, 1f);
             progressBarPositionX += progressBarStep;
             
-            StartCoroutine(ShowProgressBar(progressBarPositionX));
+            StartCoroutine(ShowProgressBar(progressBarCurrentPositionX, progressBarPositionX));
         }
 
         private void ApplyLocalization(PackConfig currentPack)
@@ -89,9 +96,9 @@ namespace Scenes.SceneGame.Views.Popups
                 {
                     var nextPack = AppConfig.Instance.Packs[nextPackId];
                     var nextPackName = Enum.GetName(typeof(Packs), nextPack.Pack);
-                    packImage.sprite = nextPack.Image;
                     packName.text = Localization.GetFieldText(nextPackName);
                     nextLevelButtonText.text = Localization.GetFieldText(nextPackName);
+                    _nextPack = nextPack;
                 }
                 else
                 {
@@ -106,6 +113,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void BackToMenuButtonOnClick()
         {
+            DOTween.KillAll();
             transform.DOKill();
             transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(WinPopupBackToMenuOnComplete);
         }
@@ -122,6 +130,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void NextLevelButtonOnClick()
         {
+            DOTween.KillAll();
             Close(true);
             
             if (_gameIsPassed)
@@ -130,6 +139,7 @@ namespace Scenes.SceneGame.Views.Popups
                 transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(WinPopupNextLevelOnComplete);
             }
             
+            _levelProgressController.SaveProgress();
             _levelProgressController.NextLevel();
         }
 
@@ -140,21 +150,49 @@ namespace Scenes.SceneGame.Views.Popups
             InitPackProgressBar(currentPack);
         }
         
-        IEnumerator ShowProgressBar(float progressBarPositionX)
+        IEnumerator ShowProgressBar(float progressBarCurrentPositionX, float progressBarPositionX)
         {
             yield return new WaitForSeconds(AppConfig.Instance.PopupsConfig.WinPopupProgressBarDelay);
             progressBar.DOKill();
             progressBar.DOScaleX(progressBarPositionX, AppConfig.Instance.PopupsConfig.WinPopupProgressBarSpeed).onComplete += () =>
             {
-                backToMenuButton.transform.DOKill();
-                backToMenuButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
-                nextLevelButton.transform.DOKill();
-                nextLevelButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WnPopupButtonsScaleSpeed);
                 StartCoroutine(AddEnergy());
+
+                if (_nextPack != null)
+                {
+                    winEffect.Play();
+                    packImage.transform.DOKill();
+                    packImage.transform.DOScale(Vector2.zero, AppConfig.Instance.PopupsConfig.WinPopupImageScaleSpeed).SetEase(Ease.InBounce).onComplete += () =>
+                    {
+                        packImage.sprite = _nextPack.Image;
+                        packImage.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WinPopupImageScaleSpeed).SetEase(Ease.OutBounce).onComplete += () =>
+                        {
+                            backToMenuButton.transform.DOKill();
+                            backToMenuButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WinPopupButtonsScaleSpeed);
+                            nextLevelButton.transform.DOKill();
+                            nextLevelButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WinPopupButtonsScaleSpeed);
+                        };
+                    };
+                }
+                else
+                {
+                    if (_gameIsPassed)
+                    {
+                        winEffect.Play();
+                    }
+                    
+                    backToMenuButton.transform.DOKill();
+                    backToMenuButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WinPopupButtonsScaleSpeed);
+                    nextLevelButton.transform.DOKill();
+                    nextLevelButton.transform.DOScale(Vector2.one, AppConfig.Instance.PopupsConfig.WinPopupButtonsScaleSpeed);
+                }
             };
-            _levelProgressController.SaveProgress();
+            
+            var percentStart = (int)(progressBarCurrentPositionX * 100);
+            var percentEnd = (int)(progressBarPositionX * 100);
+            
+            percents.DOCounter(percentStart, percentEnd, AppConfig.Instance.PopupsConfig.WinPopupProgressBarSpeed);
         }
-        
         
         IEnumerator AddEnergy()
         {
@@ -162,6 +200,7 @@ namespace Scenes.SceneGame.Views.Popups
             {
                 yield return new WaitForSeconds(0.1f);
                 var sprite = Instantiate(energySprite, transform);
+                sprite.DOKill();
                 sprite.DOLocalJump(energyView.transform.localPosition, 1f, 1, 1f).onComplete += () =>
                 {
                     energyView.EncreaseEnergy();

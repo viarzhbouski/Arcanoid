@@ -133,7 +133,7 @@ namespace Scenes.SceneGame.Views
 
         private void SpawnBallCollisionEffect()
         {
-            var ballCollisionEffectPoolManager = ObjectPools.Instance.GetObjectPool<BallCollisionEffectPool>();;
+            var ballCollisionEffectPoolManager = AppObjectPools.Instance.GetObjectPool<BallCollisionEffectPool>();;
             var ballCollisionEffectMono = ballCollisionEffectPoolManager.GetObject();
             ballCollisionEffectMono.transform.position = transform.position;
             ballCollisionEffectPoolManager.DestroyPoolObject(ballCollisionEffectMono);

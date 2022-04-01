@@ -1,7 +1,7 @@
 ﻿using System;
 using Common.Enums;
-using Core.ObjectPooling;
 using Core.ObjectPooling.Interfaces;
+using Core.Statics;
 using DG.Tweening;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Models;
@@ -57,8 +57,8 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             
             return CanDestroy;
         }
-        
-        public virtual void BlockHitAnim()
+
+        private void BlockHitAnim()
         {
             transform.DOKill();
             transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
@@ -72,7 +72,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
                 _counted = true;
             }
 
-            var objectPool = ObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
+            var objectPool = AppObjectPools.Instance.GetObjectPool<BlockDestroyEffectPool>();
             var blockDestroyEffect = objectPool.GetObject();
             blockDestroyEffect.transform.position = transform.position;
             objectPool.DestroyPoolObject(blockDestroyEffect);
