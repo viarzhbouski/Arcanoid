@@ -139,7 +139,6 @@ namespace Scenes.SceneGame.Views.Popups
                 transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(WinPopupNextLevelOnComplete);
             }
             
-            _levelProgressController.SaveProgress();
             _levelProgressController.NextLevel();
         }
 
@@ -148,6 +147,7 @@ namespace Scenes.SceneGame.Views.Popups
             yield return new WaitForSeconds(AppConfig.Instance.PopupsConfig.WinPopupDelay);
             OpenAnim();
             InitPackProgressBar(currentPack);
+            _levelProgressController.SaveProgress();
         }
         
         IEnumerator ShowProgressBar(float progressBarCurrentPositionX, float progressBarPositionX)
