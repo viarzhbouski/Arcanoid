@@ -1526,7 +1526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0952dc9132474b1497fe0732b3c1c54d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCamera: {fileID: 519420031}
   mapPivot: {fileID: 1400564372}
   topPanel: {fileID: 783451009}
   levelText: {fileID: 1888934994}
@@ -1872,7 +1871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0537f3649f33477fb2f8deabc919f3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCamera: {fileID: 519420031}
   bordersCollider: {fileID: 1699194545}
   topPanel: {fileID: 783451009}
 --- !u!114 &1770474731 stripped

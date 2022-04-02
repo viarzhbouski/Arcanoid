@@ -26,6 +26,7 @@ namespace Scenes.Common
         {
             _restoreDuration = (int)TimeSpan.FromMinutes(AppConfig.Instance.EnergyConfig.Minutes).TotalSeconds;
             _restoring = false;
+            GameCache.SetEnergy(100);
             Load();
             StartCoroutine(Countdown());
         }

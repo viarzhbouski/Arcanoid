@@ -22,7 +22,7 @@ namespace Scenes.SceneGame.Boosts
         private void SpawnBalls()
         {
             var boostConfig = AppConfig.Instance.BoostsConfig;
-            
+            Debug.Log(boostConfig.BallCount);
             for (var i = 0; i < boostConfig.BallCount; i++)
             {
                 var ballPool = AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>();
