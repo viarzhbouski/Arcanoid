@@ -21,6 +21,8 @@ namespace Scenes.SceneGame.Models
         public Vector2 StartPosition { get; set; }
         
         public Vector2 Position { get; set; }
+        
+        public Vector2? TapPosition { get; set; }
 
         public Action OnChange { get; set; }
         

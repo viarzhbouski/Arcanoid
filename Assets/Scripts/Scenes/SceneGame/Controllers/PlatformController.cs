@@ -62,7 +62,7 @@ namespace Scenes.SceneGame.Controllers
         private void SetInputPosition(Vector2 inputPosition)
         {
             _platformModel.IsHold = true;
-            _platformModel.Position = inputPosition;
+            _platformModel.TapPosition = inputPosition;
         }
 
         public void PastePlatformOnStartPosition()

@@ -60,8 +60,16 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         private void BlockHitAnim()
         {
+            var blockPosition = transform.position;
+            
             transform.DOKill();
-            transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
+            transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce).onComplete += () =>
+            {
+                if (transform.position != blockPosition)
+                {
+                    transform.position = blockPosition;
+                }
+            };
         }
 
         private void BlockHitHandle(bool countBlock)
