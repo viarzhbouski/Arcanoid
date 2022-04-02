@@ -29,6 +29,7 @@ namespace Scenes.SceneGame.Boosts
                 var ballObject = ballPool.GetObject();
                 ballObject.transform.position = _boostBlockTransform.position;
                 ballObject.Init();
+                Debug.Log(ballObject);
             }
         }
     }

@@ -26,6 +26,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         private Rigidbody2D bonusRigidbody;
         
         private IHasBonusBoost _bonusBoost;
+        private bool _isCatched;
         
         public void Init(IHasBonusBoost bonusBoost)
         {
@@ -36,11 +37,20 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             bonusBoostCollider.enabled = true;
         }
 
+        private void Update()
+        {
+            if (!TransformHelper.ObjectAtGamefield(transform.position))
+            {
+                AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+            }
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             var platformView = collision.gameObject.GetComponent<PlatformView>();
             if (platformView)
             {
+                _isCatched = true;
                 var bonusType = _bonusBoost.GetType();
                 SetBonusObjectInvisible();
 

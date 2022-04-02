@@ -17,6 +17,8 @@ namespace Core
         private List<PoolProvider> poolProviders;
         [SerializeField]
         private BaseScene currentScene;
+        [SerializeField]
+        private Camera gameCamera;
         
         private MonoConfiguration _monoConfiguration;
         private AppConfig _appConfig;
@@ -25,6 +27,7 @@ namespace Core
         private void Awake()
         {
             InitPools();
+            mainConfig.MainCamera = gameCamera;
             _monoConfiguration = new MonoConfiguration();
             _appConfig = new AppConfig(mainConfig);
             _appSceneLoader = new AppSceneLoader(currentScene);

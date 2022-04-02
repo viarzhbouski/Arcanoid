@@ -20,18 +20,14 @@ namespace Scenes.SceneGame.Views
         private ParticleSystem ballEffect;
         [SerializeField]
         private FuryBallView furyBallView;
-        [SerializeField]
-        private Camera gameCamera;
-        
+
         private BallModel _ballModel;
         private BallController _ballController;
-
         private Vector2 _prevMovementVector;
         private Vector2 _movementVectorBeforePause;
-
         private bool _isFuryBall;
 
-        public bool IsCaptive { get; set; } = false;
+        public bool IsCaptive { get; set; }
         
         public void Bind(IModel model, IController controller)
         {
@@ -181,16 +177,12 @@ namespace Scenes.SceneGame.Views
             {
                 return;
             }
-            
-            var position = gameCamera.WorldToViewportPoint(transform.position);
 
-            if (position.x >= 0 && position.x <= 1 &&
-                position.y >= 0 && position.y <= 1)
+            if (TransformHelper.ObjectAtGamefield(transform.position))
             {
                 return;
             }
             
-            Debug.Log(111);
             if (!IsCaptive)
             {
                 _ballController.BallOutOfGameField();

@@ -72,9 +72,9 @@ namespace Scenes.SceneGame.Controllers
 
             if (_captiveBalls.Any())
             {
-                foreach (var ball in _captiveBalls)
+                for (int i = 0; i < _captiveBalls.Count; i++)
                 {
-                    ball.BallView.RenderChanges();
+                    _captiveBalls[i].BallView.RenderChanges();
                 }
             }
         }

@@ -64,7 +64,7 @@ namespace Scenes.SceneGame.Views.Popups
                 DataRepository.CurrentEnergy = currentEnergy;
                 AppControllers.Instance.GetController<LifesController>()
                     .AddExtraLife();
-                _energyView.SetEnergy();
+                _energyView.UseEnergy(AppConfig.Instance.EnergyConfig.LifeCost);
                 Close(true);
             }
             else if (!notEnoughEnergyText.gameObject.activeSelf)

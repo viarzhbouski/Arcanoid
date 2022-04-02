@@ -8,9 +8,6 @@ namespace Scenes.SceneGame.Views
 {
     public class BordersView : MonoBehaviour, IView
     {
-        [SerializeField] 
-        private Camera gameCamera;
-        
         [SerializeField]
         private EdgeCollider2D bordersCollider;
         
@@ -32,12 +29,12 @@ namespace Scenes.SceneGame.Views
 
         private void SetBorders()
         {
-            var bordersPoints = new List<Vector2>()
+            var bordersPoints = new List<Vector2>
             {
-                ResizeHelper.ResizePosition(Vector2.zero, gameCamera),
-                ResizeHelper.ResizePosition(new Vector2(Vector2.zero.x, _bordersModel.TopBorderPosition), gameCamera),
-                ResizeHelper.ResizePosition(new Vector2(Vector2.right.x, _bordersModel.TopBorderPosition), gameCamera),
-                ResizeHelper.ResizePosition(Vector2.right, gameCamera),
+                TransformHelper.ResizePosition(Vector2.zero),
+                TransformHelper.ResizePosition(new Vector2(Vector2.zero.x, _bordersModel.TopBorderPosition)),
+                TransformHelper.ResizePosition(new Vector2(Vector2.right.x, _bordersModel.TopBorderPosition)),
+                TransformHelper.ResizePosition(Vector2.right),
             };
 
             bordersCollider.SetPoints(bordersPoints);

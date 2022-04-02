@@ -73,13 +73,10 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void RestartButtonOnClick()
         {
-            restartButton.enabled = false;
-            var currentEnergy = DataRepository.CurrentEnergy;
-            currentEnergy--;
-            
-            if (currentEnergy >= 0)
+            var currentEnergy = energyView.CurrentEnergy;
+            if (currentEnergy > 0)
             {
-                DataRepository.CurrentEnergy = currentEnergy;
+                energyView.UseEnergy();
                 _lifesController.RestartLevel();
                 Close(true);
             }

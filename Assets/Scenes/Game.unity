@@ -1430,6 +1430,7 @@ MonoBehaviour:
   - {fileID: 969164569}
   - {fileID: 15933673}
   currentScene: {fileID: 2066322613}
+  gameCamera: {fileID: 519420031}
 --- !u!4 &1380058848
 Transform:
   m_ObjectHideFlags: 0
@@ -2125,8 +2126,7 @@ PrefabInstance:
       propertyPath: gameCamera
       value: 
       objectReference: {fileID: 519420031}
-    m_RemovedComponents:
-    - {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
 --- !u!1001 &3988142883746773520
 PrefabInstance:
