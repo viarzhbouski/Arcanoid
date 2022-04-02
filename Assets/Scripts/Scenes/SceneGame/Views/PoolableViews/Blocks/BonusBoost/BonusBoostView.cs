@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Core.ObjectPooling.Interfaces;
 using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
@@ -7,6 +9,11 @@ using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
 {
+    public static class BonusesTimer
+    {
+        public static readonly Dictionary<Type, float> BonusTimeDict = new Dictionary<Type, float>();
+    }
+    
     public class BonusBoostView : MonoBehaviour, IPoolable
     {
         [SerializeField]
@@ -34,8 +41,19 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             var platformView = collision.gameObject.GetComponent<PlatformView>();
             if (platformView)
             {
+                var bonusType = _bonusBoost.GetType();
                 SetBonusObjectInvisible();
-                StartCoroutine(ApplyBonusBoost());
+
+                if (!BonusesTimer.BonusTimeDict.ContainsKey(bonusType))
+                {
+                    BonusesTimer.BonusTimeDict.Add(bonusType, _bonusBoost.BonusWorkingDelay);
+                    StartCoroutine(ApplyBonusBoost());
+                }
+                else
+                {
+                    BonusesTimer.BonusTimeDict[_bonusBoost.GetType()] = _bonusBoost.BonusWorkingDelay;
+                    AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+                }
             }
         }
 
@@ -49,9 +67,20 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         IEnumerator ApplyBonusBoost()
         {
             _bonusBoost.ApplyBonusBoost();
-            yield return new WaitForSeconds(_bonusBoost.BonusWorkingDelay);
-            _bonusBoost.CancelBonusBoost();
-            AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+            var bonusType = _bonusBoost.GetType();
+            while (true)
+            {
+                yield return new WaitForSeconds(1);
+                
+                BonusesTimer.BonusTimeDict[bonusType] -= 1f;
+                if (BonusesTimer.BonusTimeDict[bonusType] <= 0)
+                {
+                    _bonusBoost.CancelBonusBoost();
+                    AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+                    BonusesTimer.BonusTimeDict.Remove(bonusType);
+                    break;
+                }
+            }
         }
 
         public GameObject GetGameObject()
