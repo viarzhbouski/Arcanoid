@@ -13,21 +13,20 @@ namespace Scenes.SceneGame.Views
         private BallView ballView;
 
         private BallController _ballController;
+
+        public BallView BallView => ballView;
         
         public void Init()
         {
             _ballController = AppControllers.Instance.GetController<BallController>();
-            _ballController.AddCaptiveBall(ballView);
+            _ballController.AddCaptiveBall(this);
             StartCoroutine(DestroyCaptiveBall());
         }
 
         IEnumerator DestroyCaptiveBall()
         {
             yield return new WaitForSeconds(AppConfig.Instance.BoostsConfig.BallLifeTime);
-            _ballController.RemoveCaptiveBall(ballView);
-            _ballController = null;
-            AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
-                            .DestroyPoolObject(this);
+            _ballController.RemoveCaptiveBall(this);
         }
 
         public GameObject GetGameObject()

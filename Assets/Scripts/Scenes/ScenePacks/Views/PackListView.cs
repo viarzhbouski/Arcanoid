@@ -27,6 +27,7 @@ namespace Scenes.ScenePacks.Views
 
         private void BackToMainMenuButtonOnClick()
         {
+            backToMainMenuButton.enabled = false;
             AppSceneLoader.Instance.LoadScene(GameScenes.MainMenu);
         }
 

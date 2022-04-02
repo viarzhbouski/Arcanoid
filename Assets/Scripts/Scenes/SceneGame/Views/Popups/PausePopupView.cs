@@ -54,6 +54,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void BackToMenuButtonOnClick()
         {
+            backToMenuButton.enabled = false;
             transform.DOKill();
             transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack).OnComplete(PausePopupOnComplete);
         }
@@ -65,11 +66,13 @@ namespace Scenes.SceneGame.Views.Popups
         
         private void ContinueButtonOnClick()
         {
+            continueButton.enabled = false;
             StartCoroutine(ContinueGame());
         } 
         
         private void RestartButtonOnClick()
         {
+            restartButton.enabled = false;
             var currentEnergy = DataRepository.CurrentEnergy;
             currentEnergy--;
             

@@ -55,6 +55,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void BuyLifeButtonOnClick()
         {
+            buyLifeButton.enabled = false;
             var currentEnergy = DataRepository.CurrentEnergy;
             currentEnergy -= AppConfig.Instance.EnergyConfig.LifeCost;
 
@@ -84,6 +85,7 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void ClosePopupButtonOnClick()
         {
+            closePopupButton.enabled = false;
             notEnoughEnergyText.gameObject.SetActive(false);
             Close(true);
         }

@@ -43,6 +43,7 @@ namespace Scenes.SceneMenu.Views
 
         private void StartOnClick()
         {
+            startButton.enabled = false;
             startButton.transform.DOKill();
             
             var currentGameProgress = GameCache.GetCurrentGameProgress();

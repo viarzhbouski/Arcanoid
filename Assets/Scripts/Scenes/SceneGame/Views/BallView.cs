@@ -1,5 +1,4 @@
-﻿using Common.Enums;
-using Core.Interfaces.MVC;
+﻿using Core.Interfaces.MVC;
 using Core.Statics;
 using Scenes.SceneGame.Controllers;
 using Scenes.SceneGame.Models;
@@ -21,6 +20,8 @@ namespace Scenes.SceneGame.Views
         private ParticleSystem furyBallEffect;
         [SerializeField]
         private ParticleSystem ballEffect;
+        [SerializeField]
+        private FuryBallView furyBallView;
         
         private BallModel _ballModel;
         private BallController _ballController;
@@ -94,6 +95,7 @@ namespace Scenes.SceneGame.Views
                 furyBallEffect.gameObject.SetActive(true);
                 ballEffect.gameObject.SetActive(false);
                 _isFuryBall = true;
+                furyBallView.CanDestroyBlocks = true;
             }
             
             if (!_ballModel.BallCanDestroyAllBlocks && _isFuryBall)
@@ -104,6 +106,7 @@ namespace Scenes.SceneGame.Views
                 furyBallEffect.gameObject.SetActive(false);
                 ballEffect.gameObject.SetActive(true);
                 _isFuryBall = false;
+                furyBallView.CanDestroyBlocks = false;
             }
         }
         
@@ -163,46 +166,34 @@ namespace Scenes.SceneGame.Views
                 return;
             }
 
-            if (_ballModel.BallCanDestroyAllBlocks && collision.collider is BoxCollider2D)
+            CorrectBallMovement();
+
+            var blockView = collision.gameObject.GetComponent<BaseBlockView>();
+
+            if (blockView != null)
             {
                 SpawnBallCollisionEffect();
-                var blockView = collision.gameObject.GetComponent<BaseBlockView>();
-                if (blockView != null)
+                var blockIsDestroyed = blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage);
+                if (blockIsDestroyed)
                 {
-                    SpawnBallCollisionEffect();
-                    blockView.BlockHit(int.MaxValue, blockView.BlockType != BlockTypes.Granite, true);
-                    ballRigidbody.velocity = _prevMovementVector;
-                }
-            }
-            else
-            {
-                CorrectBallMovement();
-
-                var blockView = collision.gameObject.GetComponent<BaseBlockView>();
-
-                if (blockView != null)
-                {
-                    SpawnBallCollisionEffect();
-                    var blockIsDestroyed = blockView.BlockHit(AppConfig.Instance.BallAndPlatform.BallDamage);
-                    if (blockIsDestroyed)
-                    {
-                        _ballModel.Speed += AppConfig.Instance.BallAndPlatform.BallSpeedEncrease;
-                    }
+                    _ballModel.Speed += AppConfig.Instance.BallAndPlatform.BallSpeedEncrease;
                 }
             }
         }
 
         private void OnTriggerEnter2D(Collider2D otherCollider)
         {
-            if (!IsCaptive)
+            if (otherCollider is EdgeCollider2D && otherCollider.isTrigger)
             {
-                _ballController.BallOutOfGameField();
-                ballTrail.enabled = false;
-            }
-            else
-            {
-                _ballController.RemoveCaptiveBall(this);
-                Destroy(gameObject);
+                if (!IsCaptive)
+                {
+                    _ballController.BallOutOfGameField();
+                    ballTrail.enabled = false;
+                }
+                else
+                {
+                    _ballController.RemoveCaptiveBall(this.GetComponent<CaptiveBallView>());
+                }
             }
         }
     }
