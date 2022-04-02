@@ -115,8 +115,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.25
+      scalar: 0.2
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -168,7 +168,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -975,7 +975,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 100
+        scalar: 50
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4873,6 +4873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2123460267}
   - component: {fileID: 2123460268}
+  - component: {fileID: 2111200367}
   m_Layer: 8
   m_Name: FuryBall
   m_TagString: FuryBall
@@ -4909,7 +4910,19 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.6
+--- !u!114 &2111200367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123460266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bdb286202f34c6496207ea0943bb6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &876480341678039154
 GameObject:
   m_ObjectHideFlags: 0
@@ -9788,7 +9801,6 @@ GameObject:
   - component: {fileID: 3363839207106457676}
   - component: {fileID: 3004720743688330128}
   - component: {fileID: 251752543}
-  - component: {fileID: 3363839207500676266}
   m_Layer: 9
   m_Name: Ball
   m_TagString: Ball
@@ -9858,7 +9870,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -9900,7 +9912,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.43
+  m_Radius: 0.305
 --- !u!114 &3363839207106457676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9918,7 +9930,7 @@ MonoBehaviour:
   ballSpriteRenderer: {fileID: 3363839207106457677}
   furyBallEffect: {fileID: 1046537343}
   ballEffect: {fileID: 7147268425240664167}
-  furyBallView: {fileID: 3363839207500676266}
+  furyBallView: {fileID: 2111200367}
 --- !u!114 &3004720743688330128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9982,7 +9994,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.8631549
+        value: 0.62088335
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -9990,14 +10002,14 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.48057356
-        value: 0.37536094
-        inSlope: -1.3149834
-        outSlope: -1.3149834
+        time: 0.5015598
+        value: 0.16402167
+        inSlope: -0.55814695
+        outSlope: -0.55814695
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.1880444
-        outWeight: 0.11439498
+        inWeight: 0.32300863
+        outWeight: 0.21900883
       - serializedVersion: 3
         time: 1
         value: 0
@@ -10048,15 +10060,3 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &3363839207500676266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3363839207106457665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bdb286202f34c6496207ea0943bb6c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

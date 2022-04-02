@@ -1,6 +1,7 @@
 ﻿using Core.Statics;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Core.Popup
 {
@@ -8,14 +9,15 @@ namespace Core.Popup
     {
         [SerializeField]
         private RectTransform popupRectTransform;
-
+        
+        public UnityAction PopupOnClose { get; set; }
         public RectTransform PopupRectTransform => popupRectTransform;
 
         public abstract void Open();
         
         protected abstract void Close(bool destroyAfterClose = false);
         
-        protected virtual void OpenAnim()
+        protected void OpenAnim()
         {
             var popupObjectTransform = gameObject.transform;
             
@@ -23,7 +25,7 @@ namespace Core.Popup
             popupObjectTransform.DOScale(Vector3.one, 0.25f);
         }
 
-        protected virtual void CloseAnim(bool destroyAfterClose)
+        protected void CloseAnim(bool destroyAfterClose)
         {
             var popupObjectTransform = gameObject.transform;
 
@@ -31,6 +33,7 @@ namespace Core.Popup
             {
                 if (destroyAfterClose)
                 {
+                    PopupOnClose?.Invoke();
                     Destroy(gameObject);
                 }
             };

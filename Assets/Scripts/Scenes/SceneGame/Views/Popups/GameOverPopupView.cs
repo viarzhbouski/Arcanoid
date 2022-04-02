@@ -104,6 +104,10 @@ namespace Scenes.SceneGame.Views.Popups
             buyLifeButton.enabled = false;
             var buyLifePopup = AppPopups.Instance.OpenPopup<BuyLifePopupView>();
             buyLifePopup.SetEnergyTimer(energyView);
+            buyLifePopup.PopupOnClose = () =>
+            {
+                buyLifeButton.enabled = true;
+            };
         }
     }
 }

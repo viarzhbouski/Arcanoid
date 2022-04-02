@@ -64,7 +64,7 @@ namespace Scenes.SceneGame.Controllers
             _generateLevelController.ReloadLevel();
             _levelProgressController.InitLevelProgressBar();
             _lifesController.LoadLifes();
-            _ballController.SetDefaultSpeed();
+            _ballController.SetDefaultBallParams();
         }
     }
 }

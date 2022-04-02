@@ -42,9 +42,18 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
             }
             else
             {
-                StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
+                if (destroyImmediately)
+                {
+                    Execute(damage, countBlock, destroyImmediately);
+                    return true;
+                }
+
+                if (gameObject.activeSelf)
+                {
+                    StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
+                }
             }
-            
+
             return CanDestroy;
         }
 

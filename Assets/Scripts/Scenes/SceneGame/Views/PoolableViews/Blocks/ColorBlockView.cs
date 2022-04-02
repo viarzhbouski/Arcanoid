@@ -53,7 +53,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         public override bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
-            if (_boost == null)
+            if (_boost == null || destroyImmediately)
             {
                 SetBlockDamage(damage);
             }

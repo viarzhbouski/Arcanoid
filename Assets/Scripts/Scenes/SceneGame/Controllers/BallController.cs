@@ -27,7 +27,7 @@ namespace Scenes.SceneGame.Controllers
             _ballView!.Bind(_ballModel, this);
             _ballModel.OnChangeHandler(ControllerOnChange);
             _ballModel.MinBounceAngle = AppConfig.Instance.BallAndPlatform.MinBounceAngle;
-            SetDefaultSpeed();
+            SetDefaultBallParams();
         }
         
         public void StartController()
@@ -48,10 +48,11 @@ namespace Scenes.SceneGame.Controllers
             _ballModel.OnChange?.Invoke();
         }
 
-        public void SetDefaultSpeed()
+        public void SetDefaultBallParams()
         {
             _ballModel.BallCanDestroyAllBlocks = false;
             _ballModel.Speed = AppConfig.Instance.BallAndPlatform.BallSpeed;
+            _ballModel.ExtraSpeed = 0;
             DestroyAllCaptiveBalls();
         }
 

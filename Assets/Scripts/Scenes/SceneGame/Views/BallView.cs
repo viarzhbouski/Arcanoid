@@ -44,6 +44,7 @@ namespace Scenes.SceneGame.Views
 
         public void RenderChanges()
         {
+            _prevMovementVector = ballRigidbody.velocity;
             ChangeBallSprite();
             if (AppPopups.Instance.ActivePopups > 0)
             {
