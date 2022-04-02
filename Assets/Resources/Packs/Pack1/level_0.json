@@ -1,80 +1,9 @@
 { 
-  "level_map": [2, 1, 1, 1, 2, 1, 2, 
+  "level_map": [2, 1, 2, 1, 2, 1, 2, 
+                2, 2, 2, 2, 2, 2, 2,
                 2, 1, 2, 1, 2, 1, 2,
                 2, 1, 2, 1, 2, 1, 2,
-                2, 1, 2, 1, 2, 1, 2,
-                2, 3, 2, 3, 1, 3, 2],
-  "level_map_properties":
-  [
-    {
-      "index": 29,
-      "attribute_boost_name": "ColorChainBomb"
-    },
-    {
-      "index": 1,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 2,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 3,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 5,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 8,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 10,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 12,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 15,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 17,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 19,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 22,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 24,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 26,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 31,
-      "attribute_boost_name": "FuryBall"
-    },
-    {
-      "index": 32,
-      "attribute_color": [0.3, 1, 0]
-    },
-    {
-      "index": 33,
-      "attribute_boost_name": "FuryBall"
-    }
-  ],
+                2, 1, 2, 1, 1, 1, 2],
   "rows": 5,
   "columns": 7
 }

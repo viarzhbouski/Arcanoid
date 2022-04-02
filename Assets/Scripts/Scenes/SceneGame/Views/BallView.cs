@@ -190,6 +190,7 @@ namespace Scenes.SceneGame.Views
                 return;
             }
             
+            Debug.Log(111);
             if (!IsCaptive)
             {
                 _ballController.BallOutOfGameField();

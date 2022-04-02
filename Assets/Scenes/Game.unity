@@ -1817,7 +1817,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1699194544}
   - component: {fileID: 1699194545}
-  - component: {fileID: 1699194547}
   - component: {fileID: 1699194546}
   m_Layer: 0
   m_Name: Borders
@@ -1874,30 +1873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 519420031}
   bordersCollider: {fileID: 1699194545}
-  bottomBorderCollider: {fileID: 1699194547}
   topPanel: {fileID: 783451009}
---- !u!68 &1699194547
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699194543}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!114 &1770474731 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3363839207106457676, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
@@ -2097,10 +2073,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2123460268, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
-      propertyPath: m_Radius
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 3363839207106457664, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2153,7 +2125,8 @@ PrefabInstance:
       propertyPath: gameCamera
       value: 
       objectReference: {fileID: 519420031}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 251752543, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
 --- !u!1001 &3988142883746773520
 PrefabInstance:
