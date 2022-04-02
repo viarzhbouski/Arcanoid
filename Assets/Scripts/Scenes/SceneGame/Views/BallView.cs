@@ -13,8 +13,6 @@ namespace Scenes.SceneGame.Views
         [SerializeField]
         private Rigidbody2D ballRigidbody;
         [SerializeField]
-        private TrailRenderer ballTrail;
-        [SerializeField]
         private SpriteRenderer ballSpriteRenderer;
         [SerializeField]
         private ParticleSystem furyBallEffect;
@@ -22,6 +20,8 @@ namespace Scenes.SceneGame.Views
         private ParticleSystem ballEffect;
         [SerializeField]
         private FuryBallView furyBallView;
+        [SerializeField]
+        private Camera gameCamera;
         
         private BallModel _ballModel;
         private BallController _ballController;
@@ -38,17 +38,18 @@ namespace Scenes.SceneGame.Views
             _ballModel = model as BallModel;
             _ballController = controller as BallController;
             _isFuryBall = false;
-            ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
             ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
         }
 
         public void RenderChanges()
         {
-            _prevMovementVector = ballRigidbody.velocity;
+            BallAtGameField();
             ChangeBallSprite();
+            
+            _prevMovementVector = ballRigidbody.velocity;
+            
             if (AppPopups.Instance.ActivePopups > 0)
             {
-                ballTrail.enabled = false;
                 if (ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
                 {
                     _movementVectorBeforePause = ballRigidbody.velocity;
@@ -79,8 +80,7 @@ namespace Scenes.SceneGame.Views
                     {
                         ballEffect.gameObject.SetActive(true);
                     }
-
-                    ballTrail.enabled = true;
+                    
                     PushBall();
                 }
             }
@@ -90,7 +90,6 @@ namespace Scenes.SceneGame.Views
         {
             if (_ballModel.BallCanDestroyAllBlocks && !_isFuryBall)
             {
-                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.FuryBallTrail;
                 ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.FuryBallSprite;
                 ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.FuryBallColor;
                 furyBallEffect.gameObject.SetActive(true);
@@ -101,7 +100,6 @@ namespace Scenes.SceneGame.Views
             
             if (!_ballModel.BallCanDestroyAllBlocks && _isFuryBall)
             {
-                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
                 ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.BallSprite;
                 ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
                 furyBallEffect.gameObject.SetActive(false);
@@ -119,11 +117,6 @@ namespace Scenes.SceneGame.Views
 
         public void PushBall()
         {
-            if (!ballTrail.enabled)
-            {
-                ballTrail.enabled = true;
-            }
-            
             if (ballRigidbody.velocity.magnitude == 0f)
             {
                 ballRigidbody.velocity = Vector2.up * _ballModel.BallSpeed;
@@ -182,19 +175,28 @@ namespace Scenes.SceneGame.Views
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D otherCollider)
+        private void BallAtGameField()
         {
-            if (otherCollider is EdgeCollider2D && otherCollider.isTrigger)
+            if (!_ballModel.IsStarted)
             {
-                if (!IsCaptive)
-                {
-                    _ballController.BallOutOfGameField();
-                    ballTrail.enabled = false;
-                }
-                else
-                {
-                    _ballController.RemoveCaptiveBall(this.GetComponent<CaptiveBallView>());
-                }
+                return;
+            }
+            
+            var position = gameCamera.WorldToViewportPoint(transform.position);
+
+            if (position.x >= 0 && position.x <= 1 &&
+                position.y >= 0 && position.y <= 1)
+            {
+                return;
+            }
+            
+            if (!IsCaptive)
+            {
+                _ballController.BallOutOfGameField();
+            }
+            else
+            {
+                _ballController.RemoveCaptiveBall(this.GetComponent<CaptiveBallView>());
             }
         }
     }

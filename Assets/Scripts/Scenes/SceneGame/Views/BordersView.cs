@@ -15,9 +15,6 @@ namespace Scenes.SceneGame.Views
         private EdgeCollider2D bordersCollider;
         
         [SerializeField]
-        private EdgeCollider2D bottomBorderCollider;
-        
-        [SerializeField]
         private RectTransform topPanel;
         
         private BordersModel _bordersModel;
@@ -42,15 +39,8 @@ namespace Scenes.SceneGame.Views
                 ResizeHelper.ResizePosition(new Vector2(Vector2.right.x, _bordersModel.TopBorderPosition), gameCamera),
                 ResizeHelper.ResizePosition(Vector2.right, gameCamera),
             };
-            
-            var bottomBordersPoints = new List<Vector2>()
-            {
-                ResizeHelper.ResizePosition(Vector2.zero, gameCamera),
-                ResizeHelper.ResizePosition(Vector2.right, gameCamera),
-            };
 
             bordersCollider.SetPoints(bordersPoints);
-            bottomBorderCollider.SetPoints(bottomBordersPoints);
         }
     }
 }

@@ -94,9 +94,12 @@ namespace Scenes.SceneGame.Controllers
 
         public void RemoveCaptiveBall(CaptiveBallView captiveBall)
         {
-            AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
-                .DestroyPoolObject(captiveBall);
-            _captiveBalls.Remove(captiveBall);
+            if (_captiveBalls.Contains(captiveBall))
+            {
+                AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
+                    .DestroyPoolObject(captiveBall);
+                _captiveBalls.Remove(captiveBall);
+            }
         }
 
         private void DestroyAllCaptiveBalls()
