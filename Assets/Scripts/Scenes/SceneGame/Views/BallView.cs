@@ -34,6 +34,7 @@ namespace Scenes.SceneGame.Views
             _ballModel = model as BallModel;
             _ballController = controller as BallController;
             _isFuryBall = false;
+            furyBallEffect.gameObject.SetActive(false);
             ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
         }
 

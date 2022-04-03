@@ -98,15 +98,23 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             var bonusType = _bonusBoost.GetType();
             while (true)
             {
-                yield return new WaitForSeconds(1);
-                
-                BonusesTimer.BonusTimeDict[bonusType] -= 1f;
-                if (BonusesTimer.BonusTimeDict[bonusType] <= 0)
+                if (!AppPopups.Instance.HasActivePopups)
                 {
-                    _bonusBoost.CancelBonusBoost();
-                    AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
-                    BonusesTimer.BonusTimeDict.Remove(bonusType);
-                    break;
+                    yield return new WaitForSeconds(1);
+                    
+                    BonusesTimer.BonusTimeDict[bonusType] -= 1f;
+                    
+                    if (BonusesTimer.BonusTimeDict[bonusType] <= 0)
+                    {
+                        _bonusBoost.CancelBonusBoost();
+                        AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+                        BonusesTimer.BonusTimeDict.Remove(bonusType);
+                        break;
+                    }
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0);
                 }
             }
         }

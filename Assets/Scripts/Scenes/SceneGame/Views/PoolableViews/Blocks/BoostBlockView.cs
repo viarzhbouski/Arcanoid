@@ -38,6 +38,11 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         public override bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
+            if (!gameObject.activeSelf)
+            {
+                return true;
+            }
+            
             if (_boost is Boosts.BonusBoost)
             {
                 StartCoroutine(Execute(damage, countBlock, destroyImmediately));
@@ -50,10 +55,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
                     return true;
                 }
 
-                if (gameObject.activeSelf)
-                {
-                    StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
-                }
+                StartCoroutine(ExecuteWithDelay(damage, countBlock, destroyImmediately));
             }
             
             return CanDestroy;

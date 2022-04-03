@@ -1,4 +1,5 @@
-﻿using Common.Enums;
+﻿using System;
+using Common.Enums;
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
@@ -101,10 +102,12 @@ namespace Scenes.SceneGame.Views.Popups
             buyLifeButton.enabled = false;
             var buyLifePopup = AppPopups.Instance.OpenPopup<BuyLifePopupView>();
             buyLifePopup.SetEnergyTimer(energyView);
-            // buyLifePopup.PopupOnClose = () =>
-            // {
-            //     buyLifeButton.enabled = true;
-            // };
+            buyLifePopup.PopupOnClose += BuyLifePopupOnPopupOnClose;
+        }
+
+        private void BuyLifePopupOnPopupOnClose(Type popupType)
+        {
+            buyLifeButton.enabled = true;
         }
     }
 }

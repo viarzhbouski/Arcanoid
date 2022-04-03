@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Core.Statics;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Scenes.Common
             {
                 _nextEnergyTime = AddDuration(DateTime.UtcNow, _restoreDuration);
             }
-
+            PlayEncreaseAnim(energy);
             UpdateTimer();
             UpdateEnergy();
             Save();
@@ -70,6 +71,22 @@ namespace Scenes.Common
                 }
                 
                 StartCoroutine(Countdown());
+            }
+        }
+
+        private void PlayEncreaseAnim(int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                energyValue.transform.DOKill();
+                energyValue.transform.DOPunchScale(new Vector2(1.01f, 1.01f), 0.1f).onComplete += () =>
+                {
+                    if (energyValue.transform.localScale != Vector3.one)
+                    {
+                        energyValue.transform.DOKill();
+                        energyValue.transform.DOScale(Vector2.one, 0.2f);
+                    }
+                };
             }
         }
 
