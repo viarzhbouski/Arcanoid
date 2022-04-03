@@ -44,7 +44,7 @@ namespace Scenes.SceneGame.Views
             
             _prevMovementVector = ballRigidbody.velocity;
             
-            if (AppPopups.Instance.ActivePopups > 0)
+            if (AppPopups.Instance.HasActivePopups)
             {
                 if (ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
                 {
@@ -133,6 +133,11 @@ namespace Scenes.SceneGame.Views
 
         private void CorrectBallMovement()
         {
+            if (ballRigidbody.bodyType == RigidbodyType2D.Static)
+            {
+                return;
+            }
+            
             var reversedPrevVector = _prevMovementVector * new Vector2(-1, -1);
             var ballVector = ballRigidbody.velocity;
             var currentAngle = Vector2.Angle(reversedPrevVector, ballVector);

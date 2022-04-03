@@ -14,9 +14,10 @@ namespace Scenes.SceneGame.Boosts
         {
             _boostBlockTransform = boostBlockTransform;
         }
+
         public void ExecuteBoost(BonusBoostView bonusBoost)
         {
-            SpawnBalls();
+             SpawnBalls();
         }
 
         private void SpawnBalls()
@@ -29,7 +30,6 @@ namespace Scenes.SceneGame.Boosts
                 var ballObject = ballPool.GetObject();
                 ballObject.transform.position = _boostBlockTransform.position;
                 ballObject.Init();
-                Debug.Log(ballObject);
             }
         }
     }

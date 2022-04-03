@@ -17,7 +17,7 @@ namespace Core.Statics
         private readonly Dictionary<Type, BasePopupView> _activePopups = new Dictionary<Type, BasePopupView>();
         public static AppPopups Instance;
 
-        public int ActivePopups => _activePopups.Count;
+        public bool HasActivePopups => _activePopups.Count > 0;
         
         private void Start()
         {

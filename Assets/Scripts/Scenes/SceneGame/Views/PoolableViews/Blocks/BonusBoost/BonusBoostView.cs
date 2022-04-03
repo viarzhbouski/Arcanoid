@@ -41,7 +41,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
 
         private void Update()
         {
-            if (AppPopups.Instance.ActivePopups > 0)
+            if (AppPopups.Instance.HasActivePopups)
             {
                 if (bonusRigidbody.bodyType == RigidbodyType2D.Dynamic)
                 {

@@ -76,11 +76,11 @@ namespace Scenes.SceneGame.Controllers
 
         private void Move()
         {
-            if (Input.touchCount > 0 && AppPopups.Instance.ActivePopups == 0)
+            if (Input.touchCount > 0 && !AppPopups.Instance.HasActivePopups)
             {
                 SetInputPosition(Input.GetTouch(0).position);
             }
-            else if (Input.GetMouseButton(0) && AppPopups.Instance.ActivePopups == 0)
+            else if (Input.GetMouseButton(0) && !AppPopups.Instance.HasActivePopups)
             {
                 SetInputPosition(Input.mousePosition);
             }
@@ -88,7 +88,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 _platformModel.IsHold = false;
                 
-                if (!_platformModel.IsStarted && AppPopups.Instance.ActivePopups == 0)
+                if (!_platformModel.IsStarted && !AppPopups.Instance.HasActivePopups)
                 {
                     _platformModel.IsStarted = true;
                 }
