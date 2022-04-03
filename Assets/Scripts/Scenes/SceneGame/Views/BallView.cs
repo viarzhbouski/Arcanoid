@@ -23,7 +23,6 @@ namespace Scenes.SceneGame.Views
 
         private BallModel _ballModel;
         private BallController _ballController;
-        private Vector2 _prevMovementVector;
         private Vector2 _movementVectorBeforePause;
         private bool _isFuryBall;
 
@@ -42,9 +41,7 @@ namespace Scenes.SceneGame.Views
         {
             BallAtGameField();
             ChangeBallSprite();
-            
-            _prevMovementVector = ballRigidbody.velocity;
-            
+
             if (AppPopups.Instance.HasActivePopups)
             {
                 if (ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
@@ -138,18 +135,24 @@ namespace Scenes.SceneGame.Views
             {
                 return;
             }
-            
-            var reversedPrevVector = _prevMovementVector * new Vector2(-1, -1);
-            var ballVector = ballRigidbody.velocity;
-            var currentAngle = Vector2.Angle(reversedPrevVector, ballVector);
 
-            if (currentAngle < _ballModel.MinBounceAngle)
+            var ballDirection = ballRigidbody.velocity.normalized;
+            var ballDirectionSignY =  Mathf.Sign(ballDirection.y);
+            var directionVertical = ballDirectionSignY * Vector2.up;
+            var currentAngleVertical = Vector2.Angle(directionVertical, ballRigidbody.velocity.normalized);
+            
+            var ballDirectionSignX =  Mathf.Sign(ballRigidbody.velocity.normalized.x);
+            var directionHorizontal = ballDirectionSignX * Vector2.right;
+            var currentAngleHorizontal = Vector2.Angle(directionHorizontal, ballRigidbody.velocity.normalized);
+            var angle = Quaternion.Euler(0, 0, _ballModel.MinBounceAngle); 
+            
+            if (currentAngleVertical < _ballModel.MinBounceAngle)
             {
-                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle, 0));
-                var x = ballVector.x * Mathf.Cos(angleVector.x) - ballVector.y * Mathf.Sin(angleVector.x);
-                var y = ballVector.y * Mathf.Cos(angleVector.x) + ballVector.x * Mathf.Sin(angleVector.x);
-                var newBallVector = new Vector2(x, y);
-                ballRigidbody.velocity = newBallVector;
+                ballRigidbody.velocity = angle * directionVertical * _ballModel.BallSpeed;
+            }
+            else if (currentAngleHorizontal < _ballModel.MinBounceAngle)
+            {
+                ballRigidbody.velocity = angle * directionHorizontal * _ballModel.BallSpeed;
             }
         }
         

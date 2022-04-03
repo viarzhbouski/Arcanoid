@@ -22,15 +22,14 @@ namespace Scenes.Common
         private bool _restoring;
         
         public RectTransform LogoTransform => logoTransform;
-        public int CurrentEnergy { get; set; }
         
+        public int CurrentEnergy { get; set; }
 
         private void Start()
         {
             _restoreDuration = (int)TimeSpan.FromMinutes(AppConfig.Instance.EnergyConfig.Minutes).TotalSeconds;
             _restoring = false;
             Load();
-            CurrentEnergy = 100;
             StartCoroutine(Countdown());
         }
 
