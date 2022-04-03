@@ -13,8 +13,6 @@ namespace Scenes.SceneGame.Views
         [SerializeField]
         private Rigidbody2D ballRigidbody;
         [SerializeField]
-        private TrailRenderer ballTrail;
-        [SerializeField]
         private SpriteRenderer ballSpriteRenderer;
         [SerializeField]
         private ParticleSystem furyBallEffect;
@@ -22,32 +20,30 @@ namespace Scenes.SceneGame.Views
         private ParticleSystem ballEffect;
         [SerializeField]
         private FuryBallView furyBallView;
-        
+
         private BallModel _ballModel;
         private BallController _ballController;
-
-        private Vector2 _prevMovementVector;
         private Vector2 _movementVectorBeforePause;
-
         private bool _isFuryBall;
 
-        public bool IsCaptive { get; set; } = false;
+        public bool IsCaptive { get; set; }
         
         public void Bind(IModel model, IController controller)
         {
             _ballModel = model as BallModel;
             _ballController = controller as BallController;
             _isFuryBall = false;
-            ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
+            furyBallEffect.gameObject.SetActive(false);
             ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
         }
 
         public void RenderChanges()
         {
+            BallAtGameField();
             ChangeBallSprite();
-            if (AppPopups.Instance.ActivePopups > 0)
+
+            if (AppPopups.Instance.HasActivePopups)
             {
-                ballTrail.enabled = false;
                 if (ballRigidbody.bodyType == RigidbodyType2D.Dynamic)
                 {
                     _movementVectorBeforePause = ballRigidbody.velocity;
@@ -78,8 +74,7 @@ namespace Scenes.SceneGame.Views
                     {
                         ballEffect.gameObject.SetActive(true);
                     }
-
-                    ballTrail.enabled = true;
+                    
                     PushBall();
                 }
             }
@@ -89,7 +84,6 @@ namespace Scenes.SceneGame.Views
         {
             if (_ballModel.BallCanDestroyAllBlocks && !_isFuryBall)
             {
-                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.FuryBallTrail;
                 ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.FuryBallSprite;
                 ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.FuryBallColor;
                 furyBallEffect.gameObject.SetActive(true);
@@ -100,7 +94,6 @@ namespace Scenes.SceneGame.Views
             
             if (!_ballModel.BallCanDestroyAllBlocks && _isFuryBall)
             {
-                ballTrail.colorGradient = AppConfig.Instance.BallAndPlatform.BallTrail;
                 ballSpriteRenderer.sprite = AppConfig.Instance.BallAndPlatform.BallSprite;
                 ballSpriteRenderer.color = AppConfig.Instance.BallAndPlatform.BallColor;
                 furyBallEffect.gameObject.SetActive(false);
@@ -118,11 +111,6 @@ namespace Scenes.SceneGame.Views
 
         public void PushBall()
         {
-            if (!ballTrail.enabled)
-            {
-                ballTrail.enabled = true;
-            }
-            
             if (ballRigidbody.velocity.magnitude == 0f)
             {
                 ballRigidbody.velocity = Vector2.up * _ballModel.BallSpeed;
@@ -143,17 +131,28 @@ namespace Scenes.SceneGame.Views
 
         private void CorrectBallMovement()
         {
-            var reversedPrevVector = _prevMovementVector * new Vector2(-1, -1);
-            var ballVector = ballRigidbody.velocity;
-            var currentAngle = Vector2.Angle(reversedPrevVector, ballVector);
-
-            if (currentAngle < _ballModel.MinBounceAngle)
+            if (ballRigidbody.bodyType == RigidbodyType2D.Static)
             {
-                var angleVector = Quaternion.Euler(new Vector2(_ballModel.MinBounceAngle, 0));
-                var x = ballVector.x * Mathf.Cos(angleVector.x) - ballVector.y * Mathf.Sin(angleVector.x);
-                var y = ballVector.y * Mathf.Cos(angleVector.x) + ballVector.x * Mathf.Sin(angleVector.x);
-                var newBallVector = new Vector2(x, y);
-                ballRigidbody.velocity = newBallVector;
+                return;
+            }
+
+            var ballDirection = ballRigidbody.velocity.normalized;
+            var ballDirectionSignY =  Mathf.Sign(ballDirection.y);
+            var directionVertical = ballDirectionSignY * Vector2.up;
+            var currentAngleVertical = Vector2.Angle(directionVertical, ballRigidbody.velocity.normalized);
+            
+            var ballDirectionSignX =  Mathf.Sign(ballRigidbody.velocity.normalized.x);
+            var directionHorizontal = ballDirectionSignX * Vector2.right;
+            var currentAngleHorizontal = Vector2.Angle(directionHorizontal, ballRigidbody.velocity.normalized);
+            var angle = Quaternion.Euler(0, 0, _ballModel.MinBounceAngle); 
+            
+            if (currentAngleVertical < _ballModel.MinBounceAngle)
+            {
+                ballRigidbody.velocity = angle * directionVertical * _ballModel.BallSpeed;
+            }
+            else if (currentAngleHorizontal < _ballModel.MinBounceAngle)
+            {
+                ballRigidbody.velocity = angle * directionHorizontal * _ballModel.BallSpeed;
             }
         }
         
@@ -181,19 +180,25 @@ namespace Scenes.SceneGame.Views
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D otherCollider)
+        private void BallAtGameField()
         {
-            if (otherCollider is EdgeCollider2D && otherCollider.isTrigger)
+            if (!_ballModel.IsStarted)
             {
-                if (!IsCaptive)
-                {
-                    _ballController.BallOutOfGameField();
-                    ballTrail.enabled = false;
-                }
-                else
-                {
-                    _ballController.RemoveCaptiveBall(this.GetComponent<CaptiveBallView>());
-                }
+                return;
+            }
+
+            if (TransformHelper.ObjectAtGamefield(transform.position))
+            {
+                return;
+            }
+            
+            if (!IsCaptive)
+            {
+                _ballController.BallOutOfGameField();
+            }
+            else
+            {
+                _ballController.RemoveCaptiveBall(this.GetComponent<CaptiveBallView>());
             }
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
 using Scenes.SceneGame.Models;
@@ -53,7 +52,7 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         public override bool BlockHit(int damage = 1, bool countBlock = true, bool destroyImmediately = false)
         {
-            if (_boost == null)
+            if (_boost == null || destroyImmediately)
             {
                 SetBlockDamage(damage);
             }
@@ -77,6 +76,11 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         
         IEnumerator Execute(int damage)
         {
+            while (AppPopups.Instance.HasActivePopups)
+            {
+                yield return new WaitForSeconds(0);
+            }
+            
             yield return new WaitForSeconds(AppConfig.Instance.BoostsConfig.ChainBombExecuteDelay);
             SetBlockDamage(damage);
             _boost.ExecuteBoost();

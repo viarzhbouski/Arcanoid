@@ -3,6 +3,7 @@ using Common.Enums;
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
+using Scenes.Common;
 using Scenes.SceneGame.Controllers;
 using TMPro;
 using UnityEngine;
@@ -26,6 +27,8 @@ namespace Scenes.SceneGame.Views.Popups
         private TMP_Text backToMenuButtonText;
         [SerializeField]
         private TMP_Text notEnoughEnergyText;
+        [SerializeField]
+        private EnergyView energyView;
         
         private PauseGameController _pauseGameController;
 
@@ -39,7 +42,7 @@ namespace Scenes.SceneGame.Views.Popups
             continueButton.onClick.AddListener(ContinueButtonOnClick);
         }
 
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }
@@ -73,12 +76,11 @@ namespace Scenes.SceneGame.Views.Popups
         private void RestartButtonOnClick()
         {
             restartButton.enabled = false;
-            var currentEnergy = DataRepository.CurrentEnergy;
-            currentEnergy--;
             
-            if (currentEnergy >= 0)
+            var currentEnergy = energyView.CurrentEnergy;
+            if (currentEnergy > 0)
             {
-                DataRepository.CurrentEnergy = currentEnergy;
+                energyView.UseEnergy();
                 _pauseGameController.RestartLevel();
                 Close(true);
             }

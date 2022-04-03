@@ -57,7 +57,7 @@ namespace Scenes.SceneGame.Views.Popups
             StartCoroutine(OpenWithDelay(currentPack));
         }
 
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }
@@ -205,7 +205,7 @@ namespace Scenes.SceneGame.Views.Popups
                 sprite.DOKill();
                 sprite.DOJump(energyView.LogoTransform.position, 1f, 1, 1f).onComplete += () =>
                 {
-                    energyView.EncreaseEnergy();
+                    energyView.AddEnergy(AppConfig.Instance.EnergyConfig.EnergyPerPeriod);
                     Destroy(sprite.gameObject);
                 };
             }

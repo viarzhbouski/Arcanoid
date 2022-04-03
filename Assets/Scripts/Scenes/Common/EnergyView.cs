@@ -15,98 +15,160 @@ namespace Scenes.Common
         private TMP_Text timerText;
         [SerializeField]
         private RectTransform logoTransform;
-
+        
+        private DateTime _nextEnergyTime;
+        private DateTime _lastAddedTime;
+        private int _restoreDuration;
+        private bool _restoring;
+        
         public RectTransform LogoTransform => logoTransform;
         
-        private int _seconds;
+        public int CurrentEnergy { get; set; }
 
         private void Start()
         {
-            _seconds = (int)TimeSpan.FromMinutes(AppConfig.Instance.EnergyConfig.Minutes).TotalSeconds;
-
-            if (!DataRepository.IsStarted)
-            {
-                var lastSession = GameCache.GetLastSessionTime();
-                var currentSession = DateTime.UtcNow;
-                var minutes = (currentSession - lastSession).TotalMinutes;
-                var energy = minutes > AppConfig.Instance.EnergyConfig.Minutes ? (int)Math.Floor(minutes * AppConfig.Instance.EnergyConfig.EnergyPerPeriod) : 0;
-                var currentEnergy = GameCache.GetCurrentEnergy();
-                if (currentEnergy < AppConfig.Instance.EnergyConfig.MaxEnergy)
-                {
-                    energy += currentEnergy;
-                    currentEnergy = energy < AppConfig.Instance.EnergyConfig.MaxEnergy
-                        ? energy
-                        : AppConfig.Instance.EnergyConfig.MaxEnergy;
-                }
-                
-                DataRepository.IsStarted = true;
-                DataRepository.CurrentEnergy = currentEnergy;
-                DataRepository.CurrentTime = _seconds;
-            }
-            
-            energyValue.text = $"{DataRepository.CurrentEnergy}/{AppConfig.Instance.EnergyConfig.MaxEnergy}";
-            
-            UpdateTimer();
+            _restoreDuration = (int)TimeSpan.FromMinutes(AppConfig.Instance.EnergyConfig.Minutes).TotalSeconds;
+            _restoring = false;
+            Load();
             StartCoroutine(Countdown());
         }
 
-        IEnumerator Countdown()
+        public void AddEnergy(int energy = 1)
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(1);
-                if (DataRepository.CurrentEnergy < AppConfig.Instance.EnergyConfig.MaxEnergy)
-                {
-                    DataRepository.CurrentTime--;
+            CurrentEnergy += energy;
 
-                    UpdateTimer();
-                    
-                    if (DataRepository.CurrentTime == 0)
-                    {
-                        DataRepository.CurrentEnergy++;
-                        DataRepository.CurrentTime = _seconds;
-                        SetEnergy();
-                    }
-                }
+            if (CurrentEnergy >= AppConfig.Instance.EnergyConfig.MaxEnergy)
+            {
+                _nextEnergyTime = AddDuration(DateTime.UtcNow, _restoreDuration);
             }
+            PlayEncreaseAnim(energy);
+            UpdateTimer();
+            UpdateEnergy();
+            Save();
         }
         
-        public void EncreaseEnergy()
+        public void UseEnergy(int energy = 1)
         {
-            DataRepository.CurrentEnergy++;
-            if (DataRepository.CurrentEnergy >= AppConfig.Instance.EnergyConfig.MaxEnergy)
+            if (CurrentEnergy == 0)
             {
-                DataRepository.CurrentTime = _seconds;
-                UpdateTimer();
+                return;
             }
-            
-            SetEnergy();
-        }
 
-        public void SetEnergy()
-        {
-            energyValue.transform.DOKill();
-            energyValue.transform.DOPunchScale(new Vector2(1.01f, 1.01f), 0.1f).onComplete += () =>
+            CurrentEnergy -= energy;
+            UpdateEnergy();
+            if (CurrentEnergy >= AppConfig.Instance.EnergyConfig.MaxEnergy)
             {
-                if (energyValue.transform.localScale != Vector3.one)
+                Save();
+                return;
+            }
+
+            if (!_restoring)
+            {
+                if (CurrentEnergy + 1 == AppConfig.Instance.EnergyConfig.MaxEnergy)
                 {
-                    energyValue.transform.DOKill();
-                    energyValue.transform.DOScale(Vector2.one, 0.2f);
+                    _nextEnergyTime = AddDuration(DateTime.UtcNow, _restoreDuration);
                 }
-            };
-            energyValue.text = $"{DataRepository.CurrentEnergy}/{AppConfig.Instance.EnergyConfig.MaxEnergy}";
+                
+                StartCoroutine(Countdown());
+            }
         }
 
-        private void OnApplicationQuit()
+        private void PlayEncreaseAnim(int count)
         {
-            GameCache.SetLastSessionTime();
-            GameCache.SetCurrentEnergy(DataRepository.CurrentEnergy);
+            for (var i = 0; i < count; i++)
+            {
+                energyValue.transform.DOKill();
+                energyValue.transform.DOPunchScale(new Vector2(1.01f, 1.01f), 0.1f).onComplete += () =>
+                {
+                    if (energyValue.transform.localScale != Vector3.one)
+                    {
+                        energyValue.transform.DOKill();
+                        energyValue.transform.DOScale(Vector2.one, 0.2f);
+                    }
+                };
+            }
+        }
+
+        private IEnumerator Countdown()
+        {
+            UpdateTimer();
+            UpdateEnergy();
+            
+            while (CurrentEnergy < AppConfig.Instance.EnergyConfig.MaxEnergy)
+            {
+                var currentTime = DateTime.UtcNow;
+                var counter = _nextEnergyTime;
+                var isAdding = false;
+                
+                while (currentTime > counter)
+                {
+                    if (CurrentEnergy < AppConfig.Instance.EnergyConfig.MaxEnergy)
+                    {
+                        CurrentEnergy++;
+                        isAdding = true;
+                        var timeToAdd = _lastAddedTime > counter ? _lastAddedTime : counter;
+                        counter = AddDuration(timeToAdd, _restoreDuration);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (isAdding)
+                {
+                    _lastAddedTime = DateTime.UtcNow;
+                    _nextEnergyTime = counter;
+                }
+
+                UpdateTimer();
+                UpdateEnergy();
+                Save();
+                yield return null;
+            }
         }
 
         private void UpdateTimer()
         {
-            var time = TimeSpan.FromSeconds(DataRepository.CurrentTime);
-            timerText.text = time.ToString(@"mm\:ss");
+            if (CurrentEnergy >= AppConfig.Instance.EnergyConfig.MaxEnergy)
+            {
+                _nextEnergyTime = AddDuration(DateTime.UtcNow, _restoreDuration);
+            }
+            
+            var timer = _nextEnergyTime - DateTime.UtcNow;
+            var value = $"{timer.Minutes:D2}:{timer.Seconds:D2}";
+
+            timerText.text = value;
+        }
+
+        private void UpdateEnergy()
+        {
+            var value = $"{CurrentEnergy}/{AppConfig.Instance.EnergyConfig.MaxEnergy}";
+            energyValue.text = value;
+        }
+
+        private DateTime AddDuration(DateTime time, int duration)
+        {
+            return time.AddSeconds(duration);
+        }
+
+        private void Load()
+        {
+            CurrentEnergy = GameCache.GetEnergy();
+            _nextEnergyTime = GameCache.GetNextEnergyTime();
+            _lastAddedTime = GameCache.GetEnergyLastAddedTime();
+
+            if (CurrentEnergy >= AppConfig.Instance.EnergyConfig.MaxEnergy)
+            {
+                _nextEnergyTime = AddDuration(DateTime.UtcNow, _restoreDuration);
+            }
+        }
+
+        private void Save()
+        {
+            GameCache.SetEnergy(CurrentEnergy);
+            GameCache.SetNextEnergyTime(_nextEnergyTime);
+            GameCache.SetEnergyLastAddedTime(_lastAddedTime);
         }
     }
 }

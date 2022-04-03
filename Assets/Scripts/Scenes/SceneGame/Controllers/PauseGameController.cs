@@ -4,6 +4,7 @@ using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views;
+using Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -58,13 +59,14 @@ namespace Scenes.SceneGame.Controllers
         
         public void RestartLevel()
         {
+            BonusesTimer.BonusTimeDict.Clear();
             ClearBlockPools();
             _platformController.IsStarted(false);
             _platformController.PastePlatformOnStartPosition();
             _generateLevelController.ReloadLevel();
             _levelProgressController.InitLevelProgressBar();
             _lifesController.LoadLifes();
-            _ballController.SetDefaultSpeed();
+            _ballController.SetDefaultBallParams();
         }
     }
 }

@@ -61,11 +61,8 @@ namespace Core.ObjectPooling
             for (var i = 0; i < _objectTransform.childCount; i++)
             {
                 var poolObject = _objectTransform.GetChild(i);
-                if (poolObject.gameObject.activeSelf)
-                {
-                    poolObject.gameObject.SetActive(false);
-                    _poolStack.Push(poolObject.GetComponent<T>());
-                }
+                poolObject.gameObject.SetActive(false);
+                _poolStack.Push(poolObject.GetComponent<T>());
             }
         }
         

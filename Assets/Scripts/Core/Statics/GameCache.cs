@@ -11,8 +11,9 @@ namespace Core.Statics
     {
         private const string CurrentLocalization = "currentLocalization";
         private const string CurrentGameProgress = "currentGameProgress";
-        private const string LastSessionTime = "lastSessionTime";
-        private const string CurrentEnergy = "currentEnergy";
+        private const string TotalEnergy = "totalEnergy";
+        private const string NextEnergyTime = "nextEnergyTime";
+        private const string EnergyLastAddedTime = "lastAddedTime";
 
         public static GameProgress GetCurrentGameProgress()
         {
@@ -35,26 +36,22 @@ namespace Core.Statics
         }
         
         public static void SetLocalization(LocaleLanguages localeLanguage) => PlayerPrefs.SetInt(CurrentLocalization, (int)localeLanguage);
+
+        public static void SetEnergy(int energy) => PlayerPrefs.SetInt(TotalEnergy, energy);
+        public static int GetEnergy() => PlayerPrefs.GetInt(TotalEnergy, AppConfig.Instance.EnergyConfig.MaxEnergy);
+        public static void SetNextEnergyTime(DateTime date) => PlayerPrefs.SetString(NextEnergyTime, date.ToString(CultureInfo.CurrentCulture));
+        public static DateTime GetNextEnergyTime() => StringToDate(PlayerPrefs.GetString(NextEnergyTime));
+        public static void SetEnergyLastAddedTime(DateTime date) => PlayerPrefs.SetString(EnergyLastAddedTime, date.ToString(CultureInfo.CurrentCulture));
+        public static DateTime GetEnergyLastAddedTime() => StringToDate(PlayerPrefs.GetString(EnergyLastAddedTime));
         
-        public static DateTime GetLastSessionTime()
+        private static DateTime StringToDate(string date)
         {
-            var lastSession = PlayerPrefs.GetString(LastSessionTime);
-            if (string.IsNullOrEmpty(lastSession))
+            if (string.IsNullOrEmpty(date))
             {
                 return DateTime.UtcNow;
             }
-
-            return DateTime.Parse(lastSession);
+            
+            return DateTime.Parse(date);
         }
-
-        public static int GetCurrentEnergy() => PlayerPrefs.GetInt(CurrentEnergy, AppConfig.Instance.EnergyConfig.MaxEnergy);
-        
-        public static void SetLastSessionTime()
-        {
-            var currentSession = DateTime.UtcNow.ToString(CultureInfo.CurrentCulture);
-            PlayerPrefs.SetString(LastSessionTime, currentSession);
-        }
-
-        public static void SetCurrentEnergy(int energy) => PlayerPrefs.SetInt(CurrentEnergy, energy);
     }
 }

@@ -770,6 +770,7 @@ MonoBehaviour:
   backToMainMenuButton: {fileID: 575976994}
   contentTransform: {fileID: 266281357}
   packPrefab: {fileID: 1768504048489102285, guid: 5a1bd4db216648943b4ebfe07849538a, type: 3}
+  energyView: {fileID: 1808554687}
 --- !u!1 &1477294010
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +966,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1808554687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3728755374739940780, guid: bc6617c40e1491240b4a08994eabf9c0, type: 3}
+  m_PrefabInstance: {fileID: 2042421244}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5d0b623b0ca4d47ac21a467e2885bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2042421244
 PrefabInstance:
   m_ObjectHideFlags: 0

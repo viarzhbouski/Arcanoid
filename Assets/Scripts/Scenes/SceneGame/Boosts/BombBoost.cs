@@ -20,7 +20,9 @@ namespace Scenes.SceneGame.Boosts
             _blocksQueue = new Queue<BoostBlockView>();
             FillNeighbourBlocks(blockGridPositionX, blockGridPositionY);
         }
-        
+
+        public bool BoostIsExecuted { get; set; }
+
         public void ExecuteBoost(BonusBoostView bonusBoost)
         {
             DestroyNeighbours();

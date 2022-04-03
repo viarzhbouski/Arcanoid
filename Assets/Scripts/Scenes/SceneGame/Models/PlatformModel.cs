@@ -21,6 +21,8 @@ namespace Scenes.SceneGame.Models
         public Vector2 StartPosition { get; set; }
         
         public Vector2 Position { get; set; }
+        
+        public Vector2? TapPosition { get; set; }
 
         public Action OnChange { get; set; }
         
@@ -31,6 +33,8 @@ namespace Scenes.SceneGame.Models
         public float PlatformSize => Size + ExtraSize;
         
         public bool SizeNeedChange { get; set; }
+        
+        public bool PlatformOnStart { get; set; }
 
         public void OnChangeHandler(Action onChange)
         {

@@ -21,7 +21,7 @@ namespace Scenes.SceneGame.Boosts
             _blocksQueue = new Queue<BoostBlockView>();
             FillVerticalBlocks(blockGridPositionX, blockGridPositionY);
         }
-        
+
         public void ExecuteBoost(BonusBoostView bonusBoost)
         {
             DestroyVerticalBlocks();

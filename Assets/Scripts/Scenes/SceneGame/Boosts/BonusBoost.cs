@@ -16,7 +16,7 @@ namespace Scenes.SceneGame.Boosts
             _bonusBoost = bonusBoost;
             _blockPosition = blockPosition;
         }
-        
+
         public void ExecuteBoost(BonusBoostView bonusBoostView)
         {
             var bonusBoostPool = AppObjectPools.Instance.GetObjectPool<BonusBoostPool>();

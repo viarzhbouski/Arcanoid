@@ -6,6 +6,7 @@ using Core.Statics;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views;
+using UnityEngine;
 
 namespace Scenes.SceneGame.Controllers
 {
@@ -27,7 +28,7 @@ namespace Scenes.SceneGame.Controllers
             _ballView!.Bind(_ballModel, this);
             _ballModel.OnChangeHandler(ControllerOnChange);
             _ballModel.MinBounceAngle = AppConfig.Instance.BallAndPlatform.MinBounceAngle;
-            SetDefaultSpeed();
+            SetDefaultBallParams();
         }
         
         public void StartController()
@@ -48,10 +49,11 @@ namespace Scenes.SceneGame.Controllers
             _ballModel.OnChange?.Invoke();
         }
 
-        public void SetDefaultSpeed()
+        public void SetDefaultBallParams()
         {
             _ballModel.BallCanDestroyAllBlocks = false;
             _ballModel.Speed = AppConfig.Instance.BallAndPlatform.BallSpeed;
+            _ballModel.ExtraSpeed = 0;
             DestroyAllCaptiveBalls();
         }
 
@@ -71,9 +73,9 @@ namespace Scenes.SceneGame.Controllers
 
             if (_captiveBalls.Any())
             {
-                foreach (var ball in _captiveBalls)
+                for (int i = 0; i < _captiveBalls.Count; i++)
                 {
-                    ball.BallView.RenderChanges();
+                    _captiveBalls[i].BallView.RenderChanges();
                 }
             }
         }
@@ -93,9 +95,12 @@ namespace Scenes.SceneGame.Controllers
 
         public void RemoveCaptiveBall(CaptiveBallView captiveBall)
         {
-            AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
-                .DestroyPoolObject(captiveBall);
-            _captiveBalls.Remove(captiveBall);
+            if (_captiveBalls.Contains(captiveBall))
+            {
+                AppObjectPools.Instance.GetObjectPool<CaptiveBallPool>()
+                    .DestroyPoolObject(captiveBall);
+                _captiveBalls.Remove(captiveBall);
+            }
         }
 
         private void DestroyAllCaptiveBalls()

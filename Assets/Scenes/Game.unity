@@ -1430,6 +1430,7 @@ MonoBehaviour:
   - {fileID: 969164569}
   - {fileID: 15933673}
   currentScene: {fileID: 2066322613}
+  gameCamera: {fileID: 519420031}
 --- !u!4 &1380058848
 Transform:
   m_ObjectHideFlags: 0
@@ -1525,7 +1526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0952dc9132474b1497fe0732b3c1c54d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCamera: {fileID: 519420031}
   mapPivot: {fileID: 1400564372}
   topPanel: {fileID: 783451009}
   levelText: {fileID: 1888934994}
@@ -1817,7 +1817,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1699194544}
   - component: {fileID: 1699194545}
-  - component: {fileID: 1699194547}
   - component: {fileID: 1699194546}
   m_Layer: 0
   m_Name: Borders
@@ -1872,32 +1871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0537f3649f33477fb2f8deabc919f3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCamera: {fileID: 519420031}
   bordersCollider: {fileID: 1699194545}
-  bottomBorderCollider: {fileID: 1699194547}
   topPanel: {fileID: 783451009}
---- !u!68 &1699194547
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699194543}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!114 &1770474731 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3363839207106457676, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
@@ -2090,23 +2065,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2111200366 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2123460266, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
-  m_PrefabInstance: {fileID: 3363839207500676263}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2111200367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111200366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bdb286202f34c6496207ea0943bb6c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3363839207500676263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2114,10 +2072,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2123460266, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3363839207106457664, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2166,12 +2120,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
-    - target: {fileID: 3363839207106457676, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
-      propertyPath: furyBallView
-      value: 
-      objectReference: {fileID: 2111200367}
-    m_RemovedComponents:
-    - {fileID: 3363839207500676266, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
 --- !u!1001 &3988142883746773520
 PrefabInstance:
@@ -2180,6 +2129,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3988142884228993654, guid: 3342caeda843cb24492aa164a6e3f086, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3988142884440098176, guid: 3342caeda843cb24492aa164a6e3f086, type: 3}
       propertyPath: m_Name
       value: Platform

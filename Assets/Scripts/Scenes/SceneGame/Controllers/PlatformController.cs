@@ -62,21 +62,25 @@ namespace Scenes.SceneGame.Controllers
         private void SetInputPosition(Vector2 inputPosition)
         {
             _platformModel.IsHold = true;
-            _platformModel.Position = inputPosition;
+            _platformModel.TapPosition = inputPosition;
         }
 
         public void PastePlatformOnStartPosition()
         {
             _platformModel.Position = _platformModel.StartPosition;
+            _platformModel.PlatformOnStart = false;
+            _platformModel.SizeNeedChange = true;
+            _platformModel.ExtraSize = 0;
+            _platformModel.ExtraSpeed = 0;
         }
 
         private void Move()
         {
-            if (Input.touchCount > 0 && AppPopups.Instance.ActivePopups == 0)
+            if (Input.touchCount > 0 && !AppPopups.Instance.HasActivePopups)
             {
                 SetInputPosition(Input.GetTouch(0).position);
             }
-            else if (Input.GetMouseButton(0) && AppPopups.Instance.ActivePopups == 0)
+            else if (Input.GetMouseButton(0) && !AppPopups.Instance.HasActivePopups)
             {
                 SetInputPosition(Input.mousePosition);
             }
@@ -84,7 +88,7 @@ namespace Scenes.SceneGame.Controllers
             {
                 _platformModel.IsHold = false;
                 
-                if (!_platformModel.IsStarted && AppPopups.Instance.ActivePopups == 0)
+                if (!_platformModel.IsStarted && !AppPopups.Instance.HasActivePopups)
                 {
                     _platformModel.IsStarted = true;
                 }
