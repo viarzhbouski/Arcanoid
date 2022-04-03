@@ -45,7 +45,7 @@ namespace Scenes.SceneGame.Views.Popups
             _lifesController = AppControllers.Instance.GetController<LifesController>();
         }
         
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }
@@ -101,10 +101,10 @@ namespace Scenes.SceneGame.Views.Popups
             buyLifeButton.enabled = false;
             var buyLifePopup = AppPopups.Instance.OpenPopup<BuyLifePopupView>();
             buyLifePopup.SetEnergyTimer(energyView);
-            buyLifePopup.PopupOnClose = () =>
-            {
-                buyLifeButton.enabled = true;
-            };
+            // buyLifePopup.PopupOnClose = () =>
+            // {
+            //     buyLifeButton.enabled = true;
+            // };
         }
     }
 }

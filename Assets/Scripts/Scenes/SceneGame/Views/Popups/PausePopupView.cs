@@ -42,7 +42,7 @@ namespace Scenes.SceneGame.Views.Popups
             continueButton.onClick.AddListener(ContinueButtonOnClick);
         }
 
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }

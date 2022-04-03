@@ -41,7 +41,7 @@ namespace Scenes.SceneGame.Views.Popups
             _energyView = energyView;
         }
         
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }
@@ -56,16 +56,16 @@ namespace Scenes.SceneGame.Views.Popups
         private void BuyLifeButtonOnClick()
         {
             buyLifeButton.enabled = false;
-            var currentEnergy = DataRepository.CurrentEnergy;
+            var currentEnergy = _energyView.CurrentEnergy;
             currentEnergy -= AppConfig.Instance.EnergyConfig.LifeCost;
 
             if (currentEnergy >= 0)
             {
-                DataRepository.CurrentEnergy = currentEnergy;
                 AppControllers.Instance.GetController<LifesController>()
                     .AddExtraLife();
                 _energyView.UseEnergy(AppConfig.Instance.EnergyConfig.LifeCost);
                 Close(true);
+                AppPopups.Instance.ClosePopup<GameOverPopupView>();
             }
             else if (!notEnoughEnergyText.gameObject.activeSelf)
             {

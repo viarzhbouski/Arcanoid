@@ -57,7 +57,7 @@ namespace Scenes.SceneGame.Views.Popups
             StartCoroutine(OpenWithDelay(currentPack));
         }
 
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }

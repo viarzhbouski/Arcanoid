@@ -17,6 +17,7 @@ namespace Scenes.Common
 
         public RectTransform LogoTransform => logoTransform;
         public int CurrentEnergy { get; set; }
+        
         private DateTime _nextEnergyTime;
         private DateTime _lastAddedTime;
         private int _restoreDuration;
@@ -26,7 +27,6 @@ namespace Scenes.Common
         {
             _restoreDuration = (int)TimeSpan.FromMinutes(AppConfig.Instance.EnergyConfig.Minutes).TotalSeconds;
             _restoring = false;
-            GameCache.SetEnergy(100);
             Load();
             StartCoroutine(Countdown());
         }

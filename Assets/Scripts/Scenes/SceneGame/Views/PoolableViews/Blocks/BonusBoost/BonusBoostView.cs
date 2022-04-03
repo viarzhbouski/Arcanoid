@@ -26,19 +26,38 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         private Rigidbody2D bonusRigidbody;
         
         private IHasBonusBoost _bonusBoost;
-        private bool _isCatched;
+        private Vector2 _movementVectorBeforePause;
         
         public void Init(IHasBonusBoost bonusBoost)
         {
             _bonusBoost = bonusBoost;
             bonusSpriteRenderer.color = bonusBoost.BonusColor;
+            bonusRigidbody.bodyType = RigidbodyType2D.Dynamic;
             bonusRigidbody.AddForce(Vector2.down * AppConfig.Instance.BoostsConfig.BonusSpeed);
+            _movementVectorBeforePause = bonusRigidbody.velocity;
             bonusParticleSystem.gameObject.SetActive(true);
             bonusBoostCollider.enabled = true;
         }
 
         private void Update()
         {
+            if (AppPopups.Instance.ActivePopups > 0)
+            {
+                if (bonusRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    _movementVectorBeforePause = bonusRigidbody.velocity;
+                    bonusRigidbody.bodyType = RigidbodyType2D.Static;
+                }
+            }
+            else
+            {
+                if (bonusRigidbody.bodyType == RigidbodyType2D.Static)
+                {
+                    bonusRigidbody.bodyType = RigidbodyType2D.Dynamic;
+                    bonusRigidbody.velocity = _movementVectorBeforePause;
+                }
+            }
+
             if (!TransformHelper.ObjectAtGamefield(transform.position))
             {
                 AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
@@ -50,7 +69,6 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             var platformView = collision.gameObject.GetComponent<PlatformView>();
             if (platformView)
             {
-                _isCatched = true;
                 var bonusType = _bonusBoost.GetType();
                 SetBonusObjectInvisible();
 

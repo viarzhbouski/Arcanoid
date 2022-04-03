@@ -51,7 +51,8 @@ namespace Scenes.SceneGame.Controllers
 
         public void AddExtraLife()
         {
-            _lifesModel.ExtraLifeCount++;
+            _lifesModel.LifesCount++;
+            _lifesModel.OnChange?.Invoke();
         }
 
         public void DecreaseLife()
