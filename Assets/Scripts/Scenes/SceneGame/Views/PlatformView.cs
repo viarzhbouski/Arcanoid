@@ -46,11 +46,22 @@ namespace Scenes.SceneGame.Views
 
             _platformModel.SizeNeedChange = false;
         }
-        
-        private void SetPlatformBallStartPosition() => _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;
-        
+
+        private void SetPlatformBallStartPosition()
+        {
+            _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;
+        }
+
         private void SetPlatformPosition()
         {
+            if (!_platformModel.PlatformOnStart)
+            {
+                _platformModel.TapPosition = null;
+                platformRigidbody2D.velocity = Vector2.zero;
+                transform.position = _platformModel.StartPosition;
+                _platformModel.PlatformOnStart = true;
+            }
+            
             if (_platformModel.TapPosition.HasValue)
             {
                 var tapPosition = platformCamera.ScreenToWorldPoint(_platformModel.TapPosition!.Value);

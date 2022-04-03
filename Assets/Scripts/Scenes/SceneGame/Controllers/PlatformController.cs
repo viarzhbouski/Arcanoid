@@ -68,6 +68,8 @@ namespace Scenes.SceneGame.Controllers
         public void PastePlatformOnStartPosition()
         {
             _platformModel.Position = _platformModel.StartPosition;
+            _platformModel.PlatformOnStart = false;
+            _platformModel.SizeNeedChange = true;
             _platformModel.ExtraSize = 0;
             _platformModel.ExtraSpeed = 0;
         }

@@ -14,20 +14,22 @@ namespace Scenes.Common
         private TMP_Text timerText;
         [SerializeField]
         private RectTransform logoTransform;
-
-        public RectTransform LogoTransform => logoTransform;
-        public int CurrentEnergy { get; set; }
         
         private DateTime _nextEnergyTime;
         private DateTime _lastAddedTime;
         private int _restoreDuration;
         private bool _restoring;
+        
+        public RectTransform LogoTransform => logoTransform;
+        public int CurrentEnergy { get; set; }
+        
 
         private void Start()
         {
             _restoreDuration = (int)TimeSpan.FromMinutes(AppConfig.Instance.EnergyConfig.Minutes).TotalSeconds;
             _restoring = false;
             Load();
+            CurrentEnergy = 100;
             StartCoroutine(Countdown());
         }
 

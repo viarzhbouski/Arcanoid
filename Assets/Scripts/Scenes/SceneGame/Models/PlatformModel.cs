@@ -33,6 +33,8 @@ namespace Scenes.SceneGame.Models
         public float PlatformSize => Size + ExtraSize;
         
         public bool SizeNeedChange { get; set; }
+        
+        public bool PlatformOnStart { get; set; }
 
         public void OnChangeHandler(Action onChange)
         {
