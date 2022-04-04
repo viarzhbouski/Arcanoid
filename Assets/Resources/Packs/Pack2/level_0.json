@@ -10,147 +10,31 @@
   "level_map_properties": 
   [
     {
-      "index": 40,
+      "indexes": [40],
       "attribute_boost_name": "ColorChainBomb"
     },
     {
-      "index": 10,
+      "indexes": [10,16],
       "attribute_boost_name": "CaptiveBall"
     },
     {
-      "index": 16,
-      "attribute_boost_name": "CaptiveBall"
-    },
-    {
-      "index": 55,
+      "indexes": [55,61],
       "attribute_boost_name": "VerticalBomb"
     },
     {
-      "index": 57,
+      "indexes": [57,59],
       "attribute_boost_name": "BlackLabel"
     },
     {
-      "index": 58,
+      "indexes": [58],
       "attribute_boost_name": "HorizontalBomb"
     },
     {
-      "index": 59,
-      "attribute_boost_name": "BlackLabel"
-    },
-    {
-      "index": 61,
-      "attribute_boost_name": "VerticalBomb"
-    },
-    {
-      "index": 10,
+      "indexes": [11,12,13,14,15,16,19,20,21,22,23,24,25],
       "attribute_color": [1, 0, 0]
     },
     {
-      "index": 11,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 12,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 13,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 14,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 15,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 16,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 19,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 20,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 21,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 22,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 23,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 24,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 25,
-      "attribute_color": [1, 0, 0]
-    },
-    {
-      "index": 28,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 29,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 30,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 31,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 32,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 33,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 34,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 37,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 38,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 39,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 40,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 41,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 42,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 43,
+      "indexes": [28,29,30,31,32,33,34,37,38,39,40,41,42,43],
       "attribute_color": [0, 1, 0]
     }
   ],

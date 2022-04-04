@@ -10,35 +10,15 @@
   "level_map_properties": 
   [
     {
-      "index": 4,
+      "indexes": [4],
       "attribute_boost_name": "VerticalBomb"
     },
     {
-      "index": 67,
+      "indexes": [67],
       "attribute_boost_name": "ColorChainBomb"
     },
     {
-      "index": 13,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 22,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 31,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 40,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 49,
-      "attribute_color": [0, 1, 0]
-    },
-    {
-      "index": 58,
+      "indexes": [13,22,31,40,49,58],
       "attribute_color": [0, 1, 0]
     }
   ],
