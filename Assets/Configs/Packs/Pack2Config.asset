@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cc4a29e42541b8a818f7ca90659428, type: 3}
   m_Name: Pack2Config
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 80d93c86a5479d74f823e74f25526247, type: 3}
+  image: {fileID: 21300000, guid: bc01d123426f2b34bb8317de67923acb, type: 3}
   levels:
-  - {fileID: 4900000, guid: 15b86058ac444144ba31d990b6f7f3d4, type: 3}
-  - {fileID: 4900000, guid: 8de1335e618d1304b9a987827ffd8694, type: 3}
+  - {fileID: 4900000, guid: 4a9045ed7a864a34187ccd112753326b, type: 3}
+  - {fileID: 4900000, guid: ea45d2adcd11f05479e7beba508037d6, type: 3}
+  - {fileID: 4900000, guid: ef8e9ec821eff904d882e670c832d2a6, type: 3}
+  - {fileID: 4900000, guid: 1d383c0b3ab4aac4ea58aeac828908dd, type: 3}
   pack: 1
   packCost: 4
