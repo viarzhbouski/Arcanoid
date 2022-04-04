@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cc4a29e42541b8a818f7ca90659428, type: 3}
   m_Name: Pack1Config
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: d027c090451e0c845afd599a204d8736, type: 3}
+  image: {fileID: 21300000, guid: 46cc5ccd84f1554408d8e2054a734826, type: 3}
   levels:
   - {fileID: 4900000, guid: 467f7381495eb5f46a8dfad2d2f5e51b, type: 3}
   - {fileID: 4900000, guid: 2c844bccc633e9d4596428a1c4a8daea, type: 3}
