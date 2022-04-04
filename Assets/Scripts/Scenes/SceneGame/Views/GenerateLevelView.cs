@@ -52,7 +52,7 @@ namespace Scenes.SceneGame.Views
             var columns = _generateLevelModel.Blocks.GetLength(1);
             _blocksGrid = new BaseBlockView[rows, columns];
             SetLevelUI();
-            
+
             for (var i = 0; i < rows; i++)
             {
                 for (var j = 0; j < columns; j++)

@@ -27,6 +27,9 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         
         private IHasBonusBoost _bonusBoost;
         private Vector2 _movementVectorBeforePause;
+        private bool _activeBoost;
+
+        private Type bonusType => _bonusBoost.GetType();
         
         public void Init(IHasBonusBoost bonusBoost)
         {
@@ -69,17 +72,17 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             var platformView = collision.gameObject.GetComponent<PlatformView>();
             if (platformView)
             {
-                var bonusType = _bonusBoost.GetType();
                 SetBonusObjectInvisible();
 
                 if (!BonusesTimer.BonusTimeDict.ContainsKey(bonusType))
                 {
                     BonusesTimer.BonusTimeDict.Add(bonusType, _bonusBoost.BonusWorkingDelay);
+                    bonusRigidbody.bodyType = RigidbodyType2D.Static;
                     StartCoroutine(ApplyBonusBoost());
                 }
                 else
                 {
-                    BonusesTimer.BonusTimeDict[_bonusBoost.GetType()] = _bonusBoost.BonusWorkingDelay;
+                    BonusesTimer.BonusTimeDict[bonusType] = _bonusBoost.BonusWorkingDelay;
                     AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
                 }
             }
@@ -91,12 +94,11 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             bonusSpriteRenderer.color = new Color();
             bonusParticleSystem.gameObject.SetActive(false);
         }
-
+        
         IEnumerator ApplyBonusBoost()
         {
             _bonusBoost.ApplyBonusBoost();
-            var bonusType = _bonusBoost.GetType();
-            while (true)
+            while (BonusesTimer.BonusTimeDict[bonusType] > 0)
             {
                 if (!AppPopups.Instance.HasActivePopups)
                 {

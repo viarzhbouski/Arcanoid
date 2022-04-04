@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.ObjectPooling.Interfaces;
+using Core.Statics;
+using Scenes.SceneGame.ScenePools;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -38,7 +42,7 @@ namespace Core.ObjectPooling
             }
             else
             {
-                Resize();
+                SpawnObject();
                 poolObject = _poolStack.Pop();
             }
             
@@ -48,21 +52,17 @@ namespace Core.ObjectPooling
             return poolObject;
         }
 
-        private void Resize(int count = 1)
-        {
-            for (var i = 0; i < count; i++)
-            {
-                SpawnObject();
-            }
-        }
-        
         public void ClearPool()
         {
             for (var i = 0; i < _objectTransform.childCount; i++)
             {
                 var poolObject = _objectTransform.GetChild(i);
                 poolObject.gameObject.SetActive(false);
-                _poolStack.Push(poolObject.GetComponent<T>());
+                var obj = poolObject.GetComponent<T>();
+                if (!_poolStack.Contains(obj))
+                {
+                    _poolStack.Push(poolObject.GetComponent<T>());
+                }
             }
         }
         
@@ -80,7 +80,6 @@ namespace Core.ObjectPooling
             
             spawnedObject.SetActive(false);
             _poolStack.Push(obj);
-            
             return obj;
         }
     }

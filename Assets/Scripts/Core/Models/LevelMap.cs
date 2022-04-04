@@ -8,8 +8,8 @@ namespace Core.Models
 {
     public class LevelMapAttribute
     {
-        [JsonProperty("index")]
-        public int Index { get; set; }
+        [JsonProperty("indexes")] 
+        public List<int> Indexes { get; set; } = new List<int>();
 
         [JsonProperty("attribute_color")] 
         public List<float> ColorRGB { get; set; } = new List<float>();

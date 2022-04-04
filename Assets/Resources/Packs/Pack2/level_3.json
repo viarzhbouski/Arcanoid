@@ -11,27 +11,27 @@
   "level_map_properties": 
   [
     {
-      "index": 17,
+      "indexes": [17],
       "attribute_boost_name": "FuryBall"
     },
     {
-      "index": 28,
+      "indexes": [28],
       "attribute_boost_name": "HorizontalBomb"
     },
     {
-      "index": 60,
+      "indexes": [60],
       "attribute_boost_name": "VerticalBomb"
     },
     {
-      "index": 68,
+      "indexes": [68],
       "attribute_boost_name": "SourceOfLife"
     },
     {
-      "index": 67,
+      "indexes": [67],
       "attribute_boost_name": "BallAcceleration"
     },
     {
-      "index": 69,
+      "indexes": [69],
       "attribute_boost_name": "BallSlowdown"
     }
   ],
