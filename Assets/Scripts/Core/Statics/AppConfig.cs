@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ScriptableObjects;
 using ScriptableObjects.BlockConfigs;
+using UnityEngine;
 
 namespace Core.Statics
 {
@@ -25,6 +26,8 @@ namespace Core.Statics
         public BoostsConfig BoostsConfig => _mainConfig.BoostsConfig;
         
         public EnergyConfig EnergyConfig => _mainConfig.EnergyConfig;
+        
+        public Camera MainCamera => _mainConfig.MainCamera;
 
         public AppConfig(MainConfig mainConfig)
         {

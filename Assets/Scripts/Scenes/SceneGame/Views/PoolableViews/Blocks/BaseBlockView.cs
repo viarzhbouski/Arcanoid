@@ -18,7 +18,8 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
         protected Action DestroyBlockEvent;
         protected BlockInfo Block;
         private bool _counted;
-        
+        private Vector3? _defaultPosition;
+
         public SpriteRenderer BlockSpriteRenderer => blockSpriteRenderer;
         
         public BlockTypes BlockType => Block.BlockType;
@@ -60,8 +61,15 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks
 
         private void BlockHitAnim()
         {
-            transform.DOKill();
-            transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
+            if (!_defaultPosition.HasValue)
+            {
+                _defaultPosition = transform.position;
+            }
+            
+            if (transform.position == _defaultPosition)
+            {
+                transform.DOShakePosition(0.05f, 0.5f).SetEase(Ease.OutBounce);
+            }
         }
 
         private void BlockHitHandle(bool countBlock)

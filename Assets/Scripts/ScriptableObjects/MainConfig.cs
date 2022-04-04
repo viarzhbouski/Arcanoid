@@ -46,7 +46,7 @@ namespace ScriptableObjects
         [Space]
         [SerializeField]
         public EnergyConfig energyConfig;
-        
+
         public List<LocalizationConfig> LocalizationConfigs => localizationConfigs;
 
         public BallAndPlatformConfig BallAndPlatformConfig => ballAndPlatformConfig;
@@ -62,5 +62,7 @@ namespace ScriptableObjects
         public BoostsConfig BoostsConfig => boostsConfig;
         
         public EnergyConfig EnergyConfig => energyConfig;
+        
+        public Camera MainCamera { get; set; }
     }
 }

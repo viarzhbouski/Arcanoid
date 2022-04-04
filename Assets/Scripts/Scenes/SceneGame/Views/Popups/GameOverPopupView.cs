@@ -1,4 +1,5 @@
-﻿using Common.Enums;
+﻿using System;
+using Common.Enums;
 using Core.Popup;
 using Core.Statics;
 using DG.Tweening;
@@ -45,7 +46,7 @@ namespace Scenes.SceneGame.Views.Popups
             _lifesController = AppControllers.Instance.GetController<LifesController>();
         }
         
-        protected override void Close(bool destroyAfterClose = false)
+        public override void Close(bool destroyAfterClose = false)
         {
             CloseAnim(destroyAfterClose);
         }
@@ -73,13 +74,10 @@ namespace Scenes.SceneGame.Views.Popups
 
         private void RestartButtonOnClick()
         {
-            restartButton.enabled = false;
-            var currentEnergy = DataRepository.CurrentEnergy;
-            currentEnergy--;
-            
-            if (currentEnergy >= 0)
+            var currentEnergy = energyView.CurrentEnergy;
+            if (currentEnergy > 0)
             {
-                DataRepository.CurrentEnergy = currentEnergy;
+                energyView.UseEnergy();
                 _lifesController.RestartLevel();
                 Close(true);
             }
@@ -104,6 +102,12 @@ namespace Scenes.SceneGame.Views.Popups
             buyLifeButton.enabled = false;
             var buyLifePopup = AppPopups.Instance.OpenPopup<BuyLifePopupView>();
             buyLifePopup.SetEnergyTimer(energyView);
+            buyLifePopup.PopupOnClose += BuyLifePopupOnPopupOnClose;
+        }
+
+        private void BuyLifePopupOnPopupOnClose(Type popupType)
+        {
+            buyLifeButton.enabled = true;
         }
     }
 }

@@ -10,19 +10,19 @@
   "level_map_properties": 
   [
     {
-      "index": 46,
+      "indexes": [46],
       "attribute_boost_name": "PlatformAcceleration"
     },
     {
-      "index": 52,
+      "indexes": [52],
       "attribute_boost_name": "PlatformSlowdown"
     },
     {
-      "index": 65,
+      "indexes": [65],
       "attribute_boost_name": "BallAcceleration"
     },
     {
-      "index": 69,
+      "indexes": [69],
       "attribute_boost_name": "BallSlowdown"
     }
   ],

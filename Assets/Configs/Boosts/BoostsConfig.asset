@@ -15,7 +15,7 @@ MonoBehaviour:
   bonusSpeed: 200
   bombExecuteDelay: 0.15
   chainBombExecuteDelay: 0.15
-  ballCount: 2
+  ballCount: 1
   ballLifeTime: 10
   ballPrefab: {fileID: 3004720743688330128, guid: f20ffa8ff00a1574ca462bccedf6a8f5, type: 3}
   ballAccelerationSpeed: 7

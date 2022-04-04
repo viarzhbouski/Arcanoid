@@ -18,8 +18,7 @@ namespace Scenes.SceneGame.Views
         private SpriteRenderer platformIndicator;
         
         private PlatformModel _platformModel;
-        private readonly float _clickPointAndPlatformMinDir = 0.25f;
-        
+
         public void Bind(IModel model, IController controller)
         {
             _platformModel = model as PlatformModel;
@@ -47,29 +46,29 @@ namespace Scenes.SceneGame.Views
 
             _platformModel.SizeNeedChange = false;
         }
-        
-        private void SetPlatformBallStartPosition() => _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;
+
+        private void SetPlatformBallStartPosition()
+        {
+            _platformModel.PlatformBallStartPosition = platformBallStartPosition.position;
+        }
 
         private void SetPlatformPosition()
         {
-            if (!_platformModel.IsHold)
+            if (!_platformModel.PlatformOnStart)
             {
+                _platformModel.TapPosition = null;
                 platformRigidbody2D.velocity = Vector2.zero;
-                return;
+                transform.position = _platformModel.StartPosition;
+                _platformModel.PlatformOnStart = true;
             }
             
-            var tapPosition = platformCamera.ScreenToWorldPoint(_platformModel.Position);
-            var tapPositionX = new Vector3(tapPosition.x, Vector2.zero.y);
-            var positionX = new Vector3(transform.position.x, Vector2.zero.y);
-            var mouseDir = tapPositionX - positionX;
-            
-            if (mouseDir.magnitude <= _clickPointAndPlatformMinDir)
+            if (_platformModel.TapPosition.HasValue)
             {
-                platformRigidbody2D.velocity = Vector3.zero;
-            }
-            else
-            {
-                platformRigidbody2D.velocity = mouseDir.normalized * _platformModel.PlatformSpeed;
+                var tapPosition = platformCamera.ScreenToWorldPoint(_platformModel.TapPosition!.Value);
+                var tapPositionX = new Vector3(tapPosition.x, Vector2.zero.y);
+                var positionX = new Vector3(transform.position.x, Vector2.zero.y);
+                var mouseDir = tapPositionX - positionX;
+                platformRigidbody2D.velocity = mouseDir.normalized * _platformModel.PlatformSpeed * Mathf.Clamp(mouseDir.magnitude, 0, 1);
             }
         }
 

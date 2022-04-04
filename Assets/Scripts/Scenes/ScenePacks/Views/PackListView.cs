@@ -2,6 +2,7 @@
 using Core.Interfaces.MVC;
 using Core.Models;
 using Core.Statics;
+using Scenes.Common;
 using Scenes.ScenePack.Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ namespace Scenes.ScenePacks.Views
         private Transform contentTransform;
         [SerializeField]
         private PackView packPrefab;
+        [SerializeField]
+        private EnergyView energyView;
         
         private PackListModel _packListModel;
         
@@ -69,11 +72,10 @@ namespace Scenes.ScenePacks.Views
                 DataRepository.SelectedLevel = 0;
             }
 
-            var currentEnergy = DataRepository.CurrentEnergy;
+            var currentEnergy = energyView.CurrentEnergy;
             if (currentEnergy >= packCost)
             {
-                currentEnergy -= packCost;
-                DataRepository.CurrentEnergy = currentEnergy;
+                energyView.UseEnergy(packCost);
                 AppSceneLoader.Instance.LoadScene(GameScenes.Game);
             }
         }

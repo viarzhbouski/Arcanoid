@@ -20,7 +20,7 @@ namespace Scenes.SceneGame.Boosts.Bonuses
         }
 
         public void ApplyBonusBoost()
-        { 
+        {
             _ballController = AppControllers.Instance.GetController<BallController>();
             _ballController.SetBallCanDestroyAllBlocks(true);
         }

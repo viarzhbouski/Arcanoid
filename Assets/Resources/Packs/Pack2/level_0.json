@@ -1,40 +1,43 @@
 { 
-  "level_map": [0, 0, 0, 1, 1, 1, 0, 0,
-                0, 0, 1, 1, 1, 1, 0, 0,
-                0, 3, 1, 1, 1, 1, 0, 0,
-                0, 3, 1, 1, 3, 1, 0, 0,
-                0, 0, 0, 1, 1, 1, 0, 0,
-                0, 0, 0, 1, 1, 1, 0, 0,
-                0, 0, 0, 1, 1, 1, 0, 0,
-                0, 0, 1, 1, 3, 1, 1, 0,
-                0, 0, 1, 3, 3, 3, 1, 0],
+  "level_map": [2, 2, 2, 2, 2, 2, 2, 2, 2,
+                2, 3, 1, 1, 1, 1, 1, 3, 2,
+                2, 1, 1, 1, 1, 1, 1, 1, 2,
+                2, 1, 1, 1, 1, 1, 1, 1, 2,
+                2, 1, 1, 1, 3, 1, 1, 1, 2,
+                2, 1, 1, 1, 1, 1, 1, 1, 2,
+                2, 3, 1, 3, 3, 3, 1, 3, 2,
+                2, 1, 1, 1, 1, 1, 1, 1, 2],
   "level_map_properties": 
   [
     {
-      "index": 17,
-      "attribute_boost_name": "FuryBall"
+      "indexes": [40],
+      "attribute_boost_name": "ColorChainBomb"
     },
     {
-      "index": 28,
-      "attribute_boost_name": "HorizontalBomb"
+      "indexes": [10,16],
+      "attribute_boost_name": "CaptiveBall"
     },
     {
-      "index": 60,
+      "indexes": [55,61],
       "attribute_boost_name": "VerticalBomb"
     },
     {
-      "index": 68,
-      "attribute_boost_name": "SourceOfLife"
+      "indexes": [57,59],
+      "attribute_boost_name": "BlackLabel"
     },
     {
-      "index": 67,
-      "attribute_boost_name": "BallAcceleration"
+      "indexes": [58],
+      "attribute_boost_name": "HorizontalBomb"
     },
     {
-      "index": 69,
-      "attribute_boost_name": "BallSlowdown"
+      "indexes": [11,12,13,14,15,16,19,20,21,22,23,24,25],
+      "attribute_color": [1, 0, 0]
+    },
+    {
+      "indexes": [28,29,30,31,32,33,34,37,38,39,40,41,42,43],
+      "attribute_color": [0, 1, 0]
     }
   ],
-  "rows": 9,
-  "columns": 8
+  "rows": 8,
+  "columns": 9
 }

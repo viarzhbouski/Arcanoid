@@ -14,9 +14,10 @@ namespace Scenes.SceneGame.Boosts
         {
             _boostBlockTransform = boostBlockTransform;
         }
+
         public void ExecuteBoost(BonusBoostView bonusBoost)
         {
-            SpawnBalls();
+             SpawnBalls();
         }
 
         private void SpawnBalls()

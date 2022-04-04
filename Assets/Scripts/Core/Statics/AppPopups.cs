@@ -13,10 +13,11 @@ namespace Core.Statics
 
         [SerializeField]
         private List<BasePopupView> popups;
-        
+
+        private readonly Dictionary<Type, BasePopupView> _activePopups = new Dictionary<Type, BasePopupView>();
         public static AppPopups Instance;
 
-        public int ActivePopups { get; set; }
+        public bool HasActivePopups => _activePopups.Count > 0;
         
         private void Start()
         {
@@ -33,12 +34,30 @@ namespace Core.Statics
             {
                 throw new NullReferenceException($"Popup {typeof(T)} not found");
             }
-
-            ActivePopups++;
+            
             var popupObject = Instantiate(popup, canvas);
-            popupObject.Open();
+            _activePopups.Add(typeof(T), popupObject);
 
+            popupObject.Open();
+            popupObject.PopupOnClose += RemovePopupFromDict;
             return (T)popupObject;
+        }
+
+        private void RemovePopupFromDict(Type popupType)
+        {
+            _activePopups.Remove(popupType);
+        }
+        
+        public void ClosePopup<T>(bool destroyAfterClose = false) where T : BasePopupView
+        {
+            if (!_activePopups.ContainsKey(typeof(T)))
+            {
+                throw new NullReferenceException($"Popup {typeof(T)} not found");
+            }
+            
+            var popupObject = _activePopups[typeof(T)];
+            popupObject.Close(destroyAfterClose);
+            RemovePopupFromDict(typeof(T));
         }
     }
 }

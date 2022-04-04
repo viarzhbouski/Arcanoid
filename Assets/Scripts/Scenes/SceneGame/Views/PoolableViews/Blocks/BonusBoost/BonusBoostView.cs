@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Core.ObjectPooling.Interfaces;
 using Core.Statics;
 using Scenes.SceneGame.Boosts.Interfaces;
@@ -7,6 +9,11 @@ using UnityEngine;
 
 namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
 {
+    public static class BonusesTimer
+    {
+        public static readonly Dictionary<Type, float> BonusTimeDict = new Dictionary<Type, float>();
+    }
+    
     public class BonusBoostView : MonoBehaviour, IPoolable
     {
         [SerializeField]
@@ -19,14 +26,45 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
         private Rigidbody2D bonusRigidbody;
         
         private IHasBonusBoost _bonusBoost;
+        private Vector2 _movementVectorBeforePause;
+        private bool _activeBoost;
+
+        private Type bonusType => _bonusBoost.GetType();
         
         public void Init(IHasBonusBoost bonusBoost)
         {
             _bonusBoost = bonusBoost;
             bonusSpriteRenderer.color = bonusBoost.BonusColor;
+            bonusRigidbody.bodyType = RigidbodyType2D.Dynamic;
             bonusRigidbody.AddForce(Vector2.down * AppConfig.Instance.BoostsConfig.BonusSpeed);
+            _movementVectorBeforePause = bonusRigidbody.velocity;
             bonusParticleSystem.gameObject.SetActive(true);
             bonusBoostCollider.enabled = true;
+        }
+
+        private void Update()
+        {
+            if (AppPopups.Instance.HasActivePopups)
+            {
+                if (bonusRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    _movementVectorBeforePause = bonusRigidbody.velocity;
+                    bonusRigidbody.bodyType = RigidbodyType2D.Static;
+                }
+            }
+            else
+            {
+                if (bonusRigidbody.bodyType == RigidbodyType2D.Static)
+                {
+                    bonusRigidbody.bodyType = RigidbodyType2D.Dynamic;
+                    bonusRigidbody.velocity = _movementVectorBeforePause;
+                }
+            }
+
+            if (!TransformHelper.ObjectAtGamefield(transform.position))
+            {
+                AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -35,7 +73,18 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             if (platformView)
             {
                 SetBonusObjectInvisible();
-                StartCoroutine(ApplyBonusBoost());
+
+                if (!BonusesTimer.BonusTimeDict.ContainsKey(bonusType))
+                {
+                    BonusesTimer.BonusTimeDict.Add(bonusType, _bonusBoost.BonusWorkingDelay);
+                    bonusRigidbody.bodyType = RigidbodyType2D.Static;
+                    StartCoroutine(ApplyBonusBoost());
+                }
+                else
+                {
+                    BonusesTimer.BonusTimeDict[bonusType] = _bonusBoost.BonusWorkingDelay;
+                    AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+                }
             }
         }
 
@@ -45,13 +94,31 @@ namespace Scenes.SceneGame.Views.PoolableViews.Blocks.BonusBoost
             bonusSpriteRenderer.color = new Color();
             bonusParticleSystem.gameObject.SetActive(false);
         }
-
+        
         IEnumerator ApplyBonusBoost()
         {
             _bonusBoost.ApplyBonusBoost();
-            yield return new WaitForSeconds(_bonusBoost.BonusWorkingDelay);
-            _bonusBoost.CancelBonusBoost();
-            AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+            while (BonusesTimer.BonusTimeDict[bonusType] > 0)
+            {
+                if (!AppPopups.Instance.HasActivePopups)
+                {
+                    yield return new WaitForSeconds(1);
+                    
+                    BonusesTimer.BonusTimeDict[bonusType] -= 1f;
+                    
+                    if (BonusesTimer.BonusTimeDict[bonusType] <= 0)
+                    {
+                        _bonusBoost.CancelBonusBoost();
+                        AppObjectPools.Instance.GetObjectPool<BonusBoostPool>().DestroyPoolObject(this);
+                        BonusesTimer.BonusTimeDict.Remove(bonusType);
+                        break;
+                    }
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0);
+                }
+            }
         }
 
         public GameObject GetGameObject()

@@ -1,13 +1,11 @@
 ﻿using Common.Enums;
 using Core.Interfaces.MVC;
-using Core.ObjectPooling;
 using Core.Statics;
 using Scenes.SceneGame.Boosts;
 using Scenes.SceneGame.Boosts.Bonuses;
 using Scenes.SceneGame.Models;
 using Scenes.SceneGame.ScenePools;
 using Scenes.SceneGame.Views.PoolableViews.Blocks;
-using ScriptableObjects.BlockConfigs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +14,6 @@ namespace Scenes.SceneGame.Views
 {
     public class GenerateLevelView : MonoBehaviour, IView
     {
-        [SerializeField]
-        private Camera gameCamera;
-        
         [SerializeField]
         private Transform mapPivot;
         
@@ -57,7 +52,7 @@ namespace Scenes.SceneGame.Views
             var columns = _generateLevelModel.Blocks.GetLength(1);
             _blocksGrid = new BaseBlockView[rows, columns];
             SetLevelUI();
-            
+
             for (var i = 0; i < rows; i++)
             {
                 for (var j = 0; j < columns; j++)
@@ -97,8 +92,8 @@ namespace Scenes.SceneGame.Views
         private void SetBlockTransform<T>(T blockMono, BlockInfo block, int i, int j) where T : BaseBlockView
         {
             blockMono.SetBlockConfig(block, _generateLevelModel.DestroyBlockEvent);
-            blockMono.transform.position = ResizeHelper.ResizePosition(block.Position, gameCamera);
-            blockMono.transform.localScale = ResizeHelper.ResizeScale(_generateLevelModel.CellSize, gameCamera, blockMono.BlockSpriteRenderer);
+            blockMono.transform.position = TransformHelper.ResizePosition(block.Position);
+            blockMono.transform.localScale = TransformHelper.ResizeScale(_generateLevelModel.CellSize, blockMono.BlockSpriteRenderer);
             _blocksGrid[i, j] = blockMono;
         }
 

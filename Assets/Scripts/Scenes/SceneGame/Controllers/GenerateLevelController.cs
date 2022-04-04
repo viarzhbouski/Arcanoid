@@ -128,7 +128,7 @@ namespace Scenes.SceneGame.Controllers
                         BlockType = blockType
                     };
 
-                    var blockProperty = level.LevelMapProperties.FirstOrDefault(e => e.Index == blockId);
+                    var blockProperty = level.LevelMapProperties.FirstOrDefault(e => e.Indexes.Any(o => o == blockId));
                     
                     switch (blockType)
                     {

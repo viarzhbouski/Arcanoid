@@ -1,6 +1,8 @@
-﻿using Core.Statics;
+﻿using System;
 using DG.Tweening;
+using Scenes.SceneGame.Views.PoolableViews.Blocks;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Core.Popup
 {
@@ -8,14 +10,20 @@ namespace Core.Popup
     {
         [SerializeField]
         private RectTransform popupRectTransform;
+        
+       // public UnityAction PopupOnClose { get; set; }
+       
+        public delegate void PopupClose(Type popupType);
 
+        public event PopupClose PopupOnClose;
+        
         public RectTransform PopupRectTransform => popupRectTransform;
 
         public abstract void Open();
         
-        protected abstract void Close(bool destroyAfterClose = false);
+        public abstract void Close(bool destroyAfterClose = false);
         
-        protected virtual void OpenAnim()
+        protected void OpenAnim()
         {
             var popupObjectTransform = gameObject.transform;
             
@@ -23,7 +31,7 @@ namespace Core.Popup
             popupObjectTransform.DOScale(Vector3.one, 0.25f);
         }
 
-        protected virtual void CloseAnim(bool destroyAfterClose)
+        protected void CloseAnim(bool destroyAfterClose)
         {
             var popupObjectTransform = gameObject.transform;
 
@@ -33,12 +41,9 @@ namespace Core.Popup
                 {
                     Destroy(gameObject);
                 }
+                
+                PopupOnClose?.Invoke(this.GetType());
             };
-        }
-
-        private void OnDestroy()
-        {
-            AppPopups.Instance.ActivePopups--;
         }
     }
 }
